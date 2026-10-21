@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Log</title>
+<style>
+:root{--bg:#0d0f12;--panel:#161a20;--panel2:#1d222a;--line:#2a313b;--text:#e8ecf1;--muted:#8b95a3;--accent:#e0b04a;--accent2:#c9932a;--good:#4cc38a;--warn:#e5704b;--blue:#5aa2e6;--r:12px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{position:sticky;top:0;z-index:5;background:rgba(13,15,18,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{max-width:960px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-weight:800;letter-spacing:.5px;margin-right:auto}.logo span{color:var(--accent)}
+nav button,.chip{background:transparent;border:1px solid var(--line);color:var(--muted);padding:6px 12px;border-radius:999px;cursor:pointer;font:inherit}
+nav button.on,.chip.on{background:var(--accent);border-color:var(--accent);color:#16120a;font-weight:600}
+main{max-width:960px;margin:0 auto;padding:16px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:22px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;cursor:pointer;transition:border-color .15s}
+.card:hover{border-color:var(--accent2)}
+.card h3{margin:0 0 6px;font-size:16px}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--panel2);color:var(--muted);border:1px solid var(--line)}
+.pill.playing{color:var(--good);border-color:#2c5a44}.pill.paused{color:var(--accent);border-color:#5a4a26}
+.pill.done{color:var(--blue);border-color:#2b4a69}.pill.dropped{color:var(--warn);border-color:#6a3526}
+.muted{color:var(--muted)}.small{font-size:13px}
+.prog{height:6px;background:var(--panel2);border-radius:999px;overflow:hidden;margin-top:10px}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent))}
+.snip{margin-top:8px;font-size:13px;color:#c3cad4;white-space:pre-wrap}
+.badge{font-size:12px;background:#2a2112;color:var(--accent);padding:2px 8px;border-radius:6px}
+input,select,textarea{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 10px;font:inherit;width:100%}
+textarea{min-height:70px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent2)}
+.btn{background:var(--accent);color:#16120a;border:0;border-radius:8px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:400}
+.btn.danger{background:transparent;color:var(--warn);border:1px solid #6a3526;font-weight:400}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.title-in{font-size:22px;font-weight:700;background:transparent;border-color:transparent;padding:4px 0}
+.title-in:focus{border-color:transparent;border-bottom:1px solid var(--accent2);border-radius:0}
+.layer-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.layer-head b{font-size:15px}
+.toggle{font-size:12px;cursor:pointer;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted)}
+.toggle.on{border-color:#2c5a44;color:var(--good)}
+.off-layer{opacity:.55}
+ul.items{list-style:none;margin:0 0 8px;padding:0}
+ul.items li{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)}
+ul.items li:last-child{border-bottom:0}
+ul.items li.done span.t{text-decoration:line-through;color:var(--muted)}
+ul.items input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color:var(--accent);flex:none}
+span.t{flex:1}
+.x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:16px;line-height:1;padding:0 4px}
+.x:hover{color:var(--warn)}
+.addrow{display:flex;gap:8px}
+.stars{color:var(--accent);letter-spacing:1px}
+.back{background:none;border:0;color:var(--muted);cursor:pointer;font:inherit;padding:0;margin-bottom:8px}
+.empty{color:var(--muted);text-align:center;padding:30px;border:1px dashed var(--line);border-radius:var(--r)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.warnbox{border-color:#5a4a26}
+@media (max-width:520px){.title-in{font-size:19px}main{padding:12px}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="logo">GAME<span>LOG</span></div>
+  <nav id="nav"></nav>
+</div></header>
+<main id="app"></main>
+<input type="file" id="importFile" accept="application/json" hidden>
+<script>
+const KEY = 'gamelog_v1';
+const STATUSES = ['playing','paused','backlog','done','dropped'];
+const LABEL = {playing:'Playing',paused:'Paused',backlog:'Backlog',done:'Done',dropped:'Dropped'};
+const LAYERS = [
+  ['story','Story','Main quest, companions, named side quests'],
+  ['power','Power','Skills, gear, upgrades'],
+  ['checklist','Checklist','Collectibles, challenges, map icons']
+];
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2));
+const localDate = (d = new Date()) => { const z = n => String(n).padStart(2,'0'); return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`; };
+const daysBetween = (a, b) => Math.round((new Date(b + 'T00:00') - new Date(a + 'T00:00')) / 86400000);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function blankGame(title){
+  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'',
+    note:{where:'', next:'', recap:''}, review:'',
+    layers:{story:{inFinish:true,items:[]}, power:{inFinish:false,items:[]}, checklist:{inFinish:false,items:[]}},
+    missables:[], releases:[]};
+}
+
+function seed(state){
+  state.seeded = state.seeded || {};
+  if (state.seeded.crimson) return;
+  state.seeded.crimson = true;
+  if (state.games.some(g => g.id === 'seed-crimson-desert')) return;
+  const it = (id, text) => ({id, text, done:false});
+  state.games.push({
+    id:'seed-crimson-desert', title:'Crimson Desert', platform:'PC', status:'paused', rating:0, hours:0,
+    started:'', finished:'', lastPlayed:'',
+    note:{
+      where:'About 2 chapters left in the main story. Haven\'t played in months.',
+      next:'Watch a story recap (not an "ending explained"), read the quest log, do a 30–60 min warm-up session, then push the last 2 chapters.',
+      recap:''
+    },
+    review:'',
+    layers:{
+      story:{inFinish:true, items:[
+        it('cd-s1','Watch a story recap video'),
+        it('cd-s2','Finish open companion loyalty quests'),
+        it('cd-s3','Finish second-to-last chapter'),
+        it('cd-s4','Finish final chapter'),
+        it('cd-s5','Charting the Unknown DLC story')
+      ]},
+      power:{inFinish:false, items:[
+        it('cd-p1','Learn Focused Force Palm via Observe (Ch. 4, or again in Ch. 9)'),
+        it('cd-p2','Upgrade gear before the DLC')
+      ]},
+      checklist:{inFinish:false, items:[
+        it('cd-c1','Collect all Sealed Abyss Artifacts'),
+        it('cd-c2','Watchtower challenges'),
+        it('cd-c3','Remaining collectibles')
+      ]}
+    },
+    missables:[
+      it('cd-m1','Companion loyalty quests: finish before the late-game siege chapters'),
+      it('cd-m2','Make a manual save before starting the final chapters'),
+      it('cd-m3','Collect Sealed Abyss Artifacts BEFORE grinding challenges (tracking trap)')
+    ],
+    releases:[{id:'cd-r1', name:'Charting the Unknown DLC', date:'2026-10-29'}]
+  });
+}
+
+function load(){
+  let s = null;
+  try { s = JSON.parse(localStorage.getItem(KEY)); } catch(e) {}
+  if (!s || !Array.isArray(s.games)) s = {version:1, games:[]};
+  seed(s);
+  return s;
+}
+let state = load();
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { console.warn('Save failed', e); } }
+save();
+
+const view = {tab:'resume', gameId:null, filter:'all', q:''};
+const game = id => state.games.find(g => g.id === id);
+
+function progress(g){
+  let t = 0, d = 0;
+  LAYERS.forEach(([k]) => { const L = g.layers[k]; if (L.inFinish){ t += L.items.length; d += L.items.filter(i => i.done).length; } });
+  return t ? Math.round(d / t * 100) : 0;
+}
+function stars(r){
+  if (!r) return '<span class="muted small">Unrated</span>';
+  const full = Math.floor(r), half = r % 1 >= .5;
+  return `<span class="stars">${'★'.repeat(full)}${half ? '½' : ''}</span> <span class="muted small">${r.toFixed(1)}</span>`;
+}
+function nextRelease(g){
+  const t = localDate();
+  return (g.releases || []).filter(r => r.date && r.date >= t).sort((a,b) => a.date.localeCompare(b.date))[0];
+}
+function releaseBadge(r){
+  if (!r) return '';
+  const d = daysBetween(localDate(), r.date);
+  return `<span class="badge">${esc(r.name)}: ${d === 0 ? 'today' : d === 1 ? 'tomorrow' : 'in ' + d + ' days'}</span>`;
+}
+function card(g, showNote){
+  const p = progress(g);
+  const idle = g.lastPlayed ? daysBetween(g.lastPlayed, localDate()) : null;
+  return `<div class="card" data-act="open" data-id="${g.id}">
+    <h3>${esc(g.title)}</h3>
+    <div class="row"><span class="pill ${g.status}">${LABEL[g.status]}</span>${stars(g.rating)}
+      ${idle !== null ? `<span class="muted small">· ${idle === 0 ? 'played today' : idle + 'd since played'}</span>` : ''}</div>
+    ${showNote && g.note.where ? `<div class="snip"><b>Where:</b> ${esc(g.note.where)}</div>` : ''}
+    ${showNote && g.note.next ? `<div class="snip"><b>Next:</b> ${esc(g.note.next)}</div>` : ''}
+    <div class="row" style="margin-top:8px">${releaseBadge(nextRelease(g))}</div>
+    <div class="prog"><i style="width:${p}%"></i></div>
+    <div class="muted small" style="margin-top:4px">${p}% to your finish line</div>
+  </div>`;
+}
+
+function renderNav(){
+  document.getElementById('nav').innerHTML = ['resume','library'].map(t =>
+    `<button class="${view.tab === t && !view.gameId ? 'on' : ''}" data-act="tab" data-tab="${t}">${t === 'resume' ? 'Resume' : 'Library'}</button>`).join(' ');
+}
+
+function renderResume(){
+  const active = state.games.filter(g => g.status === 'playing' || g.status === 'paused')
+    .sort((a,b) => (a.lastPlayed || '0000').localeCompare(b.lastPlayed || '0000'));
+  const t = localDate();
+  const rel = state.games.flatMap(g => (g.releases || []).filter(r => r.date >= t).map(r => ({g, r})))
+    .sort((a,b) => a.r.date.localeCompare(b.r.date));
+  return `
+    ${rel.length ? `<h2>Upcoming</h2><div class="panel">${rel.map(({g,r}) =>
+      `<div class="row" style="padding:4px 0"><b>${esc(g.title)}</b> ${releaseBadge(r)} <span class="muted small">${r.date}</span></div>`).join('')}</div>` : ''}
+    <h2>Pick back up · longest untouched first</h2>
+    ${active.length ? `<div class="grid">${active.map(g => card(g, true)).join('')}</div>`
+      : `<div class="empty">Nothing in progress. Set a game to Playing or Paused in the Library.</div>`}`;
+}
+
+function renderLibrary(){
+  const q = view.q.toLowerCase();
+  const list = state.games.filter(g => (view.filter === 'all' || g.status === view.filter) && g.title.toLowerCase().includes(q))
+    .sort((a,b) => a.title.localeCompare(b.title));
+  return `
+    <div class="addrow" style="margin-bottom:12px"><input id="newTitle" placeholder="Add a game…"><button class="btn" data-act="add-game">Add</button></div>
+    <div class="row" style="margin-bottom:6px">
+      ${['all', ...STATUSES].map(s => `<button class="chip ${view.filter === s ? 'on' : ''}" data-act="filter" data-f="${s}">${s === 'all' ? 'All' : LABEL[s]} <span class="small">${s === 'all' ? state.games.length : state.games.filter(g => g.status === s).length}</span></button>`).join('')}
+    </div>
+    <input id="search" placeholder="Search" value="${esc(view.q)}" style="margin:8px 0 14px">
+    ${list.length ? `<div class="grid">${list.map(g => card(g, false)).join('')}</div>` : `<div class="empty">No games here yet.</div>`}
+    <div class="tools">
+      <button class="btn ghost" data-act="export">Export backup</button>
+      <button class="btn ghost" data-act="import">Import backup</button>
+    </div>`;
+}
+
+function itemList(arr, kind, layer){
+  return `<ul class="items">${arr.map(i => `<li class="${i.done ? 'done' : ''}">
+      <input type="checkbox" ${i.done ? 'checked' : ''} data-act="toggle" data-kind="${kind}" data-layer="${layer || ''}" data-id="${i.id}">
+      <span class="t">${esc(i.text)}</span>
+      <button class="x" title="Remove" data-act="del" data-kind="${kind}" data-layer="${layer || ''}" data-id="${i.id}">×</button>
+    </li>`).join('')}</ul>
+    <div class="addrow"><input id="add-${kind}-${layer || 'x'}" placeholder="Add item…" data-enter="add" data-kind="${kind}" data-layer="${layer || ''}">
+    <button class="btn ghost" data-act="add" data-kind="${kind}" data-layer="${layer || ''}">Add</button></div>`;
+}
+
+function renderDetail(g){
+  const p = progress(g);
+  return `
+    <button class="back" data-act="back">← Back</button>
+    <input class="title-in" data-f="title" value="${esc(g.title)}">
+    <div class="prog" style="margin:6px 0 4px"><i style="width:${p}%"></i></div>
+    <div class="muted small" style="margin-bottom:14px">${p}% to your finish line</div>
+
+    <div class="panel"><div class="fields">
+      <div><label>Status</label><select data-f="status" data-rerender="1">${STATUSES.map(s => `<option value="${s}" ${g.status === s ? 'selected' : ''}>${LABEL[s]}</option>`).join('')}</select></div>
+      <div><label>Rating: <span id="rateOut">${g.rating ? g.rating.toFixed(1) + '★' : 'unrated'}</span></label><input type="range" min="0" max="5" step="0.5" value="${g.rating}" data-f="rating" data-num="1"></div>
+      <div><label>Hours</label><input type="number" min="0" value="${g.hours}" data-f="hours" data-num="1"></div>
+      <div><label>Platform</label><input value="${esc(g.platform)}" data-f="platform"></div>
+      <div><label>Started</label><input type="date" value="${g.started}" data-f="started"></div>
+      <div><label>Finished</label><input type="date" value="${g.finished}" data-f="finished"></div>
+      <div><label>Last played</label><div class="addrow"><input type="date" value="${g.lastPlayed}" data-f="lastPlayed"><button class="btn ghost" data-act="played">Today</button></div></div>
+    </div></div>
+
+    <h2>Re-entry note</h2>
+    <div class="panel">
+      <label>Where I was</label><textarea data-f="note.where">${esc(g.note.where)}</textarea>
+      <label style="margin-top:10px">Next step when I come back</label><textarea data-f="note.next">${esc(g.note.next)}</textarea>
+      <label style="margin-top:10px">Recap link</label><input data-f="note.recap" value="${esc(g.note.recap)}" placeholder="https://…">
+      ${g.note.recap && /^https?:\/\//.test(g.note.recap) ? `<div style="margin-top:6px"><a href="${esc(g.note.recap)}" target="_blank" rel="noopener" style="color:var(--accent)">Open recap ↗</a></div>` : ''}
+    </div>
+
+    <h2>Before it's too late · missables</h2>
+    <div class="panel warnbox">${itemList(g.missables, 'miss')}</div>
+
+    <h2>Finish line</h2>
+    <p class="muted small" style="margin-top:-4px">Only layers marked "Counts" go toward your progress. Everything else is optional.</p>
+    ${LAYERS.map(([k, name, desc]) => { const L = g.layers[k]; return `
+      <div class="panel ${L.inFinish ? '' : 'off-layer'}">
+        <div class="layer-head"><div><b>${name}</b> <span class="muted small">${desc}</span></div>
+          <button class="toggle ${L.inFinish ? 'on' : ''}" data-act="layer" data-layer="${k}">${L.inFinish ? '✓ Counts' : 'Optional'}</button></div>
+        ${itemList(L.items, 'item', k)}
+      </div>`; }).join('')}
+
+    <h2>Upcoming content</h2>
+    <div class="panel">
+      ${(g.releases || []).map(r => `<div class="row" style="padding:4px 0"><b>${esc(r.name)}</b><span class="muted small">${r.date}</span>${releaseBadge(r.date >= localDate() ? r : null)}<button class="x" data-act="del-rel" data-id="${r.id}">×</button></div>`).join('')}
+      <div class="addrow" style="margin-top:8px"><input id="relName" placeholder="DLC / update name"><input id="relDate" type="date" style="max-width:170px"><button class="btn ghost" data-act="add-rel">Add</button></div>
+    </div>
+
+    <h2>Review</h2>
+    <div class="panel"><textarea data-f="review" placeholder="Your thoughts…">${esc(g.review)}</textarea></div>
+
+    <div class="tools"><button class="btn danger" data-act="delete-game">Delete game</button></div>`;
+}
+
+function render(){
+  renderNav();
+  const app = document.getElementById('app');
+  const g = view.gameId && game(view.gameId);
+  if (view.gameId && !g) view.gameId = null;
+  app.innerHTML = g ? renderDetail(g) : view.tab === 'resume' ? renderResume() : renderLibrary();
+}
+
+function setPath(obj, path, val){ const k = path.split('.'); let o = obj; while (k.length > 1) o = o[k.shift()]; o[k[0]] = val; }
+function listFor(g, kind, layer){ return kind === 'miss' ? g.missables : g.layers[layer].items; }
+
+function addItem(kind, layer){
+  const g = game(view.gameId); const inp = document.getElementById(`add-${kind}-${layer || 'x'}`);
+  const text = inp.value.trim(); if (!text) return;
+  listFor(g, kind, layer).push({id:uid(), text, done:false}); save(); render();
+  const again = document.getElementById(`add-${kind}-${layer || 'x'}`); if (again) again.focus();
+}
+function addGame(){
+  const inp = document.getElementById('newTitle'); const t = inp.value.trim(); if (!t) return;
+  const g = blankGame(t); state.games.push(g); save(); view.gameId = g.id; render(); window.scrollTo(0,0);
+}
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const a = el.dataset.act, g = view.gameId && game(view.gameId);
+  if (a === 'toggle' && el.tagName === 'INPUT') return; // handled on change
+  switch (a) {
+    case 'tab': view.tab = el.dataset.tab; view.gameId = null; render(); break;
+    case 'open': view.gameId = el.dataset.id; render(); window.scrollTo(0,0); break;
+    case 'back': view.gameId = null; render(); break;
+    case 'filter': view.filter = el.dataset.f; render(); break;
+    case 'add-game': addGame(); break;
+    case 'del': { const L = listFor(g, el.dataset.kind, el.dataset.layer); L.splice(L.findIndex(i => i.id === el.dataset.id), 1); save(); render(); break; }
+    case 'add': addItem(el.dataset.kind, el.dataset.layer); break;
+    case 'layer': g.layers[el.dataset.layer].inFinish = !g.layers[el.dataset.layer].inFinish; save(); render(); break;
+    case 'played': g.lastPlayed = localDate(); save(); render(); break;
+    case 'add-rel': { const n = document.getElementById('relName').value.trim(), d = document.getElementById('relDate').value;
+      if (!n || !d) return; g.releases.push({id:uid(), name:n, date:d}); save(); render(); break; }
+    case 'del-rel': g.releases = g.releases.filter(r => r.id !== el.dataset.id); save(); render(); break;
+    case 'delete-game': if (confirm(`Delete ${g.title}? This can't be undone.`)) { state.games = state.games.filter(x => x.id !== g.id); view.gameId = null; save(); render(); } break;
+    case 'export': {
+      const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+      const u = URL.createObjectURL(blob), link = document.createElement('a');
+      link.href = u; link.download = `gamelog-backup-${localDate()}.json`; link.click(); setTimeout(() => URL.revokeObjectURL(u), 1000); break; }
+    case 'import': document.getElementById('importFile').click(); break;
+  }
+});
+
+document.addEventListener('change', e => {
+  const el = e.target, g = view.gameId && game(view.gameId);
+  if (el.dataset.act === 'toggle') { const it = listFor(g, el.dataset.kind, el.dataset.layer).find(i => i.id === el.dataset.id); it.done = el.checked; save(); render(); return; }
+  if (el.dataset.f && g && (el.dataset.rerender || el.type === 'date')) { setPath(g, el.dataset.f, el.value); save(); render(); }
+});
+
+document.addEventListener('input', e => {
+  const el = e.target;
+  if (el.id === 'search') { view.q = el.value; const pos = el.selectionStart; render(); const s = document.getElementById('search'); s.focus(); s.setSelectionRange(pos, pos); return; }
+  const g = view.gameId && game(view.gameId);
+  if (!g || !el.dataset.f || el.dataset.rerender || el.type === 'date') return;
+  const val = el.dataset.num ? (parseFloat(el.value) || 0) : el.value;
+  setPath(g, el.dataset.f, val); save();
+  if (el.dataset.f === 'rating') document.getElementById('rateOut').textContent = val ? val.toFixed(1) + '★' : 'unrated';
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const el = e.target;
+  if (el.id === 'newTitle') addGame();
+  else if (el.dataset.enter === 'add') addItem(el.dataset.kind, el.dataset.layer);
+});
+
+document.getElementById('importFile').addEventListener('change', async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try {
+    const s = JSON.parse(await f.text());
+    if (!Array.isArray(s.games)) throw new Error('No games list found');
+    if (confirm(`Replace your current library with ${s.games.length} games from this backup?`)) { state = s; state.seeded = state.seeded || {crimson:true}; save(); view.gameId = null; render(); }
+  } catch(err) { alert('Could not import: ' + err.message); }
+  e.target.value = '';
+});
+
+render();
+</script>
+</body>
+</html>
