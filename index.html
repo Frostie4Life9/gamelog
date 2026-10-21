@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#161A33">
 <title>Game Log</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261021a">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=20261021a">
+<link rel="manifest" href="site.webmanifest?v=20261021a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Game Log">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
@@ -312,6 +317,24 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
   ::view-transition-group(*){animation:none!important}
 }
 ::view-transition-group(*){animation-duration:.38s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+
+/* ---- update bar ---- */
+.updbar{position:fixed;left:0;right:0;top:0;z-index:130;padding:calc(10px + env(safe-area-inset-top)) 16px 0;pointer-events:none}
+.updbar[hidden]{display:none}
+.updin{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:10px;height:48px;padding:0 6px 0 16px;
+  border-radius:24px;background:rgba(31,37,71,.95);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  border:1px solid rgba(245,182,63,.3);box-shadow:0 10px 30px rgba(0,0,0,.45);pointer-events:auto;
+  transform:translateY(calc(-100% - 40px));transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.updbar.up .updin{transform:none}
+.upddot{width:8px;height:8px;border-radius:4px;background:var(--gold);flex:0 0 auto;box-shadow:0 0 8px rgba(245,182,63,.6)}
+.updtxt{flex:1;min-width:0;font-size:14px;color:var(--paper);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.updgo{height:36px;padding:0 16px;border:0;border-radius:18px;background:var(--gold);color:var(--gold-ink);font-size:14px;font-weight:700}
+.updx{width:36px;height:36px;border:0;border-radius:18px;background:transparent;color:var(--mist);display:grid;place-items:center}
+.updx svg{width:14px;height:14px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round}
+.brand img{flex:none;border-radius:8px}
+.buildid{font-variant-numeric:tabular-nums;color:var(--dim);font-size:13px}
+.hist{margin:8px 0 0;padding-left:18px;color:var(--mist);font-size:14px}
+.hist code{color:var(--gold);margin-right:8px;font-size:12px}
 </style>
 </head>
 <body>
@@ -321,9 +344,23 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 </div>
 <nav class="tabbar" id="tabbar"></nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="updbar" id="updbar" hidden role="status">
+  <div class="updin"><span class="upddot"></span><span class="updtxt" id="updtxt">A new version is ready</span>
+    <button class="updgo" id="updgo" type="button">Reload</button>
+    <button class="updx" id="updx" type="button" aria-label="Not now"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+</div>
 <input type="file" id="importFile" accept="application/json" hidden>
 
 <script>
+/* Newest first. BUILD is read from the top entry, so the version and the note
+   describing it can't drift apart. THE DATE IS THE DAY THE BUILD WAS MADE, in
+   Provo, and the letter counts builds within that day (a, b, c...). The update
+   bar reads the first v:'...' in the live file, so this list must stay the
+   first place that pattern appears. */
+const CHANGELOG=[
+  {v:'2026.10.21-a', note:'A HOME-SCREEN ICON: a gold G with a controller, in the same family as Kitchen, Grocery, Lift, DishLog and Protocol. It shows in the browser tab, the sidebar, and when you add Game Log to your home screen. NEW VERSION PROMPT: when a newer copy is on GitHub, a bar slides down from the top \u2014 tap Reload.'}
+];
+const BUILD=CHANGELOG[0].v;
 /* ---------- Data ---------- */
 const KEY = 'gamelog_v1';
 const STATUSES = ['playing','paused','backlog','done','dropped'];
@@ -646,7 +683,7 @@ function renderChrome(){
   const navOn = t => view.tab === t && !view.gameId ? 'on' : '';
   const ups = state.games.flatMap(g => upcoming(g).map(r => ({g, r}))).sort((a,b) => a.r.date.localeCompare(b.r.date)).slice(0, 4);
   document.getElementById('rail').innerHTML = `
-    <div class="brand">${ICON.logo}<b>Game Log</b></div>
+    <div class="brand"><img src="apple-touch-icon.png?v=20261021a" alt="" width="28" height="28"><b>Game Log</b></div>
     <div class="navlist">
       <button class="navbtn ${navOn('continue')}" data-act="tab" data-tab="continue">${ICON.play}Continue<span class="count">${active || ''}</span></button>
       <button class="navbtn ${navOn('library')}" data-act="tab" data-tab="library">${ICON.shelf}Library<span class="count">${state.games.length}</span></button>
@@ -782,6 +819,12 @@ function renderSync(){
           <button class="btn quiet" data-act="export">Download backup</button>
           <button class="btn quiet" data-act="import">Restore from file</button>
         </div>
+      </section>
+      <section class="panel">
+        <h2 class="h2" style="margin:0">This version</h2>
+        <p class="buildid">Build ${esc(BUILD)}</p>
+        <p><b>New:</b> ${esc(CHANGELOG[0].note)}</p>
+        ${CHANGELOG.length > 1 ? `<ul class="hist">${CHANGELOG.slice(1).map(c => `<li><code>${esc(c.v)}</code>${esc(c.note)}</li>`).join('')}</ul>` : ''}
       </section>
     </div>
   </div>`;
@@ -1110,6 +1153,51 @@ document.getElementById('importFile').addEventListener('change', async e => {
 render();
 pull();
 setInterval(() => document.querySelectorAll('[data-sync-status]').forEach(el => el.textContent = syncText()), 30000);
+
+/* ---------------- is there a newer copy? ---------------- */
+/* 2026.10.21-a -> sortable; a two-letter suffix (after z) still sorts after one */
+function buildKey(v){ const m=/^(\d{4})\.(\d\d)\.(\d\d)-([a-z]+)$/.exec(v||''); return m?m[1]+m[2]+m[3]+String(m[4].length)+m[4]:''; }
+let UPD={last:0,dismissed:null,shown:null};
+async function checkUpdate(force){
+  if(!/^https?:$/.test(location.protocol) || !window.fetch) return;
+  if(!force && Date.now()-UPD.last<5*60e3) return;
+  UPD.last=Date.now();
+  try{
+    const r=await fetch(location.pathname+'?_='+Date.now(),{cache:'no-store'});
+    if(!r.ok) return;
+    const html=await r.text();
+    /* Compare build numbers, newer only: one update raises the bar once, even
+       while GitHub's servers are still handing some requests the old copy. */
+    const m=html.match(/v:'(\d{4}\.\d\d\.\d\d-[a-z]+)'/); if(!m) return;
+    const live=m[1];
+    if(!(buildKey(live)>buildKey(BUILD)) || live===UPD.dismissed) return;
+    /* Just reloaded for this exact build and still got the old copy: GitHub
+       hasn't caught up yet. Try again quietly in a minute instead of asking. */
+    let tried=null; try{ tried=sessionStorage.getItem('gamelog_upd_tried'); }catch(e){}
+    if(tried===live && !force){ setTimeout(()=>checkUpdate(true),60e3); return; }
+    showUpdate(live);
+  }catch(e){}
+}
+function showUpdate(ver){
+  UPD.shown=ver;
+  document.getElementById('updtxt').textContent='Build '+ver+' is ready';
+  const b=document.getElementById('updbar'); b.hidden=false;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>b.classList.add('up')));
+}
+document.getElementById('updgo').addEventListener('click',()=>{
+  try{ sessionStorage.setItem('gamelog_upd_tried',UPD.shown||''); }catch(e){}
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  /* a query string the cache has never seen gets the live file; the next load
+     cleans it off the address again */
+  location.replace(location.pathname+'?v='+Date.now()+location.hash);
+});
+document.getElementById('updx').addEventListener('click',()=>{
+  UPD.dismissed=UPD.shown;
+  const b=document.getElementById('updbar'); b.classList.remove('up'); setTimeout(()=>{ b.hidden=true; },320);
+});
+if(/[?&]v=\d+/.test(location.search)) try{ history.replaceState(null,'',location.pathname+location.hash); }catch(e){}
+setTimeout(()=>checkUpdate(true),2500);
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') checkUpdate(false); });
 </script>
 </body>
 </html>
