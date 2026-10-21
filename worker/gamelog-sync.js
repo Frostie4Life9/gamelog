@@ -10,9 +10,15 @@
         Variable name: STATE
         KV namespace:  gamelog   (already created)
    4. Settings > Variables and Secrets > Add
-        Type: Secret   Name: SECRET   Value: a long random string you invent
+        Type: Secret   Name: SECRET     Value: a long random string you invent
+        Type: Secret   Name: STEAM_KEY  Value: your Steam Web API key
+                                        (steamcommunity.com/dev/apikey)
+        Type: Text     Name: STEAM_ID   Value: your SteamID64 (7656119...)
+                                        or your custom profile name
    5. Deploy again, then paste the Worker URL and the secret into
       Game Log's Sync panel.
+   6. Steam > Profile > Edit Profile > Privacy Settings:
+        Game details = Public  (the Web API can't read playtime otherwise)
 
    Opening the URL in a browser should return {"error":"unauthorized"}.
 
@@ -23,6 +29,10 @@
                              overwrite fresher data. The previous copy is
                              kept under "state-prev" as a safety net.
    GET  /steam/search?q=  -> up to 6 Steam matches with cover art URLs
+   GET  /steam/library?limit=10
+                          -> your most recently played Steam games
+                             (demos and playtests left out), newest
+                             first, with playtime and cover art
    ========================================================= */
 
 const KEYNAME = 'state';
@@ -58,13 +68,15 @@ function keyMatches(given, want) {
 async function steamArt(ids) {
   const out = {};
   try {
-    const input = { ids: ids.map(appid => ({ appid })), context: { language: 'english', country_code: 'US' }, data_request: { include_assets: true } };
+    const input = { ids: ids.map(appid => ({ appid })), context: { language: 'english', country_code: 'US' }, data_request: { include_assets: true, include_basic_info: true } };
     const r = await fetch('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input)));
     const j = await r.json();
     for (const it of (j.response && j.response.store_items) || []) {
-      const a = it.assets; if (!a || !a.asset_url_format) continue;
+      const a = it.assets;
+      if (!a || !a.asset_url_format) { out[it.appid] = { type: it.type, name: it.name, cover: '', hero: '' }; continue; }
       const u = f => f ? ASSET_BASE + a.asset_url_format.replace('${FILENAME}', f) : '';
       out[it.appid] = {
+        type: it.type, name: it.name,
         cover: u(a.library_capsule_2x || a.library_capsule),
         hero: u(a.library_hero_2x || a.library_hero),
         header: u(a.header)
@@ -80,6 +92,56 @@ async function steamArt(ids) {
     } catch (e) {}
   }));
   return out;
+}
+
+
+/* ---------- Steam library ---------- */
+const DEMO_TYPE = 1; // EStoreAppType: 0 game, 1 demo, 4 DLC, 6 tool ...
+const DEMO_NAME = /\b(demo|playtest|prologue demo|benchmark)\b/i;
+
+async function steamId64(env) {
+  const raw = String(env.STEAM_ID || '').trim()
+    .replace(/^https?:\/\/steamcommunity\.com\/(id|profiles)\//i, '').replace(/\/+$/, '');
+  if (/^\d{17}$/.test(raw)) return raw;
+  const r = await fetch(`https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=${env.STEAM_KEY}&vanityurl=${encodeURIComponent(raw)}`);
+  const j = await r.json();
+  if (j.response && j.response.success === 1) return j.response.steamid;
+  throw new Error(`couldn't find a Steam profile called "${raw}". Set STEAM_ID to your SteamID64 or custom profile name`);
+}
+
+async function steamLibrary(env, limit) {
+  if (!env.STEAM_KEY) return reply({ error: 'server not configured: missing STEAM_KEY' }, 500);
+  if (!env.STEAM_ID) return reply({ error: 'server not configured: missing STEAM_ID' }, 500);
+  let sid;
+  try { sid = await steamId64(env); } catch (e) { return reply({ error: e.message }, 400); }
+
+  const r = await fetch(`https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${env.STEAM_KEY}&steamid=${sid}&include_appinfo=1&include_played_free_games=1&skip_unvetted_apps=0&format=json`);
+  if (r.status === 401 || r.status === 403) return reply({ error: 'Steam rejected the API key. Check STEAM_KEY' }, 502);
+  if (!r.ok) return reply({ error: `Steam returned ${r.status}` }, 502);
+  const j = await r.json();
+  const owned = (j.response && j.response.games) || null;
+  if (!owned) return reply({ error: 'Steam returned no games. Set Steam > Privacy Settings > Game details to Public' }, 403);
+
+  // Take extra candidates so demos can be dropped and still leave `limit` games
+  const recent = owned.filter(g => g.rtime_last_played > 0)
+    .sort((a, b) => b.rtime_last_played - a.rtime_last_played)
+    .filter(g => !DEMO_NAME.test(g.name || ''))
+    .slice(0, limit * 3);
+  const art = await steamArt(recent.map(g => g.appid));
+  const out = recent
+    .filter(g => !(art[g.appid] && art[g.appid].type === DEMO_TYPE))
+    .slice(0, limit)
+    .map(g => {
+      const a = art[g.appid] || {};
+      return {
+        id: g.appid, name: g.name,
+        minutes: g.playtime_forever || 0,
+        recentMinutes: g.playtime_2weeks || 0,
+        lastPlayed: g.rtime_last_played,
+        cover: a.cover || '', hero: a.hero || '', header: a.header || ''
+      };
+    });
+  return reply(out);
 }
 
 export default {
@@ -100,6 +162,12 @@ export default {
       const items = (j.items || []).slice(0, 6);
       const art = await steamArt(items.map(i => i.id));
       return reply(items.map(i => Object.assign({ id: i.id, name: i.name, thumb: i.tiny_image }, art[i.id] || {})));
+    }
+
+    if (url.pathname === '/steam/library') {
+      const limit = Math.max(1, Math.min(50, parseInt(url.searchParams.get('limit'), 10) || 10));
+      try { return await steamLibrary(env, limit); }
+      catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
     }
 
     if (url.pathname !== '/') return reply({ error: 'not found' }, 404);

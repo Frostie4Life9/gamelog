@@ -160,8 +160,9 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .libtools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:28px}
 .libtools .search{flex:1;min-width:180px;max-width:320px}
 .libtools select{width:auto}
-.addgame{display:flex;gap:8px;min-width:min(100%,360px)}
-.addgame input{flex:1}
+.addgame{display:flex;flex-wrap:wrap;gap:8px;min-width:min(100%,360px)}
+.addgame input{flex:1 1 180px}
+.btn:disabled{opacity:.55;cursor:default}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r-lg);padding:48px 24px;text-align:center;color:var(--mist)}
 .empty b{display:block;color:var(--paper);font-size:18px;margin-bottom:6px}
 
@@ -452,6 +453,43 @@ async function steamSearch(q){
   if (!r.ok) throw new Error(await readErr(r));
   return r.json();
 }
+async function steamLibrary(limit = 10){
+  const r = await api('/steam/library?limit=' + limit);
+  if (!r.ok) throw new Error(await readErr(r));
+  return r.json();
+}
+let importing = false;
+async function importSteam(){
+  if (!syncOn()) { toast('Connect sync first. Steam import runs through your Worker'); go(() => { view.tab = 'sync'; view.gameId = null; }); return; }
+  if (importing) return;
+  importing = true; render();
+  try {
+    const list = await steamLibrary(10);
+    let added = 0, updated = 0;
+    const twoWeeks = Date.now() / 1000 - 14 * 86400;
+    for (const s of list) {
+      const hours = Math.round(s.minutes / 6) / 10;
+      const last = s.lastPlayed ? localDate(new Date(s.lastPlayed * 1000)) : '';
+      let g = state.games.find(x => x.steamId === s.id) || state.games.find(x => x.title.toLowerCase() === s.name.toLowerCase());
+      if (g) {
+        g.steamId = s.id; g.hours = Math.max(g.hours, hours);
+        if (last > (g.lastPlayed || '')) g.lastPlayed = last;
+        if (!g.cover && (s.cover || s.header)) applyArt(g, s);
+        updated++;
+      } else {
+        g = blankGame(s.name);
+        Object.assign(g, {steamId:s.id, hours, lastPlayed:last, status:s.lastPlayed > twoWeeks ? 'playing' : 'paused'});
+        if (s.cover || s.header) applyArt(g, s); else g.artTried = true;
+        state.games.push(g); added++;
+      }
+    }
+    save();
+    toast(added || updated ? `From Steam: ${added} added${updated ? `, ${updated} updated` : ''}` : 'Steam returned no recent games');
+  } catch(e) {
+    toast(`Steam import failed: ${e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message}`);
+  }
+  importing = false; render();
+}
 function applyArt(g, res){
   g.cover = res.cover || res.header || ''; g.hero = res.hero || ''; g.steamId = res.id; g.artTried = true;
 }
@@ -645,7 +683,7 @@ function renderLibrary(){
   return `<div class="page">
     <div class="libhead">
       <div><h1 class="h1">Library</h1><p class="lede" style="margin:0">${state.games.length} game${state.games.length === 1 ? '' : 's'}, scored out of 10.</p></div>
-      <div class="addgame"><input type="text" id="newTitle" placeholder="Add a game by title" aria-label="Game title"><button class="btn" data-act="add-game">Add game</button></div>
+      <div class="addgame"><input type="text" id="newTitle" placeholder="Add a game by title" aria-label="Game title"><button class="btn" data-act="add-game">Add game</button><button class="btn quiet" data-act="steam-import" ${importing ? 'disabled' : ''}>${importing ? 'Importing…' : 'Import from Steam'}</button></div>
     </div>
     <div class="libtools">
       <div class="seg" role="tablist" aria-label="Filter by status">${['all', ...STATUSES].map(s => `<button class="${view.filter === s ? 'on' : ''}" data-act="filter" data-f="${s}">${s === 'all' ? 'All' : LABEL[s]}<span class="n">${count(s)}</span></button>`).join('')}</div>
@@ -673,6 +711,13 @@ function renderSync(){
         </div>
         <p><span class="dot" data-sync-status data-state="${syncStatus}">${syncText()}</span></p>
         <p class="err" id="syncErr">${sync.err ? `What went wrong: ${esc(sync.err)}` : ''}</p>
+      </section>
+      <section class="panel">
+        <h2 class="h2" style="margin:0">Steam</h2>
+        <p>Pull your 10 most recently played Steam games, with playtime, last-played date and cover art. Demos are left out. Games already here get their hours and dates updated, and nothing you wrote is changed.</p>
+        <div class="actions" style="margin-top:0">
+          <button class="btn quiet" data-act="steam-import" ${importing || !syncOn() ? 'disabled' : ''}>${importing ? 'Importing…' : 'Import recent games'}</button>
+        </div>
       </section>
       <section class="panel">
         <h2 class="h2" style="margin:0">Backups</h2>
@@ -868,6 +913,7 @@ document.addEventListener('click', e => {
     case 'section': view.section = el.dataset.s; view.art = null; render(); break;
     case 'filter': view.filter = el.dataset.f; render(); break;
     case 'add-game': addGame(); break;
+    case 'steam-import': importSteam(); break;
     case 'sync-save': {
       const u = document.getElementById('s-url').value.trim(), k = document.getElementById('s-key').value.trim();
       if (!/^https:\/\//.test(u) || !k) { setStatus(syncStatus, 'enter the Worker URL (starting with https://) and the sync key'); return; }
