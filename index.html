@@ -163,6 +163,29 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .addgame{display:flex;flex-wrap:wrap;gap:8px;min-width:min(100%,360px)}
 .addgame input{flex:1 1 180px}
 .btn:disabled{opacity:.55;cursor:default}
+/* Achievements */
+.achsum{display:grid;grid-template-columns:auto 1fr;gap:20px 32px;align-items:center;margin-bottom:24px}
+.achsum .big{font-weight:800;font-size:44px;line-height:.9;font-variation-settings:'wdth' 75;font-variant-numeric:tabular-nums}
+.achsum .big small{font-size:20px;color:var(--dim);font-weight:600}
+.achsum .meter{height:8px;border-radius:999px;background:var(--raise);overflow:hidden;margin-bottom:10px}
+.achsum .meter i{display:block;height:100%;background:var(--gold);border-radius:inherit}
+.achsum p{margin:0;color:var(--mist);font-size:14px}
+.achtools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px}
+.achtools select{width:auto}
+.achtools .grow{flex:1}
+.achlist{list-style:none;margin:0;padding:0}
+.achlist li{display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.achlist img{width:48px;height:48px;border-radius:8px;background:var(--raise);display:block}
+.achlist li.locked img{filter:grayscale(1) brightness(.6)}
+.achlist b{display:block;font-weight:600}
+.achlist .d{color:var(--mist);font-size:14px}
+.achlist .r{text-align:right;font-size:13px;color:var(--dim);white-space:nowrap}
+.achlist .r b{font-size:15px;color:var(--paper);font-variant-numeric:tabular-nums}
+.achlist .r .rare{color:var(--gold)}
+.achlist .reveal{border:0;background:none;color:var(--gold);padding:0;font-size:14px;cursor:pointer}
+.achlast{margin:0 0 24px;color:var(--mist);font-size:14px}
+.achlast b{color:var(--paper)}
+.achchip{display:inline-flex;align-items:center;gap:4px}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r-lg);padding:48px 24px;text-align:center;color:var(--mist)}
 .empty b{display:block;color:var(--paper);font-size:18px;margin-bottom:6px}
 
@@ -325,7 +348,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d ? new Date(d + 'T00:00').toLocaleDateString(undefined, opts) : '';
 
 function blankGame(title){
-  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', cover:'', hero:'', steamId:0, artTried:false, tint:-1,
+  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null,
     note:{where:'', next:'', recap:''}, review:'',
     layers:{story:{inFinish:true,items:[]}, power:{inFinish:false,items:[]}, checklist:{inFinish:false,items:[]}},
     missables:[], releases:[]};
@@ -483,8 +506,12 @@ async function importSteam(){
         state.games.push(g); added++;
       }
     }
-    save();
-    toast(added || updated ? `From Steam: ${added} added${updated ? `, ${updated} updated` : ''}` : 'Steam returned no recent games');
+    save(); render();
+    toast(added || updated ? `From Steam: ${added} added${updated ? `, ${updated} updated` : ''}. Loading achievements…` : 'Steam returned no recent games');
+    for (const s of list) {
+      const g = state.games.find(x => x.steamId === s.id);
+      if (g) { try { await fetchAch(g, {force:true, quiet:true}); } catch(e) { achLoading.delete(g.id); } }
+    }
   } catch(e) {
     toast(`Steam import failed: ${e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message}`);
   }
@@ -493,6 +520,34 @@ async function importSteam(){
 function applyArt(g, res){
   g.cover = res.cover || res.header || ''; g.hero = res.hero || ''; g.steamId = res.id; g.artTried = true;
 }
+/* ---------- Achievements ----------
+   The full list is cached on this device only (it's re-fetchable from Steam
+   and can be large). Each game keeps a small synced summary in g.ach. */
+const ACH_KEY = 'gamelog_ach';
+let achCache = (() => { try { return JSON.parse(localStorage.getItem(ACH_KEY)) || {}; } catch(e) { return {}; } })();
+const achLoading = new Set();
+function saveAchCache(){ try { localStorage.setItem(ACH_KEY, JSON.stringify(achCache)); } catch(e) { achCache = {}; } }
+async function fetchAch(g, opts = {}){
+  if (!g.steamId || !syncOn() || achLoading.has(g.id)) return;
+  const c = achCache[g.steamId];
+  if (!opts.force && c && Date.now() - c.fetched < 30 * 60000) return;
+  achLoading.add(g.id); if (!opts.quiet) render();
+  try {
+    const r = await api('/steam/achievements?appid=' + g.steamId);
+    if (!r.ok) throw new Error(await readErr(r));
+    const res = await r.json();
+    achCache[g.steamId] = {fetched:Date.now(), items:res.items, err:''};
+    const last = res.items.filter(i => i.done && i.time).sort((a, b) => b.time - a.time)[0];
+    g.ach = res.total ? {total:res.total, done:res.unlocked, last: last ? {name:last.name, time:last.time} : null} : {total:0, done:0, last:null};
+    saveAchCache(); save();
+  } catch(e) {
+    achCache[g.steamId] = Object.assign({}, c, {err: e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message});
+    if (opts.quiet) throw e;
+  }
+  achLoading.delete(g.id); if (!opts.quiet) render();
+}
+const achPct = g => g.ach && g.ach.total ? Math.floor(g.ach.done / g.ach.total * 100) : null;
+
 async function autoArt(){
   if (!syncOn()) return;
   const todo = state.games.filter(g => !g.cover && !g.artTried).slice(0, 5);
@@ -531,6 +586,7 @@ function hash(s){ let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0);
 
 /* ---------- Pieces ---------- */
 const ICON = {
+  trophy:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>',
   play:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8z"/></svg>',
   shelf:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><path d="M17.5 5.2l3.4 14.4"/></svg>',
   back:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
@@ -565,12 +621,12 @@ function pips(g, cls = ''){
   </div>`;
 }
 
-function ring(st){
-  const r = 24, c = 2 * Math.PI * r, off = c * (1 - st.pct / 100);
+function ring(st, kind = 'quests'){
+  const r = 24, c = 2 * Math.PI * r, off = c * (1 - st.pct / 100), col = kind === 'quests' ? '#F5B63F' : '#62D6B8';
   return `<div class="ring">
     <svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="${r}" fill="none" stroke="#2A3160" stroke-width="6"/>
-    <circle cx="30" cy="30" r="${r}" fill="none" stroke="#F5B63F" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 30 30)"/></svg>
-    <div><b>${st.pct}%</b><span>${st.total ? `${st.done} of ${st.total} quests to your finish line` : 'No finish line set yet'}</span></div>
+    <circle cx="30" cy="30" r="${r}" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 30 30)"/></svg>
+    <div><b>${st.pct}%</b><span>${kind === 'quests' ? (st.total ? `${st.done} of ${st.total} quests to your finish line` : 'No finish line set yet') : `${st.done} of ${st.total} Steam achievements`}</span></div>
   </div>`;
 }
 
@@ -665,7 +721,7 @@ function slot(g){
   return `<button class="slot" data-act="open" data-id="${g.id}">
     ${coverHTML(g, {score:true})}
     <div><div class="lbl">${esc(g.title)}</div>
-    <div class="sub"><span>${LABEL[g.status]}</span>${st.total ? `<span>${st.pct}%</span>` : ''}</div></div>
+    <div class="sub"><span>${LABEL[g.status]}</span>${st.total ? `<span>${st.pct}%</span>` : ''}${achPct(g) !== null ? `<span class="achchip" title="${g.ach.done} of ${g.ach.total} achievements">${ICON.trophy}${achPct(g)}%</span>` : ''}</div></div>
   </button>`;
 }
 
@@ -732,11 +788,11 @@ function renderSync(){
 }
 
 /* ---------- Game ---------- */
-const SECTIONS = [['save','Save point'],['quests','Quests'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
+const SECTIONS = [['save','Save point'],['quests','Quests'],['achievements','Achievements'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
 
 function renderGame(g){
   const st = stats(g), miss = openMissables(g), ups = upcoming(g).length;
-  const badge = {quests: st.total - st.done, missables: miss, releases: ups};
+  const badge = {quests: st.total - st.done, missables: miss, releases: ups, achievements: g.ach && g.ach.total ? g.ach.total - g.ach.done : 0};
   const tint = paletteFor(g);
   return `
   <header class="hero">
@@ -749,15 +805,16 @@ function renderGame(g){
         <div class="hero-row">
           <select class="status-pick" data-f="status" data-rerender="1" aria-label="Status">${STATUSES.map(s => `<option value="${s}" ${g.status === s ? 'selected' : ''}>${LABEL[s]}</option>`).join('')}</select>
           ${ring(st)}
+          ${achPct(g) !== null ? `<button data-act="section" data-s="achievements" aria-label="Open achievements" style="border:0;background:none;padding:0;color:inherit;text-align:left;cursor:pointer">${ring({total:g.ach.total, done:g.ach.done, pct:achPct(g)}, 'achievements')}</button>` : ''}
           ${pips(g)}
         </div>
       </div>
     </div>
   </header>
   <nav class="sections" aria-label="Game sections"><div class="sections-in">
-    ${SECTIONS.map(([k, l]) => `<button class="sec ${view.section === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${view.section === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
+    ${SECTIONS.filter(([k]) => k !== 'achievements' || g.steamId).map(([k, l]) => `<button class="sec ${view.section === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${view.section === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
   </div></nav>
-  <div class="page">${({save:secSave, quests:secQuests, missables:secMissables, releases:secReleases, review:secReview})[view.section](g)}</div>`;
+  <div class="page">${({save:secSave, quests:secQuests, achievements:secAch, missables:secMissables, releases:secReleases, review:secReview})[view.section](g)}</div>`;
 }
 
 function secSave(g){
@@ -766,6 +823,7 @@ function secSave(g){
       <p><b>${since(g.lastPlayed)}</b>${g.lastPlayed ? ` <span class="dim">(${fmtDate(g.lastPlayed)})</span>` : ''}</p>
       <button class="btn quiet sm" data-act="played">I played today</button>
     </div>
+    ${g.ach && g.ach.last ? `<p class="achlast">Last achievement: <b>${esc(g.ach.last.name)}</b> <span class="dim">· ${fmtDate(localDate(new Date(g.ach.last.time * 1000)))}</span></p>` : ''}
     <div class="journal">
       <div class="panel">
         <h3>Where I was</h3><p class="hint">Chapter, area, what you were in the middle of.</p>
@@ -783,6 +841,54 @@ function secSave(g){
         <div class="field"><label for="f-last">Last played</label><input type="date" id="f-last" data-f="lastPlayed" value="${g.lastPlayed}"></div>
       </div>
     </div>`;
+}
+
+function secAch(g){
+  const c = achCache[g.steamId], loading = achLoading.has(g.id);
+  if (!syncOn()) return `<div class="empty"><b>Connect sync to load achievements</b>Achievements come from Steam through your Worker.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="sync">Go to Sync</button></div></div>`;
+  if (!c || !c.items) return c && c.err && !loading
+    ? `<div class="empty"><b>Couldn't load achievements</b>${esc(c.err)}<div class="actions" style="justify-content:center"><button class="btn" data-act="ach-refresh">Try again</button></div></div>`
+    : `<div class="empty"><b>Loading achievements</b>Asking Steam for ${esc(g.title)}.</div>`;
+  if (!c.items.length) return `<div class="empty"><b>No Steam achievements</b>${esc(g.title)} doesn't have achievements on Steam. Use Quests to track your own finish line.</div>`;
+
+  const items = c.items, done = items.filter(i => i.done).length, pct = Math.floor(done / items.length * 100);
+  const f = view.achFilter || 'locked', sort = view.achSort || 'common';
+  const rarestDone = items.filter(i => i.done && i.pct !== null).sort((a, b) => a.pct - b.pct)[0];
+  let list = items.filter(i => f === 'all' || (f === 'locked' ? !i.done : i.done));
+  const sorters = {
+    common:(a, b) => (b.pct ?? -1) - (a.pct ?? -1),
+    rare:(a, b) => (a.pct ?? 101) - (b.pct ?? 101),
+    recent:(a, b) => b.time - a.time,
+    name:(a, b) => a.name.localeCompare(b.name)
+  };
+  list = [...list].sort(sorters[sort]);
+  const hiddenLeft = items.filter(i => i.hidden && !i.done).length;
+  const mins = Math.round((Date.now() - c.fetched) / 60000);
+  const ago = mins < 1 ? 'just now' : mins < 60 ? `${mins} min ago` : mins < 1440 ? `${Math.round(mins / 60)} h ago` : fmtDate(localDate(new Date(c.fetched)));
+  return `
+    <div class="achsum">
+      <div class="big">${done}<small> / ${items.length}</small></div>
+      <div>
+        <div class="meter" role="img" aria-label="${pct}% of achievements unlocked"><i style="width:${pct}%"></i></div>
+        <p>${pct}% unlocked${rarestDone ? ` · Rarest: <b style="color:var(--paper)">${esc(rarestDone.name)}</b> (${rarestDone.pct}% of players)` : ''}${hiddenLeft ? ` · ${hiddenLeft} hidden still locked` : ''}</p>
+      </div>
+    </div>
+    <div class="achtools">
+      <div class="seg" role="tablist" aria-label="Filter achievements">${[['locked','Locked'],['done','Unlocked'],['all','All']].map(([k, l]) => `<button class="${f === k ? 'on' : ''}" data-act="ach-filter" data-v="${k}">${l}<span class="n">${k === 'all' ? items.length : k === 'done' ? done : items.length - done}</span></button>`).join('')}</div>
+      <select id="achSort" aria-label="Sort achievements">${[['common','Most common first'],['rare','Rarest first'],['recent','Recently unlocked'],['name','Name A–Z']].map(([v, l]) => `<option value="${v}" ${sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+      <span class="grow"></span>
+      <span class="dim" style="font-size:13px">${loading ? 'Refreshing…' : c.err ? `<span class="err">Last refresh failed: ${esc(c.err)}</span>` : `Updated ${ago}`}</span>
+      <button class="btn quiet sm" data-act="ach-refresh" ${loading ? 'disabled' : ''}>Refresh</button>
+    </div>
+    ${list.length ? `<ul class="achlist">${list.map(i => {
+      const masked = i.hidden && !i.done && !(view.reveal && view.reveal.has(i.id));
+      return `<li class="${i.done ? '' : 'locked'}">
+        <img src="${/^https:\/\//.test(i.icon) ? esc(i.icon) : ''}" alt="" loading="lazy">
+        <div>${masked ? `<b>Hidden achievement</b><span class="d">Might spoil the story. <button class="reveal" data-act="ach-reveal" data-id="${esc(i.id)}">Reveal</button></span>`
+          : `<b>${esc(i.name)}</b><span class="d">${esc(i.desc) || (i.hidden ? '<span class="dim">No description (hidden)</span>' : '')}</span>`}</div>
+        <div class="r">${i.pct !== null ? `<b class="${i.pct < 10 ? 'rare' : ''}">${i.pct}%</b><br>of players` : ''}${i.done && i.time ? `<br>${fmtDate(localDate(new Date(i.time * 1000)))}` : ''}</div>
+      </li>`; }).join('')}</ul>`
+      : `<div class="empty"><b>${f === 'locked' ? 'All achievements unlocked' : 'Nothing unlocked yet'}</b>${f === 'locked' ? '100% on Steam. Nice.' : 'Your first one will show up here.'}</div>`}`;
 }
 
 function secQuests(g){
@@ -908,12 +1014,15 @@ document.addEventListener('click', e => {
   const g = current(el);
   switch (a) {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0); break;
-    case 'open': view.art = null; go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); break;
+    case 'open': view.art = null; go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); { const og = game(el.dataset.id); if (og) fetchAch(og); } break;
     case 'back': go(() => { view.gameId = null; }); window.scrollTo(0,0); break;
-    case 'section': view.section = el.dataset.s; view.art = null; render(); break;
+    case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); break;
     case 'filter': view.filter = el.dataset.f; render(); break;
     case 'add-game': addGame(); break;
     case 'steam-import': importSteam(); break;
+    case 'ach-filter': view.achFilter = el.dataset.v; render(); break;
+    case 'ach-refresh': fetchAch(g, {force:true}); break;
+    case 'ach-reveal': (view.reveal = view.reveal || new Set()).add(el.dataset.id); render(); break;
     case 'sync-save': {
       const u = document.getElementById('s-url').value.trim(), k = document.getElementById('s-key').value.trim();
       if (!/^https:\/\//.test(u) || !k) { setStatus(syncStatus, 'enter the Worker URL (starting with https://) and the sync key'); return; }
@@ -957,6 +1066,7 @@ document.addEventListener('pointerout', e => {
 document.addEventListener('change', e => {
   const el = e.target;
   if (el.id === 'sort') { view.sort = el.value; render(); return; }
+  if (el.id === 'achSort') { view.achSort = el.value; render(); return; }
   const g = current(el); if (!g) return;
   if (el.dataset.act === 'toggle') {
     const it = listFor(g, el.dataset.kind, el.dataset.layer).find(i => i.id === el.dataset.id); it.done = el.checked; save();

@@ -33,6 +33,11 @@
                           -> your most recently played Steam games
                              (demos and playtests left out), newest
                              first, with playtime and cover art
+   GET  /steam/achievements?appid=
+                          -> every achievement for one game: name,
+                             description, icon, hidden flag, whether
+                             you've unlocked it (and when), and the
+                             share of all players who have it
    ========================================================= */
 
 const KEYNAME = 'state';
@@ -144,6 +149,50 @@ async function steamLibrary(env, limit) {
   return reply(out);
 }
 
+/* ---------- Steam achievements ---------- */
+async function getJSON(u) {
+  const r = await fetch(u);
+  let j = null; try { j = await r.json(); } catch (e) {}
+  return { status: r.status, ok: r.ok, j };
+}
+
+async function steamAchievements(env, appid) {
+  if (!env.STEAM_KEY || !env.STEAM_ID) return reply({ error: 'server not configured: missing STEAM_KEY or STEAM_ID' }, 500);
+  if (!/^\d+$/.test(appid)) return reply({ error: 'appid must be a number' }, 400);
+  let sid;
+  try { sid = await steamId64(env); } catch (e) { return reply({ error: e.message }, 400); }
+  const K = env.STEAM_KEY;
+  const [schema, mine, global] = await Promise.all([
+    getJSON(`https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${K}&appid=${appid}&l=english`),
+    getJSON(`https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=${K}&steamid=${sid}&appid=${appid}`),
+    getJSON(`https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2/?gameid=${appid}`)
+  ]);
+  const defs = (schema.j && schema.j.game && schema.j.game.availableGameStats && schema.j.game.availableGameStats.achievements) || [];
+  if (!defs.length) return reply({ appid: +appid, total: 0, unlocked: 0, items: [] });
+
+  const ps = mine.j && mine.j.playerstats;
+  if (!ps || ps.success === false) {
+    const msg = (ps && ps.error) || '';
+    if (mine.status === 403 || /private/i.test(msg)) return reply({ error: 'Steam says your game details are private. Set Privacy Settings > Game details to Public' }, 403);
+    // Owned games with stats but no player record yet: treat as nothing unlocked
+  }
+  const got = {};
+  for (const a of (ps && ps.achievements) || []) got[a.apiname] = a;
+  const pct = {};
+  for (const a of (global.j && global.j.achievementpercentages && global.j.achievementpercentages.achievements) || []) pct[a.name] = Math.round(parseFloat(a.percent) * 10) / 10;
+
+  const items = defs.map(d => {
+    const m = got[d.name];
+    return {
+      id: d.name, name: d.displayName || d.name, desc: d.description || '',
+      icon: d.icon || '', hidden: d.hidden === 1,
+      done: !!(m && m.achieved), time: (m && m.unlocktime) || 0,
+      pct: pct[d.name] !== undefined ? pct[d.name] : null
+    };
+  });
+  return reply({ appid: +appid, total: items.length, unlocked: items.filter(i => i.done).length, items });
+}
+
 export default {
   async fetch(request, env) {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
@@ -167,6 +216,11 @@ export default {
     if (url.pathname === '/steam/library') {
       const limit = Math.max(1, Math.min(50, parseInt(url.searchParams.get('limit'), 10) || 10));
       try { return await steamLibrary(env, limit); }
+      catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
+    }
+
+    if (url.pathname === '/steam/achievements') {
+      try { return await steamAchievements(env, (url.searchParams.get('appid') || '').trim()); }
       catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
     }
 
