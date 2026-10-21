@@ -68,7 +68,7 @@ a{color:var(--gold)}
 .artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px}
 .artgrid button{border:2px solid transparent;border-radius:var(--r-sm);padding:0;background:var(--night);overflow:hidden;text-align:left;color:var(--paper)}
 .artgrid button:hover{border-color:var(--gold)}
-.artgrid img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--raise)}
+.artgrid img{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;background:var(--raise)}
 .artgrid span{display:block;font-size:12px;line-height:1.3;padding:6px 6px 8px}
 @media (max-width:760px){.syncpage{grid-template-columns:1fr}}
 
@@ -83,7 +83,7 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .muted{color:var(--mist)} .dim{color:var(--dim)}
 
 /* Covers */
-.cover{position:relative;aspect-ratio:3/4;border-radius:var(--r-md);overflow:hidden;isolation:isolate;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 18px 40px -18px rgba(0,0,0,.6);background-color:var(--raise)}
+.cover{position:relative;aspect-ratio:2/3;border-radius:var(--r-md);overflow:hidden;isolation:isolate;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 18px 40px -18px rgba(0,0,0,.6);background-color:var(--raise)}
 .cover .ct{position:absolute;inset:auto 14px 16px 14px;font-weight:800;font-variation-settings:'wdth' 75,'opsz' 96;line-height:.92;letter-spacing:-.02em;text-wrap:balance;text-shadow:0 2px 18px rgba(0,0,0,.35);z-index:2}
 .cover .spine{position:absolute;top:0;bottom:0;left:0;width:6px;background:rgba(255,255,255,.18);z-index:2}
 .cover .bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.35);z-index:3}
@@ -113,7 +113,7 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .slot .cover .ct{font-size:clamp(22px,2.3vw,28px)}
 .slot .lbl{font-size:15px;font-weight:600;line-height:1.25}
 .slot .sub{font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:center}
-.score{position:absolute;top:10px;right:10px;z-index:3;min-width:34px;height:34px;padding:0 8px;border-radius:999px;display:grid;place-items:center;background:rgba(22,26,51,.82);backdrop-filter:blur(6px);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;color:var(--gold)}
+.score{position:absolute;bottom:12px;right:10px;z-index:3;min-width:34px;height:34px;padding:0 8px;border-radius:999px;display:grid;place-items:center;background:rgba(22,26,51,.82);backdrop-filter:blur(6px);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;color:var(--gold)}
 
 .timeline{display:flex;flex-direction:column;border-top:1px solid var(--line-soft)}
 .tl{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line-soft);background:transparent;border-left:0;border-right:0;border-top:0;text-align:left;color:inherit;width:100%}
@@ -671,6 +671,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.21-e', note:'FULL COVER ART: covers now use the same tall shape as Steam box art, so titles at the top are no longer cut off. Your score moved to the bottom corner so it stops sitting on top of the game\u2019s logo.'},
   {v:'2026.10.21-d', note:'PLAYBACK JOINS THE SUITE: your music and TV/film log now sits in the top bar and the app grid, with its teal cassette icon. On a computer it is the last tab across the top; on a phone it is in the grid.'},
   {v:'2026.10.21-c', note:'NEW LIFT ICON: Lift\u2019s tile in the app grid is redrawn so the L reads as an L \u2014 a kettlebell sits beside it instead of a plate covering its foot. Its tab in the top bar now shows a kettlebell too.'},
   {v:'2026.10.21-b', note:'YOUR OTHER APPS: the same top bar as Kitchen, Grocery, Lift, DishLog, Protocol and The Rail. On a computer every app is a tab across the top; on a phone the grid button opens them all. Game Log is in each of their switchers too.'},
