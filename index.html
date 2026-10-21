@@ -49,6 +49,23 @@ a{color:var(--gold)}
 .rail-foot{margin-top:auto;display:flex;flex-direction:column;gap:2px}
 .rail-foot button{border:0;background:transparent;color:var(--dim);text-align:left;padding:6px 12px;border-radius:var(--r-sm);font-size:14px}
 .rail-foot button:hover{color:var(--paper);background:var(--deep)}
+.rail-foot .syncbtn.on{background:var(--deep);color:var(--paper)}
+.dot{display:inline-flex;align-items:center;gap:8px}
+.dot::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--dim);flex:none}
+.dot[data-state=ok]::before{background:var(--mint)}
+.dot[data-state=syncing]::before{background:var(--gold)}
+.dot[data-state=error]::before{background:var(--rose)}
+.syncpage{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:start}
+.syncpage .panel{display:flex;flex-direction:column;gap:16px}
+.syncpage p{margin:0;color:var(--mist);max-width:60ch}
+.err{color:var(--rose);font-size:14px;min-height:1em}
+.artpick{margin-top:4px;display:flex;flex-direction:column;gap:12px}
+.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px}
+.artgrid button{border:2px solid transparent;border-radius:var(--r-sm);padding:0;background:var(--night);overflow:hidden;text-align:left;color:var(--paper)}
+.artgrid button:hover{border-color:var(--gold)}
+.artgrid img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--raise)}
+.artgrid span{display:block;font-size:12px;line-height:1.3;padding:6px 6px 8px}
+@media (max-width:760px){.syncpage{grid-template-columns:1fr}}
 
 main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .page{max-width:1080px;margin:0 auto}
@@ -66,7 +83,9 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .cover .spine{position:absolute;top:0;bottom:0;left:0;width:6px;background:rgba(255,255,255,.18);z-index:2}
 .cover .bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.35);z-index:3}
 .cover .bar i{display:block;height:100%;background:var(--gold)}
-.cover.img .ct{display:none}
+.cover .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.cover.wide .art{object-position:center;filter:saturate(1.05)}
+.cover.img .ct,.cover.img .spine{display:none}
 
 /* Continue screen */
 .feature{display:grid;grid-template-columns:minmax(200px,280px) 1fr;gap:clamp(20px,3vw,40px);background:var(--deep);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:clamp(16px,2.4vw,28px);margin-bottom:44px}
@@ -109,7 +128,7 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .btn.sm{padding:7px 14px;font-size:14px}
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:13px;color:var(--dim);font-weight:500}
-input[type=text],input[type=number],input[type=date],input[type=url],input[type=search],select,textarea{width:100%;background:var(--night);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;font-size:15px}
+input[type=text],input[type=number],input[type=date],input[type=url],input[type=search],input[type=password],select,textarea{width:100%;background:var(--night);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;font-size:15px}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,182,63,.18)}
 textarea{resize:vertical;min-height:110px;line-height:1.55}
 ::placeholder{color:var(--dim)}
@@ -149,6 +168,8 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 /* Game page */
 .hero{position:relative;isolation:isolate;margin:-40px calc(-1 * clamp(18px,4vw,56px)) 0;padding:40px clamp(18px,4vw,56px) 0;overflow:hidden}
 .hero-bg{position:absolute;inset:0;z-index:-1;filter:blur(60px) saturate(1.2);opacity:.55;transform:scale(1.3)}
+.hero-img{position:absolute;inset:0;z-index:-1;background-size:cover;background-position:center 30%;opacity:.5}
+.hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--night) 0%,rgba(22,26,51,.55) 45%,rgba(22,26,51,.2) 100%),linear-gradient(180deg,transparent 40%,var(--night) 96%)}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,var(--night) 92%)}
 .hero-in{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;gap:clamp(20px,3vw,40px);align-items:end;padding-bottom:28px}
 .hero-in>div{min-width:0}
@@ -303,7 +324,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d ? new Date(d + 'T00:00').toLocaleDateString(undefined, opts) : '';
 
 function blankGame(title){
-  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', cover:'', tint:-1,
+  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', cover:'', hero:'', steamId:0, artTried:false, tint:-1,
     note:{where:'', next:'', recap:''}, review:'',
     layers:{story:{inFinish:true,items:[]}, power:{inFinish:false,items:[]}, checklist:{inFinish:false,items:[]}},
     missables:[], releases:[]};
@@ -337,7 +358,7 @@ function seed(state){
   if (state.games.some(g => g.id === 'seed-crimson-desert')) return;
   const it = (id, text) => ({id, text, done:false});
   state.games.push(normalize({
-    id:'seed-crimson-desert', title:'Crimson Desert', platform:'PC', status:'paused', tint:8,
+    id:'seed-crimson-desert', title:'Crimson Desert', platform:'PC', status:'paused', tint:8, steamId:3321460,
     note:{
       where:'About 2 chapters left in the main story. Haven\'t played in months.',
       next:'Watch a story recap (not an "ending explained"), read the quest log, do a 30–60 min warm-up session, then push the last 2 chapters.',
@@ -361,10 +382,94 @@ function load(){
   return s;
 }
 let state = load();
-function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { toast('Couldn\'t save. Export a backup to be safe.'); } }
-save();
+function save(opts = {}){
+  if (!opts.keepTime) state.mtime = Date.now();
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { toast('Couldn\'t save. Export a backup to be safe.'); }
+  if (!opts.noPush) schedulePush();
+}
 
-const view = {tab:'continue', gameId:null, section:'save', filter:'all', q:'', sort:'title'};
+/* ---------- Sync ---------- */
+const SYNC_KEY = 'gamelog_sync';
+let sync = (() => { try { return JSON.parse(localStorage.getItem(SYNC_KEY)) || {}; } catch(e) { return {}; } })();
+const syncOn = () => !!(sync.url && sync.key);
+let syncStatus = syncOn() ? 'idle' : 'off', pushT, syncBusy = false;
+function saveSyncCfg(){ try { localStorage.setItem(SYNC_KEY, JSON.stringify(sync)); } catch(e) {} }
+function api(path, opts = {}){
+  return fetch(sync.url.replace(/\/+$/, '') + path, Object.assign({}, opts, {headers:{'x-sync-key':sync.key, 'content-type':'application/json'}}));
+}
+function syncText(){
+  if (syncStatus === 'off') return 'Sync is off';
+  if (syncStatus === 'syncing') return 'Syncing';
+  if (syncStatus === 'error') return 'Sync failed';
+  if (!sync.last) return 'Not synced yet';
+  const m = Math.round((Date.now() - sync.last) / 60000);
+  return m < 1 ? 'Synced just now' : m < 60 ? `Synced ${m} min ago` : `Synced ${Math.round(m / 60)} h ago`;
+}
+function setStatus(st, err){
+  syncStatus = st; sync.err = err || ''; if (st === 'ok') { sync.last = Date.now(); } saveSyncCfg();
+  document.querySelectorAll('[data-sync-status]').forEach(el => { el.textContent = syncText(); el.dataset.state = st; });
+  const e = document.getElementById('syncErr'); if (e) e.textContent = sync.err ? `What went wrong: ${sync.err}` : '';
+}
+function adopt(remote){
+  state = migrate(remote); state.seeded = state.seeded || {crimson:true};
+  save({keepTime:true, noPush:true});
+  if (view.gameId && !game(view.gameId)) view.gameId = null;
+  render();
+}
+async function readErr(r){
+  if (r.status === 401) return 'the sync key doesn\'t match the Worker\'s SECRET';
+  try { const j = await r.json(); return (j && j.error) || `server answered ${r.status}`; } catch(e) { return `server answered ${r.status}`; }
+}
+async function pull(){
+  if (!syncOn() || syncBusy) return;
+  syncBusy = true; setStatus('syncing');
+  try {
+    const r = await api('/');
+    if (!r.ok) throw new Error(await readErr(r));
+    const remote = await r.json();
+    const lt = state.mtime || 0, rt = (remote && remote.mtime) || 0;
+    if (remote && Array.isArray(remote.games) && rt > lt) { adopt(remote); toast('Updated from your other device'); setStatus('ok'); }
+    else if (!remote || lt > rt) { syncBusy = false; await push(); }
+    else setStatus('ok');
+  } catch(e) { setStatus('error', e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker. Check the URL and your connection' : e.message); }
+  syncBusy = false;
+  autoArt();
+}
+function schedulePush(){ if (!syncOn()) return; clearTimeout(pushT); pushT = setTimeout(push, 1200); }
+async function push(){
+  if (!syncOn() || syncBusy) { if (syncBusy) schedulePush(); return; }
+  syncBusy = true; setStatus('syncing');
+  try {
+    const r = await api('/', {method:'PUT', body:JSON.stringify(state)});
+    if (r.status === 409) { adopt(await r.json()); toast('Your other device had newer changes, so those are loaded'); setStatus('ok'); }
+    else if (!r.ok) throw new Error(await readErr(r));
+    else setStatus('ok');
+  } catch(e) { setStatus('error', e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker. Check the URL and your connection' : e.message); }
+  syncBusy = false;
+}
+async function steamSearch(q){
+  const r = await api('/steam/search?q=' + encodeURIComponent(q));
+  if (!r.ok) throw new Error(await readErr(r));
+  return r.json();
+}
+function applyArt(g, res){
+  g.cover = res.cover || res.header || ''; g.hero = res.hero || ''; g.steamId = res.id; g.artTried = true;
+}
+async function autoArt(){
+  if (!syncOn()) return;
+  const todo = state.games.filter(g => !g.cover && !g.artTried).slice(0, 5);
+  let changed = 0;
+  for (const g of todo) {
+    try { const res = await steamSearch(g.title); g.artTried = true; const hit = res.find(x => x.cover || x.header); if (hit) { applyArt(g, hit); changed++; } }
+    catch(e) { break; }
+  }
+  if (todo.some(g => g.artTried)) { save(); render(); if (changed) toast(`Found cover art for ${changed} game${changed > 1 ? 's' : ''}`); }
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') pull(); });
+
+save({keepTime:true, noPush:true});
+
+const view = {tab:'continue', gameId:null, section:'save', filter:'all', q:'', sort:'title', art:null};
 const game = id => state.games.find(g => g.id === id);
 
 /* ---------- Derived ---------- */
@@ -391,6 +496,7 @@ const ICON = {
   play:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l14 8-14 8z"/></svg>',
   shelf:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><path d="M17.5 5.2l3.4 14.4"/></svg>',
   back:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  sync:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 3v5h5"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 21v-5h-5"/></svg>',
   x:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   warn:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg>',
   logo:'<svg width="28" height="28" viewBox="0 0 28 28"><rect x="3" y="4" width="15" height="20" rx="3" fill="#3B2A6B"/><rect x="3" y="4" width="3" height="20" rx="1.5" fill="#F5B63F"/><rect x="10" y="4" width="15" height="20" rx="3" fill="#F5B63F" opacity=".9"/><path d="M15 11l6 3-6 3z" fill="#161A33"/></svg>'
@@ -399,16 +505,13 @@ const ICON = {
 function coverHTML(g, opts = {}){
   const st = stats(g);
   const vt = opts.vt === false ? '' : `view-transition-name:cv-${g.id};`;
-  let bg;
-  const url = /^https:\/\/[^\s"'()<>]+$/.test(g.cover) ? g.cover : '';
-  if (url) {
-    bg = `background:linear-gradient(180deg,transparent 55%,rgba(14,16,34,.55)),url('${url}') center/cover;`;
-  } else {
-    const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
-    bg = `background:radial-gradient(110% 70% at ${x}% 8%,${b}cc 0%,transparent 58%),repeating-linear-gradient(${ang}deg,rgba(255,255,255,.045) 0 2px,transparent 2px 16px),linear-gradient(165deg,${a} 10%,#12152B 95%);`;
-  }
-  return `<div class="cover ${url ? 'img' : ''}" style="${bg}${vt}">
-    ${url ? '' : '<div class="spine"></div>'}
+  const url = /^https:\/\/[^\s"'<>]+$/.test(g.cover) ? g.cover : '';
+  const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
+  const bg = `background:radial-gradient(110% 70% at ${x}% 8%,${b}cc 0%,transparent 58%),repeating-linear-gradient(${ang}deg,rgba(255,255,255,.045) 0 2px,transparent 2px 16px),linear-gradient(165deg,${a} 10%,#12152B 95%);`;
+  const wide = url && !/library_600x900/.test(url);
+  return `<div class="cover ${url ? 'img' : ''} ${wide ? 'wide' : ''}" style="${bg}${vt}">
+    <div class="spine"></div>
+    ${url ? `<img class="art" src="${esc(url)}" alt="" loading="lazy" onerror="this.parentNode.classList.remove('img','wide');this.remove()">` : ''}
     <div class="ct">${esc(g.title)}</div>
     ${opts.score && g.rating ? `<div class="score" aria-label="Score ${g.rating} out of 10">${g.rating}</div>` : ''}
     ${opts.bar !== false && st.total ? `<div class="bar"><i style="width:${st.pct}%"></i></div>` : ''}
@@ -458,12 +561,12 @@ function renderChrome(){
       <button data-act="open" data-id="${g.id}" data-section="releases"><div class="d">${new Date(r.date + 'T00:00').getDate()}<small>${fmtDate(r.date,{month:'short'})}</small></div>
       <div class="n">${esc(r.name)}<span>${countdown(r.date)}</span></div></button>`).join('')}</div></div>` : ''}
     <div class="rail-foot">
-      <button data-act="export">Export backup</button>
-      <button data-act="import">Restore from backup</button>
+      <button class="syncbtn ${navOn('sync')}" data-act="tab" data-tab="sync"><span class="dot" data-sync-status data-state="${syncStatus}">${syncText()}</span></button>
     </div>`;
   document.getElementById('tabbar').innerHTML = `
     <button class="${navOn('continue')}" data-act="tab" data-tab="continue">${ICON.play}Continue</button>
-    <button class="${navOn('library')}" data-act="tab" data-tab="library">${ICON.shelf}Library</button>`;
+    <button class="${navOn('library')}" data-act="tab" data-tab="library">${ICON.shelf}Library</button>
+    <button class="${navOn('sync')}" data-act="tab" data-tab="sync">${ICON.sync}Sync</button>`;
 }
 
 /* ---------- Continue ---------- */
@@ -554,6 +657,35 @@ function renderLibrary(){
   </div>`;
 }
 
+/* ---------- Sync page ---------- */
+function renderSync(){
+  return `<div class="page">
+    <h1 class="h1">Sync</h1>
+    <p class="lede">Keep your PC and phone on the same library. Changes upload a moment after you make them, and the app checks for newer data whenever you come back to it.</p>
+    <div class="syncpage">
+      <section class="panel">
+        <h2 class="h2" style="margin:0">Your Worker</h2>
+        <div class="field"><label for="s-url">Worker URL</label><input type="url" id="s-url" value="${esc(sync.url || '')}" placeholder="https://gamelog-sync.yourname.workers.dev"></div>
+        <div class="field"><label for="s-key">Sync key</label><input type="password" id="s-key" value="${esc(sync.key || '')}" placeholder="The SECRET you set on the Worker" autocomplete="off"></div>
+        <div class="actions" style="margin-top:4px">
+          <button class="btn" data-act="sync-save">${syncOn() ? 'Save and sync' : 'Connect'}</button>
+          ${syncOn() ? '<button class="btn quiet" data-act="sync-now">Sync now</button><button class="btn danger" data-act="sync-off">Turn off on this device</button>' : ''}
+        </div>
+        <p><span class="dot" data-sync-status data-state="${syncStatus}">${syncText()}</span></p>
+        <p class="err" id="syncErr">${sync.err ? `What went wrong: ${esc(sync.err)}` : ''}</p>
+      </section>
+      <section class="panel">
+        <h2 class="h2" style="margin:0">Backups</h2>
+        <p>The Worker also keeps the copy before your latest save. For a file you control, download a backup now and then.</p>
+        <div class="actions" style="margin-top:0">
+          <button class="btn quiet" data-act="export">Download backup</button>
+          <button class="btn quiet" data-act="import">Restore from file</button>
+        </div>
+      </section>
+    </div>
+  </div>`;
+}
+
 /* ---------- Game ---------- */
 const SECTIONS = [['save','Save point'],['quests','Quests'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
 
@@ -563,7 +695,7 @@ function renderGame(g){
   const tint = paletteFor(g);
   return `
   <header class="hero">
-    <div class="hero-bg" style="background:radial-gradient(60% 80% at 20% 30%,${tint[1]}66,transparent 70%),radial-gradient(50% 70% at 70% 20%,${tint[0]},transparent 70%)"></div>
+    ${/^https:\/\//.test(g.hero) ? `<div class="hero-img" style="background-image:url('${esc(g.hero)}')"></div>` : `<div class="hero-bg" style="background:radial-gradient(60% 80% at 20% 30%,${tint[1]}66,transparent 70%),radial-gradient(50% 70% at 70% 20%,${tint[0]},transparent 70%)"></div>`}
     <div class="hero-in">
       ${coverHTML(g, {bar:false})}
       <div>
@@ -673,6 +805,13 @@ function secReview(g){
         <button class="sw auto ${g.tint < 0 ? 'on' : ''}" role="radio" aria-checked="${g.tint < 0}" data-act="tint" data-v="-1">Auto</button>
         ${PALETTES.map(([a,b], i) => `<button class="sw ${g.tint === i ? 'on' : ''}" role="radio" aria-checked="${g.tint === i}" aria-label="Color ${i + 1}" data-act="tint" data-v="${i}" style="background:linear-gradient(135deg,${a} 45%,${b})"></button>`).join('')}
       </div></div>
+      <div class="field"><label>Cover art</label>
+        <div class="actions" style="margin:0"><button class="btn quiet sm" data-act="art-open">Find cover on Steam</button>${g.cover ? '<button class="btn quiet sm" data-act="art-clear">Use generated cover</button>' : ''}</div>
+        ${view.art ? `<div class="artpick">
+          <div class="adder" style="margin:0"><input type="search" id="artQ" value="${esc(view.art.q)}" aria-label="Search Steam"><button class="btn quiet sm" data-act="art-search">Search</button></div>
+          ${view.art.loading ? '<p class="muted" style="margin:0">Searching Steam</p>' : view.art.err ? `<p class="err">${esc(view.art.err)}</p>` : view.art.results ? (view.art.results.length ? `<div class="artgrid">${view.art.results.map((r, i) => `<button data-act="art-pick" data-i="${i}" aria-label="Use ${esc(r.name)}"><img src="${esc(r.cover || r.header || r.thumb)}" alt="" loading="lazy"><span>${esc(r.name)}</span></button>`).join('')}</div>` : '<p class="muted" style="margin:0">No matches. Try a shorter title.</p>') : ''}
+        </div>` : ''}
+      </div>
       <div class="field"><label for="f-cover">Cover image link</label><input type="url" id="f-cover" data-f="cover" data-rerender-blur="1" value="${esc(g.cover)}" placeholder="https://… (leave empty for a generated cover)"></div>
       <div style="margin-top:8px"><button class="btn danger sm" data-act="delete-game">Delete game</button></div>
     </section>
@@ -684,7 +823,7 @@ function render(){
   renderChrome();
   const g = view.gameId && game(view.gameId);
   if (view.gameId && !g) view.gameId = null;
-  document.getElementById('app').innerHTML = g ? renderGame(g) : view.tab === 'continue' ? renderContinue() : renderLibrary();
+  document.getElementById('app').innerHTML = g ? renderGame(g) : view.tab === 'continue' ? renderContinue() : view.tab === 'sync' ? renderSync() : renderLibrary();
   document.title = g ? `${g.title} · Game Log` : 'Game Log';
 }
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -695,6 +834,12 @@ function go(fn){
 let toastT;
 function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200); }
 
+async function doArtSearch(){
+  const a = view.art; if (!a || !a.q) return;
+  a.loading = true; a.err = ''; render();
+  try { a.results = await steamSearch(a.q); } catch(e) { a.err = `Search failed: ${e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message}`; }
+  a.loading = false; if (view.art === a) render();
+}
 function setPath(obj, path, val){ const k = path.split('.'); let o = obj; while (k.length > 1) o = o[k.shift()]; o[k[0]] = val; }
 function listFor(g, kind, layer){ return kind === 'miss' ? g.missables : g.layers[layer].items; }
 function current(el){ return game((el && el.dataset.game) || view.gameId); }
@@ -718,11 +863,23 @@ document.addEventListener('click', e => {
   const g = current(el);
   switch (a) {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0); break;
-    case 'open': go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); break;
+    case 'open': view.art = null; go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); break;
     case 'back': go(() => { view.gameId = null; }); window.scrollTo(0,0); break;
-    case 'section': view.section = el.dataset.s; render(); break;
+    case 'section': view.section = el.dataset.s; view.art = null; render(); break;
     case 'filter': view.filter = el.dataset.f; render(); break;
     case 'add-game': addGame(); break;
+    case 'sync-save': {
+      const u = document.getElementById('s-url').value.trim(), k = document.getElementById('s-key').value.trim();
+      if (!/^https:\/\//.test(u) || !k) { setStatus(syncStatus, 'enter the Worker URL (starting with https://) and the sync key'); return; }
+      sync.url = u; sync.key = k; saveSyncCfg(); syncStatus = 'idle'; render(); pull(); break; }
+    case 'sync-now': pull(); break;
+    case 'sync-off': sync = {}; saveSyncCfg(); syncStatus = 'off'; render(); toast('Sync turned off on this device'); break;
+    case 'art-open':
+      if (!syncOn()) { toast('Connect sync first. Cover search runs through your Worker'); return; }
+      view.art = {q:g.title, results:null}; render(); doArtSearch(); break;
+    case 'art-search': view.art.q = document.getElementById('artQ').value.trim(); doArtSearch(); break;
+    case 'art-pick': applyArt(g, view.art.results[+el.dataset.i]); view.art = null; save(); render(); toast('Cover updated'); break;
+    case 'art-clear': g.cover = ''; g.hero = ''; g.artTried = true; save(); render(); break;
     case 'tint': g.tint = +el.dataset.v; save(); render(); break;
     case 'rate': { const v = +el.dataset.v; g.rating = g.rating === v ? 0 : v; save(); render(); break; }
     case 'del': { const L = listFor(g, el.dataset.kind, el.dataset.layer); L.splice(L.findIndex(i => i.id === el.dataset.id), 1); save(); render(); break; }
@@ -778,6 +935,7 @@ document.addEventListener('keydown', e => {
   const el = e.target;
   if (el.id === 'newTitle') addGame();
   else if (el.dataset.enter === 'add') addItem(el.dataset.kind, el.dataset.layer);
+  else if (el.id === 'artQ') document.querySelector('[data-act="art-search"]').click();
   else if (el.id === 'relName' || el.id === 'relDate') document.querySelector('[data-act="add-rel"]').click();
 });
 
@@ -794,6 +952,8 @@ document.getElementById('importFile').addEventListener('change', async e => {
 });
 
 render();
+pull();
+setInterval(() => document.querySelectorAll('[data-sync-status]').forEach(el => el.textContent = syncText()), 30000);
 </script>
 </body>
 </html>
