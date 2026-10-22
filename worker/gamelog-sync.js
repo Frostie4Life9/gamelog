@@ -1,5 +1,5 @@
 /* =========================================================
-   Game Log — sync + Steam art endpoint
+   Game Log — sync + Steam data endpoint
    Cloudflare Worker + KV. Same setup pattern as protocol-sync.
 
    SETUP (dashboard)
@@ -15,12 +15,33 @@
                                         (steamcommunity.com/dev/apikey)
         Type: Text     Name: STEAM_ID   Value: your SteamID64 (7656119...)
                                         or your custom profile name
-   5. Deploy again, then paste the Worker URL and the secret into
+   5. Settings > Trigger Events > Add > Cron Triggers
+        Schedule: 0,30 * * * *     (every 30 minutes, on :00 and :30)
+      This is the background refresher. Without it, Steam data still
+      loads, but only when you open a game.
+   6. Deploy again, then paste the Worker URL and the secret into
       Game Log's Sync panel.
-   6. Steam > Profile > Edit Profile > Privacy Settings:
+   7. Steam > Profile > Edit Profile > Privacy Settings:
         Game details = Public  (the Web API can't read playtime otherwise)
 
+   Optional: Type: Text  Name: STEAM_BUDGET  Value: 40
+      How many Steam calls one background run may make. The free plan
+      allows 50 per run, so 40 leaves headroom. On the paid plan you can
+      raise it (e.g. 150) and the first fill finishes much faster.
+      Going much higher risks Steam rate-limiting the store API.
+
    Opening the URL in a browser should return {"error":"unauthorized"}.
+
+   HOW STEAM DATA STAYS CURRENT
+   Every game's store page, achievements and news are saved in KV under
+   one key per game ("g:<appid>"). Requests are answered from that copy
+   while it's fresh and only go to Steam when it's stale. The cron run
+   refreshes your owned-games list, then works through whatever is
+   missing or stale (never-loaded games first, then most recently
+   played), stopping when it hits its call budget. It picks up where it
+   left off next run. A small index ("idx") holds per-game timestamps and
+   summaries so the app can show achievement progress and "New since you
+   left" for the whole library with one request.
 
    ROUTES (all need the x-sync-key header)
    GET  /                 -> the saved library JSON (or null)
@@ -29,26 +50,19 @@
                              overwrite fresher data. The previous copy is
                              kept under "state-prev" as a safety net.
    GET  /steam/search?q=  -> up to 6 Steam matches with cover art URLs
-   GET  /steam/library?limit=10
-                          -> your most recently played Steam games
-                             (demos and playtests left out), newest
-                             first, with playtime and cover art
-   GET  /steam/achievements?appid=
-                          -> every achievement for one game: name,
-                             description, icon, hidden flag, whether
-                             you've unlocked it (and when), and the
-                             share of all players who have it
-   GET  /steam/news?appid=&count=15
-                          -> recent patch notes and announcements for one
-                             game, newest first: title, link, date, a
-                             cleaned-up excerpt, and whether it looks like
-                             patch notes or general news
-   GET  /steam/store?appid=
-                          -> the game's Steam store page: description,
-                             developer/publisher, release date, genres,
-                             features, review score, Metacritic, price,
-                             PC requirements, languages, screenshots,
-                             trailers and DLC (names, dates, prices)
+   GET  /steam/library?limit=10   most recently played games
+   GET  /steam/library?all=1      every owned game (demos left out)
+   GET  /steam/achievements?appid=[&fresh=1]
+   GET  /steam/news?appid=&count=15[&fresh=1]
+   GET  /steam/store?appid=[&fresh=1]
+                          -> served from the cache when fresh;
+                             fresh=1 skips the cache
+   GET  /steam/summary    -> per-game achievement counts and recent news
+                             dates for the whole library, plus how much of
+                             the library is loaded and when the background
+                             refresher last ran
+   POST /steam/refresh    -> run one background batch now (at most once
+                             a minute)
    ========================================================= */
 
 const KEYNAME = 'state';
@@ -56,9 +70,17 @@ const PREV = 'state-prev';
 const MAX_BYTES = 1024 * 1024;
 const ASSET_BASE = 'https://shared.akamai.steamstatic.com/store_item_assets/';
 
+const MIN = 60000, HOUR = 60 * MIN, DAY = 24 * HOUR;
+const LIB_MAX_AGE = 10 * MIN;            // owned-games list
+const KINDS = ['store', 'ach', 'news'];
+const COST = { store: 4, ach: 3, news: 1 }; // worst-case Steam calls per refresh
+const DEMAND_TTL = { store: 3 * DAY, ach: 30 * MIN, news: HOUR }; // when you open a game
+const RETRY_AFTER_ERROR = 2 * HOUR;
+const DEFAULT_BUDGET = 40;
+
 const CORS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, PUT, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, PUT, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'content-type, x-sync-key',
   'Access-Control-Max-Age': '86400'
 };
@@ -70,6 +92,10 @@ function reply(body, status) {
   });
 }
 
+class StErr extends Error {
+  constructor(msg, status) { super(msg); this.status = status || 502; }
+}
+
 function keyMatches(given, want) {
   let ok = given.length === want.length;
   for (let i = 0; i < Math.max(given.length, want.length); i++) {
@@ -78,113 +104,167 @@ function keyMatches(given, want) {
   return ok;
 }
 
-/* Steam's newer art lives at hashed paths, so the filename has to be
-   looked up rather than guessed. GetItems returns it; appdetails is the
-   fallback for the landscape header. */
-async function steamArt(ids) {
-  const out = {};
-  try {
-    const input = { ids: ids.map(appid => ({ appid })), context: { language: 'english', country_code: 'US' }, data_request: { include_assets: true, include_basic_info: true } };
-    const r = await fetch('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input)));
-    const j = await r.json();
-    for (const it of (j.response && j.response.store_items) || []) {
-      const a = it.assets;
-      if (!a || !a.asset_url_format) { out[it.appid] = { type: it.type, name: it.name, cover: '', hero: '' }; continue; }
-      const u = f => f ? ASSET_BASE + a.asset_url_format.replace('${FILENAME}', f) : '';
-      out[it.appid] = {
-        type: it.type, name: it.name,
-        cover: u(a.library_capsule_2x || a.library_capsule),
-        hero: u(a.library_hero_2x || a.library_hero),
-        header: u(a.header)
-      };
+/* ---------- Counted fetch ----------
+   Every Steam call goes through net.get so a background run can stop
+   before Cloudflare's per-run subrequest limit. */
+function makeNet(budget) {
+  const net = {
+    used: 0, budget: budget || Infinity,
+    left() { return net.budget - net.used; },
+    async get(u) {
+      net.used++;
+      const r = await fetch(u);
+      if (r.status === 429) throw new StErr('Steam is rate-limiting requests right now', 429);
+      let j = null; try { j = await r.json(); } catch (e) {}
+      return { status: r.status, ok: r.ok, j };
     }
-  } catch (e) { /* fall through to appdetails */ }
-  await Promise.all(ids.filter(id => !out[id] || !out[id].cover).map(async id => {
+  };
+  return net;
+}
+
+async function kvJSON(env, key) {
+  const s = await env.STATE.get(key);
+  if (!s) return null;
+  try { return JSON.parse(s); } catch (e) { return null; }
+}
+const kvPut = (env, key, val) => env.STATE.put(key, JSON.stringify(val));
+
+/* ---------- Art ----------
+   Steam's newer art lives at hashed paths, so the filename has to be
+   looked up rather than guessed. GetItems returns it in batches. */
+async function steamArt(net, ids) {
+  const out = {};
+  for (let i = 0; i < ids.length; i += 50) {
+    const chunk = ids.slice(i, i + 50);
+    if (net.left() < 1) break;
     try {
-      const r = await fetch(`https://store.steampowered.com/api/appdetails?appids=${id}&filters=basic`);
-      const j = await r.json();
-      const d = j[id] && j[id].success && j[id].data;
-      if (d && d.header_image) out[id] = Object.assign({ cover: '', hero: '' }, out[id], { header: d.header_image });
-    } catch (e) {}
-  }));
+      const input = { ids: chunk.map(appid => ({ appid })), context: { language: 'english', country_code: 'US' }, data_request: { include_assets: true, include_basic_info: true } };
+      const { j } = await net.get('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input)));
+      for (const id of chunk) out[id] = { cover: '', hero: '', header: '' }; // asked, even if Steam has nothing
+      for (const it of (j && j.response && j.response.store_items) || []) {
+        const a = it.assets;
+        const u = f => f && a && a.asset_url_format ? ASSET_BASE + a.asset_url_format.replace('${FILENAME}', f) : '';
+        out[it.appid] = {
+          type: it.type, name: it.name,
+          cover: u(a && (a.library_capsule_2x || a.library_capsule)),
+          hero: u(a && (a.library_hero_2x || a.library_hero)),
+          header: u(a && a.header)
+        };
+      }
+    } catch (e) { if (e.status === 429) throw e; }
+  }
   return out;
 }
 
+// appdetails fallback for a landscape header when GetItems had no art
+async function headerFallback(net, ids, max) {
+  const out = {};
+  for (const id of ids.slice(0, max)) {
+    if (net.left() < 1) break;
+    try {
+      const { j } = await net.get(`https://store.steampowered.com/api/appdetails?appids=${id}&filters=basic`);
+      const d = j && j[id] && j[id].success && j[id].data;
+      out[id] = (d && d.header_image) || '';
+    } catch (e) { if (e.status === 429) throw e; out[id] = ''; }
+  }
+  return out;
+}
 
 /* ---------- Steam library ---------- */
 const DEMO_TYPE = 1; // EStoreAppType: 0 game, 1 demo, 4 DLC, 6 tool ...
 const DEMO_NAME = /\b(demo|playtest|prologue demo|benchmark)\b/i;
+const isDemo = g => g.type === DEMO_TYPE || DEMO_NAME.test(g.name || '');
 
-async function steamId64(env) {
+function needSteam(env) {
+  if (!env.STEAM_KEY) throw new StErr('server not configured: missing STEAM_KEY', 500);
+  if (!env.STEAM_ID) throw new StErr('server not configured: missing STEAM_ID', 500);
+}
+
+async function steamId64(env, net) {
   const raw = String(env.STEAM_ID || '').trim()
     .replace(/^https?:\/\/steamcommunity\.com\/(id|profiles)\//i, '').replace(/\/+$/, '');
   if (/^\d{17}$/.test(raw)) return raw;
-  const r = await fetch(`https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=${env.STEAM_KEY}&vanityurl=${encodeURIComponent(raw)}`);
-  const j = await r.json();
-  if (j.response && j.response.success === 1) return j.response.steamid;
-  throw new Error(`couldn't find a Steam profile called "${raw}". Set STEAM_ID to your SteamID64 or custom profile name`);
+  const saved = await kvJSON(env, 'sid');
+  if (saved && saved.raw === raw && saved.id) return saved.id;
+  const { j } = await net.get(`https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=${env.STEAM_KEY}&vanityurl=${encodeURIComponent(raw)}`);
+  if (j && j.response && j.response.success === 1) { await kvPut(env, 'sid', { raw, id: j.response.steamid }); return j.response.steamid; }
+  throw new StErr(`couldn't find a Steam profile called "${raw}". Set STEAM_ID to your SteamID64 or custom profile name`, 400);
 }
 
-async function steamLibrary(env, limit) {
-  if (!env.STEAM_KEY) return reply({ error: 'server not configured: missing STEAM_KEY' }, 500);
-  if (!env.STEAM_ID) return reply({ error: 'server not configured: missing STEAM_ID' }, 500);
-  let sid;
-  try { sid = await steamId64(env); } catch (e) { return reply({ error: e.message }, 400); }
+/* Owned games, cached as "lib". Art is looked up once per new game and
+   carried forward, so a refresh normally costs one Steam call. */
+async function getLib(env, net, maxAge) {
+  const lib = await kvJSON(env, 'lib');
+  if (lib && Date.now() - lib.t < maxAge) return lib;
+  needSteam(env);
+  const sid = await steamId64(env, net);
+  const r = await net.get(`https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${env.STEAM_KEY}&steamid=${sid}&include_appinfo=1&include_played_free_games=1&skip_unvetted_apps=0&format=json`);
+  if (r.status === 401 || r.status === 403) throw new StErr('Steam rejected the API key. Check STEAM_KEY', 502);
+  if (!r.ok) throw new StErr(`Steam returned ${r.status}`, 502);
+  const owned = (r.j && r.j.response && r.j.response.games) || null;
+  if (!owned) throw new StErr('Steam returned no games. Set Steam > Privacy Settings > Game details to Public', 403);
 
-  const r = await fetch(`https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${env.STEAM_KEY}&steamid=${sid}&include_appinfo=1&include_played_free_games=1&skip_unvetted_apps=0&format=json`);
-  if (r.status === 401 || r.status === 403) return reply({ error: 'Steam rejected the API key. Check STEAM_KEY' }, 502);
-  if (!r.ok) return reply({ error: `Steam returned ${r.status}` }, 502);
-  const j = await r.json();
-  const owned = (j.response && j.response.games) || null;
-  if (!owned) return reply({ error: 'Steam returned no games. Set Steam > Privacy Settings > Game details to Public' }, 403);
+  const prev = {};
+  for (const g of (lib && lib.games) || []) prev[g.id] = g;
+  const newIds = owned.map(g => g.appid).filter(id => !prev[id] || !prev[id].artDone);
+  const art = newIds.length ? await steamArt(net, newIds) : {};
+  const noArt = newIds.filter(id => !(art[id] && (art[id].cover || art[id].header)));
+  const hdr = noArt.length ? await headerFallback(net, noArt, 8) : {};
 
-  // Take extra candidates so demos can be dropped and still leave `limit` games
-  const recent = owned.filter(g => g.rtime_last_played > 0)
-    .sort((a, b) => b.rtime_last_played - a.rtime_last_played)
-    .filter(g => !DEMO_NAME.test(g.name || ''))
-    .slice(0, limit * 3);
-  const art = await steamArt(recent.map(g => g.appid));
-  const out = recent
-    .filter(g => !(art[g.appid] && art[g.appid].type === DEMO_TYPE))
-    .slice(0, limit)
-    .map(g => {
-      const a = art[g.appid] || {};
-      return {
-        id: g.appid, name: g.name,
-        minutes: g.playtime_forever || 0,
-        recentMinutes: g.playtime_2weeks || 0,
-        lastPlayed: g.rtime_last_played,
-        cover: a.cover || '', hero: a.hero || '', header: a.header || ''
-      };
-    });
-  return reply(out);
+  const games = owned.map(o => {
+    const p = prev[o.appid] || {};
+    const a = art[o.appid];
+    const g = {
+      id: o.appid, name: o.name,
+      minutes: o.playtime_forever || 0,
+      recentMinutes: o.playtime_2weeks || 0,
+      lastPlayed: o.rtime_last_played || 0,
+      type: a && a.type !== undefined ? a.type : p.type,
+      cover: (a && a.cover) || p.cover || '',
+      hero: (a && a.hero) || p.hero || '',
+      header: (a && a.header) || hdr[o.appid] || p.header || '',
+      artDone: !!(p.artDone || (a && (a.cover || a.header)) || o.appid in hdr)
+    };
+    return g;
+  });
+  const next = { t: Date.now(), games };
+  // Only write when something changed, to save KV writes
+  const sig = x => (x.games || []).map(g => [g.id, g.minutes, g.lastPlayed, g.artDone ? 1 : 0].join(':')).join('|');
+  if (!lib || sig(lib) !== sig(next) || Date.now() - lib.t > 6 * HOUR) await kvPut(env, 'lib', next);
+  return next;
 }
 
-/* ---------- Steam achievements ---------- */
-async function getJSON(u) {
-  const r = await fetch(u);
-  let j = null; try { j = await r.json(); } catch (e) {}
-  return { status: r.status, ok: r.ok, j };
+const libOut = g => ({ id: g.id, name: g.name, minutes: g.minutes, recentMinutes: g.recentMinutes, lastPlayed: g.lastPlayed, cover: g.cover, hero: g.hero, header: g.header });
+
+async function steamLibrary(env, opts) {
+  const net = makeNet();
+  const lib = await getLib(env, net, LIB_MAX_AGE);
+  let games = lib.games.filter(g => !isDemo(g));
+  if (opts.all) {
+    games.sort((a, b) => b.lastPlayed - a.lastPlayed || a.name.localeCompare(b.name));
+  } else {
+    games = games.filter(g => g.lastPlayed > 0).sort((a, b) => b.lastPlayed - a.lastPlayed).slice(0, opts.limit);
+  }
+  return games.map(libOut);
 }
 
-async function steamAchievements(env, appid) {
-  if (!env.STEAM_KEY || !env.STEAM_ID) return reply({ error: 'server not configured: missing STEAM_KEY or STEAM_ID' }, 500);
-  if (!/^\d+$/.test(appid)) return reply({ error: 'appid must be a number' }, 400);
-  let sid;
-  try { sid = await steamId64(env); } catch (e) { return reply({ error: e.message }, 400); }
+/* ---------- Achievements ---------- */
+async function achData(env, net, appid) {
+  needSteam(env);
+  const sid = await steamId64(env, net);
   const K = env.STEAM_KEY;
-  const [schema, mine, global] = await Promise.all([
-    getJSON(`https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${K}&appid=${appid}&l=english`),
-    getJSON(`https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=${K}&steamid=${sid}&appid=${appid}`),
-    getJSON(`https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2/?gameid=${appid}`)
-  ]);
+  const schema = await net.get(`https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${K}&appid=${appid}&l=english`);
   const defs = (schema.j && schema.j.game && schema.j.game.availableGameStats && schema.j.game.availableGameStats.achievements) || [];
-  if (!defs.length) return reply({ appid: +appid, total: 0, unlocked: 0, items: [] });
+  if (!defs.length) return { appid: +appid, total: 0, unlocked: 0, items: [] };
+  const [mine, global] = await Promise.all([
+    net.get(`https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=${K}&steamid=${sid}&appid=${appid}`),
+    net.get(`https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2/?gameid=${appid}`)
+  ]);
 
   const ps = mine.j && mine.j.playerstats;
   if (!ps || ps.success === false) {
     const msg = (ps && ps.error) || '';
-    if (mine.status === 403 || /private/i.test(msg)) return reply({ error: 'Steam says your game details are private. Set Privacy Settings > Game details to Public' }, 403);
+    if (mine.status === 403 || /private/i.test(msg)) throw new StErr('Steam says your game details are private. Set Privacy Settings > Game details to Public', 403);
     // Owned games with stats but no player record yet: treat as nothing unlocked
   }
   const got = {};
@@ -201,10 +281,10 @@ async function steamAchievements(env, appid) {
       pct: pct[d.name] !== undefined ? pct[d.name] : null
     };
   });
-  return reply({ appid: +appid, total: items.length, unlocked: items.filter(i => i.done).length, items });
+  return { appid: +appid, total: items.length, unlocked: items.filter(i => i.done).length, items };
 }
 
-/* ---------- Steam news / patch notes ---------- */
+/* ---------- News / patch notes ---------- */
 const BB_TAGS = 'h[1-6]|b|i|u|s|strike|url|list|olist|quote|code|spoiler|noparse|hr|table|tr|td|th|p|center|\\*';
 const BB_OPEN_CLOSE = new RegExp('\\[\\/?(?:' + BB_TAGS + ')(?:=[^\\]]*)?\\]', 'gi');
 const PATCH_TITLE = /\b(patch|hotfix|hot fix|update|changelog|change log|release notes|bug ?fix(?:es)?|v?\d+\.\d+(?:\.\d+)?)\b/i;
@@ -233,14 +313,13 @@ function excerpt(text, max) {
 }
 
 const OFFICIAL_FEED = 'steam_community_announcements';
+const NEWS_KEEP = 30;
 
-async function steamNews(appid, count) {
-  if (!/^\d+$/.test(appid)) return reply({ error: 'appid must be a number' }, 400);
-  const r = await fetch(`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${appid}&count=${count}&maxlength=0&feeds=${OFFICIAL_FEED}&format=json`);
-  if (!r.ok) return reply({ error: `Steam returned ${r.status}` }, 502);
-  const j = await r.json();
+async function newsData(net, appid) {
+  const r = await net.get(`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${appid}&count=${NEWS_KEEP}&maxlength=0&feeds=${OFFICIAL_FEED}&format=json`);
+  if (!r.ok) throw new StErr(`Steam returned ${r.status}`, 502);
   // Steam also mixes in third-party sites that mention the game, so keep only the developer's own posts
-  const raw = ((j.appnews && j.appnews.newsitems) || []).filter(n => n.feedname === OFFICIAL_FEED);
+  const raw = ((r.j && r.j.appnews && r.j.appnews.newsitems) || []).filter(n => n.feedname === OFFICIAL_FEED);
   const items = raw.map(n => {
     const body = cleanBB(n.contents);
     const ex = excerpt(body, 520);
@@ -254,10 +333,10 @@ async function steamNews(appid, count) {
       excerpt: ex.text, more: ex.more
     };
   }).sort((a, b) => b.date - a.date);
-  return reply({ appid: +appid, items });
+  return { appid: +appid, items };
 }
 
-/* ---------- Steam store page ---------- */
+/* ---------- Store page ---------- */
 function htmlText(s) {
   return String(s || '')
     .replace(/<br\s*\/?>/gi, '\n')
@@ -285,15 +364,14 @@ function trailerSrc(m) {
   return { mp4: pick(m.mp4), webm: pick(m.webm), hls: m.hls_h264 || '' };
 }
 
-async function steamStore(appid) {
-  if (!/^\d+$/.test(appid)) return reply({ error: 'appid must be a number' }, 400);
+async function storeData(net, appid) {
   const [det, rev] = await Promise.all([
-    getJSON(`https://store.steampowered.com/api/appdetails?appids=${appid}&l=english&cc=US`),
-    getJSON(`https://store.steampowered.com/appreviews/${appid}?json=1&language=all&purchase_type=all&num_per_page=0&filter=summary`)
+    net.get(`https://store.steampowered.com/api/appdetails?appids=${appid}&l=english&cc=US`),
+    net.get(`https://store.steampowered.com/appreviews/${appid}?json=1&language=all&purchase_type=all&num_per_page=0&filter=summary`)
   ]);
-  if (!det.ok) return reply({ error: `Steam returned ${det.status}` }, 502);
+  if (!det.ok) throw new StErr(`Steam returned ${det.status}`, 502);
   const d = det.j && det.j[appid] && det.j[appid].success && det.j[appid].data;
-  if (!d) return reply({ error: 'Steam has no store page for this game (it may be delisted or region-locked)' }, 404);
+  if (!d) throw new StErr('Steam has no store page for this game (it may be delisted or region-locked)', 404);
 
   const qs = rev.j && rev.j.query_summary;
   const reviews = qs && qs.total_reviews ? {
@@ -312,8 +390,8 @@ async function steamStore(appid) {
   if (dlcIds.length) {
     const input = { ids: dlcIds.map(id => ({ appid: id })), context: { language: 'english', country_code: 'US' }, data_request: { include_basic_info: true, include_release: true } };
     const [items, prices] = await Promise.all([
-      getJSON('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input))),
-      getJSON(`https://store.steampowered.com/api/appdetails?appids=${dlcIds.join(',')}&filters=price_overview&cc=US`)
+      net.get('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input))),
+      net.get(`https://store.steampowered.com/api/appdetails?appids=${dlcIds.join(',')}&filters=price_overview&cc=US`)
     ]);
     const byId = {};
     for (const it of (items.j && items.j.response && items.j.response.store_items) || []) byId[it.appid || it.id] = it;
@@ -332,7 +410,7 @@ async function steamStore(appid) {
   }
 
   const about = htmlText(d.about_the_game || d.detailed_description);
-  return reply({
+  return {
     appid: +appid, name: d.name || '', type: d.type || '',
     short: htmlText(d.short_description),
     about: about.length > 6000 ? about.slice(0, 6000).replace(/\s+\S*$/, '') + '…' : about,
@@ -355,7 +433,184 @@ async function steamStore(appid) {
     shots: (d.screenshots || []).slice(0, 12).map(s => ({ thumb: s.path_thumbnail, full: s.path_full })),
     trailers: (d.movies || []).slice(0, 4).map(m => Object.assign({ name: m.name || 'Trailer', thumb: m.thumbnail || '' }, trailerSrc(m))),
     dlc, dlcTotal: (d.dlc || []).length
-  });
+  };
+}
+
+const FETCHERS = {
+  store: (env, net, id) => storeData(net, id),
+  ach: (env, net, id) => achData(env, net, id),
+  news: (env, net, id) => newsData(net, id)
+};
+
+/* ---------- Cache ----------
+   g:<appid>  = { store:{t,d,e}, ach:{t,d,e}, news:{t,d,e} }
+   idx        = { <appid>: { store:t, ach:t, news:t, at, ad, al, nd, se } }
+                timestamps of the last attempt plus a small summary */
+function summarize(entry, kind, rec) {
+  if (kind === 'ach' && rec.d) {
+    const last = rec.d.items.filter(i => i.done && i.time).sort((a, b) => b.time - a.time)[0];
+    entry.at = rec.d.total; entry.ad = rec.d.unlocked;
+    entry.al = last ? { name: last.name, time: last.time } : null;
+  }
+  if (kind === 'news' && rec.d) entry.nd = rec.d.items.slice(0, 8).map(i => i.date);
+  if (kind === 'store') entry.se = rec.e && !rec.d ? 1 : 0;
+}
+
+// Background TTLs: busier games refresh more often
+function bgTTL(kind, g, entry) {
+  const age = g.lastPlayed ? Date.now() - g.lastPlayed * 1000 : Infinity;
+  if (kind === 'store') return 7 * DAY;
+  if (kind === 'ach') {
+    if (entry.at === 0) return 14 * DAY;           // no achievements
+    if (age < 14 * DAY) return 6 * HOUR;
+    return g.lastPlayed ? 3 * DAY : 14 * DAY;       // achievements only change when you play
+  }
+  if (age < 90 * DAY) return 6 * HOUR;               // news
+  return g.lastPlayed ? DAY : 3 * DAY;
+}
+
+async function refreshKind(env, net, appid, kind, rec) {
+  try {
+    rec[kind] = { t: Date.now(), d: await FETCHERS[kind](env, net, appid) };
+  } catch (e) {
+    if (e.status === 429 || e.status === 500) throw e;
+    // keep the last good copy; try again in a couple of hours (store 404s wait the full week)
+    const prev = rec[kind] || {};
+    rec[kind] = { t: Date.now(), d: prev.d || null, e: e.message, retry: e.status === 404 ? 0 : RETRY_AFTER_ERROR };
+  }
+  return rec[kind];
+}
+
+// Serve one kind for one game, from the cache when it's fresh
+async function cached(env, appid, kind, fresh) {
+  if (!/^\d+$/.test(appid)) throw new StErr('appid must be a number', 400);
+  const key = 'g:' + appid;
+  const rec = (await kvJSON(env, key)) || {};
+  const c = rec[kind];
+  if (!fresh && c && c.d && Date.now() - c.t < DEMAND_TTL[kind]) return c.d;
+  const net = makeNet();
+  const r = await refreshKind(env, net, appid, kind, rec);
+  if (!r.d) throw new StErr(r.e || 'Steam request failed', /no store page/.test(r.e || '') ? 404 : 502);
+  await kvPut(env, key, rec);
+  const idx = (await kvJSON(env, 'idx')) || {};
+  const entry = idx[appid] = idx[appid] || {};
+  entry[kind] = r.t; summarize(entry, kind, r);
+  await kvPut(env, 'idx', idx);
+  return r.d;
+}
+
+/* ---------- Background batch ---------- */
+async function runBatch(env, why) {
+  const meta = (await kvJSON(env, 'meta')) || {};
+  const now = Date.now();
+  if (meta.pauseUntil && meta.pauseUntil > now) return { skipped: 'Steam asked us to slow down. Resuming soon' };
+  const net = makeNet(parseInt(env.STEAM_BUDGET, 10) || DEFAULT_BUDGET);
+  let done = 0, stopped = '';
+  const idx = (await kvJSON(env, 'idx')) || {};
+  let lib;
+  try {
+    lib = await getLib(env, net, 25 * MIN);
+    const games = lib.games.filter(g => !isDemo(g));
+    const queue = [];
+    for (const g of games) {
+      const entry = idx[g.id] || {};
+      const due = KINDS.filter(k => {
+        if (!entry[k]) return true;
+        const retry = entry[k + 'Retry'];
+        return now - entry[k] > (retry || bgTTL(k, g, entry));
+      });
+      if (due.length) queue.push({ g, due, missing: due.some(k => !entry[k]) });
+    }
+    // never-loaded games first, then most recently played
+    queue.sort((a, b) => (b.missing - a.missing) || (b.g.lastPlayed - a.g.lastPlayed));
+
+    outer:
+    for (const job of queue) {
+      if (net.left() < 1) break;
+      const key = 'g:' + job.g.id;
+      const rec = (await kvJSON(env, key)) || {};
+      const entry = idx[job.g.id] = idx[job.g.id] || {};
+      let changed = false;
+      for (const kind of job.due) {
+        if (net.left() < COST[kind]) { if (changed) await kvPut(env, key, rec); break outer; }
+        const r = await refreshKind(env, net, job.g.id, kind, rec);
+        entry[kind] = r.t;
+        if (r.retry) entry[kind + 'Retry'] = r.retry; else delete entry[kind + 'Retry'];
+        summarize(entry, kind, r);
+        changed = true; done++;
+      }
+      if (changed) await kvPut(env, key, rec);
+    }
+    meta.left = queue.reduce((n, j) => n + j.due.length, 0) - done;
+  } catch (e) {
+    stopped = e.message;
+    if (e.status === 429) meta.pauseUntil = now + 15 * MIN;
+  }
+  if (done) await kvPut(env, 'idx', idx);
+  meta.lastRun = now; meta.lastWhy = why; meta.lastDone = done; meta.lastCalls = net.used; meta.lastErr = stopped;
+  if (why === 'cron') meta.lastCron = now;
+  // Idle runs only check in every few hours, to save KV writes
+  if (done || stopped || why !== 'cron' || !meta.lastSaved || now - meta.lastSaved > 3 * HOUR) {
+    meta.lastSaved = now;
+    await kvPut(env, 'meta', meta);
+  }
+  return { done, calls: net.used, left: meta.left, error: stopped };
+}
+
+async function summary(env) {
+  const [idx, meta, lib] = await Promise.all([kvJSON(env, 'idx'), kvJSON(env, 'meta'), kvJSON(env, 'lib')]);
+  const games = ((lib && lib.games) || []).filter(g => !isDemo(g));
+  const I = idx || {};
+  const out = {};
+  let ready = 0;
+  for (const g of games) {
+    const e = I[g.id];
+    if (!e) continue;
+    if (KINDS.every(k => e[k])) ready++;
+    out[g.id] = { ach: e.at === undefined ? null : { total: e.at, done: e.ad, last: e.al || null }, news: e.nd || [], noStore: !!e.se };
+  }
+  const M = meta || {};
+  return {
+    owned: games.length, ready, left: M.left === undefined ? null : M.left,
+    lastRun: M.lastRun || 0, lastCron: M.lastCron || 0, lastErr: M.lastErr || '',
+    paused: M.pauseUntil && M.pauseUntil > Date.now() ? M.pauseUntil : 0,
+    games: out
+  };
+}
+
+/* ---------- Router ---------- */
+async function steamRoute(request, env, url) {
+  const p = url.pathname, q = k => (url.searchParams.get(k) || '').trim();
+  const fresh = q('fresh') === '1';
+
+  if (p === '/steam/search') {
+    const term = q('q');
+    if (!term) return [];
+    const net = makeNet();
+    const { j } = await net.get(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(term)}&l=english&cc=US`);
+    const items = ((j && j.items) || []).slice(0, 6);
+    const art = await steamArt(net, items.map(i => i.id));
+    return items.map(i => Object.assign({ id: i.id, name: i.name, thumb: i.tiny_image }, art[i.id] || {}));
+  }
+  if (p === '/steam/library') {
+    const limit = Math.max(1, Math.min(50, parseInt(q('limit'), 10) || 10));
+    return steamLibrary(env, { all: q('all') === '1', limit });
+  }
+  if (p === '/steam/achievements') return cached(env, q('appid'), 'ach', fresh);
+  if (p === '/steam/store') return cached(env, q('appid'), 'store', fresh);
+  if (p === '/steam/news') {
+    const count = Math.max(1, Math.min(NEWS_KEEP, parseInt(q('count'), 10) || 15));
+    const d = await cached(env, q('appid'), 'news', fresh);
+    return { appid: d.appid, items: d.items.slice(0, count) };
+  }
+  if (p === '/steam/summary') return summary(env);
+  if (p === '/steam/refresh') {
+    if (request.method !== 'POST') throw new StErr('use POST', 405);
+    const meta = (await kvJSON(env, 'meta')) || {};
+    if (meta.lastRun && Date.now() - meta.lastRun < MIN) return { done: 0, wait: true };
+    return runBatch(env, 'manual');
+  }
+  return undefined;
 }
 
 export default {
@@ -368,36 +623,13 @@ export default {
     const given = (request.headers.get('x-sync-key') || url.searchParams.get('k') || '').trim();
     if (!keyMatches(given, String(env.SECRET).trim())) return reply({ error: 'unauthorized' }, 401);
 
-    if (url.pathname === '/steam/search') {
-      const q = (url.searchParams.get('q') || '').trim();
-      if (!q) return reply([]);
-      const r = await fetch(`https://store.steampowered.com/api/storesearch/?term=${encodeURIComponent(q)}&l=english&cc=US`);
-      const j = await r.json();
-      const items = (j.items || []).slice(0, 6);
-      const art = await steamArt(items.map(i => i.id));
-      return reply(items.map(i => Object.assign({ id: i.id, name: i.name, thumb: i.tiny_image }, art[i.id] || {})));
-    }
-
-    if (url.pathname === '/steam/library') {
-      const limit = Math.max(1, Math.min(50, parseInt(url.searchParams.get('limit'), 10) || 10));
-      try { return await steamLibrary(env, limit); }
-      catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
-    }
-
-    if (url.pathname === '/steam/achievements') {
-      try { return await steamAchievements(env, (url.searchParams.get('appid') || '').trim()); }
-      catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
-    }
-
-    if (url.pathname === '/steam/news') {
-      const count = Math.max(1, Math.min(30, parseInt(url.searchParams.get('count'), 10) || 15));
-      try { return await steamNews((url.searchParams.get('appid') || '').trim(), count); }
-      catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
-    }
-
-    if (url.pathname === '/steam/store') {
-      try { return await steamStore((url.searchParams.get('appid') || '').trim()); }
-      catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
+    if (url.pathname.startsWith('/steam/')) {
+      try {
+        const out = await steamRoute(request, env, url);
+        return out === undefined ? reply({ error: 'not found' }, 404) : reply(out);
+      } catch (e) {
+        return reply({ error: e instanceof StErr ? e.message : 'Steam request failed: ' + e.message }, e.status || 502);
+      }
     }
 
     if (url.pathname !== '/') return reply({ error: 'not found' }, 404);
@@ -428,5 +660,11 @@ export default {
     }
 
     return reply({ error: 'method not allowed' }, 405);
+  },
+
+  // Cron Trigger: Settings > Trigger Events > Cron Triggers > every 30 minutes
+  async scheduled(event, env, ctx) {
+    if (!env.STATE) return;
+    ctx.waitUntil(runBatch(env, 'cron'));
   }
 };

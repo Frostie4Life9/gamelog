@@ -64,6 +64,7 @@ a{color:var(--gold)}
 .syncpage .panel{display:flex;flex-direction:column;gap:16px}
 .syncpage p{margin:0;color:var(--mist);max-width:60ch}
 .err{color:var(--rose);font-size:14px;min-height:1em}
+.steamstat{font-size:14px;color:var(--mist);margin:10px 0 0;line-height:1.5}
 .artpick{margin-top:4px;display:flex;flex-direction:column;gap:12px}
 .artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px}
 .artgrid button{border:2px solid transparent;border-radius:var(--r-sm);padding:0;background:var(--night);overflow:hidden;text-align:left;color:var(--paper)}
@@ -904,20 +905,20 @@ async function steamSearch(q){
   if (!r.ok) throw new Error(await readErr(r));
   return r.json();
 }
-async function steamLibrary(limit = 10){
-  const r = await api('/steam/library?limit=' + limit);
+async function steamLibrary(limit = 10, all = false){
+  const r = await api(all ? '/steam/library?all=1' : '/steam/library?limit=' + limit);
   if (!r.ok) throw new Error(await readErr(r));
   return r.json();
 }
 let importing = false;
-async function importSteam(){
+async function importSteam(all = false){
   if (!syncOn()) { toast('Connect sync first. Steam import runs through your Worker'); go(() => { view.tab = 'sync'; view.gameId = null; }); return; }
   if (importing) return;
-  importing = true; render();
+  importing = all ? 'all' : 'recent'; render();
   try {
-    const list = await steamLibrary(10);
+    const list = await steamLibrary(10, all);
     let added = 0, updated = 0;
-    const twoWeeks = Date.now() / 1000 - 14 * 86400;
+    const nowS = Date.now() / 1000, twoWeeks = nowS - 14 * 86400, halfYear = nowS - 182 * 86400;
     for (const s of list) {
       const hours = Math.round(s.minutes / 6) / 10;
       const last = s.lastPlayed ? localDate(new Date(s.lastPlayed * 1000)) : '';
@@ -929,16 +930,23 @@ async function importSteam(){
         updated++;
       } else {
         g = blankGame(s.name);
-        Object.assign(g, {steamId:s.id, hours, lastPlayed:last, status:s.lastPlayed > twoWeeks ? 'playing' : 'paused'});
+        // Recent: Playing. Played in the last ~6 months: Paused. Older or never played: Backlog
+        const st = s.lastPlayed > twoWeeks ? 'playing' : (!all || s.lastPlayed > halfYear) ? 'paused' : 'backlog';
+        Object.assign(g, {steamId:s.id, hours, lastPlayed:last, status:st});
         if (s.cover || s.header) applyArt(g, s); else g.artTried = true;
         state.games.push(g); added++;
       }
     }
     save(); render();
-    toast(added || updated ? `From Steam: ${added} added${updated ? `, ${updated} updated` : ''}. Loading achievements…` : 'Steam returned no recent games');
-    for (const s of list) {
+    const size = JSON.stringify(state).length;
+    if (size > 900 * 1024) toast(`Heads up: your library is ${Math.round(size / 1024)} KB, close to the 1 MB sync limit`);
+    else toast(added || updated ? `From Steam: ${added} added${updated ? `, ${updated} updated` : ''}. Details fill in automatically in the background` : 'Steam returned no games');
+    if (all) { try { await api('/steam/refresh', {method:'POST'}); } catch(e) {} }
+    await fetchSummary();
+    const fresh = list.filter(s => s.lastPlayed > twoWeeks).slice(0, 10);
+    for (const s of fresh) {
       const g = state.games.find(x => x.steamId === s.id);
-      if (g) { try { await fetchAch(g, {force:true, quiet:true}); } catch(e) { achLoading.delete(g.id); } }
+      if (g && !g.ach) { try { await fetchAch(g, {quiet:true}); } catch(e) { achLoading.delete(g.id); } }
     }
   } catch(e) {
     toast(`Steam import failed: ${e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message}`);
@@ -961,7 +969,7 @@ async function fetchAch(g, opts = {}){
   if (!opts.force && c && Date.now() - c.fetched < 30 * 60000) return;
   achLoading.add(g.id); if (!opts.quiet) render();
   try {
-    const r = await api('/steam/achievements?appid=' + g.steamId);
+    const r = await api('/steam/achievements?appid=' + g.steamId + (opts.force && !opts.quiet ? '&fresh=1' : ''));
     if (!r.ok) throw new Error(await readErr(r));
     const res = await r.json();
     achCache[g.steamId] = {fetched:Date.now(), items:res.items, err:''};
@@ -992,9 +1000,11 @@ function newsSince(g){
 }
 function newCount(g){
   if (!g.steamId || (g.status !== 'playing' && g.status !== 'paused')) return 0;
-  const c = newsCache[g.steamId], since = newsSince(g);
-  if (!c || !c.items || !since) return 0;
-  return c.items.filter(i => i.date > since).length;
+  const c = newsCache[g.steamId], s = steamSum.games && steamSum.games[g.steamId], since = newsSince(g);
+  if (!since) return 0;
+  // Dates from this device's cache plus the Worker's background summary
+  const dates = new Set([...((c && c.items) || []).map(i => i.date), ...((s && s.news) || [])]);
+  return [...dates].filter(d => d > since).length;
 }
 const newTag = (g, tag = 'span') => newCount(g)
   ? `<${tag} class="newtag" ${tag === 'button' ? 'data-act="section" data-s="news" aria-label="Open What\u2019s new"' : ''} title="${newCount(g)} post${newCount(g) > 1 ? 's' : ''} since you last played or checked">New since you left</${tag}>` : '';
@@ -1004,7 +1014,7 @@ async function fetchNews(g, opts = {}){
   if (!opts.force && c && !c.err && Date.now() - c.fetched < NEWS_TTL) return;
   newsLoading.add(g.id); if (!opts.quiet) render();
   try {
-    const r = await api('/steam/news?appid=' + g.steamId + '&count=15');
+    const r = await api('/steam/news?appid=' + g.steamId + '&count=15' + (opts.force ? '&fresh=1' : ''));
     if (r.status === 404) throw new Error('your Worker needs the updated gamelog-sync.js (paste it in and deploy)');
     if (!r.ok) throw new Error(await readErr(r));
     const res = await r.json();
@@ -1025,14 +1035,48 @@ function enterNews(g){
     }
   });
 }
-async function checkNews(){
+/* ---------- Library-wide Steam summary ----------
+   The Worker refreshes Steam data in the background and keeps a small
+   summary for every game: achievement counts and recent news dates. One
+   request updates progress rings and "New since you left" tags for the
+   whole library. Cached on this device. */
+const SUM_KEY = 'gamelog_steamsum';
+let steamSum = (() => { try { return JSON.parse(localStorage.getItem(SUM_KEY)) || {}; } catch(e) { return {}; } })();
+async function fetchSummary(){
   if (!syncOn()) return;
-  const todo = state.games.filter(g => g.steamId && (g.status === 'playing' || g.status === 'paused'))
-    .filter(g => { const c = newsCache[g.steamId]; return !c || Date.now() - c.fetched > NEWS_TTL; }).slice(0, 10);
-  let did = false;
-  for (const g of todo) { try { await fetchNews(g, {quiet:true}); did = true; } catch(e) { break; } }
+  try {
+    const r = await api('/steam/summary');
+    if (r.status === 404) return; // older Worker without the summary route
+    if (!r.ok) return;
+    steamSum = Object.assign(await r.json(), {fetched:Date.now()});
+    try { localStorage.setItem(SUM_KEY, JSON.stringify(steamSum)); } catch(e) {}
+  } catch(e) { return; }
+  let changed = false;
+  for (const g of state.games) {
+    const s = g.steamId && steamSum.games && steamSum.games[g.steamId];
+    if (!s || !s.ach) continue;
+    const a = s.ach, cur = g.ach;
+    if (!cur || cur.total !== a.total || cur.done !== a.done) { g.ach = {total:a.total, done:a.done, last:a.last || null}; changed = true; }
+  }
+  if (changed) save();
   const ae = document.activeElement;
-  if (did && !(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))) render();
+  if (!(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))) render();
+}
+const checkNews = fetchSummary;
+function agoText(ms){
+  const m = Math.round((Date.now() - ms) / 60000);
+  return m < 1 ? 'just now' : m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} d ago`;
+}
+function steamStatusHtml(){
+  const s = steamSum;
+  if (!syncOn() || !s.fetched || s.owned === undefined) return '';
+  const lines = [];
+  if (s.owned) lines.push(`<b>${s.ready} of ${s.owned}</b> Steam games fully loaded${s.ready < s.owned && s.left ? `. The rest fill in over the next few hours` : ''}`);
+  if (s.paused) lines.push('Steam asked the Worker to slow down, so it’s pausing for a few minutes');
+  else if (s.lastCron) lines.push(`Background refresh last ran ${agoText(s.lastCron)}`);
+  else lines.push('Background refresh isn’t set up yet. Add a Cron Trigger on the Worker (Settings > Trigger Events, schedule 0,30 * * * *). Until then, details load when you open a game');
+  if (s.lastErr) lines.push(`Last run stopped early: ${esc(s.lastErr)}`);
+  return `<p class="steamstat">${lines.join('<br>')}</p>`;
 }
 
 /* ---------- Store page ----------
@@ -1055,7 +1099,7 @@ async function fetchStore(g, opts = {}){
   if (!opts.force && c && c.data && Date.now() - c.fetched < STORE_TTL) return;
   storeLoading.add(g.steamId); render();
   try {
-    const r = await api('/steam/store?appid=' + g.steamId);
+    const r = await api('/steam/store?appid=' + g.steamId + (opts.force ? '&fresh=1' : ''));
     if (r.status === 404) {
       let msg = ''; try { msg = (await r.json()).error; } catch(e) {}
       throw new Error(msg && msg !== 'not found' ? msg : 'your Worker needs the updated gamelog-sync.js (paste it in and deploy)');
@@ -1327,10 +1371,13 @@ function renderSync(){
       </section>
       <section class="panel">
         <h2 class="h2" style="margin:0">Steam</h2>
-        <p>Pull your 10 most recently played Steam games, with playtime, last-played date and cover art. Demos are left out. Games already here get their hours and dates updated, and nothing you wrote is changed.</p>
+        <p>Pull your Steam games with playtime, last-played date and cover art. Demos are left out. Games already here get their hours and dates updated, and nothing you wrote is changed.</p>
+        <p>Importing the whole library sorts games by when you last played: the last two weeks go to Playing, the last six months to Paused, everything else to Backlog. Store pages, trailers, achievements and patch notes then fill in on their own and stay up to date.</p>
         <div class="actions" style="margin-top:0">
-          <button class="btn quiet" data-act="steam-import" ${importing || !syncOn() ? 'disabled' : ''}>${importing ? 'Importing…' : 'Import recent games'}</button>
+          <button class="btn" data-act="steam-import-all" ${importing || !syncOn() ? 'disabled' : ''}>${importing === 'all' ? 'Importing…' : 'Import whole library'}</button>
+          <button class="btn quiet" data-act="steam-import" ${importing || !syncOn() ? 'disabled' : ''}>${importing === 'recent' ? 'Importing…' : 'Import 10 recent games'}</button>
         </div>
+        ${steamStatusHtml()}
       </section>
       <section class="panel">
         <h2 class="h2" style="margin:0">Backups</h2>
@@ -1722,7 +1769,9 @@ document.addEventListener('click', e => {
   if (a === 'toggle') return; // checkbox: handled on change
   const g = current(el);
   switch (a) {
-    case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0); break;
+    case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0);
+      if (el.dataset.tab === 'sync' && Date.now() - (steamSum.fetched || 0) > 5 * 60000) fetchSummary();
+      break;
     case 'open': view.art = null; go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); { const og = game(el.dataset.id); if (og) fetchAch(og); } break;
     case 'back': go(() => { view.gameId = null; }); window.scrollTo(0,0); break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
@@ -1730,6 +1779,7 @@ document.addEventListener('click', e => {
     case 'add-game': addGame(); break;
     case 'launch': toast('Opening in Steam\u2026'); break; // the link itself does the launch
     case 'steam-import': importSteam(); break;
+    case 'steam-import-all': importSteam(true); break;
     case 'ach-filter': view.achFilter = el.dataset.v; render(); break;
     case 'ach-refresh': fetchAch(g, {force:true}); break;
     case 'news-filter': view.newsFilter = el.dataset.v; render(); break;
