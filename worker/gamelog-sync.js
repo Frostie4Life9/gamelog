@@ -19,6 +19,12 @@
         Schedule: 0,30 * * * *     (every 30 minutes, on :00 and :30)
       This is the background refresher. Without it, Steam data still
       loads, but only when you open a game.
+   5b. Add a SECOND Cron Trigger for play-time tracking:
+        Schedule: * * * * *        (every minute)
+      Each tick asks Steam whether you're in a game and logs when a game
+      opens and closes. It costs one Steam call a minute and only writes
+      to KV when a session starts or ends. Without it, Game Log still
+      works but can't time your sessions.
    6. Deploy again, then paste the Worker URL and the secret into
       Game Log's Sync panel.
    7. Steam > Profile > Edit Profile > Privacy Settings:
@@ -57,6 +63,9 @@
    GET  /steam/store?appid=[&fresh=1]
                           -> served from the cache when fresh;
                              fresh=1 skips the cache
+   GET  /steam/play       -> { now, sessions } what you're playing right
+                             now (or null) and your recent sessions, each
+                             { a: appid, n: name, s: start ms, e: end ms }
    GET  /steam/summary    -> per-game achievement counts and recent news
                              dates for the whole library, plus how much of
                              the library is loaded and when the background
@@ -578,6 +587,67 @@ async function summary(env) {
   };
 }
 
+
+/* ---------- Play sessions ----------
+   A once-a-minute cron asks Steam whether you're in a game. State lives in
+   KV under "play" (the open session) and "sessions" (finished ones). KV is
+   only written when a session opens or closes, so a day of playing costs a
+   handful of writes. Steam can briefly report "not in a game" while a game
+   is still running, so a session only closes after two quiet ticks in a
+   row; its end time is the first quiet tick, so it's accurate to ~1 min.
+   Works for anything Steam launches, including non-Steam shortcuts added
+   to Steam. Games started outside Steam aren't visible to it. Steam also
+   hides in-game status when your profile is Invisible/Offline or Game
+   details isn't Public. */
+const SESS_KEEP = 300;
+const MIN_SESSION = MIN;                 // shorter blips are ignored
+
+async function closeSession(env, play, end) {
+  if (end - play.s < MIN_SESSION) return;
+  const list = (await kvJSON(env, 'sessions')) || [];
+  list.push({ a: play.a, n: play.n, s: play.s, e: end });
+  await kvPut(env, 'sessions', list.slice(-SESS_KEEP));
+}
+
+async function checkPlaying(env) {
+  needSteam(env);
+  const now = Date.now();
+  const net = makeNet();
+  const sid = await steamId64(env, net);
+  const r = await net.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${env.STEAM_KEY}&steamids=${sid}`);
+  if (!r.ok) throw new StErr(`Steam returned ${r.status}`, 502);
+  const me = r.j && r.j.response && r.j.response.players && r.j.response.players[0];
+  if (!me) return { error: 'Steam returned no profile' };
+  const cur = await kvJSON(env, 'play');
+  const appid = me.gameid ? parseInt(me.gameid, 10) : 0;
+
+  if (appid) {
+    const name = me.gameextrainfo || '';
+    if (cur && cur.a === appid) {
+      if (cur.miss) { delete cur.miss; await kvPut(env, 'play', cur); }   // false alarm, still playing
+      return { playing: cur };
+    }
+    if (cur) await closeSession(env, cur, cur.miss || now);              // switched games
+    const open = { a: appid, n: name, s: now };
+    await kvPut(env, 'play', open);
+    return { playing: open };
+  }
+  if (!cur) return { playing: null };
+  if (!cur.miss) { cur.miss = now; await kvPut(env, 'play', cur); return { playing: cur }; }
+  await closeSession(env, cur, cur.miss);
+  await env.STATE.delete('play');
+  return { playing: null };
+}
+
+async function playData(env) {
+  const [cur, sessions] = await Promise.all([kvJSON(env, 'play'), kvJSON(env, 'sessions')]);
+  return {
+    now: cur ? { a: cur.a, n: cur.n, s: cur.s } : null,
+    sessions: (sessions || []).slice(-100),
+    t: Date.now()
+  };
+}
+
 /* ---------- Router ---------- */
 async function steamRoute(request, env, url) {
   const p = url.pathname, q = k => (url.searchParams.get(k) || '').trim();
@@ -603,6 +673,7 @@ async function steamRoute(request, env, url) {
     const d = await cached(env, q('appid'), 'news', fresh);
     return { appid: d.appid, items: d.items.slice(0, count) };
   }
+  if (p === '/steam/play') return playData(env);
   if (p === '/steam/summary') return summary(env);
   if (p === '/steam/refresh') {
     if (request.method !== 'POST') throw new StErr('use POST', 405);
@@ -662,9 +733,13 @@ export default {
     return reply({ error: 'method not allowed' }, 405);
   },
 
-  // Cron Trigger: Settings > Trigger Events > Cron Triggers > every 30 minutes
+  // Cron Triggers: 0,30 * * * * runs the background refresher; * * * * * is the
+  // per-minute play tracker. Every tick checks what you're playing, but only the
+  // slower schedule does the heavy refresh.
   async scheduled(event, env, ctx) {
     if (!env.STATE) return;
-    ctx.waitUntil(runBatch(env, 'cron'));
+    ctx.waitUntil(checkPlaying(env).catch(() => {}));
+    const everyMinute = /^(\*|\*\/1)( \*){4}$/.test(String(event.cron || '').trim());
+    if (!everyMinute) ctx.waitUntil(runBatch(env, 'cron'));
   }
 };

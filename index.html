@@ -743,6 +743,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.22-g', note:'EXACT PLAY TIMES + SESSIONS: Game Log now keeps the exact time you last played, not just the day, so two games from the same day sort in the right order. With the Worker\u2019s new once-a-minute check, it also notices when a Steam game opens and closes and shows how long each session ran. You need to paste the updated Worker and add its second cron schedule for that part (steps are at the top of the Worker file).'},
   {v:'2026.10.22-f', note:'REMEMBERS YOUR SORT: the Library now keeps whatever you last sorted by, like Recently played, and opens that way next time until you change it. It is remembered separately on each device.'},
   {v:'2026.10.22-e', note:'ONGOING GAMES: live service games like The Finals now have their own Ongoing status, so they stop pretending to be Playing. An Active, Dormant or Lapsed tag sets itself from your last played date: Active is within 14 days, Dormant is up to 90 days, Lapsed is longer. Tap I played today on the game\u2019s Save point page to keep it fresh. Ongoing games track a peak rank or milestone and seasons played instead of a finish line, and still get the New since you left tag for patches. Lapsed ones leave Continue on their own but stay in your Library.'},
   {v:'2026.10.22-d', note:'PLAY BUTTON: every Steam game now has a Play button next to its status. It opens the game through Steam on the PC you are using, so it shows up on computers only. The first time, your browser asks to open Steam; tick the box to always allow it.'},
@@ -780,7 +781,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d ? new Date(d + 'T00:00').toLocaleDateString(undefined, opts) : '';
 
 function blankGame(title){
-  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
+  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
     note:{where:'', next:'', recap:''}, review:'',
     layers:{story:{inFinish:true,items:[]}, power:{inFinish:false,items:[]}, checklist:{inFinish:false,items:[]}},
     missables:[], releases:[]};
@@ -796,6 +797,8 @@ function normalize(g){
   g.newsSeen = +g.newsSeen || 0;
   g.seasons = Math.max(0, Math.round(+g.seasons || 0));
   g.peak = String(g.peak || '');
+  g.lastPlayedAt = +g.lastPlayedAt || 0;
+  g.sessions = Array.isArray(g.sessions) ? g.sessions.filter(x => x && x.s && x.e) : [];
   if (!STATUSES.includes(g.status)) g.status = 'backlog';
   return g;
 }
@@ -894,6 +897,7 @@ async function pull(){
   syncBusy = false;
   autoArt();
   checkNews();
+  pullPlay();
 }
 function schedulePush(){ if (!syncOn()) return; clearTimeout(pushT); pushT = setTimeout(push, 1200); }
 async function push(){
@@ -929,17 +933,19 @@ async function importSteam(all = false){
     for (const s of list) {
       const hours = Math.round(s.minutes / 6) / 10;
       const last = s.lastPlayed ? localDate(new Date(s.lastPlayed * 1000)) : '';
+      const lastAt = s.lastPlayed ? s.lastPlayed * 1000 : 0;
       let g = state.games.find(x => x.steamId === s.id) || state.games.find(x => x.title.toLowerCase() === s.name.toLowerCase());
       if (g) {
         g.steamId = s.id; g.hours = Math.max(g.hours, hours);
-        if (last > (g.lastPlayed || '')) g.lastPlayed = last;
+        if (last > (g.lastPlayed || '')) { g.lastPlayed = last; g.lastPlayedAt = lastAt; }
+        else if (last && last === g.lastPlayed && lastAt > (g.lastPlayedAt || 0)) g.lastPlayedAt = lastAt;
         if (!g.cover && (s.cover || s.header)) applyArt(g, s);
         updated++;
       } else {
         g = blankGame(s.name);
         // Recent: Playing. Played in the last ~6 months: Paused. Older or never played: Backlog
         const st = s.lastPlayed > twoWeeks ? 'playing' : (!all || s.lastPlayed > halfYear) ? 'paused' : 'backlog';
-        Object.assign(g, {steamId:s.id, hours, lastPlayed:last, status:st});
+        Object.assign(g, {steamId:s.id, hours, lastPlayed:last, lastPlayedAt:lastAt, status:st});
         if (s.cover || s.header) applyArt(g, s); else g.artTried = true;
         state.games.push(g); added++;
       }
@@ -1176,6 +1182,55 @@ const SORTS = ['title','score','recent','progress'];
 const view = {tab:'continue', gameId:null, section:'save', filter:'all', q:'', sort:(() => { try { const v = localStorage.getItem(SORT_KEY); return SORTS.includes(v) ? v : 'title'; } catch(e) { return 'title'; } })(), art:null};
 const game = id => state.games.find(g => g.id === id);
 
+/* ---------- When did I last play? ----------
+   lastPlayed is a day; lastPlayedAt is the exact moment. The exact time only
+   counts while it falls on the same day, so editing the date by hand wins.
+   A game you're playing right now outranks everything. */
+let playNow = null;   // {a: appid, n: name, s: start ms} from the Worker
+const storedKey = g => {
+  if (!g.lastPlayed) return 0;
+  const at = g.lastPlayedAt || 0;
+  if (at && localDate(new Date(at)) === g.lastPlayed) return at;
+  return new Date(g.lastPlayed + 'T12:00:00').getTime();
+};
+const playedKey = g => (playNow && g.steamId && playNow.a === g.steamId) ? Number.MAX_SAFE_INTEGER : storedKey(g);
+const fmtDur = ms => { const m = Math.max(1, Math.round(ms / 60000)); return m < 60 ? `${m} min` : `${Math.floor(m / 60)}h${m % 60 ? ' ' + (m % 60) + 'm' : ''}`; };
+const fmtClock = ms => new Date(ms).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+const SESS_MAX = 40;
+function noteSession(g, at){
+  if (at > storedKey(g)) { g.lastPlayed = localDate(new Date(at)); g.lastPlayedAt = at; }
+  if (Date.now() - at < 14 * 86400000 && (g.status === 'paused' || g.status === 'backlog')) g.status = 'playing';
+}
+let playBusy = false;
+async function pullPlay(){
+  if (!syncOn() || playBusy) return;
+  playBusy = true;
+  try {
+    const r = await api('/steam/play');
+    if (!r.ok) return;
+    const d = await r.json();
+    let changed = false;
+    const was = playNow && playNow.a, was_s = playNow && playNow.s;
+    playNow = d.now || null;
+    for (const x of d.sessions || []) {
+      const g = state.games.find(y => y.steamId === x.a);
+      if (!g || g.sessions.some(y => y.s === x.s)) continue;
+      g.sessions.push({s:x.s, e:x.e});
+      g.sessions.sort((a, b) => a.s - b.s);
+      if (g.sessions.length > SESS_MAX) g.sessions.splice(0, g.sessions.length - SESS_MAX);
+      noteSession(g, x.e);
+      changed = true;
+    }
+    if (playNow) {
+      const g = state.games.find(y => y.steamId === playNow.a);
+      if (g && storedKey(g) < playNow.s) { noteSession(g, playNow.s); changed = true; }
+    }
+    if (changed) save();
+    if (changed || was !== (playNow && playNow.a) || was_s !== (playNow && playNow.s)) render();
+  } catch(e) {}
+  playBusy = false;
+}
+
 /* ---------- Derived ---------- */
 function stats(g){
   let t = 0, d = 0;
@@ -1293,7 +1348,7 @@ function renderChrome(){
 /* ---------- Continue ---------- */
 function renderContinue(){
   const active = state.games.filter(inProgress);
-  const live = state.games.filter(liveShown).sort((a, b) => (b.lastPlayed || '').localeCompare(a.lastPlayed || ''));
+  const live = state.games.filter(liveShown).sort((a, b) => playedKey(b) - playedKey(a));
   if (!active.length && !live.length) return `<div class="page">
     <h1 class="h1">Continue</h1><p class="lede">Games you're playing or have paused show up here with your save point, so coming back is easy. Live service games go here too once they are set to Ongoing.</p>
     <div class="empty"><b>Nothing in progress</b>Open a game in your library and set it to Playing, Paused or Ongoing.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="library">Go to library</button></div></div></div>`;
@@ -1316,7 +1371,7 @@ function renderContinue(){
     const ra = upcoming(a)[0], rb = upcoming(b)[0];
     if (ra && rb) return ra.date.localeCompare(rb.date);
     if (ra || rb) return ra ? -1 : 1;
-    return (a.lastPlayed || '0000').localeCompare(b.lastPlayed || '0000');
+    return playedKey(a) - playedKey(b);
   });
   const f = ranked[0], rest = ranked.slice(1), st = stats(f), rel = upcoming(f)[0], miss = openMissables(f);
   const next = LAYERS.flatMap(([k]) => f.layers[k].inFinish ? f.layers[k].items.filter(i => !i.done).map(i => ({...i, layer:k})) : []).slice(0, 3);
@@ -1368,7 +1423,7 @@ function renderLibrary(){
   const sorters = {
     title:(a,b) => a.title.localeCompare(b.title),
     score:(a,b) => b.rating - a.rating || a.title.localeCompare(b.title),
-    recent:(a,b) => (b.lastPlayed || '').localeCompare(a.lastPlayed || ''),
+    recent:(a,b) => playedKey(b) - playedKey(a) || a.title.localeCompare(b.title),
     progress:(a,b) => stats(b).pct - stats(a).pct
   };
   const list = state.games.filter(g => (view.filter === 'all' || g.status === view.filter) && g.title.toLowerCase().includes(q)).sort(sorters[view.sort]);
@@ -1473,12 +1528,22 @@ function renderGame(g){
   <div class="page">${({save:secSave, quests:secQuests, achievements:secAch, news:secNews, store:secStore, missables:secMissables, releases:secReleases, review:secReview})[view.section](g)}</div>`;
 }
 
+function sessLine(g){
+  if (playNow && g.steamId && playNow.a === g.steamId) return `<p class="achlast"><b>Playing now</b> <span class="dim">· started ${fmtClock(playNow.s)}</span></p>`;
+  const last = g.sessions[g.sessions.length - 1];
+  if (!last) return '';
+  const total = g.sessions.reduce((n, x) => n + (x.e - x.s), 0);
+  const day = localDate(new Date(last.s)) === localDate() ? 'today' : fmtDate(localDate(new Date(last.s)), {month:'short', day:'numeric'});
+  return `<p class="achlast">Last session: <b>${fmtDur(last.e - last.s)}</b> <span class="dim">· ${day}, ${fmtClock(last.s)} to ${fmtClock(last.e)}${g.sessions.length > 1 ? ` · ${fmtDur(total)} tracked over ${g.sessions.length} sessions` : ''}</span></p>`;
+}
+
 function secSave(g){
   return `
     <div class="played">
       <p><b>${since(g.lastPlayed)}</b>${g.lastPlayed ? ` <span class="dim">(${fmtDate(g.lastPlayed)})</span>` : ''}</p>
       <button class="btn quiet sm" data-act="played">I played today</button>
     </div>
+    ${sessLine(g)}
     ${g.ach && g.ach.last ? `<p class="achlast">Last achievement: <b>${esc(g.ach.last.name)}</b> <span class="dim">· ${fmtDate(localDate(new Date(g.ach.last.time * 1000)))}</span></p>` : ''}
     <div class="journal">
       <div class="panel">
@@ -1847,7 +1912,7 @@ document.addEventListener('click', e => {
     case 'del': { const L = listFor(g, el.dataset.kind, el.dataset.layer); L.splice(L.findIndex(i => i.id === el.dataset.id), 1); save(); render(); break; }
     case 'add': addItem(el.dataset.kind, el.dataset.layer); break;
     case 'layer': g.layers[el.dataset.layer].inFinish = !g.layers[el.dataset.layer].inFinish; save(); render(); break;
-    case 'played': g.lastPlayed = localDate(); if (g.status === 'paused' || g.status === 'backlog') g.status = 'playing'; save(); render(); toast(`Logged a session of ${g.title}`); break;
+    case 'played': g.lastPlayed = localDate(); g.lastPlayedAt = Date.now(); if (g.status === 'paused' || g.status === 'backlog') g.status = 'playing'; save(); render(); toast(`Logged a session of ${g.title}`); break;
     case 'add-rel': { const n = document.getElementById('relName').value.trim(), d = document.getElementById('relDate').value;
       if (!n || !d) { toast('Add a name and a date'); return; } g.releases.push({id:uid(), name:n, date:d}); save(); render(); break; }
     case 'del-rel': g.releases = g.releases.filter(r => r.id !== el.dataset.id); save(); render(); break;
@@ -1916,6 +1981,7 @@ document.getElementById('importFile').addEventListener('change', async e => {
 
 render();
 pull();
+setInterval(() => { if (document.visibilityState === 'visible') pullPlay(); }, 60000);
 setInterval(() => document.querySelectorAll('[data-sync-status]').forEach(el => el.textContent = syncText()), 30000);
 
 /* ---------------- is there a newer copy? ---------------- */
