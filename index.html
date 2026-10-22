@@ -231,6 +231,10 @@ a.scorecard:hover{border-color:var(--line)}
 .media{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin:0 -4px;padding-left:4px}
 .media>*{flex:none;scroll-snap-align:start;border-radius:var(--r-sm);overflow:hidden;background:var(--night);border:1px solid var(--line-soft)}
 .media video{width:min(560px,82vw);aspect-ratio:16/9;display:block;background:#000}
+.media .vid{display:block;width:min(560px,82vw);aspect-ratio:16/9;position:relative;padding:0;cursor:pointer;color:inherit;font:inherit}
+.media .vid img{width:100%;height:100%;object-fit:cover;display:block}
+.media .vid .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(transparent 50%,rgba(0,0,0,.6));color:#fff;font-weight:700;font-size:15px;padding:0 12px;text-align:center}
+.media .vid:hover .play{background:linear-gradient(transparent 30%,rgba(0,0,0,.7))}
 .media a{display:block;width:min(320px,70vw);aspect-ratio:16/9;position:relative}
 .media a img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
 .media a:hover img{transform:scale(1.03)}
@@ -733,6 +737,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.22-c', note:'TRAILERS PLAY IN THE APP: tap a trailer in the Store page section and it plays right there, on phones and computers. If a trailer can\u2019t play it opens on Steam instead.'},
   {v:'2026.10.22-b', note:'STORE PAGE: every Steam game has a new Store page section with the game\u2019s description, developer and publisher, release date, genres, Steam review score, Metacritic score, current price and sale, trailers and screenshots, PC requirements, languages and its DLC. Upcoming DLC has a Track button that adds it to Releases with a countdown. Your Worker needs the updated gamelog-sync.js for this.'},
   {v:'2026.10.22-a', note:'WHAT\u2019S NEW: every Steam game has a new What\u2019s new section with its recent patch notes and announcements. If something was posted after you last played and you have not opened that section yet, the game gets a gold \u201cNew since you left\u201d tag. Opening the section clears it on all your devices. Your Worker needs the updated gamelog-sync.js for this.'},
   {v:'2026.10.21-e', note:'FULL COVER ART: covers now use the same tall shape as Steam box art, so titles at the top are no longer cut off. Your score moved to the bottom corner so it stops sitting on top of the game\u2019s logo.'},
@@ -1060,6 +1065,40 @@ async function fetchStore(g, opts = {}){
   storeLoading.delete(g.steamId); saveStoreCache(); render();
 }
 // Steam stores release days as UTC midnight, so read the date in UTC or it lands a day early here
+const HLS_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.17/hls.min.js';
+let hlsLoad = null;
+function loadHls(){
+  if (window.Hls) return Promise.resolve(window.Hls);
+  return hlsLoad = hlsLoad || new Promise((ok, no) => {
+    const el = document.createElement('script'); el.src = HLS_SRC; el.crossOrigin = 'anonymous';
+    el.onload = () => ok(window.Hls); el.onerror = () => { hlsLoad = null; no(new Error('player failed to load')); };
+    document.head.appendChild(el);
+  });
+}
+async function playTrailer(btn, g){
+  const c = storeCache[g.steamId], t = c && c.data && c.data.trailers.filter(x => x.hls || x.mp4 || x.webm)[+btn.dataset.i];
+  if (!t) return;
+  const v = document.createElement('video');
+  v.controls = true; v.playsInline = true; v.autoplay = true; v.poster = t.thumb || ''; v.setAttribute('aria-label', t.name);
+  const fail = () => { toast('Couldn\u2019t play that trailer here. Opening Steam'); window.open(`https://store.steampowered.com/app/${g.steamId}/`, '_blank', 'noopener'); };
+  const direct = [['webm', 'video/webm'], ['mp4', 'video/mp4']].filter(([k]) => /^https:\/\//.test(t[k] || ''));
+  btn.replaceWith(v);
+  if (direct.length) { direct.forEach(([k, type]) => { const s = document.createElement('source'); s.src = t[k]; s.type = type; v.appendChild(s); }); v.addEventListener('error', () => { if (/^https:\/\//.test(t.hls || '')) hlsPlay(v, t.hls, fail); else fail(); }, {capture:true, once:true}); v.play().catch(() => {}); return; }
+  hlsPlay(v, t.hls, fail);
+}
+async function hlsPlay(v, url, fail){
+  if (!/^https:\/\//.test(url || '')) return fail();
+  if (v.canPlayType('application/vnd.apple.mpegurl')) { v.removeAttribute('src'); v.querySelectorAll('source').forEach(x => x.remove()); v.src = url; v.play().catch(() => {}); return; } // Safari, iOS
+  try {
+    const Hls = await loadHls();
+    if (!Hls || !Hls.isSupported()) return fail();
+    v.querySelectorAll('source').forEach(x => x.remove());
+    const h = new Hls({capLevelToPlayerSize:true});
+    h.on(Hls.Events.ERROR, (e, d) => { if (d.fatal) { h.destroy(); fail(); } });
+    h.loadSource(url); h.attachMedia(v);
+    h.on(Hls.Events.MANIFEST_PARSED, () => v.play().catch(() => {}));
+  } catch(e) { fail(); }
+}
 const unixDay = t => new Date(t * 1000).toISOString().slice(0, 10);
 const relKey = n => String(n).toLowerCase().replace(/\b(dlc|expansion|the)\b/g, '').replace(/[^a-z0-9]+/g, '');
 const sameRelease = (a, b) => { const x = relKey(a), y = relKey(b); return !!x && !!y && (x === y || x.includes(y) || y.includes(x)); };
@@ -1504,10 +1543,10 @@ function secStore(g){
     price ? `<div class="scorecard"><div class="v" style="font-size:18px;color:var(--paper)">$</div><div class="l"><b>${price}</b><span>Steam price (US)</span></div></div>` : ''
   ].filter(Boolean).join('');
 
-  const vids = d.trailers.filter(t => safe(t.mp4) || safe(t.webm));
+  const vids = d.trailers.filter(t => safe(t.hls) || safe(t.mp4) || safe(t.webm));
   const media = [
-    ...vids.slice(0, 2).map(t => `<video controls preload="none" poster="${esc(safe(t.thumb))}" aria-label="${esc(t.name)}">${safe(t.webm) ? `<source src="${esc(t.webm)}" type="video/webm">` : ''}${safe(t.mp4) ? `<source src="${esc(t.mp4)}" type="video/mp4">` : ''}</video>`),
-    ...(!vids.length ? d.trailers.slice(0, 1).filter(t => safe(t.thumb)).map(t => `<a href="${storeUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${esc(t.name)} on Steam"><img src="${esc(t.thumb)}" alt="" loading="lazy"><span class="play">▶ Watch on Steam</span></a>`) : []),
+    ...vids.slice(0, 2).map((t, i) => `<button class="vid" data-act="store-play" data-i="${i}" aria-label="Play ${esc(t.name)}">${safe(t.thumb) ? `<img src="${esc(t.thumb)}" alt="">` : ''}<span class="play">\u25B6 ${esc(t.name)}</span></button>`),
+    ...(!vids.length ? d.trailers.slice(0, 1).filter(t => safe(t.thumb)).map(t => `<a href="${storeUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${esc(t.name)} on Steam"><img src="${esc(t.thumb)}" alt="" loading="lazy"><span class="play">\u25B6 Watch on Steam</span></a>`) : []),
     ...d.shots.filter(s => safe(s.thumb)).map((s, i) => `<a href="${esc(safe(s.full) || s.thumb)}" target="_blank" rel="noopener noreferrer" aria-label="Screenshot ${i + 1}"><img src="${esc(s.thumb)}" alt="" loading="lazy"></a>`)
   ];
 
@@ -1683,6 +1722,7 @@ document.addEventListener('click', e => {
     case 'news-filter': view.newsFilter = el.dataset.v; render(); break;
     case 'news-refresh': fetchNews(g, {force:true}); break;
     case 'store-refresh': fetchStore(g, {force:true}); break;
+    case 'store-play': playTrailer(el, g); break;
     case 'store-more': view.storeMore = !view.storeMore; render(); break;
     case 'store-track': {
       const n = el.dataset.name, d = el.dataset.date;
