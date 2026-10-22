@@ -743,6 +743,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.22-i', note:'PLAYING NOW TAKES THE BIG SPOT: when a Steam game is open, it moves into the large section at the top of Continue, with a Playing now heading and the time it started, even if it was Paused, Backlog, Ongoing or Finished. When you close it, Continue goes back to its normal pick: the game with the nearest release, otherwise the one you have left alone longest.'},
   {v:'2026.10.22-h', note:'PLAY STARTS A SESSION AT ONCE: after you press Play, Game Log asks the Worker to check Steam every few seconds, so \u201cPlaying now\u201d appears as soon as the game opens, dated from your click. Needs the updated Worker file, pasted in the same way as before.'},
   {v:'2026.10.22-g', note:'EXACT PLAY TIMES + SESSIONS: Game Log now keeps the exact time you last played, not just the day, so two games from the same day sort in the right order. With the Worker\u2019s new once-a-minute check, it also notices when a Steam game opens and closes and shows how long each session ran. You need to paste the updated Worker and add its second cron schedule for that part (steps are at the top of the Worker file).'},
   {v:'2026.10.22-f', note:'REMEMBERS YOUR SORT: the Library now keeps whatever you last sorted by, like Recently played, and opens that way next time until you change it. It is remembered separately on each device.'},
@@ -1364,8 +1365,10 @@ function renderChrome(){
 
 /* ---------- Continue ---------- */
 function renderContinue(){
-  const active = state.games.filter(inProgress);
-  const live = state.games.filter(liveShown).sort((a, b) => playedKey(b) - playedKey(a));
+  // A game open right now always belongs on Continue, whatever its status
+  const nowG = playNow ? state.games.find(g => g.steamId && g.steamId === playNow.a) : null;
+  const active = state.games.filter(g => inProgress(g) || g === nowG);
+  const live = state.games.filter(g => liveShown(g) && g !== nowG).sort((a, b) => playedKey(b) - playedKey(a));
   if (!active.length && !live.length) return `<div class="page">
     <h1 class="h1">Continue</h1><p class="lede">Games you're playing or have paused show up here with your save point, so coming back is easy. Live service games go here too once they are set to Ongoing.</p>
     <div class="empty"><b>Nothing in progress</b>Open a game in your library and set it to Playing, Paused or Ongoing.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="library">Go to library</button></div></div></div>`;
@@ -1383,8 +1386,10 @@ function renderContinue(){
     ${liveSection}${upSection}
   </div>`;
 
-  // Feature: the one with the nearest release, otherwise the one untouched longest
+  // Feature: the game you're playing right now; otherwise the one with the
+  // nearest release, otherwise the one untouched longest
   const ranked = [...active].sort((a, b) => {
+    if (a === nowG || b === nowG) return a === nowG ? -1 : 1;
     const ra = upcoming(a)[0], rb = upcoming(b)[0];
     if (ra && rb) return ra.date.localeCompare(rb.date);
     if (ra || rb) return ra ? -1 : 1;
@@ -1394,14 +1399,14 @@ function renderContinue(){
   const next = LAYERS.flatMap(([k]) => f.layers[k].inFinish ? f.layers[k].items.filter(i => !i.done).map(i => ({...i, layer:k})) : []).slice(0, 3);
 
   return `<div class="page">
-    <h1 class="h1">Pick up where you left off</h1>
-    <p class="lede">${rel ? `${esc(rel.name)} lands ${countdown(rel.date).toLowerCase()}. Here's where you stand in ${esc(f.title)}.` : `${esc(f.title)} has waited the longest. Here's where you stand.`}</p>
+    <h1 class="h1">${f === nowG ? 'Playing now' : 'Pick up where you left off'}</h1>
+    <p class="lede">${f === nowG ? `You've had ${esc(f.title)} open since ${fmtClock(playNow.s)}. Here's where you stand.` : rel ? `${esc(rel.name)} lands ${countdown(rel.date).toLowerCase()}. Here's where you stand in ${esc(f.title)}.` : `${esc(f.title)} has waited the longest. Here's where you stand.`}</p>
 
     <section class="feature" aria-label="${esc(f.title)}">
       <button class="slot" data-act="open" data-id="${f.id}" aria-label="Open ${esc(f.title)}">${coverHTML(f, {score:true})}</button>
       <div>
         <h2>${esc(f.title)}</h2>
-        <div class="meta"><span>${LABEL[f.status]}</span><span>${since(f.lastPlayed)}</span><span>${st.pct}% to finish line</span>${miss ? `<span class="alert">${miss} missable${miss > 1 ? 's' : ''} open</span>` : ''}${newTag(f)}</div>
+        <div class="meta"><span>${LABEL[f.status]}</span><span>${f === nowG ? `Playing now · since ${fmtClock(playNow.s)}` : since(f.lastPlayed)}</span><span>${st.pct}% to finish line</span>${miss ? `<span class="alert">${miss} missable${miss > 1 ? 's' : ''} open</span>` : ''}${newTag(f)}</div>
         ${f.note.where || f.note.next ? `<div class="save">
           <div><h4>Where you were</h4><p>${esc(f.note.where) || '<span class="dim">Not written yet</span>'}</p></div>
           <div class="next"><h4>Next step</h4><p>${esc(f.note.next) || '<span class="dim">Not written yet</span>'}</p></div>
