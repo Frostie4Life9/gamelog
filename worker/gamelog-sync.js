@@ -43,6 +43,12 @@
                              game, newest first: title, link, date, a
                              cleaned-up excerpt, and whether it looks like
                              patch notes or general news
+   GET  /steam/store?appid=
+                          -> the game's Steam store page: description,
+                             developer/publisher, release date, genres,
+                             features, review score, Metacritic, price,
+                             PC requirements, languages, screenshots,
+                             trailers and DLC (names, dates, prices)
    ========================================================= */
 
 const KEYNAME = 'state';
@@ -251,6 +257,107 @@ async function steamNews(appid, count) {
   return reply({ appid: +appid, items });
 }
 
+/* ---------- Steam store page ---------- */
+function htmlText(s) {
+  return String(s || '')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|h[1-6]|li|ul|div)>/gi, '\n')
+    .replace(/<li[^>]*>/gi, '• ')
+    .replace(/<img[^>]*>/gi, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&reg;/g, '®').replace(/&trade;/g, '™').replace(/&copy;/g, '©')
+    .replace(/[ \t]+/g, ' ').replace(/ *\n */g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+// "<li><strong>OS:</strong> Windows 11</li>" -> [{k:'OS', v:'Windows 11'}]
+function reqList(html) {
+  if (!html) return [];
+  return String(html).split(/<li[^>]*>/i).slice(1).map(part => {
+    const t = htmlText(part).replace(/\n+/g, ' ').trim();
+    const i = t.indexOf(':');
+    return i > 0 && i < 40 ? { k: t.slice(0, i).trim(), v: t.slice(i + 1).trim() } : { k: '', v: t };
+  }).filter(r => r.v);
+}
+
+function trailerSrc(m) {
+  const pick = o => o && (o.max || o['480'] || '');
+  return { mp4: pick(m.mp4), webm: pick(m.webm), hls: m.hls_h264 || '' };
+}
+
+async function steamStore(appid) {
+  if (!/^\d+$/.test(appid)) return reply({ error: 'appid must be a number' }, 400);
+  const [det, rev] = await Promise.all([
+    getJSON(`https://store.steampowered.com/api/appdetails?appids=${appid}&l=english&cc=US`),
+    getJSON(`https://store.steampowered.com/appreviews/${appid}?json=1&language=all&purchase_type=all&num_per_page=0&filter=summary`)
+  ]);
+  if (!det.ok) return reply({ error: `Steam returned ${det.status}` }, 502);
+  const d = det.j && det.j[appid] && det.j[appid].success && det.j[appid].data;
+  if (!d) return reply({ error: 'Steam has no store page for this game (it may be delisted or region-locked)' }, 404);
+
+  const qs = rev.j && rev.j.query_summary;
+  const reviews = qs && qs.total_reviews ? {
+    label: qs.review_score_desc || '', total: qs.total_reviews,
+    pct: Math.round(qs.total_positive / qs.total_reviews * 100)
+  } : null;
+
+  const p = d.price_overview;
+  const price = d.is_free ? { free: true } : p ? {
+    final: p.final_formatted || '', initial: p.initial_formatted || '', discount: p.discount_percent || 0
+  } : null;
+
+  // DLC names, release dates and prices (first 30)
+  const dlcIds = (d.dlc || []).slice(0, 30);
+  let dlc = [];
+  if (dlcIds.length) {
+    const input = { ids: dlcIds.map(id => ({ appid: id })), context: { language: 'english', country_code: 'US' }, data_request: { include_basic_info: true, include_release: true } };
+    const [items, prices] = await Promise.all([
+      getJSON('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input))),
+      getJSON(`https://store.steampowered.com/api/appdetails?appids=${dlcIds.join(',')}&filters=price_overview&cc=US`)
+    ]);
+    const byId = {};
+    for (const it of (items.j && items.j.response && items.j.response.store_items) || []) byId[it.appid || it.id] = it;
+    dlc = dlcIds.map(id => {
+      const it = byId[id] || {};
+      const r = it.release || {};
+      const pp = prices.j && prices.j[id] && prices.j[id].success && prices.j[id].data;
+      const po = pp && !Array.isArray(pp) && pp.price_overview;
+      return {
+        id, name: it.name || '',
+        date: r.steam_release_date || r.original_release_date || 0,
+        soon: !!r.is_coming_soon, soonText: r.coming_soon_display || '',
+        price: po ? po.final_formatted : ''
+      };
+    }).filter(x => x.name).sort((a, b) => (b.date || 9e9) - (a.date || 9e9));
+  }
+
+  const about = htmlText(d.about_the_game || d.detailed_description);
+  return reply({
+    appid: +appid, name: d.name || '', type: d.type || '',
+    short: htmlText(d.short_description),
+    about: about.length > 6000 ? about.slice(0, 6000).replace(/\s+\S*$/, '') + '…' : about,
+    developers: d.developers || [], publishers: d.publishers || [],
+    release: d.release_date ? { date: d.release_date.date || '', soon: !!d.release_date.coming_soon } : null,
+    genres: (d.genres || []).map(g => g.description),
+    features: (d.categories || []).map(c => c.description),
+    controller: d.controller_support || '',
+    platforms: Object.keys(d.platforms || {}).filter(k => d.platforms[k]),
+    metacritic: d.metacritic ? { score: d.metacritic.score, url: d.metacritic.url || '' } : null,
+    reviews, price,
+    achievements: (d.achievements && d.achievements.total) || 0,
+    website: d.website || '',
+    languages: htmlText(d.supported_languages).replace(/\*/g, '').replace(/\n+/g, ' ').replace(/languages with full audio support/i, '').trim(),
+    audioLangs: (String(d.supported_languages || '').match(/[^,<>]+?<strong>\*<\/strong>/g) || []).map(s => htmlText(s).replace(/\*/g, '').trim()),
+    ageNote: d.content_descriptors && d.content_descriptors.notes ? htmlText(d.content_descriptors.notes) : '',
+    reqMin: reqList(d.pc_requirements && d.pc_requirements.minimum),
+    reqRec: reqList(d.pc_requirements && d.pc_requirements.recommended),
+    header: d.header_image || '',
+    shots: (d.screenshots || []).slice(0, 12).map(s => ({ thumb: s.path_thumbnail, full: s.path_full })),
+    trailers: (d.movies || []).slice(0, 4).map(m => Object.assign({ name: m.name || 'Trailer', thumb: m.thumbnail || '' }, trailerSrc(m))),
+    dlc, dlcTotal: (d.dlc || []).length
+  });
+}
+
 export default {
   async fetch(request, env) {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
@@ -285,6 +392,11 @@ export default {
     if (url.pathname === '/steam/news') {
       const count = Math.max(1, Math.min(30, parseInt(url.searchParams.get('count'), 10) || 15));
       try { return await steamNews((url.searchParams.get('appid') || '').trim(), count); }
+      catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
+    }
+
+    if (url.pathname === '/steam/store') {
+      try { return await steamStore((url.searchParams.get('appid') || '').trim()); }
       catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
     }
 

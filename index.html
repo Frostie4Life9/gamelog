@@ -209,6 +209,50 @@ button.newtag{cursor:pointer}
 .post h3 a{color:var(--paper);text-decoration:none} .post h3 a:hover{color:var(--gold);text-decoration:underline}
 .post .ex{margin:0 0 8px;color:var(--mist);font-size:14.5px;white-space:pre-line}
 .post .more{font-size:14px}
+/* Store page */
+.store{display:flex;flex-direction:column;gap:20px}
+.store-top{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(18px,3vw,32px)}
+.store-lead{margin:0 0 18px;font-size:17px;line-height:1.55;color:var(--paper)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px;margin:0}
+.facts div{min-width:0} .facts dt{font-size:12px;color:var(--dim);font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:2px}
+.facts dd{margin:0;font-size:15px;overflow-wrap:anywhere}
+.scores{display:flex;flex-direction:column;gap:10px}
+.scorecard{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--night);color:inherit;text-decoration:none}
+a.scorecard:hover{border-color:var(--line)}
+.scorecard .v{font-weight:800;font-size:26px;line-height:1;font-variation-settings:'wdth' 80;text-align:center;font-variant-numeric:tabular-nums}
+.scorecard .l b{display:block;font-size:15px} .scorecard .l span{font-size:13px;color:var(--dim)}
+.scorecard .v.good{color:var(--mint)} .scorecard .v.mid{color:var(--gold)} .scorecard .v.bad{color:var(--rose)}
+.scorecard .v s{display:block;font-size:12px;color:var(--dim);font-weight:500;margin-top:3px}
+.store-links .btn{text-decoration:none}
+.store-links{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:13px;padding:4px 10px;border-radius:999px;background:var(--raise);color:var(--mist)}
+.chips.genre span{background:rgba(245,182,63,.14);color:var(--gold)}
+.media{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin:0 -4px;padding-left:4px}
+.media>*{flex:none;scroll-snap-align:start;border-radius:var(--r-sm);overflow:hidden;background:var(--night);border:1px solid var(--line-soft)}
+.media video{width:min(560px,82vw);aspect-ratio:16/9;display:block;background:#000}
+.media a{display:block;width:min(320px,70vw);aspect-ratio:16/9;position:relative}
+.media a img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
+.media a:hover img{transform:scale(1.03)}
+.media a .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(transparent 50%,rgba(0,0,0,.55));color:#fff;font-weight:700;font-size:14px}
+.about{white-space:pre-line;color:var(--mist);font-size:15px;line-height:1.6;margin:0}
+.about-wrap{position:relative;max-height:230px;overflow:hidden}
+.about-wrap::after{content:'';position:absolute;left:0;right:0;bottom:0;height:80px;background:linear-gradient(transparent,var(--deep))}
+.about-wrap.open{max-height:none} .about-wrap.open::after{display:none}
+.dlc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-soft)}
+.dlc li{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.dlc .nm{font-weight:600;min-width:0} .dlc .nm small{display:block;font-weight:400;font-size:13px;color:var(--dim)}
+.dlc .nm small.soon{color:var(--gold)}
+.dlc .pr{font-size:14px;color:var(--mist);white-space:nowrap;font-variant-numeric:tabular-nums}
+.dlc .trk{font-size:13px;color:var(--mint);white-space:nowrap}
+.reqs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.reqs h3{margin:0 0 8px;font-size:14px;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.reqs dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+.reqs dt{color:var(--dim)} .reqs dd{margin:0;overflow-wrap:anywhere}
+.subhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.subhead .h2{margin:0}
+@media (max-width:900px){.store-top,.reqs{grid-template-columns:1fr}}
+@media (max-width:520px){.facts{grid-template-columns:1fr}.dlc li{grid-template-columns:1fr auto}.dlc .trkcell{grid-column:1/-1}}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r-lg);padding:48px 24px;text-align:center;color:var(--mist)}
 .empty b{display:block;color:var(--paper);font-size:18px;margin-bottom:6px}
 
@@ -689,6 +733,7 @@ button.newtag{cursor:pointer}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.22-b', note:'STORE PAGE: every Steam game has a new Store page section with the game\u2019s description, developer and publisher, release date, genres, Steam review score, Metacritic score, current price and sale, trailers and screenshots, PC requirements, languages and its DLC. Upcoming DLC has a Track button that adds it to Releases with a countdown. Your Worker needs the updated gamelog-sync.js for this.'},
   {v:'2026.10.22-a', note:'WHAT\u2019S NEW: every Steam game has a new What\u2019s new section with its recent patch notes and announcements. If something was posted after you last played and you have not opened that section yet, the game gets a gold \u201cNew since you left\u201d tag. Opening the section clears it on all your devices. Your Worker needs the updated gamelog-sync.js for this.'},
   {v:'2026.10.21-e', note:'FULL COVER ART: covers now use the same tall shape as Steam box art, so titles at the top are no longer cut off. Your score moved to the bottom corner so it stops sitting on top of the game\u2019s logo.'},
   {v:'2026.10.21-d', note:'PLAYBACK JOINS THE SUITE: your music and TV/film log now sits in the top bar and the app grid, with its teal cassette icon. On a computer it is the last tab across the top; on a phone it is in the grid.'},
@@ -982,6 +1027,43 @@ async function checkNews(){
   if (did && !(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))) render();
 }
 
+/* ---------- Store page ----------
+   Cached on this device only (it's re-fetchable and fairly large). */
+const STORE_KEY = 'gamelog_store';
+const STORE_TTL = 24 * 3600000;
+let storeCache = (() => { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch(e) { return {}; } })();
+const storeLoading = new Set();
+function saveStoreCache(){
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(storeCache)); }
+  catch(e) { // storage full: keep only the newest few pages
+    const keep = Object.entries(storeCache).sort((a, b) => b[1].fetched - a[1].fetched).slice(0, 5);
+    storeCache = Object.fromEntries(keep);
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(storeCache)); } catch(e2) {}
+  }
+}
+async function fetchStore(g, opts = {}){
+  if (!g || !g.steamId || !syncOn() || storeLoading.has(g.steamId)) return;
+  const c = storeCache[g.steamId];
+  if (!opts.force && c && c.data && Date.now() - c.fetched < STORE_TTL) return;
+  storeLoading.add(g.steamId); render();
+  try {
+    const r = await api('/steam/store?appid=' + g.steamId);
+    if (r.status === 404) {
+      let msg = ''; try { msg = (await r.json()).error; } catch(e) {}
+      throw new Error(msg && msg !== 'not found' ? msg : 'your Worker needs the updated gamelog-sync.js (paste it in and deploy)');
+    }
+    if (!r.ok) throw new Error(await readErr(r));
+    storeCache[g.steamId] = {fetched:Date.now(), data:await r.json(), err:''};
+  } catch(e) {
+    storeCache[g.steamId] = Object.assign({}, c, {fetched:(c && c.fetched) || 0, err: e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message});
+  }
+  storeLoading.delete(g.steamId); saveStoreCache(); render();
+}
+// Steam stores release days as UTC midnight, so read the date in UTC or it lands a day early here
+const unixDay = t => new Date(t * 1000).toISOString().slice(0, 10);
+const relKey = n => String(n).toLowerCase().replace(/\b(dlc|expansion|the)\b/g, '').replace(/[^a-z0-9]+/g, '');
+const sameRelease = (a, b) => { const x = relKey(a), y = relKey(b); return !!x && !!y && (x === y || x.includes(y) || y.includes(x)); };
+
 async function autoArt(){
   if (!syncOn()) return;
   const todo = state.games.filter(g => !g.cover && !g.artTried).slice(0, 5);
@@ -1227,7 +1309,7 @@ function renderSync(){
 }
 
 /* ---------- Game ---------- */
-const SECTIONS = [['save','Save point'],['quests','Quests'],['achievements','Achievements'],['news','What\u2019s new'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
+const SECTIONS = [['save','Save point'],['quests','Quests'],['achievements','Achievements'],['news','What\u2019s new'],['store','Store page'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
 
 function renderGame(g){
   const st = stats(g), miss = openMissables(g), ups = upcoming(g).length;
@@ -1252,9 +1334,9 @@ function renderGame(g){
     </div>
   </header>
   <nav class="sections" aria-label="Game sections"><div class="sections-in">
-    ${SECTIONS.filter(([k]) => (k !== 'achievements' && k !== 'news') || g.steamId).map(([k, l]) => `<button class="sec ${view.section === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${view.section === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : k === 'news' ? 'new' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
+    ${SECTIONS.filter(([k]) => !['achievements','news','store'].includes(k) || g.steamId).map(([k, l]) => `<button class="sec ${view.section === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${view.section === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : k === 'news' ? 'new' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
   </div></nav>
-  <div class="page">${({save:secSave, quests:secQuests, achievements:secAch, news:secNews, missables:secMissables, releases:secReleases, review:secReview})[view.section](g)}</div>`;
+  <div class="page">${({save:secSave, quests:secQuests, achievements:secAch, news:secNews, store:secStore, missables:secMissables, releases:secReleases, review:secReview})[view.section](g)}</div>`;
 }
 
 function secSave(g){
@@ -1390,6 +1472,108 @@ function secNews(g){
   </section>`;
 }
 
+function secStore(g){
+  if (!syncOn()) return `<div class="empty"><b>Connect sync to load the store page</b>Store info comes from Steam through your Worker.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="sync">Go to Sync</button></div></div>`;
+  const c = storeCache[g.steamId], loading = storeLoading.has(g.steamId);
+  if (!c || !c.data) {
+    if (!loading && !(c && c.err)) setTimeout(() => fetchStore(g), 0);
+    return c && c.err && !loading
+      ? `<div class="empty"><b>Couldn’t load the store page</b>${esc(c.err)}<div class="actions" style="justify-content:center"><button class="btn" data-act="store-refresh">Try again</button></div></div>`
+      : `<div class="empty"><b>Loading the store page</b>Asking Steam for ${esc(g.title)}.</div>`;
+  }
+  if (Date.now() - c.fetched > STORE_TTL && !loading && !c.err) setTimeout(() => fetchStore(g), 0);
+  const d = c.data, safe = u => /^https:\/\//.test(u || '') ? u : '';
+  const storeUrl = `https://store.steampowered.com/app/${d.appid}/`;
+  const fact = (k, v) => v ? `<div><dt>${k}</dt><dd>${v}</dd></div>` : '';
+  const tone = n => n >= 80 ? 'good' : n >= 60 ? 'mid' : 'bad';
+  const mins = Math.round((Date.now() - c.fetched) / 60000);
+  const ago = mins < 1 ? 'just now' : mins < 60 ? `${mins} min ago` : mins < 1440 ? `${Math.round(mins / 60)} h ago` : fmtDate(localDate(new Date(c.fetched)));
+  const tracked = name => g.releases.some(r => sameRelease(r.name, name));
+  const today = localDate();
+
+  const price = d.price ? (d.price.free ? 'Free to play'
+    : `${esc(d.price.final)}${d.price.discount ? ` <span class="dim"><s>${esc(d.price.initial)}</s></span> <b style="color:var(--mint)">−${d.price.discount}%</b>` : ''}`) : '';
+
+  const scores = [
+    d.reviews ? `<a class="scorecard" href="${storeUrl}#app_reviews_hash" target="_blank" rel="noopener noreferrer">
+      <div class="v ${tone(d.reviews.pct)}">${d.reviews.pct}%</div>
+      <div class="l"><b>${esc(d.reviews.label || 'Steam reviews')}</b><span>${d.reviews.total.toLocaleString()} Steam reviews</span></div></a>` : '',
+    d.metacritic ? `<${safe(d.metacritic.url) ? `a href="${esc(safe(d.metacritic.url))}" target="_blank" rel="noopener noreferrer"` : 'div'} class="scorecard">
+      <div class="v ${tone(d.metacritic.score)}">${d.metacritic.score}</div>
+      <div class="l"><b>Metacritic</b><span>Critic score</span></div></${safe(d.metacritic.url) ? 'a' : 'div'}>` : '',
+    price ? `<div class="scorecard"><div class="v" style="font-size:18px;color:var(--paper)">$</div><div class="l"><b>${price}</b><span>Steam price (US)</span></div></div>` : ''
+  ].filter(Boolean).join('');
+
+  const vids = d.trailers.filter(t => safe(t.mp4) || safe(t.webm));
+  const media = [
+    ...vids.slice(0, 2).map(t => `<video controls preload="none" poster="${esc(safe(t.thumb))}" aria-label="${esc(t.name)}">${safe(t.webm) ? `<source src="${esc(t.webm)}" type="video/webm">` : ''}${safe(t.mp4) ? `<source src="${esc(t.mp4)}" type="video/mp4">` : ''}</video>`),
+    ...(!vids.length ? d.trailers.slice(0, 1).filter(t => safe(t.thumb)).map(t => `<a href="${storeUrl}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${esc(t.name)} on Steam"><img src="${esc(t.thumb)}" alt="" loading="lazy"><span class="play">▶ Watch on Steam</span></a>`) : []),
+    ...d.shots.filter(s => safe(s.thumb)).map((s, i) => `<a href="${esc(safe(s.full) || s.thumb)}" target="_blank" rel="noopener noreferrer" aria-label="Screenshot ${i + 1}"><img src="${esc(s.thumb)}" alt="" loading="lazy"></a>`)
+  ];
+
+  const long = d.about.length > 700;
+  const reqBlock = (title, rows) => rows.length ? `<div><h3>${title}</h3><dl>${rows.map(r => r.k ? `<dt>${esc(r.k)}</dt><dd>${esc(r.v)}</dd>` : `<dd style="grid-column:1/-1">${esc(r.v)}</dd>`).join('')}</dl></div>` : '';
+
+  return `<div class="store">
+    <section class="panel">
+      <div class="store-top">
+        <div>
+          ${d.short ? `<p class="store-lead">${esc(d.short)}</p>` : ''}
+          <dl class="facts">
+            ${fact('Developer', esc(d.developers.join(', ')))}
+            ${fact('Publisher', esc(d.publishers.join(', ')))}
+            ${fact('Release date', d.release ? esc(d.release.date || (d.release.soon ? 'Coming soon' : '')) : '')}
+            ${fact('Steam achievements', d.achievements ? String(d.achievements) : '')}
+            ${fact('Controller', d.controller === 'full' ? 'Full support' : d.controller === 'partial' ? 'Partial support' : '')}
+            ${fact('Platforms', esc(d.platforms.map(p => ({windows:'Windows', mac:'macOS', linux:'Linux / SteamOS'})[p] || p).join(', ')))}
+          </dl>
+          ${d.genres.length ? `<div class="chips genre" style="margin-top:18px">${d.genres.map(x => `<span>${esc(x)}</span>`).join('')}</div>` : ''}
+        </div>
+        <div class="scores">
+          ${scores}
+          <div class="store-links">
+            <a class="btn" href="${storeUrl}" target="_blank" rel="noopener noreferrer">Open on Steam</a>
+            ${safe(d.website) ? `<a class="btn quiet" href="${esc(safe(d.website))}" target="_blank" rel="noopener noreferrer">Official site</a>` : ''}
+          </div>
+          <span class="dim" style="font-size:13px">${loading ? 'Refreshing…' : c.err ? `<span class="err">Last refresh failed: ${esc(c.err)}</span>` : `Updated ${ago}`} · <button class="reveal" style="border:0;background:none;color:var(--gold);padding:0;font-size:13px;cursor:pointer" data-act="store-refresh" ${loading ? 'disabled' : ''}>Refresh</button></span>
+        </div>
+      </div>
+    </section>
+
+    ${media.length ? `<section class="panel"><h2 class="h2">Trailers & screenshots</h2><div class="media">${media.join('')}</div></section>` : ''}
+
+    ${d.about ? `<section class="panel"><h2 class="h2">About this game</h2>
+      <div class="about-wrap ${long && !view.storeMore ? '' : 'open'}"><p class="about">${esc(d.about)}</p></div>
+      ${long ? `<div class="actions" style="margin-top:10px"><button class="btn quiet sm" data-act="store-more">${view.storeMore ? 'Show less' : 'Read more'}</button></div>` : ''}
+    </section>` : ''}
+
+    ${d.dlc.length ? `<section class="panel">
+      <div class="subhead"><h2 class="h2">DLC</h2><span class="dim" style="font-size:13px">${d.dlcTotal > d.dlc.length ? `Showing ${d.dlc.length} of ${d.dlcTotal}` : `${d.dlc.length} on Steam`}</span></div>
+      <ul class="dlc">${d.dlc.map(x => {
+        const day = x.date ? unixDay(x.date) : '';
+        const upcomingDlc = x.soon || (day && day >= today);
+        return `<li>
+          <div class="nm"><a href="https://store.steampowered.com/app/${x.id}/" target="_blank" rel="noopener noreferrer" style="color:var(--paper);text-decoration:none">${esc(x.name)}</a>
+            <small class="${upcomingDlc ? 'soon' : ''}">${upcomingDlc ? (day ? `Out ${fmtDate(day)}` : esc(x.soonText || 'Coming soon')) : day ? `Released ${fmtDate(day)}` : ''}</small></div>
+          <span class="pr">${esc(x.price)}</span>
+          <span class="trkcell">${upcomingDlc && day ? (tracked(x.name) ? '<span class="trk">✓ In Releases</span>' : `<button class="btn quiet sm" data-act="store-track" data-name="${esc(x.name)}" data-date="${day}">Track</button>`) : ''}</span>
+        </li>`; }).join('')}</ul>
+    </section>` : ''}
+
+    ${d.features.length || d.languages ? `<section class="panel">
+      ${d.features.length ? `<h2 class="h2">Features</h2><div class="chips">${d.features.map(x => `<span>${esc(x)}</span>`).join('')}</div>` : ''}
+      ${d.languages ? `<h2 class="h2" style="margin-top:${d.features.length ? 24 : 0}px">Languages</h2><p class="muted" style="margin:0;font-size:14.5px">${esc(d.languages)}</p>
+        ${d.audioLangs.length ? `<p class="dim" style="margin:6px 0 0;font-size:13px">Full audio: ${esc(d.audioLangs.join(', '))}</p>` : ''}` : ''}
+    </section>` : ''}
+
+    ${d.reqMin.length || d.reqRec.length ? `<section class="panel"><h2 class="h2">PC requirements</h2>
+      <div class="reqs">${reqBlock('Minimum', d.reqMin)}${reqBlock('Recommended', d.reqRec)}</div>
+    </section>` : ''}
+
+    ${d.ageNote ? `<section class="panel"><h2 class="h2">Content notes</h2><p class="muted" style="margin:0;font-size:14.5px;white-space:pre-line">${esc(d.ageNote)}</p></section>` : ''}
+  </div>`;
+}
+
 function secReleases(g){
   const all = [...g.releases].sort((a,b) => (a.date || '').localeCompare(b.date || ''));
   const t = localDate();
@@ -1490,7 +1674,7 @@ document.addEventListener('click', e => {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0); break;
     case 'open': view.art = null; go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); { const og = game(el.dataset.id); if (og) fetchAch(og); } break;
     case 'back': go(() => { view.gameId = null; }); window.scrollTo(0,0); break;
-    case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); break;
+    case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
     case 'add-game': addGame(); break;
     case 'steam-import': importSteam(); break;
@@ -1498,6 +1682,12 @@ document.addEventListener('click', e => {
     case 'ach-refresh': fetchAch(g, {force:true}); break;
     case 'news-filter': view.newsFilter = el.dataset.v; render(); break;
     case 'news-refresh': fetchNews(g, {force:true}); break;
+    case 'store-refresh': fetchStore(g, {force:true}); break;
+    case 'store-more': view.storeMore = !view.storeMore; render(); break;
+    case 'store-track': {
+      const n = el.dataset.name, d = el.dataset.date;
+      if (!g.releases.some(r => sameRelease(r.name, n))) { g.releases.push({id:uid(), name:n, date:d}); save(); }
+      render(); toast(`Tracking ${n}. It shows on your Continue screen`); break; }
     case 'ach-reveal': (view.reveal = view.reveal || new Set()).add(el.dataset.id); render(); break;
     case 'sync-save': {
       const u = document.getElementById('s-url').value.trim(), k = document.getElementById('s-key').value.trim();
