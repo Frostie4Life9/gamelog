@@ -743,6 +743,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.22-l', note:'UPDATE BAR CHECKS WHILE THE TAB STAYS OPEN: it used to look for a new build only when the app loaded or when you came back to the tab, so a tab you left open and in view never heard about updates. Now it checks every two minutes while visible. The very first time you need to reload by hand to get this build.'},
   {v:'2026.10.22-k', note:'ONGOING GAMES CAN TAKE THE BIG SPOT: the big section on Continue picked only from Playing and Paused games, so a live service game like The Finals could never be the most recent one. Now every game that is Playing, Paused or Ongoing (and not Lapsed) is ranked by when you last played it, and the top one is featured. An Ongoing game shows its Active tag, peak rank and seasons there instead of a finish line.'},
   {v:'2026.10.22-j', note:'CONTINUE IS ABOUT YOUR LAST GAME: the big section is now always the game you are playing right now, or else the one you played most recently. It no longer jumps to a game just because it has a release coming up. It also shows more of what is left: open missables first, then what remains in Story, Power and Checklist with how far through each you are. A release for that same game shows as a small line at the bottom, and all upcoming releases stay in Coming up.'},
   {v:'2026.10.22-i', note:'PLAYING NOW TAKES THE BIG SPOT: when a Steam game is open, it moves into the large section at the top of Continue, with a Playing now heading and the time it started, even if it was Paused, Backlog, Ongoing or Finished. When you close it, Continue goes back to its normal pick: the game with the nearest release, otherwise the one you have left alone longest.'},
@@ -2011,7 +2012,7 @@ function buildKey(v){ const m=/^(\d{4})\.(\d\d)\.(\d\d)-([a-z]+)$/.exec(v||''); 
 let UPD={last:0,dismissed:null,shown:null};
 async function checkUpdate(force){
   if(!/^https?:$/.test(location.protocol) || !window.fetch) return;
-  if(!force && Date.now()-UPD.last<5*60e3) return;
+  if(!force && Date.now()-UPD.last<90e3) return;
   UPD.last=Date.now();
   try{
     const r=await fetch(location.pathname+'?_='+Date.now(),{cache:'no-store'});
@@ -2048,6 +2049,8 @@ document.getElementById('updx').addEventListener('click',()=>{
 });
 if(/[?&]v=\d+/.test(location.search)) try{ history.replaceState(null,'',location.pathname+location.hash); }catch(e){}
 setTimeout(()=>checkUpdate(true),2500);
+/* a tab that just stays open and visible never fires visibilitychange, so look again every two minutes */
+setInterval(()=>{ if(document.visibilityState==='visible') checkUpdate(false); },120e3);
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') checkUpdate(false); });
 </script>
 </body>
