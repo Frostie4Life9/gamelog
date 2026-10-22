@@ -226,12 +226,15 @@ function excerpt(text, max) {
   return { text: cut.slice(0, at > max * 0.6 ? at : max).trim() + '…', more: true };
 }
 
+const OFFICIAL_FEED = 'steam_community_announcements';
+
 async function steamNews(appid, count) {
   if (!/^\d+$/.test(appid)) return reply({ error: 'appid must be a number' }, 400);
-  const r = await fetch(`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${appid}&count=${count}&maxlength=0&format=json`);
+  const r = await fetch(`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${appid}&count=${count}&maxlength=0&feeds=${OFFICIAL_FEED}&format=json`);
   if (!r.ok) return reply({ error: `Steam returned ${r.status}` }, 502);
   const j = await r.json();
-  const raw = (j.appnews && j.appnews.newsitems) || [];
+  // Steam also mixes in third-party sites that mention the game, so keep only the developer's own posts
+  const raw = ((j.appnews && j.appnews.newsitems) || []).filter(n => n.feedname === OFFICIAL_FEED);
   const items = raw.map(n => {
     const body = cleanBB(n.contents);
     const ex = excerpt(body, 520);
