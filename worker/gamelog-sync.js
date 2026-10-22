@@ -38,6 +38,11 @@
                              description, icon, hidden flag, whether
                              you've unlocked it (and when), and the
                              share of all players who have it
+   GET  /steam/news?appid=&count=15
+                          -> recent patch notes and announcements for one
+                             game, newest first: title, link, date, a
+                             cleaned-up excerpt, and whether it looks like
+                             patch notes or general news
    ========================================================= */
 
 const KEYNAME = 'state';
@@ -193,6 +198,56 @@ async function steamAchievements(env, appid) {
   return reply({ appid: +appid, total: items.length, unlocked: items.filter(i => i.done).length, items });
 }
 
+/* ---------- Steam news / patch notes ---------- */
+const BB_TAGS = 'h[1-6]|b|i|u|s|strike|url|list|olist|quote|code|spoiler|noparse|hr|table|tr|td|th|p|center|\\*';
+const BB_OPEN_CLOSE = new RegExp('\\[\\/?(?:' + BB_TAGS + ')(?:=[^\\]]*)?\\]', 'gi');
+const PATCH_TITLE = /\b(patch|hotfix|hot fix|update|changelog|change log|release notes|bug ?fix(?:es)?|v?\d+\.\d+(?:\.\d+)?)\b/i;
+
+function cleanBB(s) {
+  return String(s || '')
+    .replace(/\[img\][\s\S]*?\[\/img\]/gi, '')
+    .replace(/\{STEAM_CLAN_IMAGE\}\S*/g, '')
+    .replace(/\[previewyoutube[^\]]*\][\s\S]*?\[\/previewyoutube\]/gi, '')
+    .replace(/\[url=[^\]]*\]([\s\S]*?)\[\/url\]/gi, '$1')
+    .replace(/\[\*\]/g, '\n• ')
+    .replace(/\[\/(?:h[1-6]|p|list|olist|quote|code|tr)\]/gi, '\n')
+    .replace(/\[br\]/gi, '\n')
+    .replace(BB_OPEN_CLOSE, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function excerpt(text, max) {
+  if (text.length <= max) return { text, more: false };
+  const cut = text.slice(0, max);
+  const at = Math.max(cut.lastIndexOf('\n'), cut.lastIndexOf('. '), cut.lastIndexOf(' '));
+  return { text: cut.slice(0, at > max * 0.6 ? at : max).trim() + '…', more: true };
+}
+
+async function steamNews(appid, count) {
+  if (!/^\d+$/.test(appid)) return reply({ error: 'appid must be a number' }, 400);
+  const r = await fetch(`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${appid}&count=${count}&maxlength=0&format=json`);
+  if (!r.ok) return reply({ error: `Steam returned ${r.status}` }, 502);
+  const j = await r.json();
+  const raw = (j.appnews && j.appnews.newsitems) || [];
+  const items = raw.map(n => {
+    const body = cleanBB(n.contents);
+    const ex = excerpt(body, 520);
+    const tags = Array.isArray(n.tags) ? n.tags : [];
+    // Steam only tags some posts, so fall back to the title. That fallback is a guess.
+    const patch = tags.includes('patchnotes') || PATCH_TITLE.test(n.title || '');
+    return {
+      id: String(n.gid), title: n.title || 'Untitled', url: n.url || '',
+      label: n.feedlabel || '', date: n.date || 0,
+      kind: patch ? 'patch' : 'news',
+      excerpt: ex.text, more: ex.more
+    };
+  }).sort((a, b) => b.date - a.date);
+  return reply({ appid: +appid, items });
+}
+
 export default {
   async fetch(request, env) {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
@@ -221,6 +276,12 @@ export default {
 
     if (url.pathname === '/steam/achievements') {
       try { return await steamAchievements(env, (url.searchParams.get('appid') || '').trim()); }
+      catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
+    }
+
+    if (url.pathname === '/steam/news') {
+      const count = Math.max(1, Math.min(30, parseInt(url.searchParams.get('count'), 10) || 15));
+      try { return await steamNews((url.searchParams.get('appid') || '').trim(), count); }
       catch (e) { return reply({ error: 'Steam request failed: ' + e.message }, 502); }
     }
 

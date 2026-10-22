@@ -191,6 +191,24 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .achlast{margin:0 0 24px;color:var(--mist);font-size:14px}
 .achlast b{color:var(--paper)}
 .achchip{display:inline-flex;align-items:center;gap:4px}
+.slot .sub{flex-wrap:wrap}
+.newtag{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1;color:var(--gold-ink);background:var(--gold);padding:4px 8px;border-radius:999px;border:0;white-space:nowrap}
+button.newtag{cursor:pointer}
+.sec .n.new{background:var(--gold);color:var(--gold-ink)}
+.newshead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.newsctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.newsnote{margin:4px 0 0;font-size:14px;color:var(--mist)}
+.newsnote b{color:var(--gold)} .newsnote .warnt{color:var(--rose)}
+.posts{display:flex;flex-direction:column;gap:12px}
+.post{border:1px solid var(--line-soft);border-radius:var(--r-md);padding:16px 18px;background:var(--night)}
+.post.fresh{border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
+.post .ph{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--dim);margin-bottom:6px}
+.post .kind{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--raise);color:var(--mist)}
+.post .kind.patch{background:rgba(143,184,255,.16);color:var(--sky)}
+.post h3{margin:0 0 6px;font-size:17px;font-weight:650;letter-spacing:-.003em}
+.post h3 a{color:var(--paper);text-decoration:none} .post h3 a:hover{color:var(--gold);text-decoration:underline}
+.post .ex{margin:0 0 8px;color:var(--mist);font-size:14.5px;white-space:pre-line}
+.post .more{font-size:14px}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r-lg);padding:48px 24px;text-align:center;color:var(--mist)}
 .empty b{display:block;color:var(--paper);font-size:18px;margin-bottom:6px}
 
@@ -671,6 +689,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.22-a', note:'WHAT\u2019S NEW: every Steam game has a new What\u2019s new section with its recent patch notes and announcements. If something was posted after you last played and you have not opened that section yet, the game gets a gold \u201cNew since you left\u201d tag. Opening the section clears it on all your devices. Your Worker needs the updated gamelog-sync.js for this.'},
   {v:'2026.10.21-e', note:'FULL COVER ART: covers now use the same tall shape as Steam box art, so titles at the top are no longer cut off. Your score moved to the bottom corner so it stops sitting on top of the game\u2019s logo.'},
   {v:'2026.10.21-d', note:'PLAYBACK JOINS THE SUITE: your music and TV/film log now sits in the top bar and the app grid, with its teal cassette icon. On a computer it is the last tab across the top; on a phone it is in the grid.'},
   {v:'2026.10.21-c', note:'NEW LIFT ICON: Lift\u2019s tile in the app grid is redrawn so the L reads as an L \u2014 a kettlebell sits beside it instead of a plate covering its foot. Its tab in the top bar now shows a kettlebell too.'},
@@ -702,7 +721,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d ? new Date(d + 'T00:00').toLocaleDateString(undefined, opts) : '';
 
 function blankGame(title){
-  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null,
+  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null, newsSeen:0,
     note:{where:'', next:'', recap:''}, review:'',
     layers:{story:{inFinish:true,items:[]}, power:{inFinish:false,items:[]}, checklist:{inFinish:false,items:[]}},
     missables:[], releases:[]};
@@ -715,6 +734,7 @@ function normalize(g){
   LAYERS.forEach(([k]) => { g.layers[k] = g.layers[k] || {inFinish:k === 'story', items:[]}; });
   g.rating = Math.max(0, Math.min(10, Math.round(+g.rating || 0)));
   g.hours = +g.hours || 0;
+  g.newsSeen = +g.newsSeen || 0;
   if (!STATUSES.includes(g.status)) g.status = 'backlog';
   return g;
 }
@@ -812,6 +832,7 @@ async function pull(){
   } catch(e) { setStatus('error', e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker. Check the URL and your connection' : e.message); }
   syncBusy = false;
   autoArt();
+  checkNews();
 }
 function schedulePush(){ if (!syncOn()) return; clearTimeout(pushT); pushT = setTimeout(push, 1200); }
 async function push(){
@@ -901,6 +922,65 @@ async function fetchAch(g, opts = {}){
   achLoading.delete(g.id); if (!opts.quiet) render();
 }
 const achPct = g => g.ach && g.ach.total ? Math.floor(g.ach.done / g.ach.total * 100) : null;
+
+/* ---------- What's new (Steam patch notes + announcements) ----------
+   Posts are cached on this device only (re-fetchable). The one thing that
+   syncs is g.newsSeen, the moment you last opened a game's What's new section,
+   so the "New since you left" tag clears on every device. The tag's baseline is
+   the later of that moment and the end of the day you last played. */
+const NEWS_KEY = 'gamelog_news';
+const NEWS_TTL = 60 * 60000;
+let newsCache = (() => { try { return JSON.parse(localStorage.getItem(NEWS_KEY)) || {}; } catch(e) { return {}; } })();
+const newsLoading = new Set();
+function saveNewsCache(){ try { localStorage.setItem(NEWS_KEY, JSON.stringify(newsCache)); } catch(e) { newsCache = {}; } }
+function newsSince(g){
+  const played = g.lastPlayed ? Math.floor(new Date(g.lastPlayed + 'T23:59:59').getTime() / 1000) : 0;
+  return Math.max(g.newsSeen || 0, played);
+}
+function newCount(g){
+  if (!g.steamId || (g.status !== 'playing' && g.status !== 'paused')) return 0;
+  const c = newsCache[g.steamId], since = newsSince(g);
+  if (!c || !c.items || !since) return 0;
+  return c.items.filter(i => i.date > since).length;
+}
+const newTag = (g, tag = 'span') => newCount(g)
+  ? `<${tag} class="newtag" ${tag === 'button' ? 'data-act="section" data-s="news" aria-label="Open What\u2019s new"' : ''} title="${newCount(g)} post${newCount(g) > 1 ? 's' : ''} since you last played or checked">New since you left</${tag}>` : '';
+async function fetchNews(g, opts = {}){
+  if (!g.steamId || !syncOn() || newsLoading.has(g.id)) return;
+  const c = newsCache[g.steamId];
+  if (!opts.force && c && !c.err && Date.now() - c.fetched < NEWS_TTL) return;
+  newsLoading.add(g.id); if (!opts.quiet) render();
+  try {
+    const r = await api('/steam/news?appid=' + g.steamId + '&count=15');
+    if (r.status === 404) throw new Error('your Worker needs the updated gamelog-sync.js (paste it in and deploy)');
+    if (!r.ok) throw new Error(await readErr(r));
+    const res = await r.json();
+    newsCache[g.steamId] = {fetched:Date.now(), items:res.items || [], err:''};
+  } catch(e) {
+    newsCache[g.steamId] = {fetched:Date.now(), items:(c && c.items) || [], err: e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message};
+    if (opts.quiet) { newsLoading.delete(g.id); saveNewsCache(); throw e; }
+  }
+  newsLoading.delete(g.id); saveNewsCache(); if (!opts.quiet) render();
+}
+function enterNews(g){
+  if (!g || !g.steamId) return;
+  view.newsBase = {id:g.id, t:newsSince(g)};
+  fetchNews(g, {force:!!(newsCache[g.steamId] && newsCache[g.steamId].err)}).then(() => {
+    const c = newsCache[g.steamId];
+    if (view.gameId === g.id && view.section === 'news' && c && !c.err && newCount(g)) {
+      g.newsSeen = Math.floor(Date.now() / 1000); save(); render();
+    }
+  });
+}
+async function checkNews(){
+  if (!syncOn()) return;
+  const todo = state.games.filter(g => g.steamId && (g.status === 'playing' || g.status === 'paused'))
+    .filter(g => { const c = newsCache[g.steamId]; return !c || Date.now() - c.fetched > NEWS_TTL; }).slice(0, 10);
+  let did = false;
+  for (const g of todo) { try { await fetchNews(g, {quiet:true}); did = true; } catch(e) { break; } }
+  const ae = document.activeElement;
+  if (did && !(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))) render();
+}
 
 async function autoArt(){
   if (!syncOn()) return;
@@ -1042,7 +1122,7 @@ function renderContinue(){
       <button class="slot" data-act="open" data-id="${f.id}" aria-label="Open ${esc(f.title)}">${coverHTML(f, {score:true})}</button>
       <div>
         <h2>${esc(f.title)}</h2>
-        <div class="meta"><span>${LABEL[f.status]}</span><span>${since(f.lastPlayed)}</span><span>${st.pct}% to finish line</span>${miss ? `<span class="alert">${miss} missable${miss > 1 ? 's' : ''} open</span>` : ''}</div>
+        <div class="meta"><span>${LABEL[f.status]}</span><span>${since(f.lastPlayed)}</span><span>${st.pct}% to finish line</span>${miss ? `<span class="alert">${miss} missable${miss > 1 ? 's' : ''} open</span>` : ''}${newTag(f)}</div>
         ${f.note.where || f.note.next ? `<div class="save">
           <div><h4>Where you were</h4><p>${esc(f.note.where) || '<span class="dim">Not written yet</span>'}</p></div>
           <div class="next"><h4>Next step</h4><p>${esc(f.note.next) || '<span class="dim">Not written yet</span>'}</p></div>
@@ -1074,7 +1154,7 @@ function slot(g){
   return `<button class="slot" data-act="open" data-id="${g.id}">
     ${coverHTML(g, {score:true})}
     <div><div class="lbl">${esc(g.title)}</div>
-    <div class="sub"><span>${LABEL[g.status]}</span>${st.total ? `<span>${st.pct}%</span>` : ''}${achPct(g) !== null ? `<span class="achchip" title="${g.ach.done} of ${g.ach.total} achievements">${ICON.trophy}${achPct(g)}%</span>` : ''}</div></div>
+    <div class="sub"><span>${LABEL[g.status]}</span>${st.total ? `<span>${st.pct}%</span>` : ''}${achPct(g) !== null ? `<span class="achchip" title="${g.ach.done} of ${g.ach.total} achievements">${ICON.trophy}${achPct(g)}%</span>` : ''}${newTag(g)}</div></div>
   </button>`;
 }
 
@@ -1147,11 +1227,11 @@ function renderSync(){
 }
 
 /* ---------- Game ---------- */
-const SECTIONS = [['save','Save point'],['quests','Quests'],['achievements','Achievements'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
+const SECTIONS = [['save','Save point'],['quests','Quests'],['achievements','Achievements'],['news','What\u2019s new'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
 
 function renderGame(g){
   const st = stats(g), miss = openMissables(g), ups = upcoming(g).length;
-  const badge = {quests: st.total - st.done, missables: miss, releases: ups, achievements: g.ach && g.ach.total ? g.ach.total - g.ach.done : 0};
+  const badge = {quests: st.total - st.done, missables: miss, releases: ups, achievements: g.ach && g.ach.total ? g.ach.total - g.ach.done : 0, news: newCount(g)};
   const tint = paletteFor(g);
   return `
   <header class="hero">
@@ -1166,14 +1246,15 @@ function renderGame(g){
           ${ring(st)}
           ${achPct(g) !== null ? `<button data-act="section" data-s="achievements" aria-label="Open achievements" style="border:0;background:none;padding:0;color:inherit;text-align:left;cursor:pointer">${ring({total:g.ach.total, done:g.ach.done, pct:achPct(g)}, 'achievements')}</button>` : ''}
           ${pips(g)}
+          ${newTag(g, 'button')}
         </div>
       </div>
     </div>
   </header>
   <nav class="sections" aria-label="Game sections"><div class="sections-in">
-    ${SECTIONS.filter(([k]) => k !== 'achievements' || g.steamId).map(([k, l]) => `<button class="sec ${view.section === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${view.section === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
+    ${SECTIONS.filter(([k]) => (k !== 'achievements' && k !== 'news') || g.steamId).map(([k, l]) => `<button class="sec ${view.section === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${view.section === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : k === 'news' ? 'new' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
   </div></nav>
-  <div class="page">${({save:secSave, quests:secQuests, achievements:secAch, missables:secMissables, releases:secReleases, review:secReview})[view.section](g)}</div>`;
+  <div class="page">${({save:secSave, quests:secQuests, achievements:secAch, news:secNews, missables:secMissables, releases:secReleases, review:secReview})[view.section](g)}</div>`;
 }
 
 function secSave(g){
@@ -1272,6 +1353,40 @@ function secMissables(g){
     <div class="warnhead">${ICON.warn}<div><h3>Clear these before you move the story forward</h3>
     <p>Things you can lose, or lose track of, by progressing too far. Check them off as you handle them.</p></div></div>
     ${checklist(g.missables, 'miss', '', 'Add something you could miss')}
+  </section>`;
+}
+
+function secNews(g){
+  if (!syncOn()) return `<div class="empty"><b>Connect sync to load What\u2019s new</b>Patch notes and announcements come from Steam through your Worker.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="sync">Go to Sync</button></div></div>`;
+  const c = newsCache[g.steamId];
+  if (!c) return `<div class="empty"><b>Loading What\u2019s new</b>Asking Steam for ${esc(g.title)}.</div>`;
+  const all = c.items || [];
+  if (c.err && !all.length) return `<div class="empty"><b>Couldn\u2019t load What\u2019s new</b>${esc(c.err)}<div class="actions" style="justify-content:center"><button class="btn" data-act="news-refresh">Try again</button></div></div>`;
+  const base = view.newsBase && view.newsBase.id === g.id ? view.newsBase.t : newsSince(g);
+  const f = view.newsFilter || 'all';
+  const list = all.filter(i => f === 'all' || i.kind === 'patch');
+  const fresh = base ? all.filter(i => i.date > base).length : 0;
+  const day = t => fmtDate(localDate(new Date(t * 1000)));
+  const safe = u => /^https?:\/\//.test(u) ? u : '';
+  return `<section class="panel newspanel">
+    <div class="newshead">
+      <div><h2 class="h2" style="margin:0">What\u2019s new</h2>
+        <p class="newsnote">${fresh ? `<b>${fresh} new</b> since ${day(base)}.` : all.length ? 'Nothing new since you last played or checked.' : ''}${c.err ? ` <span class="warnt">Couldn\u2019t refresh: ${esc(c.err)}</span>` : ''}</p></div>
+      <div class="newsctl">
+        <div class="seg" role="tablist" aria-label="Filter posts">${[['all','All'],['patch','Patch notes']].map(([k, l]) => `<button class="${f === k ? 'on' : ''}" data-act="news-filter" data-v="${k}">${l}<span class="n">${k === 'all' ? all.length : all.filter(i => i.kind === 'patch').length}</span></button>`).join('')}</div>
+        <button class="btn quiet" data-act="news-refresh">Refresh</button>
+      </div>
+    </div>
+    ${list.length ? `<div class="posts">${list.map(i => {
+      const isNew = base && i.date > base;
+      return `<article class="post ${isNew ? 'fresh' : ''}">
+        <div class="ph"><span class="kind ${i.kind}">${i.kind === 'patch' ? 'Patch notes' : 'News'}</span>${isNew ? '<span class="newtag">New</span>' : ''}<span class="when">${day(i.date)}${i.label ? ' \u00b7 ' + esc(i.label) : ''}</span></div>
+        <h3>${safe(i.url) ? `<a href="${esc(safe(i.url))}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>` : esc(i.title)}</h3>
+        ${i.excerpt ? `<p class="ex">${esc(i.excerpt)}</p>` : ''}
+        ${i.more && safe(i.url) ? `<a class="more" href="${esc(safe(i.url))}" target="_blank" rel="noopener noreferrer">Read the full post on Steam</a>` : ''}
+      </article>`;
+    }).join('')}</div>`
+    : `<div class="empty"><b>${all.length ? 'No patch notes found' : 'Nothing posted yet'}</b>${all.length ? 'Switch to All to see announcements.' : `Steam has no news for ${esc(g.title)}.`}</div>`}
   </section>`;
 }
 
@@ -1375,12 +1490,14 @@ document.addEventListener('click', e => {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0); break;
     case 'open': view.art = null; go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); { const og = game(el.dataset.id); if (og) fetchAch(og); } break;
     case 'back': go(() => { view.gameId = null; }); window.scrollTo(0,0); break;
-    case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); break;
+    case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); break;
     case 'filter': view.filter = el.dataset.f; render(); break;
     case 'add-game': addGame(); break;
     case 'steam-import': importSteam(); break;
     case 'ach-filter': view.achFilter = el.dataset.v; render(); break;
     case 'ach-refresh': fetchAch(g, {force:true}); break;
+    case 'news-filter': view.newsFilter = el.dataset.v; render(); break;
+    case 'news-refresh': fetchNews(g, {force:true}); break;
     case 'ach-reveal': (view.reveal = view.reveal || new Set()).add(el.dataset.id); render(); break;
     case 'sync-save': {
       const u = document.getElementById('s-url').value.trim(), k = document.getElementById('s-key').value.trim();
