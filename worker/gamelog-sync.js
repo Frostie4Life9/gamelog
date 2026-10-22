@@ -66,6 +66,11 @@
    GET  /steam/play       -> { now, sessions } what you're playing right
                              now (or null) and your recent sessions, each
                              { a: appid, n: name, s: start ms, e: end ms }
+   POST /steam/check?appid=&t=  -> check Steam for your current game right
+                             now instead of waiting for the next cron tick,
+                             then answer like /steam/play. The Play button
+                             uses it; appid and t (click time, ms) are optional
+                             hints so the session starts at the click.
    GET  /steam/summary    -> per-game achievement counts and recent news
                              dates for the whole library, plus how much of
                              the library is loaded and when the background
@@ -609,7 +614,11 @@ async function closeSession(env, play, end) {
   await kvPut(env, 'sessions', list.slice(-SESS_KEEP));
 }
 
-async function checkPlaying(env) {
+let lastCheck = 0;
+
+/* hint: {appid, t} from the app's Play button. If that game turns up as newly
+   started, the session is dated from the click instead of from this check. */
+async function checkPlaying(env, hint) {
   needSteam(env);
   const now = Date.now();
   const net = makeNet();
@@ -628,7 +637,8 @@ async function checkPlaying(env) {
       return { playing: cur };
     }
     if (cur) await closeSession(env, cur, cur.miss || now);              // switched games
-    const open = { a: appid, n: name, s: now };
+    const clicked = hint && hint.appid === appid && hint.t > now - 5 * MIN && hint.t <= now;
+    const open = { a: appid, n: name, s: clicked ? hint.t : now };
     await kvPut(env, 'play', open);
     return { playing: open };
   }
@@ -674,6 +684,13 @@ async function steamRoute(request, env, url) {
     return { appid: d.appid, items: d.items.slice(0, count) };
   }
   if (p === '/steam/play') return playData(env);
+  if (p === '/steam/check') {
+    if (Date.now() - lastCheck > 2000) {
+      lastCheck = Date.now();
+      await checkPlaying(env, { appid: parseInt(q('appid'), 10) || 0, t: parseInt(q('t'), 10) || 0 });
+    }
+    return playData(env);
+  }
   if (p === '/steam/summary') return summary(env);
   if (p === '/steam/refresh') {
     if (request.method !== 'POST') throw new StErr('use POST', 405);
