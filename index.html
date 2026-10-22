@@ -743,6 +743,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.22-f', note:'REMEMBERS YOUR SORT: the Library now keeps whatever you last sorted by, like Recently played, and opens that way next time until you change it. It is remembered separately on each device.'},
   {v:'2026.10.22-e', note:'ONGOING GAMES: live service games like The Finals now have their own Ongoing status, so they stop pretending to be Playing. An Active, Dormant or Lapsed tag sets itself from your last played date: Active is within 14 days, Dormant is up to 90 days, Lapsed is longer. Tap I played today on the game\u2019s Save point page to keep it fresh. Ongoing games track a peak rank or milestone and seasons played instead of a finish line, and still get the New since you left tag for patches. Lapsed ones leave Continue on their own but stay in your Library.'},
   {v:'2026.10.22-d', note:'PLAY BUTTON: every Steam game now has a Play button next to its status. It opens the game through Steam on the PC you are using, so it shows up on computers only. The first time, your browser asks to open Steam; tick the box to always allow it.'},
   {v:'2026.10.22-c', note:'TRAILERS PLAY IN THE APP: tap a trailer in the Store page section and it plays right there, on phones and computers. If a trailer can\u2019t play it opens on Steam instead.'},
@@ -1170,7 +1171,9 @@ document.addEventListener('visibilitychange', () => { if (document.visibilitySta
 
 save({keepTime:true, noPush:true});
 
-const view = {tab:'continue', gameId:null, section:'save', filter:'all', q:'', sort:'title', art:null};
+const SORT_KEY = 'gamelog_sort';
+const SORTS = ['title','score','recent','progress'];
+const view = {tab:'continue', gameId:null, section:'save', filter:'all', q:'', sort:(() => { try { const v = localStorage.getItem(SORT_KEY); return SORTS.includes(v) ? v : 'title'; } catch(e) { return 'title'; } })(), art:null};
 const game = id => state.games.find(g => g.id === id);
 
 /* ---------- Derived ---------- */
@@ -1869,7 +1872,7 @@ document.addEventListener('pointerout', e => {
 
 document.addEventListener('change', e => {
   const el = e.target;
-  if (el.id === 'sort') { view.sort = el.value; render(); return; }
+  if (el.id === 'sort') { view.sort = el.value; try { localStorage.setItem(SORT_KEY, view.sort); } catch(e) {} render(); return; }
   if (el.id === 'achSort') { view.achSort = el.value; render(); return; }
   const g = current(el); if (!g) return;
   if (el.dataset.act === 'toggle') {
