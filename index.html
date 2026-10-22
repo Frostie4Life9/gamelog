@@ -195,6 +195,9 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .achlast b{color:var(--paper)}
 .achchip{display:inline-flex;align-items:center;gap:4px}
 .slot .sub{flex-wrap:wrap}
+.acttag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1;padding:4px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.acttag::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.acttag.active,.actc.active{color:var(--mint)} .acttag.dormant,.actc.dormant{color:var(--gold)} .acttag.lapsed,.actc.lapsed{color:var(--dim)}
 .newtag{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1;color:var(--gold-ink);background:var(--gold);padding:4px 8px;border-radius:999px;border:0;white-space:nowrap}
 button.newtag{cursor:pointer}
 .sec .n.new{background:var(--gold);color:var(--gold-ink)}
@@ -740,6 +743,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.22-e', note:'ONGOING GAMES: live service games like The Finals now have their own Ongoing status, so they stop pretending to be Playing. An Active, Dormant or Lapsed tag sets itself from your last played date: Active is within 14 days, Dormant is up to 90 days, Lapsed is longer. Tap I played today on the game\u2019s Save point page to keep it fresh. Ongoing games track a peak rank or milestone and seasons played instead of a finish line, and still get the New since you left tag for patches. Lapsed ones leave Continue on their own but stay in your Library.'},
   {v:'2026.10.22-d', note:'PLAY BUTTON: every Steam game now has a Play button next to its status. It opens the game through Steam on the PC you are using, so it shows up on computers only. The first time, your browser asks to open Steam; tick the box to always allow it.'},
   {v:'2026.10.22-c', note:'TRAILERS PLAY IN THE APP: tap a trailer in the Store page section and it plays right there, on phones and computers. If a trailer can\u2019t play it opens on Steam instead.'},
   {v:'2026.10.22-b', note:'STORE PAGE: every Steam game has a new Store page section with the game\u2019s description, developer and publisher, release date, genres, Steam review score, Metacritic score, current price and sale, trailers and screenshots, PC requirements, languages and its DLC. Upcoming DLC has a Track button that adds it to Releases with a countdown. Your Worker needs the updated gamelog-sync.js for this.'},
@@ -753,8 +757,8 @@ const CHANGELOG=[
 const BUILD=CHANGELOG[0].v;
 /* ---------- Data ---------- */
 const KEY = 'gamelog_v1';
-const STATUSES = ['playing','paused','backlog','done','dropped'];
-const LABEL = {playing:'Playing', paused:'Paused', backlog:'Backlog', done:'Finished', dropped:'Dropped'};
+const STATUSES = ['playing','ongoing','paused','backlog','done','dropped'];
+const LABEL = {playing:'Playing', ongoing:'Ongoing', paused:'Paused', backlog:'Backlog', done:'Finished', dropped:'Dropped'};
 const LAYERS = [
   ['story','Story','Main quest, companions and the side quests that matter.'],
   ['power','Power','Skills, gear and upgrades that make the fights better.'],
@@ -775,7 +779,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d ? new Date(d + 'T00:00').toLocaleDateString(undefined, opts) : '';
 
 function blankGame(title){
-  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null, newsSeen:0,
+  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
     note:{where:'', next:'', recap:''}, review:'',
     layers:{story:{inFinish:true,items:[]}, power:{inFinish:false,items:[]}, checklist:{inFinish:false,items:[]}},
     missables:[], releases:[]};
@@ -789,6 +793,8 @@ function normalize(g){
   g.rating = Math.max(0, Math.min(10, Math.round(+g.rating || 0)));
   g.hours = +g.hours || 0;
   g.newsSeen = +g.newsSeen || 0;
+  g.seasons = Math.max(0, Math.round(+g.seasons || 0));
+  g.peak = String(g.peak || '');
   if (!STATUSES.includes(g.status)) g.status = 'backlog';
   return g;
 }
@@ -999,7 +1005,7 @@ function newsSince(g){
   return Math.max(g.newsSeen || 0, played);
 }
 function newCount(g){
-  if (!g.steamId || (g.status !== 'playing' && g.status !== 'paused')) return 0;
+  if (!g.steamId || !(inProgress(g) || isLive(g))) return 0;
   const c = newsCache[g.steamId], s = steamSum.games && steamSum.games[g.steamId], since = newsSince(g);
   if (!since) return 0;
   // Dates from this device's cache plus the Worker's background summary
@@ -1184,6 +1190,17 @@ function since(date){
   const d = daysBetween(date, localDate());
   return d <= 0 ? 'Played today' : d === 1 ? 'Played yesterday' : `Last played ${d} days ago`;
 }
+/* Ongoing (live service) games have no end state, so their health comes from
+   how recently you played: Active within 14 days, Dormant up to 90, Lapsed beyond. */
+const isLive = g => g.status === 'ongoing';
+function activity(g){
+  if (!g.lastPlayed) return {key:'lapsed', label:'Lapsed'};
+  const d = daysBetween(g.lastPlayed, localDate());
+  return d <= 14 ? {key:'active', label:'Active'} : d <= 90 ? {key:'dormant', label:'Dormant'} : {key:'lapsed', label:'Lapsed'};
+}
+const actTag = g => isLive(g) ? `<span class="acttag ${activity(g).key}" title="${esc(since(g.lastPlayed))}">${activity(g).label}</span>` : '';
+const inProgress = g => g.status === 'playing' || g.status === 'paused';
+const liveShown = g => isLive(g) && activity(g).key !== 'lapsed';
 function hash(s){ let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
 
 /* ---------- Pieces ---------- */
@@ -1210,7 +1227,7 @@ function coverHTML(g, opts = {}){
     ${url ? `<img class="art" src="${esc(url)}" alt="" loading="lazy" onerror="this.parentNode.classList.remove('img','wide');this.remove()">` : ''}
     <div class="ct">${esc(g.title)}</div>
     ${opts.score && g.rating ? `<div class="score" aria-label="Score ${g.rating} out of 10">${g.rating}</div>` : ''}
-    ${opts.bar !== false && st.total ? `<div class="bar"><i style="width:${st.pct}%"></i></div>` : ''}
+    ${opts.bar !== false && st.total && !isLive(g) ? `<div class="bar"><i style="width:${st.pct}%"></i></div>` : ''}
   </div>`;
 }
 
@@ -1221,6 +1238,12 @@ function pips(g, cls = ''){
     </div>
     <div class="val">${g.rating ? `<b>${g.rating}<small>/10</small></b><span>${SCORE_WORD[g.rating]}</span>` : `<b class="dim" style="font-size:16px;font-weight:600">Not scored</b><span>Tap to score</span>`}</div>
   </div>`;
+}
+
+function liveStat(g){
+  const a = activity(g);
+  const bits = [since(g.lastPlayed), g.seasons ? `${g.seasons} season${g.seasons > 1 ? 's' : ''}` : '', g.peak ? esc(g.peak) : ''].filter(Boolean);
+  return `<div class="ring"><div><b class="actc ${a.key}">${a.label}</b><span>${bits.join(' · ')}</span></div></div>`;
 }
 
 function ring(st, kind = 'quests'){
@@ -1244,7 +1267,7 @@ function checklist(arr, kind, layer, placeholder){
 
 /* ---------- Chrome ---------- */
 function renderChrome(){
-  const active = state.games.filter(g => g.status === 'playing' || g.status === 'paused').length;
+  const active = state.games.filter(g => inProgress(g) || liveShown(g)).length;
   const navOn = t => view.tab === t && !view.gameId ? 'on' : '';
   const ups = state.games.flatMap(g => upcoming(g).map(r => ({g, r}))).sort((a,b) => a.r.date.localeCompare(b.r.date)).slice(0, 4);
   document.getElementById('rail').innerHTML = `
@@ -1266,10 +1289,24 @@ function renderChrome(){
 
 /* ---------- Continue ---------- */
 function renderContinue(){
-  const active = state.games.filter(g => g.status === 'playing' || g.status === 'paused');
+  const active = state.games.filter(inProgress);
+  const live = state.games.filter(liveShown).sort((a, b) => (b.lastPlayed || '').localeCompare(a.lastPlayed || ''));
+  if (!active.length && !live.length) return `<div class="page">
+    <h1 class="h1">Continue</h1><p class="lede">Games you're playing or have paused show up here with your save point, so coming back is easy. Live service games go here too once they are set to Ongoing.</p>
+    <div class="empty"><b>Nothing in progress</b>Open a game in your library and set it to Playing, Paused or Ongoing.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="library">Go to library</button></div></div></div>`;
+  const allUp = state.games.flatMap(g => upcoming(g).map(r => ({g, r}))).sort((a,b) => a.r.date.localeCompare(b.r.date));
+  const upSection = allUp.length ? `<h2 class="h2">Coming up</h2><div class="timeline">${allUp.map(({g, r}) => `
+      <button class="tl" data-act="open" data-id="${g.id}" data-section="releases">
+        <div class="day">${new Date(r.date + 'T00:00').getDate()}<small>${fmtDate(r.date, {month:'short', year:'numeric'})}</small></div>
+        <div class="what"><b>${esc(r.name)}</b><span>${esc(g.title)}</span></div>
+        <div class="cd">${countdown(r.date)}</div>
+      </button>`).join('')}</div>` : '';
+  const liveSection = live.length ? `<h2 class="h2">Ongoing</h2><div class="shelf" style="margin-bottom:44px">${live.map(slot).join('')}</div>` : '';
   if (!active.length) return `<div class="page">
-    <h1 class="h1">Continue</h1><p class="lede">Games you're playing or have paused show up here with your save point, so coming back is easy.</p>
-    <div class="empty"><b>Nothing in progress</b>Open a game in your library and set it to Playing or Paused.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="library">Go to library</button></div></div></div>`;
+    <h1 class="h1">Your ongoing games</h1>
+    <p class="lede">Live service games you've played in the last 90 days. The tag shows how recently each one had you.</p>
+    ${liveSection}${upSection}
+  </div>`;
 
   // Feature: the one with the nearest release, otherwise the one untouched longest
   const ranked = [...active].sort((a, b) => {
@@ -1280,7 +1317,6 @@ function renderContinue(){
   });
   const f = ranked[0], rest = ranked.slice(1), st = stats(f), rel = upcoming(f)[0], miss = openMissables(f);
   const next = LAYERS.flatMap(([k]) => f.layers[k].inFinish ? f.layers[k].items.filter(i => !i.done).map(i => ({...i, layer:k})) : []).slice(0, 3);
-  const allUp = state.games.flatMap(g => upcoming(g).map(r => ({g, r}))).sort((a,b) => a.r.date.localeCompare(b.r.date));
 
   return `<div class="page">
     <h1 class="h1">Pick up where you left off</h1>
@@ -1308,12 +1344,9 @@ function renderContinue(){
 
     ${rest.length ? `<h2 class="h2">Also in progress</h2><div class="shelf" style="margin-bottom:44px">${rest.map(slot).join('')}</div>` : ''}
 
-    ${allUp.length ? `<h2 class="h2">Coming up</h2><div class="timeline">${allUp.map(({g, r}) => `
-      <button class="tl" data-act="open" data-id="${g.id}" data-section="releases">
-        <div class="day">${new Date(r.date + 'T00:00').getDate()}<small>${fmtDate(r.date, {month:'short', year:'numeric'})}</small></div>
-        <div class="what"><b>${esc(r.name)}</b><span>${esc(g.title)}</span></div>
-        <div class="cd">${countdown(r.date)}</div>
-      </button>`).join('')}</div>` : ''}
+    ${liveSection}
+
+    ${upSection}
   </div>`;
 }
 
@@ -1322,7 +1355,7 @@ function slot(g){
   return `<button class="slot" data-act="open" data-id="${g.id}">
     ${coverHTML(g, {score:true})}
     <div><div class="lbl">${esc(g.title)}</div>
-    <div class="sub"><span>${LABEL[g.status]}</span>${st.total ? `<span>${st.pct}%</span>` : ''}${achPct(g) !== null ? `<span class="achchip" title="${g.ach.done} of ${g.ach.total} achievements">${ICON.trophy}${achPct(g)}%</span>` : ''}${newTag(g)}</div></div>
+    <div class="sub"><span>${LABEL[g.status]}</span>${actTag(g)}${isLive(g) ? (g.peak ? `<span>${esc(g.peak)}</span>` : '') : st.total ? `<span>${st.pct}%</span>` : ''}${achPct(g) !== null ? `<span class="achchip" title="${g.ach.done} of ${g.ach.total} achievements">${ICON.trophy}${achPct(g)}%</span>` : ''}${newTag(g)}</div></div>
   </button>`;
 }
 
@@ -1423,7 +1456,7 @@ function renderGame(g){
         <div class="hero-row">
           ${playBtn(g)}
           <select class="status-pick" data-f="status" data-rerender="1" aria-label="Status">${STATUSES.map(s => `<option value="${s}" ${g.status === s ? 'selected' : ''}>${LABEL[s]}</option>`).join('')}</select>
-          ${ring(st)}
+          ${isLive(g) ? liveStat(g) : ring(st)}
           ${achPct(g) !== null ? `<button data-act="section" data-s="achievements" aria-label="Open achievements" style="border:0;background:none;padding:0;color:inherit;text-align:left;cursor:pointer">${ring({total:g.ach.total, done:g.ach.done, pct:achPct(g)}, 'achievements')}</button>` : ''}
           ${pips(g)}
           ${newTag(g, 'button')}
@@ -1459,6 +1492,8 @@ function secSave(g){
         <div class="field"><label for="f-recap">Story recap link</label><input type="url" id="f-recap" data-f="note.recap" value="${esc(g.note.recap)}" placeholder="https://youtube.com/…"></div>
         <div class="field"><label for="f-hours">Hours played</label><input type="number" id="f-hours" min="0" step="0.5" data-f="hours" data-num="1" value="${g.hours || ''}"></div>
         <div class="field"><label for="f-last">Last played</label><input type="date" id="f-last" data-f="lastPlayed" value="${g.lastPlayed}"></div>
+        ${isLive(g) ? `<div class="field"><label for="f-peak">Peak rank or milestone</label><input type="text" id="f-peak" data-f="peak" value="${esc(g.peak)}" placeholder="Diamond, Season 4 finisher…"></div>
+        <div class="field"><label for="f-seasons">Seasons played</label><input type="number" id="f-seasons" min="0" step="1" data-f="seasons" data-num="1" value="${g.seasons || ''}"></div>` : ''}
       </div>
     </div>`;
 }
