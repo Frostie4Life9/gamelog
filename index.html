@@ -743,6 +743,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.22-j', note:'CONTINUE IS ABOUT YOUR LAST GAME: the big section is now always the game you are playing right now, or else the one you played most recently. It no longer jumps to a game just because it has a release coming up. It also shows more of what is left: open missables first, then what remains in Story, Power and Checklist with how far through each you are. A release for that same game shows as a small line at the bottom, and all upcoming releases stay in Coming up.'},
   {v:'2026.10.22-i', note:'PLAYING NOW TAKES THE BIG SPOT: when a Steam game is open, it moves into the large section at the top of Continue, with a Playing now heading and the time it started, even if it was Paused, Backlog, Ongoing or Finished. When you close it, Continue goes back to its normal pick: the game with the nearest release, otherwise the one you have left alone longest.'},
   {v:'2026.10.22-h', note:'PLAY STARTS A SESSION AT ONCE: after you press Play, Game Log asks the Worker to check Steam every few seconds, so \u201cPlaying now\u201d appears as soon as the game opens, dated from your click. Needs the updated Worker file, pasted in the same way as before.'},
   {v:'2026.10.22-g', note:'EXACT PLAY TIMES + SESSIONS: Game Log now keeps the exact time you last played, not just the day, so two games from the same day sort in the right order. With the Worker\u2019s new once-a-minute check, it also notices when a Steam game opens and closes and shows how long each session ran. You need to paste the updated Worker and add its second cron schedule for that part (steps are at the top of the Worker file).'},
@@ -1386,21 +1387,19 @@ function renderContinue(){
     ${liveSection}${upSection}
   </div>`;
 
-  // Feature: the game you're playing right now; otherwise the one with the
-  // nearest release, otherwise the one untouched longest
-  const ranked = [...active].sort((a, b) => {
-    if (a === nowG || b === nowG) return a === nowG ? -1 : 1;
-    const ra = upcoming(a)[0], rb = upcoming(b)[0];
-    if (ra && rb) return ra.date.localeCompare(rb.date);
-    if (ra || rb) return ra ? -1 : 1;
-    return playedKey(a) - playedKey(b);
-  });
+  // Feature: the game you're playing right now, otherwise the one you played most recently
+  const ranked = [...active].sort((a, b) => playedKey(b) - playedKey(a));
   const f = ranked[0], rest = ranked.slice(1), st = stats(f), rel = upcoming(f)[0], miss = openMissables(f);
-  const next = LAYERS.flatMap(([k]) => f.layers[k].inFinish ? f.layers[k].items.filter(i => !i.done).map(i => ({...i, layer:k})) : []).slice(0, 3);
+  // What's left, by layer, so you can see the whole shape of the game
+  const todo = LAYERS.map(([k, label]) => {
+    const L = f.layers[k], open = L.items.filter(i => !i.done);
+    return {k, label, open, total:L.items.length, done:L.items.length - open.length, counts:L.inFinish};
+  }).filter(x => x.open.length);
+  const openMiss = f.missables.filter(m => !m.done);
 
   return `<div class="page">
     <h1 class="h1">${f === nowG ? 'Playing now' : 'Pick up where you left off'}</h1>
-    <p class="lede">${f === nowG ? `You've had ${esc(f.title)} open since ${fmtClock(playNow.s)}. Here's where you stand.` : rel ? `${esc(rel.name)} lands ${countdown(rel.date).toLowerCase()}. Here's where you stand in ${esc(f.title)}.` : `${esc(f.title)} has waited the longest. Here's where you stand.`}</p>
+    <p class="lede">${f === nowG ? `You've had ${esc(f.title)} open since ${fmtClock(playNow.s)}. Here's what's left.` : `${esc(f.title)} is the last game you played. ${esc(since(f.lastPlayed))}. Here's what's left.`}</p>
 
     <section class="feature" aria-label="${esc(f.title)}">
       <button class="slot" data-act="open" data-id="${f.id}" aria-label="Open ${esc(f.title)}">${coverHTML(f, {score:true})}</button>
@@ -1411,9 +1410,13 @@ function renderContinue(){
           <div><h4>Where you were</h4><p>${esc(f.note.where) || '<span class="dim">Not written yet</span>'}</p></div>
           <div class="next"><h4>Next step</h4><p>${esc(f.note.next) || '<span class="dim">Not written yet</span>'}</p></div>
         </div>` : ''}
-        ${next.length ? `<div class="upnext"><h4>Next quests</h4><ul class="checks">${next.map(i => `<li>
-          <input class="tick" type="checkbox" aria-label="Mark done: ${esc(i.text)}" data-act="toggle" data-kind="item" data-layer="${i.layer}" data-id="${i.id}" data-game="${f.id}">
-          <span class="t">${esc(i.text)}</span><span></span></li>`).join('')}</ul></div>` : ''}
+        ${openMiss.length ? `<div class="upnext"><h4>Don't miss</h4><ul class="checks">${openMiss.slice(0, 4).map(m => `<li>
+          <input class="tick" type="checkbox" aria-label="Mark done: ${esc(m.text)}" data-act="toggle" data-kind="miss" data-id="${m.id}" data-game="${f.id}">
+          <span class="t">${esc(m.text)}</span><span></span></li>`).join('')}</ul>${openMiss.length > 4 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${openMiss.length - 4} more in Missables</p>` : ''}</div>` : ''}
+        ${todo.map(x => `<div class="upnext"><h4>${x.label} · ${x.done} of ${x.total} done</h4><ul class="checks">${x.open.slice(0, 4).map(i => `<li>
+          <input class="tick" type="checkbox" aria-label="Mark done: ${esc(i.text)}" data-act="toggle" data-kind="item" data-layer="${x.k}" data-id="${i.id}" data-game="${f.id}">
+          <span class="t">${esc(i.text)}</span><span></span></li>`).join('')}</ul>${x.open.length > 4 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${x.open.length - 4} more in Quests</p>` : ''}</div>`).join('')}
+        ${rel ? `<p class="dim" style="margin:14px 0 0;font-size:13px">${esc(rel.name)} ${countdown(rel.date).toLowerCase()}</p>` : ''}
         <div class="actions">
           <button class="btn" data-act="open" data-id="${f.id}">Open game</button>
           <button class="btn quiet" data-act="played" data-game="${f.id}">I played today</button>
