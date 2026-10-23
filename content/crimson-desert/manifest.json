@@ -1,0 +1,15 @@
+{
+  "slug": "crimson-desert",
+  "title": "Crimson Desert",
+  "steamId": 3321460,
+  "note": "Story, Power, Collectibles and Missables are your original lists, carried over as-is. Side Quests, Pets and Armor are waiting for the survey pass, so they are empty on purpose.",
+  "tabs": [
+    { "id": "story",     "name": "Main Story",   "tier": "story",   "file": "story.json" },
+    { "id": "side",      "name": "Side Quests",  "tier": "side",    "file": "side.json" },
+    { "id": "missables", "name": "Missables",    "tier": "extra",   "file": "missables.json" },
+    { "id": "collect",   "name": "Collectibles", "tier": "collect", "file": "collect.json" },
+    { "id": "pets",      "name": "Pets",         "tier": "collect", "file": "pets.json" },
+    { "id": "armor",     "name": "Armor",        "tier": "collect", "file": "armor.json" },
+    { "id": "power",     "name": "Power",        "tier": "extra",   "file": "power.json" }
+  ]
+}

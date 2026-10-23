@@ -1,0 +1,5 @@
+{ "entries": [
+  { "id": "cd-c1", "name": "Collect all Sealed Abyss Artifacts", "verified": "user" },
+  { "id": "cd-c2", "name": "Watchtower challenges", "verified": "user" },
+  { "id": "cd-c3", "name": "Remaining collectibles", "verified": "user" }
+] }

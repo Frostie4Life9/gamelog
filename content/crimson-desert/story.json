@@ -1,0 +1,7 @@
+{ "entries": [
+  { "id": "cd-s1", "name": "Watch a story recap video", "verified": "user" },
+  { "id": "cd-s2", "name": "Finish open companion loyalty quests", "verified": "user" },
+  { "id": "cd-s3", "name": "Finish second-to-last chapter", "verified": "user" },
+  { "id": "cd-s4", "name": "Finish final chapter", "verified": "user" },
+  { "id": "cd-s5", "name": "Charting the Unknown DLC story", "verified": "user" }
+] }

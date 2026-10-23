@@ -1,0 +1,5 @@
+{ "entries": [
+  { "id": "cd-m1", "name": "Companion loyalty quests: finish before the late-game siege chapters", "missable": true, "verified": "user" },
+  { "id": "cd-m2", "name": "Make a manual save before starting the final chapters", "missable": true, "verified": "user" },
+  { "id": "cd-m3", "name": "Collect Sealed Abyss Artifacts before grinding challenges (tracking trap)", "missable": true, "verified": "user" }
+] }

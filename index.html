@@ -390,6 +390,72 @@ a.scorecard:hover{border-color:var(--line)}
 }
 ::view-transition-group(*){animation-duration:.38s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
 
+/* ---- goals (deep per-game checklists) ---- */
+.gsum{display:grid;grid-template-columns:auto 1fr;gap:16px 28px;align-items:center;margin-bottom:18px}
+.gsum .big{font-weight:800;font-size:44px;line-height:.9;font-variation-settings:'wdth' 75;font-variant-numeric:tabular-nums}
+.gsum .big small{font-size:20px;color:var(--dim);font-weight:600}
+.gmeter{height:8px;border-radius:999px;background:var(--raise);overflow:hidden;display:flex;margin-bottom:10px}
+.gmeter i{display:block;height:100%;background:var(--gold)}
+.gmeter i.as{background:repeating-linear-gradient(135deg,rgba(245,182,63,.55) 0 4px,rgba(245,182,63,.25) 4px 8px)}
+.gsum p{margin:0;color:var(--mist);font-size:14px}
+.gfinish{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:18px}
+.gfinish .lbl{color:var(--mist);font-size:14px}
+.gfinish input[type=text]{flex:1;min-width:200px}
+.gtabs{margin-bottom:14px;max-width:100%;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
+.gtabs::-webkit-scrollbar{display:none}
+.gtabs button{white-space:nowrap}
+.gtabs button .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-left:6px;vertical-align:middle}
+.gtools{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;margin-bottom:14px}
+.gtools .search{flex:1;min-width:170px;max-width:300px}
+.gtools select{width:auto;max-width:200px}
+.gmissbtn{border:1px solid var(--line);background:transparent;color:var(--mist);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600}
+.gmissbtn.on{background:var(--rose);border-color:var(--rose);color:var(--night)}
+.gcover{color:var(--mist);font-size:14px;margin:0 0 14px}
+.gcover b{color:var(--paper)}
+.gcatch{margin-bottom:16px}
+.gcatch h3{margin:0 0 6px;font-size:17px}
+.gcatch .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+.gcatch .row label{color:var(--mist);font-size:14px}
+.gcatch select{width:auto;max-width:220px}
+.glist{list-style:none;margin:0;padding:0}
+.glist li{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.glist li:last-child{border-bottom:0}
+.glist li.d .gname{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--line)}
+.glist li.a .gname{color:var(--mist)}
+.gtick{position:relative;width:24px;height:24px;margin-top:0;padding:0;border:2px solid var(--line);border-radius:7px;background:transparent;display:grid;place-items:center}
+.gtick:hover{border-color:var(--mist)}
+.gtick.d{background:var(--mint);border-color:var(--mint)}
+.gtick.d::after{content:'';width:10px;height:6px;border-left:2.5px solid var(--night);border-bottom:2.5px solid var(--night);transform:translateY(-1px) rotate(-45deg)}
+.gtick.a{border-color:var(--mint);border-style:dashed;background:repeating-linear-gradient(135deg,rgba(98,214,184,.35) 0 3px,transparent 3px 6px)}
+.gname{line-height:1.45;font-weight:600}
+.gchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.gchip{font-size:12px;line-height:1;padding:4px 8px;border-radius:999px;background:var(--raise);color:var(--mist);white-space:nowrap}
+.gchip.warn{background:var(--rose);color:var(--night);font-weight:700}
+.gchip.next{background:var(--gold);color:var(--gold-ink);font-weight:700}
+.gchip.ok{color:var(--mint)}
+.gchip.as{border:1px dashed var(--mint);background:transparent;color:var(--mint)}
+.gdet{margin-top:12px;display:grid;gap:10px;color:var(--mist);font-size:15px;line-height:1.55}
+.gdet b{color:var(--paper)}
+.gdet .how{white-space:pre-line}
+.gdet a{color:var(--sky)}
+.gdet textarea{min-height:64px;font-size:14px}
+.gdet .acts{display:flex;flex-wrap:wrap;gap:8px}
+.gmore{white-space:nowrap}
+.gpager{display:flex;justify-content:center;margin-top:16px}
+/* session check-in sheet */
+.ckwrap{position:fixed;inset:0;z-index:120;display:grid;place-items:end center}
+.ckback{position:absolute;inset:0;background:rgba(10,12,28,.62)}
+.cksheet{position:relative;width:min(560px,100%);max-height:92vh;overflow-y:auto;background:var(--deep);border:1px solid var(--line);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:22px clamp(18px,4vw,28px) calc(22px + env(safe-area-inset-bottom));box-shadow:0 -12px 40px rgba(0,0,0,.5)}
+@media (min-width:700px){.ckwrap{place-items:center}.cksheet{border-radius:var(--r-lg)}}
+.cksheet h2{margin:0 0 4px;font-size:22px}
+.cksheet .sub{margin:0 0 16px;color:var(--mist);font-size:14px}
+.cksheet label.l{display:block;margin:14px 0 6px;font-weight:700;font-size:15px}
+.cksheet textarea{min-height:72px}
+.cksheet .picks{list-style:none;margin:6px 0 0;padding:0}
+.cksheet .picks li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;padding:8px 0;border-bottom:1px solid var(--line-soft)}
+.cksheet .picks li:last-child{border-bottom:0}
+.cksheet .picks h4{margin:14px 0 0;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim)}
+
 /* ---- update bar ---- */
 .updbar{position:fixed;left:0;right:0;top:0;z-index:130;padding:calc(10px + env(safe-area-inset-top)) 16px 0;pointer-events:none}
 .updbar[hidden]{display:none}
@@ -729,6 +795,7 @@ a.scorecard:hover{border-color:var(--line)}
 </div>
 <nav class="tabbar" id="tabbar"></nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="ck"></div>
 <div class="updbar" id="updbar" hidden role="status">
   <div class="updin"><span class="upddot"></span><span class="updtxt" id="updtxt">A new version is ready</span>
     <button class="updgo" id="updgo" type="button">Reload</button>
@@ -743,6 +810,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.23-a', note:'GOALS FOR BIG GAMES: games can now carry a deep checklist that lives in the repo, one file per tab, so size never bloats your synced library. Crimson Desert gets a Goals section in place of Quests, with tabs for Main Story, Side Quests, Missables, Collectibles, Pets, Armor and Power. Your old quest lists and ticks carried over. Search covers every tab, and you can filter by region, show only missables, and see what is left. Progress is weighted by estimated time once every goal has one. Each game gets a finish line: Beat it, Main + side, 100% or Shelved. CATCH-UP TOOLS: sweep a region, or mark everything before a goal as assumed. Assumed goals show lighter, tapping one confirms it, and any bulk change can be undone. CHECK-IN: when a tracked session ends, a sheet asks where you left off and what you finished. Side Quests, Pets and Armor are empty on purpose until the research pass fills them in.'},
   {v:'2026.10.22-l', note:'UPDATE BAR CHECKS WHILE THE TAB STAYS OPEN: it used to look for a new build only when the app loaded or when you came back to the tab, so a tab you left open and in view never heard about updates. Now it checks every two minutes while visible. The very first time you need to reload by hand to get this build.'},
   {v:'2026.10.22-k', note:'ONGOING GAMES CAN TAKE THE BIG SPOT: the big section on Continue picked only from Playing and Paused games, so a live service game like The Finals could never be the most recent one. Now every game that is Playing, Paused or Ongoing (and not Lapsed) is ranked by when you last played it, and the top one is featured. An Ongoing game shows its Active tag, peak rank and seasons there instead of a finish line.'},
   {v:'2026.10.22-j', note:'CONTINUE IS ABOUT YOUR LAST GAME: the big section is now always the game you are playing right now, or else the one you played most recently. It no longer jumps to a game just because it has a release coming up. It also shows more of what is left: open missables first, then what remains in Story, Power and Checklist with how far through each you are. A release for that same game shows as a small line at the bottom, and all upcoming releases stay in Coming up.'},
@@ -787,6 +855,7 @@ const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d 
 
 function blankGame(title){
   return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
+    content:'', finish:'', goals:null,
     note:{where:'', next:'', recap:''}, review:'',
     layers:{story:{inFinish:true,items:[]}, power:{inFinish:false,items:[]}, checklist:{inFinish:false,items:[]}},
     missables:[], releases:[]};
@@ -804,6 +873,9 @@ function normalize(g){
   g.peak = String(g.peak || '');
   g.lastPlayedAt = +g.lastPlayedAt || 0;
   g.sessions = Array.isArray(g.sessions) ? g.sessions.filter(x => x && x.s && x.e) : [];
+  g.content = /^[a-z0-9-]+$/.test(g.content || '') ? g.content : '';
+  if (!['', 'beat', 'main', 'full', 'shelved'].includes(g.finish)) g.finish = '';
+  if (g.goals && typeof g.goals === 'object') ensureGoals(g); else g.goals = null;
   if (!STATUSES.includes(g.status)) g.status = 'backlog';
   return g;
 }
@@ -815,6 +887,7 @@ function migrate(s){
     s.version = 2;
   }
   s.games.forEach(normalize);
+  s.games.forEach(g => { if (g.id === 'seed-crimson-desert' && !g.content) g.content = 'crimson-desert'; });
   return s;
 }
 
@@ -825,7 +898,7 @@ function seed(state){
   if (state.games.some(g => g.id === 'seed-crimson-desert')) return;
   const it = (id, text) => ({id, text, done:false});
   state.games.push(normalize({
-    id:'seed-crimson-desert', title:'Crimson Desert', platform:'PC', status:'paused', tint:8, steamId:3321460,
+    id:'seed-crimson-desert', title:'Crimson Desert', platform:'PC', status:'paused', tint:8, steamId:3321460, content:'crimson-desert',
     note:{
       where:'About 2 chapters left in the main story. Haven\'t played in months.',
       next:'Watch a story recap (not an "ending explained"), read the quest log, do a 30–60 min warm-up session, then push the last 2 chapters.',
@@ -1230,7 +1303,7 @@ async function pullPlay(){
     const r = await api('/steam/play');
     if (!r.ok) return;
     const d = await r.json();
-    let changed = false;
+    let changed = false, fresh = null;
     const was = playNow && playNow.a, was_s = playNow && playNow.s;
     playNow = d.now || null;
     for (const x of d.sessions || []) {
@@ -1241,6 +1314,8 @@ async function pullPlay(){
       if (g.sessions.length > SESS_MAX) g.sessions.splice(0, g.sessions.length - SESS_MAX);
       noteSession(g, x.e);
       changed = true;
+      // A session that just ended (and wasn't a blip) earns a check-in
+      if (x.e > Date.now() - 3 * 3600000 && x.e - x.s >= 5 * 60000) fresh = [g, {s:x.s, e:x.e}];
     }
     if (playNow) {
       const g = state.games.find(y => y.steamId === playNow.a);
@@ -1248,17 +1323,249 @@ async function pullPlay(){
     }
     if (changed) save();
     if (changed || was !== (playNow && playNow.a) || was_s !== (playNow && playNow.s)) render();
+    if (fresh) openCheckin(fresh[0], fresh[1]);
   } catch(e) {}
   playBusy = false;
 }
 
+/* ---------- Session check-in ----------
+   When a tracked session ends, a short sheet asks where you left off and what
+   you finished, so the note that brings you back later gets written while it
+   is fresh. Goal ticks only show for games that have a goals pack. */
+let ckOpen = null;   // {gid, s, e, manual, where, next, picks:Set, focused}
+async function openCheckin(g, sess, manual){
+  if (ckOpen) return;
+  ckOpen = {gid:g.id, s:sess ? sess.s : 0, e:sess ? sess.e : 0, manual:!!manual, picks:new Set()};
+  renderCheckin();
+  if (g.content) { await loadPack(g); renderCheckin(); }
+}
+function closeCheckin(){ ckOpen = null; renderCheckin(); }
+function checkinPicks(g){
+  const p = PACKS[g.content]; if (!p || p.state !== 'ready') return null;
+  const G = ensureGoals(g), out = {assumed:[], miss:[], next:[]};
+  const order = [...p.man.tabs].sort((a, b) => countsTab(g, b.tier) - countsTab(g, a.tier));
+  for (const t of order) for (const e of p.tabs[t.id]) {
+    const s = (G.st[t.id] || {})[e.id];
+    if (s === 'a') { if (out.assumed.length < 4) out.assumed.push(e); }
+    else if (!s) { if (e.missable) { if (out.miss.length < 3) out.miss.push(e); } else if (out.next.length < 6) out.next.push(e); }
+  }
+  return out;
+}
+function renderCheckin(){
+  const host = document.getElementById('ck');
+  if (!ckOpen) { host.innerHTML = ''; return; }
+  const g = game(ckOpen.gid); if (!g) { ckOpen = null; host.innerHTML = ''; return; }
+  const w = document.getElementById('ck-where'), n = document.getElementById('ck-next');
+  if (w) ckOpen.where = w.value; if (n) ckOpen.next = n.value;
+  host.querySelectorAll('input[data-ckpick]').forEach(c => { const k = c.dataset.tab + '\u0001' + c.dataset.id; if (c.checked) ckOpen.picks.add(k); else ckOpen.picks.delete(k); });
+  const picks = checkinPicks(g), loading = g.content && PACKS[g.content] && PACKS[g.content].state === 'loading';
+  const li = e => `<li><input class="tick" type="checkbox" data-ckpick="1" data-tab="${esc(e.tab)}" data-id="${esc(e.id)}" ${ckOpen.picks.has(e.tab + '\u0001' + e.id) ? 'checked' : ''} aria-label="Finished: ${esc(e.name)}"><span class="t">${esc(e.name)}</span></li>`;
+  const grp = (title, arr) => arr.length ? `<h4 style="margin:14px 0 0;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim)">${title}</h4><ul class="picks">${arr.map(li).join('')}</ul>` : '';
+  const any = picks && picks.assumed.length + picks.miss.length + picks.next.length;
+  const dur = ckOpen.s ? `${fmtDur(ckOpen.e - ckOpen.s)}, ${fmtClock(ckOpen.s)} to ${fmtClock(ckOpen.e)}. ` : '';
+  host.innerHTML = `<div class="ckwrap"><div class="ckback" data-act="ck-skip"></div>
+    <section class="cksheet" role="dialog" aria-modal="true" aria-labelledby="ck-h">
+      <h2 id="ck-h">${ckOpen.manual ? 'Check in' : 'Nice session'}: ${esc(g.title)}</h2>
+      <p class="sub">${esc(dur)}Two quick notes and a few ticks.</p>
+      <label class="l" for="ck-where">Where I left off</label>
+      <textarea id="ck-where" placeholder="Chapter, area, what you were in the middle of.">${esc(ckOpen.where !== undefined ? ckOpen.where : g.note.where)}</textarea>
+      <label class="l" for="ck-next">First thing next time</label>
+      <textarea id="ck-next" placeholder="One clear thing to start with.">${esc(ckOpen.next !== undefined ? ckOpen.next : g.note.next)}</textarea>
+      ${any ? `<label class="l">What did you finish?</label>${grp('Assumed, confirm these', picks.assumed)}${grp('Missables', picks.miss)}${grp('Next up', picks.next)}` : loading ? '<p class="sub" style="margin-top:14px">Loading your goals…</p>' : ''}
+      <div class="actions"><button class="btn" data-act="ck-save">Save check-in</button><button class="btn quiet" data-act="ck-skip">Skip</button></div>
+    </section></div>`;
+  if (!ckOpen.focused) { ckOpen.focused = true; setTimeout(() => { const t = document.getElementById('ck-where'); if (t) t.focus(); }, 0); }
+}
+function saveCheckin(){
+  const ck = ckOpen; if (!ck) return;
+  const g = game(ck.gid); if (!g) { closeCheckin(); return; }
+  const w = document.getElementById('ck-where'), n = document.getElementById('ck-next');
+  if (w) g.note.where = w.value.trim();
+  if (n) g.note.next = n.value.trim();
+  let ticked = 0;
+  document.querySelectorAll('#ck input[data-ckpick]:checked').forEach(c => { setGoal(g, c.dataset.tab, c.dataset.id, 'd'); ticked++; });
+  closeCheckin(); refreshSum(g); save(); render();
+  toast(ticked ? `Saved, and ticked ${ticked} goal${ticked > 1 ? 's' : ''}` : 'Check-in saved');
+}
+
+/* ---------- Goals (deep per-game checklists) ----------
+   Content (what the goals ARE) lives in the repo under content/<slug>/, one
+   file per tab, so a game with hundreds of entries never bloats your synced
+   library. Progress (what you've DONE) is a small map of checked ids kept in
+   the game itself: goals.st = { tabId: { goalId: 'd' (done) | 'a' (assumed) } }.
+   Anything not listed is not done. goals.sum is a cached summary so the
+   Library and Continue can show progress without loading the content. */
+const CONTENT_DIR = 'content/';
+const TIERS = ['story', 'side', 'collect', 'extra'];
+const FINISH = {beat:['story'], main:['story', 'side'], full:['story', 'side', 'collect', 'extra']};
+const FINISH_LABEL = {beat:'Beat it', main:'Main + side', full:'100%', shelved:'Shelved'};
+const GOAL_PAGE = 60;
+const PACKS = {};   // slug -> {state:'loading'|'ready'|'err', man, tabs:{id:[entry]}, err}
+let contentIndex = null;
+
+function ensureGoals(g){
+  if (!g.goals || typeof g.goals !== 'object') g.goals = {};
+  const G = g.goals;
+  if (!G.st || typeof G.st !== 'object') G.st = {};
+  if (!G.flag || typeof G.flag !== 'object') G.flag = {};
+  G.why = String(G.why || '');
+  return G;
+}
+const goalSt = (g, tab, id) => (g.goals && g.goals.st[tab] && g.goals.st[tab][id]) || '';
+function legacyItem(g, id){
+  for (const k of Object.keys(g.layers)) { const it = g.layers[k].items.find(i => i.id === id); if (it) return it; }
+  return g.missables.find(i => i.id === id) || null;
+}
+
+async function getContent(path){
+  const r = await fetch(CONTENT_DIR + path, {cache:'no-cache'});
+  if (!r.ok) throw new Error(`${path} returned ${r.status}`);
+  return r.json();
+}
+const clip = (s, n) => String(s == null ? '' : s).slice(0, n);
+function cleanEntry(e, tab, i){
+  if (!e || typeof e.id !== 'string' || !e.id || typeof e.name !== 'string' || !e.name) return null;
+  const sources = (Array.isArray(e.sources) ? e.sources : []).filter(s => s && /^https:\/\/[^\s"'<>]+$/.test(s.u || '')).slice(0, 6).map(s => ({t:clip(s.t || s.u, 80), u:s.u}));
+  return {
+    id:clip(e.id, 80), name:clip(e.name, 220), tab:tab.id, tier:tab.tier, i,
+    region:clip(e.region, 60), how:clip(e.how, 2000), prereq:clip(e.prereq, 500), unlocks:clip(e.unlocks, 500),
+    mins:e.mins > 0 ? Math.round(+e.mins) : 0, missable:!!e.missable, sources,
+    verified:['sourced', 'user', 'unsourced'].includes(e.verified) ? e.verified : (sources.length ? 'sourced' : 'unsourced')
+  };
+}
+
+async function loadIndex(){
+  try {
+    const d = await getContent('index.json');
+    contentIndex = Array.isArray(d.games) ? d.games.filter(x => x && /^[a-z0-9-]+$/.test(x.slug || '')) : [];
+    let changed = false;
+    for (const g of state.games) {
+      if (g.content || !g.steamId) continue;
+      const hit = contentIndex.find(x => x.steamId === g.steamId);
+      if (hit) { g.content = hit.slug; changed = true; }
+    }
+    if (changed) { save(); render(); }
+  } catch(e) { contentIndex = []; }
+}
+
+async function loadPack(g, force){
+  const slug = g.content; if (!slug) return null;
+  let p = PACKS[slug];
+  if (p && (p.state === 'loading' || (p.state === 'ready' && !force))) return p;
+  p = PACKS[slug] = {state:'loading', man:null, tabs:{}, err:''};
+  try {
+    const man = await getContent(`${slug}/manifest.json`);
+    const tabs = (Array.isArray(man.tabs) ? man.tabs : []).filter(t => t && /^[a-z0-9-]+$/.test(t.id || '') && t.name && /^[a-z0-9-]+\.json$/.test(t.file || '') && TIERS.includes(t.tier));
+    if (!tabs.length) throw new Error('the manifest has no valid tabs');
+    const loaded = await Promise.all(tabs.map(t => getContent(`${slug}/${t.file}`).then(d => [t, d])));
+    for (const [t, d] of loaded) {
+      const seen = new Set(), out = [];
+      (Array.isArray(d.entries) ? d.entries : []).forEach((e, i) => { const c = cleanEntry(e, t, i); if (c && !seen.has(c.id)) { seen.add(c.id); out.push(c); } });
+      p.tabs[t.id] = out;
+    }
+    p.man = {title:clip(man.title, 120), note:clip(man.note, 600), tabs:tabs.map(t => ({id:t.id, name:clip(t.name, 40), tier:t.tier, expected:t.expected > 0 ? Math.round(+t.expected) : 0}))};
+    p.state = 'ready';
+    adoptPack(g, p);
+  } catch(e) {
+    p.state = 'err'; p.err = e.message === 'Failed to fetch' ? 'couldn’t reach the content files' : e.message;
+  }
+  render();
+  return p;
+}
+
+function adoptPack(g, p){
+  const G = ensureGoals(g);
+  let changed = false;
+  if (!G.seeded) {   // first load: carry ticks over from the old Story / Power / Checklist lists
+    G.seeded = 1; changed = true;
+    for (const t of p.man.tabs) for (const e of p.tabs[t.id]) {
+      const old = legacyItem(g, e.id);
+      if (old && old.done) (G.st[t.id] = G.st[t.id] || {})[e.id] = 'd';
+    }
+  }
+  if (refreshSum(g)) changed = true;
+  if (changed) save();
+}
+
+/* Cached summary: per tab, counts and weights, the next few open goals and the open missables */
+function refreshSum(g){
+  const p = PACKS[g.content]; if (!p || p.state !== 'ready') return false;
+  const G = ensureGoals(g), tabs = {};
+  for (const t of p.man.tabs) {
+    const es = p.tabs[t.id], st = G.st[t.id] || {};
+    const o = {name:t.name, tier:t.tier, n:es.length, d:0, a:0, w:0, wd:0, wa:0, timed:es.length > 0 && es.every(e => e.mins > 0), nx:[], ms:[], msn:0};
+    for (const e of es) {
+      const w = e.mins || 1, s = st[e.id];
+      o.w += w;
+      if (s === 'd') { o.d++; o.wd += w; }
+      else if (s === 'a') { o.a++; o.wa += w; }
+      else { if (o.nx.length < 6) o.nx.push([e.id, e.name]); if (e.missable) { o.msn++; if (o.ms.length < 6) o.ms.push([e.id, e.name]); } }
+    }
+    tabs[t.id] = o;
+  }
+  const next = {order:p.man.tabs.map(t => t.id), tabs};
+  if (JSON.stringify(next) === JSON.stringify(G.sum)) return false;
+  G.sum = next; return true;
+}
+const countsTab = (g, tier) => g.finish !== 'shelved' && FINISH[g.finish || 'beat'].includes(tier);
+
+function packStats(g){
+  const S = g.goals && g.goals.sum; if (!S) return null;
+  if (g.finish === 'shelved') return {total:0, done:0, pct:0, shelved:true};
+  const tabs = S.order.map(id => S.tabs[id]).filter(t => t && t.n && countsTab(g, t.tier));
+  if (!tabs.length) return {total:0, done:0, pct:0};
+  const timed = tabs.every(t => t.timed);
+  let n = 0, d = 0, a = 0, w = 0, wd = 0, wa = 0;
+  for (const t of tabs) { n += t.n; d += t.d; a += t.a; w += t.w; wd += t.wd; wa += t.wa; }
+  const frac = timed ? (wd + wa) / w : (d + a) / n;
+  return {total:n, done:d + a, assumed:a, timed, pct:(d + a) === n ? 100 : Math.min(99, Math.round(frac * 100))};
+}
+/* What's still open, for Continue: tabs that have open goals, finish-line tabs first */
+function goalTodo(g){
+  const S = g.goals && g.goals.sum; if (!S) return null;
+  return S.order.filter(id => S.tabs[id] && S.tabs[id].n && S.tabs[id].d + S.tabs[id].a < S.tabs[id].n)
+    .map(id => { const t = S.tabs[id]; return {tabId:id, label:t.name, open:t.nx.map(([i, text]) => ({id:i, text, kind:'goal', tab:id})), left:t.n - t.d - t.a, total:t.n, done:t.d + t.a, counts:countsTab(g, t.tier)}; })
+    .sort((a, b) => b.counts - a.counts);
+}
+function goalMiss(g){
+  const S = g.goals && g.goals.sum; if (!S) return null;
+  const items = [];
+  let n = 0;
+  for (const id of S.order) { const t = S.tabs[id]; if (t) { n += t.msn || 0; for (const m of t.ms) items.push({id:m[0], text:m[1], kind:'goal', tab:id}); } }
+  return {items, n};
+}
+
+function setGoal(g, tab, id, status){
+  const G = ensureGoals(g), m = G.st[tab] = G.st[tab] || {};
+  if (status) m[id] = status; else delete m[id];
+  if (!Object.keys(m).length) delete G.st[tab];
+  const old = legacyItem(g, id); if (old) old.done = status === 'd';
+}
+function afterGoals(g){ refreshSum(g); save(); render(); }
+let goalUndo = null;
+function bulkGoals(g, label, ops){
+  if (!ops.length) { toast('Nothing to change there'); return; }
+  if (ops.length > 25 && !confirm(`${label}: change ${ops.length} goals? You can undo it from Catch-up tools.`)) return;
+  goalUndo = {gid:g.id, st:JSON.stringify(ensureGoals(g).st), label, n:ops.length};
+  for (const [t, i, s] of ops) setGoal(g, t, i, s);
+  afterGoals(g); toast(`${label}: ${ops.length} updated`);
+}
+function undoGoals(g){
+  if (!goalUndo || goalUndo.gid !== g.id) return;
+  const G = ensureGoals(g), p = PACKS[g.content];
+  G.st = JSON.parse(goalUndo.st);
+  if (p && p.state === 'ready') for (const t of p.man.tabs) for (const e of p.tabs[t.id]) { const old = legacyItem(g, e.id); if (old) old.done = goalSt(g, t.id, e.id) === 'd'; }
+  toast(`Undid: ${goalUndo.label}`); goalUndo = null; afterGoals(g);
+}
+
 /* ---------- Derived ---------- */
 function stats(g){
+  if (g.content) { const ps = packStats(g); if (ps) return ps; }
   let t = 0, d = 0;
   LAYERS.forEach(([k]) => { const L = g.layers[k]; if (L.inFinish){ t += L.items.length; d += L.items.filter(i => i.done).length; } });
   return {total:t, done:d, pct: t ? Math.round(d / t * 100) : 0};
 }
-const openMissables = g => g.missables.filter(m => !m.done).length;
+const openMissables = g => { const gm = g.content && goalMiss(g); return gm ? gm.n : g.missables.filter(m => !m.done).length; };
 const upcoming = g => g.releases.filter(r => r.date && r.date >= localDate()).sort((a,b) => a.date.localeCompare(b.date));
 function countdown(date){
   const d = daysBetween(localDate(), date);
@@ -1330,7 +1637,7 @@ function ring(st, kind = 'quests'){
   return `<div class="ring">
     <svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="${r}" fill="none" stroke="#2A3160" stroke-width="6"/>
     <circle cx="30" cy="30" r="${r}" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 30 30)"/></svg>
-    <div><b>${st.pct}%</b><span>${kind === 'quests' ? (st.total ? `${st.done} of ${st.total} quests to your finish line` : 'No finish line set yet') : `${st.done} of ${st.total} Steam achievements`}</span></div>
+    <div><b>${st.pct}%</b><span>${kind === 'quests' ? (st.shelved ? 'Shelved, not counting progress' : st.total ? `${st.done} of ${st.total} goals to your finish line` : 'No finish line set yet') : `${st.done} of ${st.total} Steam achievements`}</span></div>
   </div>`;
 }
 
@@ -1388,11 +1695,16 @@ function renderContinue(){
   const restPlay = rest.filter(g => !isLive(g)), live = rest.filter(isLive);
   const liveSection = live.length ? `<h2 class="h2">Ongoing</h2><div class="shelf" style="margin-bottom:44px">${live.map(slot).join('')}</div>` : '';
   // What's left, by layer, so you can see the whole shape of the game
-  const todo = LAYERS.map(([k, label]) => {
-    const L = f.layers[k], open = L.items.filter(i => !i.done);
-    return {k, label, open, total:L.items.length, done:L.items.length - open.length, counts:L.inFinish};
-  }).filter(x => x.open.length);
-  const openMiss = f.missables.filter(m => !m.done);
+  if (f.content && !PACKS[f.content]) loadPack(f);   // refreshes the goal summary in the background
+  const packTodo = f.content ? goalTodo(f) : null;
+  const todo = packTodo ? packTodo.slice(0, 4).map(x => ({k:'', label:x.label, open:x.open, total:x.total, done:x.done, more:x.left - Math.min(4, x.open.length), where:'Goals'}))
+    : LAYERS.map(([k, label]) => {
+      const L = f.layers[k], open = L.items.filter(i => !i.done);
+      return {k, label, open:open.map(i => ({id:i.id, text:i.text, kind:'item'})), total:L.items.length, done:L.items.length - open.length, more:open.length - 4, where:'Quests'};
+    }).filter(x => x.open.length);
+  const gm = f.content ? goalMiss(f) : null;
+  const openMiss = gm ? gm.items : f.missables.filter(m => !m.done).map(m => ({id:m.id, text:m.text, kind:'miss'}));
+  const missMore = (gm ? gm.n : openMiss.length) - 4;
 
   return `<div class="page">
     <h1 class="h1">${f === nowG ? 'Playing now' : 'Pick up where you left off'}</h1>
@@ -1408,11 +1720,11 @@ function renderContinue(){
           <div class="next"><h4>Next step</h4><p>${esc(f.note.next) || '<span class="dim">Not written yet</span>'}</p></div>
         </div>` : ''}
         ${openMiss.length ? `<div class="upnext"><h4>Don't miss</h4><ul class="checks">${openMiss.slice(0, 4).map(m => `<li>
-          <input class="tick" type="checkbox" aria-label="Mark done: ${esc(m.text)}" data-act="toggle" data-kind="miss" data-id="${m.id}" data-game="${f.id}">
-          <span class="t">${esc(m.text)}</span><span></span></li>`).join('')}</ul>${openMiss.length > 4 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${openMiss.length - 4} more in Missables</p>` : ''}</div>` : ''}
-        ${todo.map(x => `<div class="upnext"><h4>${x.label} · ${x.done} of ${x.total} done</h4><ul class="checks">${x.open.slice(0, 4).map(i => `<li>
-          <input class="tick" type="checkbox" aria-label="Mark done: ${esc(i.text)}" data-act="toggle" data-kind="item" data-layer="${x.k}" data-id="${i.id}" data-game="${f.id}">
-          <span class="t">${esc(i.text)}</span><span></span></li>`).join('')}</ul>${x.open.length > 4 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${x.open.length - 4} more in Quests</p>` : ''}</div>`).join('')}
+          <input class="tick" type="checkbox" aria-label="Mark done: ${esc(m.text)}" data-act="toggle" data-kind="${m.kind}" data-tab="${esc(m.tab || '')}" data-id="${esc(m.id)}" data-game="${f.id}">
+          <span class="t">${esc(m.text)}</span><span></span></li>`).join('')}</ul>${missMore > 0 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${missMore} more in ${gm ? 'Goals' : 'Missables'}</p>` : ''}</div>` : ''}
+        ${todo.map(x => `<div class="upnext"><h4>${esc(x.label)} · ${x.done} of ${x.total} done</h4><ul class="checks">${x.open.slice(0, 4).map(i => `<li>
+          <input class="tick" type="checkbox" aria-label="Mark done: ${esc(i.text)}" data-act="toggle" data-kind="${i.kind}" data-tab="${esc(i.tab || '')}" data-layer="${x.k}" data-id="${esc(i.id)}" data-game="${f.id}">
+          <span class="t">${esc(i.text)}</span><span></span></li>`).join('')}</ul>${x.more > 0 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${x.more} more in ${x.where}</p>` : ''}</div>`).join('')}
         ${rel ? `<p class="dim" style="margin:14px 0 0;font-size:13px">${esc(rel.name)} ${countdown(rel.date).toLowerCase()}</p>` : ''}
         <div class="actions">
           <button class="btn" data-act="open" data-id="${f.id}">Open game</button>
@@ -1519,11 +1831,13 @@ function playBtn(g){
   if (!CAN_LAUNCH || !(id > 0)) return '';
   return `<a class="btn play" href="steam://run/${id}" data-act="launch" aria-label="Play ${esc(g.title)} in Steam"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>Play</a>`;
 }
-const SECTIONS = [['save','Save point'],['quests','Quests'],['achievements','Achievements'],['news','What\u2019s new'],['store','Store page'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
+const SECTIONS = [['save','Save point'],['quests','Quests'],['goals','Goals'],['achievements','Achievements'],['news','What\u2019s new'],['store','Store page'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
 
 function renderGame(g){
   const st = stats(g), miss = openMissables(g), ups = upcoming(g).length;
-  const badge = {quests: st.total - st.done, missables: miss, releases: ups, achievements: g.ach && g.ach.total ? g.ach.total - g.ach.done : 0, news: newCount(g)};
+  const hasPack = !!g.content;
+  const sec = hasPack && (view.section === 'quests' || view.section === 'missables') ? 'goals' : !hasPack && view.section === 'goals' ? 'quests' : view.section;
+  const badge = {quests: st.total - st.done, goals: st.total - st.done, missables: miss, releases: ups, achievements: g.ach && g.ach.total ? g.ach.total - g.ach.done : 0, news: newCount(g)};
   const tint = paletteFor(g);
   return `
   <header class="hero">
@@ -1545,9 +1859,9 @@ function renderGame(g){
     </div>
   </header>
   <nav class="sections" aria-label="Game sections"><div class="sections-in">
-    ${SECTIONS.filter(([k]) => !['achievements','news','store'].includes(k) || g.steamId).map(([k, l]) => `<button class="sec ${view.section === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${view.section === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : k === 'news' ? 'new' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
+    ${SECTIONS.filter(([k]) => k === 'goals' ? hasPack : (k === 'quests' || k === 'missables') ? !hasPack : (!['achievements','news','store'].includes(k) || g.steamId)).map(([k, l]) => `<button class="sec ${sec === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${sec === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : k === 'news' ? 'new' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
   </div></nav>
-  <div class="page">${({save:secSave, quests:secQuests, achievements:secAch, news:secNews, store:secStore, missables:secMissables, releases:secReleases, review:secReview})[view.section](g)}</div>`;
+  <div class="page">${({save:secSave, quests:secQuests, goals:secGoals, achievements:secAch, news:secNews, store:secStore, missables:secMissables, releases:secReleases, review:secReview})[sec](g)}</div>`;
 }
 
 function sessLine(g){
@@ -1566,6 +1880,7 @@ function secSave(g){
       <button class="btn quiet sm" data-act="played">I played today</button>
     </div>
     ${sessLine(g)}
+    <p style="margin:0 0 16px"><button class="btn quiet sm" data-act="ck-open">${g.sessions.length ? 'Check in on last session' : 'Check in now'}</button></p>
     ${g.ach && g.ach.last ? `<p class="achlast">Last achievement: <b>${esc(g.ach.last.name)}</b> <span class="dim">· ${fmtDate(localDate(new Date(g.ach.last.time * 1000)))}</span></p>` : ''}
     <div class="journal">
       <div class="panel">
@@ -1651,6 +1966,141 @@ function secQuests(g){
           ${checklist(L.items, 'item', k, `Add a ${name.toLowerCase()} quest`)}
         </section>`; }).join('')}
     </div>`;
+}
+
+function goalView(){
+  return view.goals || (view.goals = {tab:'', q:'', region:'', show:'left', miss:false, limit:GOAL_PAGE, open:new Set(), tools:false, swRegion:'', swScope:'tab'});
+}
+const VERIFY_LABEL = {sourced:'Sourced', user:'Your note', unsourced:'Unsourced', confirmed:'Confirmed in-game'};
+
+function goalRegions(p){
+  const set = new Set();
+  for (const t of p.man.tabs) for (const e of p.tabs[t.id]) if (e.region) set.add(e.region);
+  return [...set].sort((a, b) => a.localeCompare(b));
+}
+
+function goalRow(g, e, o){
+  const V = goalView(), s = goalSt(g, e.tab, e.id), open = V.open.has(e.tab + '\u0001' + e.id);
+  const ver = s === 'd' && e.verified === 'sourced' ? 'confirmed' : e.verified;
+  const flag = g.goals.flag[e.id];
+  const chips = [
+    o.next ? '<span class="gchip next">Next up</span>' : '',
+    o.showTab ? `<span class="gchip">${esc(o.tabName)}</span>` : '',
+    e.region ? `<span class="gchip">${esc(e.region)}</span>` : '',
+    e.mins ? `<span class="gchip">~${e.mins < 60 ? e.mins + ' min' : (Math.round(e.mins / 6) / 10) + ' h'}</span>` : '',
+    e.missable ? '<span class="gchip warn">Missable</span>' : '',
+    s === 'a' ? '<span class="gchip as">Assumed, tap to confirm</span>' : '',
+    ver === 'confirmed' ? `<span class="gchip ok">${VERIFY_LABEL[ver]}</span>` : '',
+    flag ? '<span class="gchip warn">Flagged</span>' : ''
+  ].join('');
+  const det = open ? `<div class="gdet">
+      ${e.how ? `<div><b>How</b><div class="how">${esc(e.how)}</div></div>` : '<div><b>How</b> No steps written yet.</div>'}
+      ${e.prereq ? `<div><b>Needs</b> ${esc(e.prereq)}</div>` : ''}
+      ${e.unlocks ? `<div><b>Unlocks</b> ${esc(e.unlocks)}</div>` : ''}
+      ${e.sources.length ? `<div><b>Sources</b> ${e.sources.map(x => `<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t)}</a>`).join(' · ')}</div>` : ''}
+      <div><b>Data</b> ${VERIFY_LABEL[ver]}${ver === 'sourced' ? '. Becomes confirmed when you tick it off in-game.' : ver === 'unsourced' ? '. No source attached yet.' : ''}</div>
+      <label for="fl-${esc(e.id)}"><b>This looks wrong</b></label>
+      <textarea id="fl-${esc(e.id)}" data-goalnote="${esc(e.id)}" placeholder="Say what is off. It is saved with this goal for the next data pass.">${esc(flag || '')}</textarea>
+      <div class="acts">
+        <button class="btn quiet sm" data-act="goal-above" data-tab="${esc(e.tab)}" data-id="${esc(e.id)}">Assume everything before this is done</button>
+        ${s ? `<button class="btn quiet sm" data-act="goal-clear" data-tab="${esc(e.tab)}" data-id="${esc(e.id)}">Mark not done</button>` : ''}
+      </div>
+    </div>` : '';
+  return `<li class="${s}">
+    <button class="gtick ${s}" data-act="goal" data-tab="${esc(e.tab)}" data-id="${esc(e.id)}" aria-pressed="${s === 'd'}" aria-label="${s === 'd' ? 'Done' : s === 'a' ? 'Assumed done, confirm' : 'Mark done'}: ${esc(e.name)}"></button>
+    <div><div class="gname">${esc(e.name)}</div><div class="gchips">${chips}</div>${det}</div>
+    <button class="btn quiet sm gmore" data-act="goal-open" data-tab="${esc(e.tab)}" data-id="${esc(e.id)}" aria-expanded="${open}">${open ? 'Less' : 'Details'}</button>
+  </li>`;
+}
+
+function secGoals(g){
+  const p = PACKS[g.content], V = goalView();
+  if (!p || p.state === 'loading') { if (!p) loadPack(g); return `<div class="empty"><b>Loading goals</b>Fetching the checklist for ${esc(g.title)}.</div>`; }
+  if (p.state === 'err') return `<div class="empty"><b>Couldn't load goals</b>${esc(p.err)}<div class="actions" style="justify-content:center"><button class="btn" data-act="goal-retry">Try again</button></div></div>`;
+  const G = ensureGoals(g), tabs = p.man.tabs;
+  if (!V.tab || !tabs.some(t => t.id === V.tab)) V.tab = (tabs.find(t => p.tabs[t.id].length) || tabs[0]).id;
+  const tab = tabs.find(t => t.id === V.tab), entries = p.tabs[tab.id], st = stats(g), f = g.finish || 'beat';
+  const tcount = id => { const m = G.st[id] || {}; return p.tabs[id].reduce((n, e) => n + (m[e.id] ? 1 : 0), 0); };
+  const q = V.q.trim().toLowerCase(), searching = !!q;
+  const stOf = e => (G.st[e.tab] || {})[e.id] || '';
+
+  // Rows: the current tab, or every tab while searching
+  let rows = (searching ? tabs.flatMap(t => p.tabs[t.id]) : entries).filter(e => {
+    const s = stOf(e);
+    if (V.show === 'left' && s) return false;
+    if (V.show === 'assumed' && s !== 'a') return false;
+    if (V.show === 'done' && s !== 'd') return false;
+    if (V.region && e.region !== V.region) return false;
+    if (V.miss && !e.missable) return false;
+    return !q || (e.name + ' ' + e.region + ' ' + e.how).toLowerCase().includes(q);
+  });
+  const total = rows.length, shown = rows.slice(0, V.limit);
+  const tabName = id => (tabs.find(t => t.id === id) || {}).name || '';
+  const nextN = V.show === 'left' && !searching && !V.region && !V.miss ? 3 : 0;
+
+  const regions = goalRegions(p);
+  const counted = tabs.filter(t => p.tabs[t.id].length && countsTab(g, t.tier)).map(t => t.name);
+  const S = g.goals.sum, ps = packStats(g) || {total:0, done:0, pct:0};
+  let aPct = 0;
+  if (S && ps.total && !ps.shelved) { let a = 0, w = 0, n = 0; for (const id of S.order) { const t = S.tabs[id]; if (t && t.n && countsTab(g, t.tier)) { a += ps.timed ? t.wa : t.a; w += ps.timed ? t.w : t.n; n += t.n; } } aPct = Math.round(a / (w || 1) * 100); }
+  const dPct = Math.max(0, ps.pct - aPct);
+  const exp = tab.expected;
+
+  return `
+    <div class="gsum">
+      <div class="big">${ps.pct}<small>%</small></div>
+      <div>
+        <div class="gmeter" role="img" aria-label="${ps.pct}% of your finish line"><i style="width:${dPct}%"></i><i class="as" style="width:${aPct}%"></i></div>
+        <p>${ps.shelved ? 'Shelved, so progress isn’t counted.' : ps.total ? `${ps.done} of ${ps.total} goals${ps.assumed ? `, ${ps.assumed} of them assumed` : ''}. ${ps.timed ? 'Weighted by estimated time.' : 'Counted per goal, since some goals have no time estimate yet.'}` : 'No goals on your finish line yet.'}</p>
+      </div>
+    </div>
+    <div class="gfinish">
+      <span class="lbl">Finish line</span>
+      <div class="seg" role="tablist" aria-label="Finish line">${Object.keys(FINISH_LABEL).map(k => `<button class="${(g.finish || 'beat') === k ? 'on' : ''}" data-act="goal-finish" data-v="${k}">${FINISH_LABEL[k]}</button>`).join('')}</div>
+      ${f === 'shelved' ? `<input type="text" data-f="goals.why" value="${esc(G.why)}" placeholder="Why shelve it? (optional)" aria-label="Why shelved">` : `<span class="lbl">Counting: ${counted.length ? esc(counted.join(', ')) : 'nothing yet'}</span>`}
+    </div>
+    ${p.man.note ? `<p class="gcover">${esc(p.man.note)}</p>` : ''}
+    <div class="seg gtabs" role="tablist" aria-label="Goal tabs">${tabs.map(t => {
+      const n = p.tabs[t.id].length, left = n - tcount(t.id);
+      return `<button class="${V.tab === t.id && !searching ? 'on' : ''}" data-act="goal-tab" data-tab="${t.id}">${esc(t.name)}<span class="n">${n ? left : '—'}</span>${countsTab(g, t.tier) && n ? '<span class="dot" title="Counts toward your finish line"></span>' : ''}</button>`; }).join('')}</div>
+    <div class="gtools">
+      <input type="search" class="search" id="gsearch" placeholder="Search every tab" value="${esc(V.q)}" aria-label="Search goals in every tab">
+      ${regions.length ? `<select id="gregion" aria-label="Region"><option value="">All regions</option>${regions.map(r => `<option value="${esc(r)}" ${V.region === r ? 'selected' : ''}>${esc(r)}</option>`).join('')}</select>` : ''}
+      <div class="seg" role="tablist" aria-label="Show">${[['left', 'Left'], ['assumed', 'Assumed'], ['done', 'Done'], ['all', 'All']].map(([k, l]) => `<button class="${V.show === k ? 'on' : ''}" data-act="goal-show" data-v="${k}">${l}</button>`).join('')}</div>
+      <button class="gmissbtn ${V.miss ? 'on' : ''}" data-act="goal-miss" aria-pressed="${V.miss}">Missables only</button>
+      <span class="grow" style="flex:1"></span>
+      <button class="btn quiet sm" data-act="goal-tools" aria-expanded="${V.tools}">Catch-up tools</button>
+    </div>
+    ${V.tools ? goalTools(g, p, tab, entries) : ''}
+    ${!searching ? (entries.length
+      ? `<p class="gcover"><b>${entries.length}</b> ${exp ? `of <b>${exp}</b> expected entries researched${entries.length < exp ? `, ${exp - entries.length} still to add` : ''}` : 'entries in this tab, and the real total isn’t counted yet'}.</p>`
+      : `<p class="gcover">${exp ? `<b>0</b> of <b>${exp}</b> expected entries researched.` : 'Nothing researched for this tab yet.'}</p>`) : `<p class="gcover">Searching all tabs: <b>${total}</b> match${total === 1 ? '' : 'es'}.</p>`}
+    ${shown.length ? `<section class="panel"><ul class="glist">${shown.map((e, i) => goalRow(g, e, {next:i < nextN, showTab:searching, tabName:tabName(e.tab)})).join('')}</ul>
+      ${total > shown.length ? `<div class="gpager"><button class="btn quiet" data-act="goal-more">Show ${Math.min(GOAL_PAGE, total - shown.length)} more <span class="dim">&nbsp;(${total - shown.length} hidden)</span></button></div>` : ''}</section>`
+      : `<div class="empty"><b>${!entries.length && !searching ? 'Nothing here yet' : V.show === 'left' && !q && !V.region && !V.miss ? 'Nothing left in this tab' : 'No matches'}</b>${!entries.length && !searching ? 'This tab fills in when the research pass runs for this game.' : 'Change the filters or search to see more.'}</div>`}`;
+}
+
+function goalTools(g, p, tab, entries){
+  const V = goalView(), regions = goalRegions(p), G = g.goals;
+  const assumedHere = entries.filter(e => (G.st[e.tab] || {})[e.id] === 'a').length;
+  return `<section class="panel gcatch">
+    <h3>Catch-up tools</h3>
+    <p class="gcover" style="margin:0">Bulk changes mark goals <b>assumed</b> so your percentages stay honest. Assumed goals show lighter, and tapping one confirms it.</p>
+    <div class="row">
+      <label for="gsw-region">Sweep a region</label>
+      ${regions.length ? `<select id="gsw-region"><option value="">Pick a region</option>${regions.map(r => `<option value="${esc(r)}" ${V.swRegion === r ? 'selected' : ''}>${esc(r)}</option>`).join('')}</select>` : '<span class="dim" style="font-size:14px">This game has no regions listed yet.</span>'}
+      <select id="gsw-scope" aria-label="Sweep scope"><option value="tab" ${V.swScope === 'tab' ? 'selected' : ''}>This tab</option><option value="all" ${V.swScope === 'all' ? 'selected' : ''}>Every tab</option></select>
+      <button class="btn sm" data-act="goal-sweep" ${regions.length ? '' : 'disabled'}>Assume it all done</button>
+    </div>
+    <div class="row">
+      <span class="dim" style="font-size:14px">Story checkpoint: open a goal's Details and use "Assume everything before this is done".</span>
+    </div>
+    <div class="row">
+      <button class="btn quiet sm" data-act="goal-confirm-all" ${assumedHere ? '' : 'disabled'}>Confirm all ${assumedHere} assumed in ${esc(tab.name)}</button>
+      <button class="btn quiet sm" data-act="goal-unassume" ${assumedHere ? '' : 'disabled'}>Turn assumed back to not done</button>
+      <button class="btn quiet sm" data-act="goal-undo" ${goalUndo && goalUndo.gid === g.id ? '' : 'disabled'}>${goalUndo && goalUndo.gid === g.id ? `Undo: ${esc(goalUndo.label)}` : 'Nothing to undo'}</button>
+    </div>
+  </section>`;
 }
 
 function secMissables(g){
@@ -1897,10 +2347,41 @@ document.addEventListener('click', e => {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0);
       if (el.dataset.tab === 'sync' && Date.now() - (steamSum.fetched || 0) > 5 * 60000) fetchSummary();
       break;
-    case 'open': view.art = null; go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); { const og = game(el.dataset.id); if (og) fetchAch(og); } break;
+    case 'open': view.art = null; go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); { const og = game(el.dataset.id); view.goals = null; if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
     case 'back': go(() => { view.gameId = null; }); window.scrollTo(0,0); break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
+    case 'goal': {
+      const cur = goalSt(g, el.dataset.tab, el.dataset.id), before = stats(g).pct;
+      setGoal(g, el.dataset.tab, el.dataset.id, cur === 'd' ? '' : 'd'); afterGoals(g);
+      if (cur !== 'd' && before < 100 && stats(g).pct === 100) toast(`Finish line reached in ${g.title}`);
+      break; }
+    case 'goal-open': { const V = goalView(), k = el.dataset.tab + '\u0001' + el.dataset.id; if (V.open.has(k)) V.open.delete(k); else V.open.add(k); render(); break; }
+    case 'goal-tab': { const V = goalView(); V.tab = el.dataset.tab; V.q = ''; V.limit = GOAL_PAGE; render(); break; }
+    case 'goal-show': { const V = goalView(); V.show = el.dataset.v; V.limit = GOAL_PAGE; render(); break; }
+    case 'goal-miss': { const V = goalView(); V.miss = !V.miss; V.limit = GOAL_PAGE; render(); break; }
+    case 'goal-more': { const V = goalView(); V.limit += GOAL_PAGE; render(); break; }
+    case 'goal-tools': { const V = goalView(); V.tools = !V.tools; render(); break; }
+    case 'goal-retry': delete PACKS[g.content]; loadPack(g, true); render(); break;
+    case 'goal-finish': g.finish = el.dataset.v; save(); render(); break;
+    case 'goal-clear': setGoal(g, el.dataset.tab, el.dataset.id, ''); afterGoals(g); break;
+    case 'goal-above': {
+      const p = PACKS[g.content], list = p && p.tabs[el.dataset.tab]; if (!list) break;
+      const at = list.findIndex(x => x.id === el.dataset.id);
+      bulkGoals(g, 'Checkpoint', list.slice(0, Math.max(0, at)).filter(x => !goalSt(g, x.tab, x.id)).map(x => [x.tab, x.id, 'a'])); break; }
+    case 'goal-sweep': {
+      const p = PACKS[g.content], V = goalView(); if (!p) break;
+      if (!V.swRegion) { toast('Pick a region first'); break; }
+      const ids = V.swScope === 'all' ? p.man.tabs.map(t => t.id) : [V.tab];
+      bulkGoals(g, `Swept ${V.swRegion}`, ids.flatMap(t => p.tabs[t]).filter(x => x.region === V.swRegion && !goalSt(g, x.tab, x.id)).map(x => [x.tab, x.id, 'a'])); break; }
+    case 'goal-confirm-all': case 'goal-unassume': {
+      const p = PACKS[g.content], V = goalView(); if (!p) break;
+      const to = a === 'goal-confirm-all' ? 'd' : '';
+      bulkGoals(g, to ? 'Confirmed assumed' : 'Cleared assumed', p.tabs[V.tab].filter(x => goalSt(g, x.tab, x.id) === 'a').map(x => [x.tab, x.id, to])); break; }
+    case 'goal-undo': undoGoals(g); break;
+    case 'ck-open': openCheckin(g, g.sessions[g.sessions.length - 1] || null, true); break;
+    case 'ck-skip': closeCheckin(); break;
+    case 'ck-save': saveCheckin(); break;
     case 'add-game': addGame(); break;
     case 'launch': toast('Opening in Steam\u2026'); watchLaunch(g); break; // the link itself does the launch
     case 'steam-import': importSteam(); break;
@@ -1961,7 +2442,21 @@ document.addEventListener('change', e => {
   const el = e.target;
   if (el.id === 'sort') { view.sort = el.value; try { localStorage.setItem(SORT_KEY, view.sort); } catch(e) {} render(); return; }
   if (el.id === 'achSort') { view.achSort = el.value; render(); return; }
+  if (el.id === 'gregion') { const V = goalView(); V.region = el.value; V.limit = GOAL_PAGE; render(); return; }
+  if (el.id === 'gsw-region') { goalView().swRegion = el.value; return; }
+  if (el.id === 'gsw-scope') { goalView().swScope = el.value; return; }
   const g = current(el); if (!g) return;
+  if (el.dataset.goalnote) {
+    const G = ensureGoals(g), v = el.value.trim().slice(0, 600);
+    if (v) G.flag[el.dataset.goalnote] = v; else delete G.flag[el.dataset.goalnote];
+    save(); render(); toast(v ? 'Flagged for the next data pass' : 'Flag removed'); return;
+  }
+  if (el.dataset.act === 'toggle' && el.dataset.kind === 'goal') {
+    const before = stats(g).pct;
+    setGoal(g, el.dataset.tab, el.dataset.id, el.checked ? 'd' : ''); afterGoals(g);
+    if (el.checked && before < 100 && stats(g).pct === 100) toast(`Finish line reached in ${g.title}`);
+    return;
+  }
   if (el.dataset.act === 'toggle') {
     const it = listFor(g, el.dataset.kind, el.dataset.layer).find(i => i.id === el.dataset.id); it.done = el.checked; save();
     if (el.checked && stats(g).total && stats(g).pct === 100 && el.dataset.kind === 'item') toast(`Finish line reached in ${g.title}`);
@@ -1973,6 +2468,7 @@ document.addEventListener('change', e => {
 document.addEventListener('input', e => {
   const el = e.target;
   if (el.id === 'search') { view.q = el.value; const pos = el.selectionStart; render(); const s = document.getElementById('search'); s.focus(); s.setSelectionRange(pos, pos); return; }
+  if (el.id === 'gsearch') { const V = goalView(); V.q = el.value; V.limit = GOAL_PAGE; const pos = el.selectionStart; render(); const s = document.getElementById('gsearch'); if (s) { s.focus(); s.setSelectionRange(pos, pos); } return; }
   const g = current(el);
   if (!g || !el.dataset.f || el.dataset.rerender || el.type === 'date') return;
   const val = el.dataset.num ? (parseFloat(el.value) || 0) : el.value;
@@ -1981,6 +2477,7 @@ document.addEventListener('input', e => {
 });
 
 document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && ckOpen) { closeCheckin(); return; }
   if (e.key !== 'Enter') return;
   const el = e.target;
   if (el.id === 'newTitle') addGame();
@@ -2003,6 +2500,7 @@ document.getElementById('importFile').addEventListener('change', async e => {
 
 render();
 pull();
+loadIndex();
 setInterval(() => { if (document.visibilityState === 'visible') pullPlay(); }, 60000);
 setInterval(() => document.querySelectorAll('[data-sync-status]').forEach(el => el.textContent = syncText()), 30000);
 
