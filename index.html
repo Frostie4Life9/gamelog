@@ -1012,6 +1012,7 @@ html.vt-in::view-transition-group(*){animation-duration:.3s;animation-timing-fun
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.27-f', note:'PERFORMANCE LOG: the app now records, on this device, how long each screen change, click and redraw takes, how many frames run late during each animation, and any frame that takes over 50ms to draw along with the code behind it. Sync page > Performance log > Copy report puts a summary on your clipboard to paste to Claude.'},
   {v:'2026.10.27-e', note:'NO MORE HITCH WHEN OPENING A GAME: hovering a game now starts loading its header art so it is ready on click. Also, tapping a game used to redraw the whole Library in the same instant (achievements started loading before the game page existed), then redraw the game page again as each piece of Steam data arrived, sometimes mid-animation. Now background data waits for the animation to finish, several arrivals share one redraw, and achievements only count as a change when the numbers actually moved, so the Library you came from stays ready.'},
   {v:'2026.10.27-d', note:'SMOOTH AND FAST: the animations are back, shorter and GPU-only. Continue, Library and Sync now stay built while you\'re on another screen, so switching back is instant and you land where you were scrolled. A screen only redraws when something on it changed. Long goal lists skip rows that are off screen.'},
   {v:'2026.10.27-c', note:'FASTER SWITCHING AND SCROLLING: Continue and Library now swap instantly instead of cross-fading. Opening or closing a game keeps the cover glide, just quicker. Covers off screen are skipped until you scroll near them, the top bars stopped blurring what scrolls under them, and covers with art no longer paint a hidden pattern behind the image.'},
@@ -1038,6 +1039,90 @@ const CHANGELOG=[
   {v:'2026.10.21-a', note:'A HOME-SCREEN ICON: a gold G with a controller, in the same family as Kitchen, Grocery, Lift, DishLog and Protocol. It shows in the browser tab, the sidebar, and when you add Game Log to your home screen. NEW VERSION PROMPT: when a newer copy is on GitHub, a bar slides down from the top \u2014 tap Reload.'}
 ];
 const BUILD=CHANGELOG[0].v;
+
+/* ---------- Performance log ----------
+   Records, on this device only, how long screen changes, redraws and clicks
+   take, how many frames run late during each animation, and any frame the
+   browser needed more than 50ms to draw (with the code that held it up).
+   Keeps the last 300 entries. Sync page > Performance log copies a report. */
+const PERF_KEY = 'gamelog.perf.v1', PERF_MAX = 300;
+const perf = (() => { try { const a = JSON.parse(localStorage.getItem(PERF_KEY)); return Array.isArray(a) ? a : []; } catch(e) { return []; } })();
+let perfT = 0;
+const r1 = x => Math.round(x * 10) / 10;
+function plog(e){
+  e.at = Date.now();
+  perf.push(e); if (perf.length > PERF_MAX) perf.splice(0, perf.length - PERF_MAX);
+  if (!perfT) perfT = setTimeout(() => { perfT = 0; try { localStorage.setItem(PERF_KEY, JSON.stringify(perf)); } catch(x) {} }, 2000);
+}
+/* frame pacing over a window: every gap between painted frames */
+function sampleFrames(ms){
+  return new Promise(res => {
+    const gaps = []; let last = performance.now(); const end = last + ms;
+    const tick = () => { const now = performance.now(); gaps.push(now - last); last = now; if (now < end) requestAnimationFrame(tick); else res(gaps); };
+    requestAnimationFrame(tick);
+  });
+}
+function frameStats(gaps){
+  const first = gaps[0] || 0, rest = gaps.slice(1);
+  if (!rest.length) return {firstFrame:r1(first)};
+  const s = [...rest].sort((a, b) => a - b), med = s[Math.floor(s.length / 2)];
+  return {firstFrame:r1(first), hz:Math.round(1000 / med), worst:r1(s[s.length - 1]),
+    late:rest.filter(g => g > med * 1.5).length, dropped:rest.reduce((n, g) => n + Math.max(0, Math.round(g / med) - 1), 0)};
+}
+/* the button you pressed is often redrawn before the timing arrives, so remember it on the way in */
+let perfLastAct = '';
+document.addEventListener('pointerdown', e => { perfLastAct = perfWhat(e.target, true); }, {capture:true, passive:true});
+const perfWhat = (el, live) => {
+  if (!el || !el.closest || (!live && !el.isConnected)) return perfLastAct;
+  const a = el.closest('[data-act]');
+  return a ? a.dataset.act + (a.dataset.tab ? ':' + a.dataset.tab : a.dataset.s ? ':' + a.dataset.s : '') : el.id ? '#' + el.id : el.tagName.toLowerCase();
+};
+try {
+  new PerformanceObserver(list => {
+    for (const e of list.getEntries()) {
+      if (e.duration < 24 || !e.interactionId) continue;
+      plog({k:'input', what:`${e.name} ${perfWhat(e.target)}`, total:Math.round(e.duration), wait:Math.round(e.processingStart - e.startTime),
+        work:Math.round(e.processingEnd - e.processingStart), toPaint:Math.round(e.startTime + e.duration - e.processingEnd)});
+    }
+  }).observe({type:'event', durationThreshold:16, buffered:false});
+} catch(e) {}
+try {
+  new PerformanceObserver(list => {
+    for (const f of list.getEntries()) {
+      const end = f.startTime + f.duration;
+      plog({k:'longframe', total:Math.round(f.duration), blocking:Math.round(f.blockingDuration || 0),
+        styleLayout:f.styleAndLayoutStart ? Math.round(end - f.styleAndLayoutStart) : 0,
+        scripts:(f.scripts || []).slice().sort((a, b) => b.duration - a.duration).slice(0, 3)
+          .map(x => `${x.invoker || x.name}${x.sourceFunctionName ? ' > ' + x.sourceFunctionName : ''} ${Math.round(x.duration)}ms`)});
+    }
+  }).observe({type:'long-animation-frame', buffered:false});
+} catch(e) {}
+const PERF_HAS = {
+  loaf: !!(window.PerformanceObserver && PerformanceObserver.supportedEntryTypes && PerformanceObserver.supportedEntryTypes.includes('long-animation-frame')),
+  events: !!(window.PerformanceObserver && PerformanceObserver.supportedEntryTypes && PerformanceObserver.supportedEntryTypes.includes('event'))
+};
+function perfReport(){
+  const med = a => { const s = a.filter(x => x != null).sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : null; };
+  const navs = perf.filter(e => e.k === 'nav'), groups = {};
+  for (const n of navs) (groups[`${n.how} > ${n.to}${n.drew ? ' (redrawn)' : ' (kept)'}`] = groups[`${n.how} > ${n.to}${n.drew ? ' (redrawn)' : ' (kept)'}`] || []).push(n);
+  const ua = navigator.userAgentData ? navigator.userAgentData.brands.map(b => `${b.brand} ${b.version}`).filter(b => !/Not/.test(b)).join(', ') : navigator.userAgent;
+  const lines = [
+    `Game Log performance report · build ${BUILD} · ${new Date().toLocaleString()}`,
+    `Browser: ${ua} | screen ${screen.width}x${screen.height} @${devicePixelRatio}x | window ${innerWidth}x${innerHeight} | cores ${navigator.hardwareConcurrency || '?'}${navigator.deviceMemory ? ' | mem ' + navigator.deviceMemory + 'GB' : ''}`,
+    `Library: ${state.games.length} games | page nodes ${document.getElementsByTagName('*').length} | view transitions ${document.startViewTransition ? 'yes' : 'no'} | reduced motion ${reduced.matches ? 'on' : 'off'} | long-frame API ${PERF_HAS.loaf ? 'yes' : 'no'}`,
+    '', 'SCREEN CHANGES (median / worst): click-to-first-frame ms, update ms, late frames, dropped frames'
+  ];
+  for (const [k, a] of Object.entries(groups)) {
+    const w = (f) => Math.max(...a.map(f).filter(x => x != null));
+    lines.push(`  ${k} ×${a.length}: first ${med(a.map(x => x.firstFrame))}/${w(x => x.firstFrame)} · update ${med(a.map(x => x.update))}/${w(x => x.update)} · late ${med(a.map(x => x.late))}/${w(x => x.late)} · dropped ${med(a.map(x => x.dropped))}/${w(x => x.dropped)} · ${med(a.map(x => x.hz))}Hz`);
+  }
+  lines.push('', 'LAST 60 ENTRIES (newest last)');
+  for (const e of perf.slice(-60)) {
+    const { k, at, ...rest } = e;
+    lines.push(`  ${new Date(at).toLocaleTimeString()} ${k} ${Object.entries(rest).map(([a, b]) => `${a}=${Array.isArray(b) ? '[' + b.join('; ') + ']' : b}`).join(' ')}`);
+  }
+  return lines.join('\n');
+}
 /* ---------- Data ---------- */
 const KEY = 'gamelog_v1';
 const STATUSES = ['playing','ongoing','paused','backlog','done','dropped'];
@@ -2146,6 +2231,15 @@ function renderSync(){
         </div>
       </section>
       <section class="panel">
+        <h2 class="h2" style="margin:0">Performance log</h2>
+        <p>This device keeps a log of how long screen changes, clicks and redraws take, and any frame that ran long. When something feels laggy, use it for a minute, then copy the report and paste it to Claude.</p>
+        <p class="muted" style="margin:0">${perf.length} entr${perf.length === 1 ? 'y' : 'ies'} recorded${perf.length ? `, ${perf.filter(e => e.k === 'nav').length} screen changes, ${perf.filter(e => e.k === 'longframe').length} long frames` : ''}.</p>
+        <div class="actions" style="margin-top:4px">
+          <button class="btn" data-act="perf-copy">Copy report</button>
+          <button class="btn quiet" data-act="perf-clear">Clear log</button>
+        </div>
+      </section>
+      <section class="panel">
         <h2 class="h2" style="margin:0">This version</h2>
         <p class="buildid">Build ${esc(BUILD)}</p>
         <p><b>New:</b> ${esc(CHANGELOG[0].note)}</p>
@@ -2639,6 +2733,7 @@ function secReview(g){
    you back where you were scrolled) instead of rebuilding hundreds of covers.
    Any save marks every pane stale, so a changed screen is redrawn on arrival. */
 const panes = {}, scrollAt = {};
+let lastDraw = 0, drawCount = 0, navRunning = false;
 let shownPane = null, paneGame = null;
 const paneKey = () => view.gameId ? 'game' : view.tab === 'continue' || view.tab === 'sync' ? view.tab : 'library';
 function pane(k){
@@ -2656,8 +2751,10 @@ function render(onlyThis){
   renderChrome();
   const g = view.gameId && game(view.gameId);
   if (view.gameId && !g) view.gameId = null;
-  const k = paneKey();
+  const k = paneKey(), p0 = performance.now();
   pane(k).innerHTML = g ? renderGame(g) : k === 'continue' ? renderContinue() : k === 'sync' ? renderSync() : renderLibrary();
+  lastDraw = performance.now() - p0; drawCount++;
+  if (!navRunning && lastDraw >= 4) plog({k:'draw', pane:k, ms:r1(lastDraw), cause:onlyThis ? 'screen only' : 'data changed'});
   paneGame = g ? g.id : paneGame;
   PANES.forEach(o => o === k ? paneStale.delete(o) : onlyThis || paneStale.add(o));
   showPane(k);
@@ -2691,7 +2788,15 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)');
    'back' (to the shelf you came from, morphs the cover home), or a tab switch.
    Animations are opacity and transform only, so the GPU does the work. */
 function go(fn, how, fromId){
-  const run = () => {
+  const t0 = performance.now(), d0 = drawCount; let upd = 0, readyAt = 0;
+  const frames = sampleFrames(how === 'open' ? 650 : 550);
+  navRunning = true;
+  const finish = () => {
+    navRunning = false;
+    frames.then(gaps => plog(Object.assign({k:'nav', how:how || 'tab', to:paneKey(), drew:drawCount > d0, update:r1(upd), draw:drawCount > d0 ? r1(lastDraw) : 0,
+      animStart:readyAt ? r1(readyAt - t0) : null}, frameStats(gaps))));
+  };
+  const run0 = () => {
     fn();
     if (how === 'open') { render(true); window.scrollTo(0, 0); return; }
     const k = paneKey(); navigate();
@@ -2699,11 +2804,13 @@ function go(fn, how, fromId){
     if (how === 'back' && fromId) nameCover(panes[k] && panes[k].querySelector(`[data-act="open"][data-id="${CSS.escape(fromId)}"]`), fromId);
     else nameCover(null);
   };
+  const run = () => { const s = performance.now(); try { run0(); } finally { upd = performance.now() - s; } };
   if (document.startViewTransition && !reduced.matches) {
     const de = document.documentElement; de.classList.add('vt-in');
     const t = document.startViewTransition(run);
-    const done = vtBusy = t.finished.catch(() => {}).then(() => { de.classList.remove('vt-in'); if (vtBusy === done) vtBusy = null; });
-  } else run();
+    t.ready.then(() => { readyAt = performance.now(); }, () => {});
+    const done = vtBusy = t.finished.catch(() => {}).then(() => { de.classList.remove('vt-in'); if (vtBusy === done) vtBusy = null; finish(); });
+  } else { run(); finish(); }
 }
 let toastT;
 function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200); }
@@ -2812,6 +2919,14 @@ document.addEventListener('click', e => {
       if (!n || !d) { toast('Add a name and a date'); return; } g.releases.push({id:uid(), name:n, date:d}); save(); render(); break; }
     case 'del-rel': g.releases = g.releases.filter(r => r.id !== el.dataset.id); save(); render(); break;
     case 'delete-game': if (confirm(`Delete ${g.title}? This removes its quests, notes and score.`)) { state.games = state.games.filter(x => x.id !== g.id); save(); go(() => { view.gameId = null; }); toast(`Deleted ${g.title}`); } break;
+    case 'perf-copy': {
+      const txt = perfReport();
+      const done = () => toast('Report copied. Paste it to Claude');
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, () => { prompt('Copy the report:', txt); });
+      else prompt('Copy the report:', txt);
+      break;
+    }
+    case 'perf-clear': perf.length = 0; try { localStorage.removeItem(PERF_KEY); } catch(e) {} render(true); toast('Performance log cleared'); break;
     case 'export': {
       const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
       const u = URL.createObjectURL(blob), link = document.createElement('a');
