@@ -1007,6 +1007,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.27-h', note:'COVER LANDS CLEANLY: the flying cover measured its landing spot while the new screen was still 8px low from its fade-up, so it touched down a little short and snapped up at the end. It now measures first, so it lands exactly on the header cover (and on its shelf spot when going back).'},
   {v:'2026.10.27-g', note:'LIGHTER ANIMATIONS: your performance log showed the app code finishing in 1 to 12ms, but every screen change spent two or three 55ms frames inside the browser\'s page-transition effect, which photographs the whole 4K page before and after. Screen changes no longer use it. The new screen swaps in at once and fades up, and opening or closing a game flies a copy of the cover between the shelf and the header. Same look, a fraction of the drawing work.'},
   {v:'2026.10.27-f', note:'PERFORMANCE LOG: the app now records, on this device, how long each screen change, click and redraw takes, how many frames run late during each animation, and any frame that takes over 50ms to draw along with the code behind it. Sync page > Performance log > Copy report puts a summary on your clipboard to paste to Claude.'},
   {v:'2026.10.27-e', note:'NO MORE HITCH WHEN OPENING A GAME: hovering a game now starts loading its header art so it is ready on click. Also, tapping a game used to redraw the whole Library in the same instant (achievements started loading before the game page existed), then redraw the game page again as each piece of Steam data arrived, sometimes mid-animation. Now background data waits for the animation to finish, several arrivals share one redraw, and achievements only count as a change when the numbers actually moved, so the Library you came from stays ready.'},
@@ -2822,9 +2823,10 @@ function go(fn, how, fromId, fromEl){
   const anims = [];
   if (motion) {
     const p = panes[k];
-    if (p) anims.push(p.animate([{opacity:0, transform:'translateY(8px)'}, {opacity:1, transform:'none'}], {duration:220, easing:EASE}).finished.catch(() => {}));
+    // measure where the cover lands before the screen starts its 8px rise, or it lands low and snaps up
     if (how === 'open') anims.push(flyCover(src, srcRect, heroCover(), 300));
     if (how === 'back' && fromId && p) anims.push(flyCover(src, srcRect, p.querySelector(`[data-act="open"][data-id="${CSS.escape(fromId)}"] .cover`), 300));
+    if (p) anims.push(p.animate([{opacity:0, transform:'translateY(8px)'}, {opacity:1, transform:'none'}], {duration:220, easing:EASE}).finished.catch(() => {}));
   }
   const done = vtBusy = Promise.all(anims.filter(Boolean)).then(() => { if (vtBusy === done) vtBusy = null; });
   done.then(() => {
