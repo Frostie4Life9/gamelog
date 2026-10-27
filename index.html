@@ -561,11 +561,6 @@ a.scorecard:hover{border-color:var(--line)}
 ::view-transition-group(sx-bar){animation-duration:.4s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
 ::view-transition-old(root){animation:sx-leave .2s ease-in both}
 ::view-transition-new(root){animation:sx-arrive .42s cubic-bezier(.2,.8,.2,1) .06s both}
-html.vt-in::view-transition-old(root){animation:vt-out .14s ease-in both}
-html.vt-in::view-transition-new(root){animation:vt-in .26s cubic-bezier(.2,.8,.2,1) .04s both}
-html.vt-in::view-transition-group(*){animation-duration:.3s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
-@keyframes vt-out{to{opacity:0}}
-@keyframes vt-in{from{opacity:0;transform:translateY(8px)}}
 @keyframes sx-leave{to{opacity:0;transform:scale(.985)}}
 @keyframes sx-arrive{from{opacity:0;transform:translateY(14px)}}
 @media (prefers-reduced-motion:reduce){
@@ -1012,6 +1007,7 @@ html.vt-in::view-transition-group(*){animation-duration:.3s;animation-timing-fun
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.27-g', note:'LIGHTER ANIMATIONS: your performance log showed the app code finishing in 1 to 12ms, but every screen change spent two or three 55ms frames inside the browser\'s page-transition effect, which photographs the whole 4K page before and after. Screen changes no longer use it. The new screen swaps in at once and fades up, and opening or closing a game flies a copy of the cover between the shelf and the header. Same look, a fraction of the drawing work.'},
   {v:'2026.10.27-f', note:'PERFORMANCE LOG: the app now records, on this device, how long each screen change, click and redraw takes, how many frames run late during each animation, and any frame that takes over 50ms to draw along with the code behind it. Sync page > Performance log > Copy report puts a summary on your clipboard to paste to Claude.'},
   {v:'2026.10.27-e', note:'NO MORE HITCH WHEN OPENING A GAME: hovering a game now starts loading its header art so it is ready on click. Also, tapping a game used to redraw the whole Library in the same instant (achievements started loading before the game page existed), then redraw the game page again as each piece of Steam data arrived, sometimes mid-animation. Now background data waits for the animation to finish, several arrivals share one redraw, and achievements only count as a change when the numbers actually moved, so the Library you came from stays ready.'},
   {v:'2026.10.27-d', note:'SMOOTH AND FAST: the animations are back, shorter and GPU-only. Continue, Library and Sync now stay built while you\'re on another screen, so switching back is instant and you land where you were scrolled. A screen only redraws when something on it changed. Long goal lists skip rows that are off screen.'},
@@ -2021,7 +2017,7 @@ function nameCover(el, id){
 }
 function coverHTML(g, opts = {}){
   const st = stats(g);
-  const vt = opts.hero ? `view-transition-name:cv-${g.id};` : '';
+  const vt = '';
   const url = /^https:\/\/[^\s"'<>]+$/.test(g.cover) ? g.cover : '';
   const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
   const bg = `radial-gradient(110% 70% at ${x}% 8%,${b}cc 0%,transparent 58%),repeating-linear-gradient(${ang}deg,rgba(255,255,255,.045) 0 2px,transparent 2px 16px),linear-gradient(165deg,${a} 10%,#12152B 95%);`;
@@ -2785,32 +2781,56 @@ function navigate(){
 }
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 /* how: 'open' (a game page, always drawn fresh, starts at the top),
-   'back' (to the shelf you came from, morphs the cover home), or a tab switch.
-   Animations are opacity and transform only, so the GPU does the work. */
-function go(fn, how, fromId){
-  const t0 = performance.now(), d0 = drawCount; let upd = 0, readyAt = 0;
+   'back' (to the screen you came from), or a tab switch.
+   The swap itself happens at once. Then only the new screen fades up, and on
+   open/back a copy of the cover flies between the shelf and the header. Both
+   are single GPU layers, so nothing gets snapshotted. (The browser's view
+   transitions captured the whole 4K page twice per move, which the log showed
+   costing ~55ms frames on every switch.) */
+const EASE = 'cubic-bezier(.2,.8,.2,1)';
+function flyCover(from, fromRect, to, ms){
+  if (!from || !fromRect || !to) return null;
+  const a = fromRect, b = to.getBoundingClientRect();
+  const seen = r => r.width > 0 && r.bottom > 0 && r.top < innerHeight;
+  if (!seen(a) || !seen(b)) return null;
+  const c = from.cloneNode(true);
+  c.querySelectorAll('.score,.bar').forEach(x => x.remove());
+  c.style.cssText += `;position:fixed;left:${b.left}px;top:${b.top}px;width:${b.width}px;height:${b.height}px;margin:0;z-index:200;pointer-events:none;transform-origin:0 0;will-change:transform;view-transition-name:none`;
+  document.body.appendChild(c);
+  to.style.visibility = 'hidden';
+  const an = c.animate([{transform:`translate(${a.left - b.left}px,${a.top - b.top}px) scale(${a.width / b.width},${a.height / b.height})`}, {transform:'none'}], {duration:ms, easing:EASE});
+  return an.finished.catch(() => {}).then(() => { to.style.visibility = ''; c.remove(); });
+}
+const heroCover = () => panes.game && panes.game.querySelector('.hero .cover');
+function go(fn, how, fromId, fromEl){
+  const t0 = performance.now(), d0 = drawCount;
   const frames = sampleFrames(how === 'open' ? 650 : 550);
   navRunning = true;
-  const finish = () => {
+  const motion = !reduced.matches && !!Element.prototype.animate;
+  // where the flying cover starts, measured before anything moves
+  let src = null;
+  if (motion && how === 'open' && fromEl) src = fromEl.classList.contains('cover') ? fromEl : fromEl.querySelector('.cover');
+  if (motion && how === 'back') src = heroCover();
+  const srcRect = src && src.getBoundingClientRect();
+
+  fn();
+  let k;
+  if (how === 'open') { render(true); k = 'game'; window.scrollTo(0, 0); }
+  else { k = paneKey(); navigate(); window.scrollTo(0, scrollAt[k] || 0); }
+  const upd = performance.now() - t0;
+
+  const anims = [];
+  if (motion) {
+    const p = panes[k];
+    if (p) anims.push(p.animate([{opacity:0, transform:'translateY(8px)'}, {opacity:1, transform:'none'}], {duration:220, easing:EASE}).finished.catch(() => {}));
+    if (how === 'open') anims.push(flyCover(src, srcRect, heroCover(), 300));
+    if (how === 'back' && fromId && p) anims.push(flyCover(src, srcRect, p.querySelector(`[data-act="open"][data-id="${CSS.escape(fromId)}"] .cover`), 300));
+  }
+  const done = vtBusy = Promise.all(anims.filter(Boolean)).then(() => { if (vtBusy === done) vtBusy = null; });
+  done.then(() => {
     navRunning = false;
-    frames.then(gaps => plog(Object.assign({k:'nav', how:how || 'tab', to:paneKey(), drew:drawCount > d0, update:r1(upd), draw:drawCount > d0 ? r1(lastDraw) : 0,
-      animStart:readyAt ? r1(readyAt - t0) : null}, frameStats(gaps))));
-  };
-  const run0 = () => {
-    fn();
-    if (how === 'open') { render(true); window.scrollTo(0, 0); return; }
-    const k = paneKey(); navigate();
-    window.scrollTo(0, scrollAt[k] || 0);
-    if (how === 'back' && fromId) nameCover(panes[k] && panes[k].querySelector(`[data-act="open"][data-id="${CSS.escape(fromId)}"]`), fromId);
-    else nameCover(null);
-  };
-  const run = () => { const s = performance.now(); try { run0(); } finally { upd = performance.now() - s; } };
-  if (document.startViewTransition && !reduced.matches) {
-    const de = document.documentElement; de.classList.add('vt-in');
-    const t = document.startViewTransition(run);
-    t.ready.then(() => { readyAt = performance.now(); }, () => {});
-    const done = vtBusy = t.finished.catch(() => {}).then(() => { de.classList.remove('vt-in'); if (vtBusy === done) vtBusy = null; finish(); });
-  } else { run(); finish(); }
+    frames.then(gaps => plog(Object.assign({k:'nav', how:how || 'tab', to:k, drew:drawCount > d0, update:r1(upd), draw:drawCount > d0 ? r1(lastDraw) : 0, animStart:null}, frameStats(gaps))));
+  });
 }
 let toastT;
 function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200); }
@@ -2846,7 +2866,7 @@ document.addEventListener('click', e => {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; });
       if (el.dataset.tab === 'sync' && Date.now() - (steamSum.fetched || 0) > 5 * 60000) fetchSummary();
       break;
-    case 'open': view.art = null; nameCover(el, el.dataset.id); { const id = el.dataset.id; go(() => { view.gameId = id; view.section = el.dataset.section || 'save'; view.goals = null; }, 'open'); const og = game(id); if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
+    case 'open': view.art = null; { const id = el.dataset.id; go(() => { view.gameId = id; view.section = el.dataset.section || 'save'; view.goals = null; }, 'open', null, el); const og = game(id); if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
     case 'back': { const from = view.gameId; go(() => { view.gameId = null; }, 'back', from); } break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
