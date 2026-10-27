@@ -1012,6 +1012,7 @@ html.vt-in::view-transition-group(*){animation-duration:.3s;animation-timing-fun
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.27-e', note:'NO MORE HITCH WHEN OPENING A GAME: hovering a game now starts loading its header art so it is ready on click. Also, tapping a game used to redraw the whole Library in the same instant (achievements started loading before the game page existed), then redraw the game page again as each piece of Steam data arrived, sometimes mid-animation. Now background data waits for the animation to finish, several arrivals share one redraw, and achievements only count as a change when the numbers actually moved, so the Library you came from stays ready.'},
   {v:'2026.10.27-d', note:'SMOOTH AND FAST: the animations are back, shorter and GPU-only. Continue, Library and Sync now stay built while you\'re on another screen, so switching back is instant and you land where you were scrolled. A screen only redraws when something on it changed. Long goal lists skip rows that are off screen.'},
   {v:'2026.10.27-c', note:'FASTER SWITCHING AND SCROLLING: Continue and Library now swap instantly instead of cross-fading. Opening or closing a game keeps the cover glide, just quicker. Covers off screen are skipped until you scroll near them, the top bars stopped blurring what scrolls under them, and covers with art no longer paint a hidden pattern behind the image.'},
   {v:'2026.10.27-b', note:'SNAPPIER: the Library no longer blurs behind every score badge, which made scrolling a big shelf heavy. Opening a game used to snapshot every cover on the shelf for the slide animation; now only the cover you tapped. Typing in notes and fields saves a moment after you stop instead of on every key, and search waits for a pause before redrawing the shelf.'},
@@ -1239,7 +1240,7 @@ function adopt(next){
   state = next; state.seeded = state.seeded || {crimson:true};
   save({keepTime:true, noPush:true});
   if (view.gameId && !game(view.gameId)) view.gameId = null;
-  render();
+  refresh();
 }
 /* A newer build has written the library. This tab is out of date: it keeps
    working on this device but stops sending, so it can't push old data back. */
@@ -1380,20 +1381,22 @@ async function fetchAch(g, opts = {}){
   if (!g.steamId || !syncOn() || achLoading.has(g.id)) return;
   const c = achCache[g.steamId];
   if (!opts.force && c && Date.now() - c.fetched < 30 * 60000) return;
-  achLoading.add(g.id); if (!opts.quiet) render();
+  achLoading.add(g.id); if (!opts.quiet) refresh(false);
   try {
     const r = await api('/steam/achievements?appid=' + g.steamId + (opts.force && !opts.quiet ? '&fresh=1' : ''));
     if (!r.ok) throw new Error(await readErr(r));
     const res = await r.json();
     achCache[g.steamId] = {fetched:Date.now(), items:res.items, err:''};
     const last = res.items.filter(i => i.done && i.time).sort((a, b) => b.time - a.time)[0];
-    g.ach = res.total ? {total:res.total, done:res.unlocked, last: last ? {name:last.name, time:last.time} : null} : {total:0, done:0, last:null};
-    saveAchCache(); save();
+    const nextAch = res.total ? {total:res.total, done:res.unlocked, last: last ? {name:last.name, time:last.time} : null} : {total:0, done:0, last:null};
+    const achChanged = JSON.stringify(nextAch) !== JSON.stringify(g.ach || null);
+    g.ach = nextAch;
+    saveAchCache(); if (achChanged) save();
   } catch(e) {
     achCache[g.steamId] = Object.assign({}, c, {err: e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message});
     if (opts.quiet) throw e;
   }
-  achLoading.delete(g.id); if (!opts.quiet) render();
+  achLoading.delete(g.id); if (!opts.quiet) refresh(false);
 }
 const achPct = g => g.ach && g.ach.total ? Math.floor(g.ach.done / g.ach.total * 100) : null;
 
@@ -1425,7 +1428,7 @@ async function fetchNews(g, opts = {}){
   if (!g.steamId || !syncOn() || newsLoading.has(g.id)) return;
   const c = newsCache[g.steamId];
   if (!opts.force && c && !c.err && Date.now() - c.fetched < NEWS_TTL) return;
-  newsLoading.add(g.id); if (!opts.quiet) render();
+  newsLoading.add(g.id); if (!opts.quiet) refresh(false);
   try {
     const r = await api('/steam/news?appid=' + g.steamId + '&count=15' + (opts.force ? '&fresh=1' : ''));
     if (r.status === 404) throw new Error('your Worker needs the updated gamelog-sync.js (paste it in and deploy)');
@@ -1436,7 +1439,7 @@ async function fetchNews(g, opts = {}){
     newsCache[g.steamId] = {fetched:Date.now(), items:(c && c.items) || [], err: e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message};
     if (opts.quiet) { newsLoading.delete(g.id); saveNewsCache(); throw e; }
   }
-  newsLoading.delete(g.id); saveNewsCache(); if (!opts.quiet) render();
+  newsLoading.delete(g.id); saveNewsCache(); if (!opts.quiet) refresh();
 }
 function enterNews(g){
   if (!g || !g.steamId) return;
@@ -1444,7 +1447,7 @@ function enterNews(g){
   fetchNews(g, {force:!!(newsCache[g.steamId] && newsCache[g.steamId].err)}).then(() => {
     const c = newsCache[g.steamId];
     if (view.gameId === g.id && view.section === 'news' && c && !c.err && newCount(g)) {
-      g.newsSeen = Math.floor(Date.now() / 1000); save(); render();
+      g.newsSeen = Math.floor(Date.now() / 1000); save(); refresh();
     }
   });
 }
@@ -1473,7 +1476,7 @@ async function fetchSummary(){
   }
   if (changed) save();
   const ae = document.activeElement;
-  if (!(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))) render();
+  if (!(ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))) refresh(); else dirtyAll();
 }
 const checkNews = fetchSummary;
 function agoText(ms){
@@ -1510,7 +1513,7 @@ async function fetchStore(g, opts = {}){
   if (!g || !g.steamId || !syncOn() || storeLoading.has(g.steamId)) return;
   const c = storeCache[g.steamId];
   if (!opts.force && c && c.data && Date.now() - c.fetched < STORE_TTL) return;
-  storeLoading.add(g.steamId); render();
+  storeLoading.add(g.steamId); refresh(false);
   try {
     const r = await api('/steam/store?appid=' + g.steamId + (opts.force ? '&fresh=1' : ''));
     if (r.status === 404) {
@@ -1522,7 +1525,7 @@ async function fetchStore(g, opts = {}){
   } catch(e) {
     storeCache[g.steamId] = Object.assign({}, c, {fetched:(c && c.fetched) || 0, err: e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message});
   }
-  storeLoading.delete(g.steamId); saveStoreCache(); render();
+  storeLoading.delete(g.steamId); saveStoreCache(); refresh(false);
 }
 // Steam stores release days as UTC midnight, so read the date in UTC or it lands a day early here
 const HLS_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.17/hls.min.js';
@@ -1571,7 +1574,7 @@ async function autoArt(){
     try { const res = await steamSearch(g.title); g.artTried = true; const hit = res.find(x => x.cover || x.header); if (hit) { applyArt(g, hit); changed++; } }
     catch(e) { break; }
   }
-  if (todo.some(g => g.artTried)) { save(); render(); if (changed) toast(`Found cover art for ${changed} game${changed > 1 ? 's' : ''}`); }
+  if (todo.some(g => g.artTried)) { save(); refresh(); if (changed) toast(`Found cover art for ${changed} game${changed > 1 ? 's' : ''}`); }
 }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') pull(); });
 
@@ -1644,7 +1647,7 @@ async function pullPlay(){
       if (g && storedKey(g) < playNow.s) { noteSession(g, playNow.s); changed = true; }
     }
     if (changed) save();
-    if (changed || was !== (playNow && playNow.a) || was_s !== (playNow && playNow.s)) render();
+    if (changed || was !== (playNow && playNow.a) || was_s !== (playNow && playNow.s)) refresh();
     if (fresh) openCheckin(fresh[0], fresh[1]);
   } catch(e) {}
   playBusy = false;
@@ -1766,7 +1769,7 @@ async function loadIndex(){
       const hit = contentIndex.find(x => x.steamId === g.steamId);
       if (hit) { g.content = hit.slug; changed = true; }
     }
-    if (changed) { save(); render(); }
+    if (changed) { save(); refresh(); }
   } catch(e) { contentIndex = []; }
 }
 
@@ -1791,7 +1794,7 @@ async function loadPack(g, force){
   } catch(e) {
     p.state = 'err'; p.err = e.message === 'Failed to fetch' ? 'couldn’t reach the content files' : e.message;
   }
-  render();
+  refresh();
   return p;
 }
 
@@ -2660,6 +2663,20 @@ function render(onlyThis){
   showPane(k);
   document.title = g ? `${g.title} · Game Log` : 'Game Log';
 }
+/* Background work (Steam data, goal packs, loading spinners) redraws through
+   refresh(): calls in the same frame collapse into one, and nothing redraws
+   while a screen animation is running, so data arriving mid-glide can't make
+   it stutter. others=false means the change only shows on this screen. */
+let refreshQ = 0, refreshOthers = false, vtBusy = null;
+function refresh(others = true){
+  refreshOthers = refreshOthers || others;
+  if (refreshQ) return;
+  refreshQ = requestAnimationFrame(async () => {
+    while (vtBusy) await vtBusy;
+    refreshQ = 0; const o = refreshOthers; refreshOthers = false;
+    render(!o);
+  });
+}
 /* Show the screen view now points at, reusing its pane when nothing changed */
 function navigate(){
   const k = paneKey();
@@ -2676,7 +2693,7 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 function go(fn, how, fromId){
   const run = () => {
     fn();
-    if (how === 'open') { render(); window.scrollTo(0, 0); return; }
+    if (how === 'open') { render(true); window.scrollTo(0, 0); return; }
     const k = paneKey(); navigate();
     window.scrollTo(0, scrollAt[k] || 0);
     if (how === 'back' && fromId) nameCover(panes[k] && panes[k].querySelector(`[data-act="open"][data-id="${CSS.escape(fromId)}"]`), fromId);
@@ -2685,7 +2702,7 @@ function go(fn, how, fromId){
   if (document.startViewTransition && !reduced.matches) {
     const de = document.documentElement; de.classList.add('vt-in');
     const t = document.startViewTransition(run);
-    t.finished.finally(() => de.classList.remove('vt-in'));
+    const done = vtBusy = t.finished.catch(() => {}).then(() => { de.classList.remove('vt-in'); if (vtBusy === done) vtBusy = null; });
   } else run();
 }
 let toastT;
@@ -2695,7 +2712,7 @@ async function doArtSearch(){
   const a = view.art; if (!a || !a.q) return;
   a.loading = true; a.err = ''; render();
   try { a.results = await steamSearch(a.q); } catch(e) { a.err = `Search failed: ${e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker' : e.message}`; }
-  a.loading = false; if (view.art === a) render();
+  a.loading = false; if (view.art === a) refresh(false);
 }
 function setPath(obj, path, val){ const k = path.split('.'); let o = obj; while (k.length > 1) o = o[k.shift()]; o[k[0]] = val; }
 function listFor(g, kind, layer){ return kind === 'miss' ? g.missables : g.layers[layer].items; }
@@ -2722,7 +2739,7 @@ document.addEventListener('click', e => {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; });
       if (el.dataset.tab === 'sync' && Date.now() - (steamSum.fetched || 0) > 5 * 60000) fetchSummary();
       break;
-    case 'open': view.art = null; nameCover(el, el.dataset.id); go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }, 'open'); { const og = game(el.dataset.id); view.goals = null; if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
+    case 'open': view.art = null; nameCover(el, el.dataset.id); { const id = el.dataset.id; go(() => { view.gameId = id; view.section = el.dataset.section || 'save'; view.goals = null; }, 'open'); const og = game(id); if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
     case 'back': { const from = view.gameId; go(() => { view.gameId = null; }, 'back', from); } break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
@@ -2840,6 +2857,14 @@ document.addEventListener('change', e => {
   if (el.dataset.f && (el.dataset.rerender || el.dataset.rerenderBlur || el.type === 'date')) { setPath(g, el.dataset.f, el.value.trim ? el.value.trim() : el.value); save(); render(); }
 });
 
+/* Hovering a game starts decoding its big header art, so by the time you
+   click, the game page can draw it in the same frame instead of popping in. */
+const warmed = new Set();
+document.addEventListener('pointerover', e => {
+  const b = e.target.closest && e.target.closest('[data-act="open"]'); if (!b) return;
+  const g = game(b.dataset.id); if (!g || !/^https:\/\//.test(g.hero || '') || warmed.has(g.hero)) return;
+  warmed.add(g.hero); const im = new Image(); im.src = g.hero; if (im.decode) im.decode().catch(() => {});
+}, {passive:true});
 let searchT;
 document.addEventListener('input', e => {
   const el = e.target;
