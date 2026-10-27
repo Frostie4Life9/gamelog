@@ -1006,6 +1006,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.27-a', note:'SAFER SYNC: sync used to treat your library as one block, so whichever copy saved last replaced everything. An old tab left open could put back stale versions of every game, like turning an Ongoing game back into Backlog. Now each game remembers when you last changed it, and sync merges game by game: the newer change wins for each game, and a copy can only overwrite the games it actually changed. Deleted games stay deleted on every device. A tab running an older build stops sending as soon as a newer build has saved, and asks you to reload. Restoring a backup still replaces everything everywhere. For the server side, paste the updated gamelog-sync.js into the Worker: it merges the same way, refuses saves from older builds, and keeps hourly backups for two weeks.'},
   {v:'2026.10.24-a', note:'IDEAS BUTTON: a lightbulb in the top bar opens a list for writing down features you want in this app. Tick them off or delete them. They save on this device and sync in the background, so Claude can read them. On a narrow computer window the tabs other than the current app show just their icons so the button fits.'},
   {v:'2026.10.23-a', note:'GOALS FOR BIG GAMES: games can now carry a deep checklist that lives in the repo, one file per tab, so size never bloats your synced library. Crimson Desert gets a Goals section in place of Quests, with tabs for Main Story, Side Quests, Missables, Collectibles, Pets, Armor and Power. Your old quest lists and ticks carried over. Search covers every tab, and you can filter by region, show only missables, and see what is left. Progress is weighted by estimated time once every goal has one. Each game gets a finish line: Beat it, Main + side, 100% or Shelved. CATCH-UP TOOLS: sweep a region, or mark everything before a goal as assumed. Assumed goals show lighter, tapping one confirms it, and any bulk change can be undone. CHECK-IN: when a tracked session ends, a sheet asks where you left off and what you finished. Side Quests, Pets and Armor are empty on purpose until the research pass fills them in.'},
   {v:'2026.10.22-l', note:'UPDATE BAR CHECKS WHILE THE TAB STAYS OPEN: it used to look for a new build only when the app loaded or when you came back to the tab, so a tab you left open and in view never heard about updates. Now it checks every two minutes while visible. The very first time you need to reload by hand to get this build.'},
@@ -1118,11 +1119,79 @@ function load(){
   seed(s);
   return s;
 }
+/* ---------- Change stamps ----------
+   Sync used to treat the library as one blob: whichever copy saved last
+   replaced everything, so an old tab that changed one thing could put back
+   stale versions of every other game. Now each game carries u (when it last
+   changed), a deleted game leaves a marker in state.gone {id: time}, and the
+   fields outside games share state.metaU. Sync merges game by game and the
+   newer side wins each game, so a stale copy can only touch what it changed. */
+const GONE_KEEP = 120 * 86400000;
+/* Only your own edits count as a change. Data every device works out for
+   itself (Steam achievement counts, the goals summary) is left out, so a
+   background refresh can't make an old copy of a game look newer. */
+const stampless = g => {
+  const {u, ach, ...rest} = g;
+  if (rest.goals && rest.goals.sum) { const {sum, ...gl} = rest.goals; rest.goals = gl; }
+  return JSON.stringify(rest);
+};
+const META_SKIP = ['games','gone','mtime','metaU','build'];
+const metaOf = s => JSON.stringify(Object.keys(s).filter(k => !META_SKIP.includes(k)).sort().map(k => [k, s[k]]));
+let snap = new Map(), snapMeta = '';
+function resnap(){ snap = new Map(state.games.map(g => [g.id, stampless(g)])); snapMeta = metaOf(state); }
+function stamp(touchAll){
+  const now = Date.now(), here = new Set();
+  state.gone = state.gone || {};
+  for (const g of state.games) {
+    here.add(g.id);
+    if (touchAll || snap.get(g.id) !== stampless(g)) { g.u = now; delete state.gone[g.id]; }
+  }
+  for (const id of snap.keys()) if (!here.has(id)) state.gone[id] = now;
+  for (const id in state.gone) if (now - state.gone[id] > GONE_KEEP) delete state.gone[id];
+  if (touchAll || metaOf(state) !== snapMeta) state.metaU = now;
+}
+
 let state = load();
+resnap();
 function save(opts = {}){
-  if (!opts.keepTime) state.mtime = Date.now();
+  if (!opts.keepTime) { stamp(opts.touchAll); state.mtime = Date.now(); }
+  resnap();
+  state.build = BUILD;
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) { toast('Couldn\'t save. Export a backup to be safe.'); }
   if (!opts.noPush) schedulePush();
+}
+
+/* Merge two copies of the library. Per game the newer u wins. When both
+   sides have the same u (old data from before stamps existed) the copy saved
+   by the newer build wins, then the one saved last. Returns the merged
+   library plus whether this device learned something (local) and whether
+   the server is missing something (remote). */
+function mergeLib(local, remote){
+  const bk = s => buildKey(s.build) || '0';
+  const localTies = bk(local) !== bk(remote) ? bk(local) > bk(remote) : (local.mtime || 0) >= (remote.mtime || 0);
+  const gone = Object.assign({}, remote.gone || {});
+  let local_ = false, remote_ = false;
+  for (const id in (local.gone || {})) if (!(gone[id] >= local.gone[id])) { gone[id] = local.gone[id]; remote_ = true; }
+  const L = new Map(local.games.map(g => [g.id, g])), R = new Map(remote.games.map(g => [g.id, g]));
+  const ids = [...L.keys(), ...[...R.keys()].filter(id => !L.has(id))];
+  const games = [];
+  for (const id of ids) {
+    const l = L.get(id), r = R.get(id), lu = l ? +l.u || 0 : -1, ru = r ? +r.u || 0 : -1;
+    const same = l && r && stampless(l) === stampless(r);
+    const useL = !r || (l && (lu !== ru ? lu > ru : (same || localTies)));
+    const g = useL ? l : r;
+    if (gone[id] && gone[id] >= (+g.u || 0)) { if (l) local_ = true; if (r) remote_ = true; continue; }
+    if (gone[id]) delete gone[id];
+    if (!same) { if (useL) remote_ = true; else local_ = true; }
+    games.push(g);
+  }
+  const lm = +local.metaU || 0, rm = +remote.metaU || 0;
+  const metaL = lm !== rm ? lm > rm : localTies;
+  const src = metaL ? local : remote, out = {};
+  for (const k in src) if (!META_SKIP.includes(k)) out[k] = src[k];
+  if (metaOf(local) !== metaOf(remote)) { if (metaL) remote_ = true; else local_ = true; }
+  Object.assign(out, {games, gone, metaU:Math.max(lm, rm), mtime:Math.max(local.mtime || 0, remote.mtime || 0), build:BUILD});
+  return {state:out, local:local_, remote:remote_};
 }
 
 /* ---------- Sync ---------- */
@@ -1147,11 +1216,33 @@ function setStatus(st, err){
   document.querySelectorAll('[data-sync-status]').forEach(el => { el.textContent = syncText(); el.dataset.state = st; });
   const e = document.getElementById('syncErr'); if (e) e.textContent = sync.err ? `What went wrong: ${sync.err}` : '';
 }
-function adopt(remote){
-  state = migrate(remote); state.seeded = state.seeded || {crimson:true};
+function adopt(next){
+  state = next; state.seeded = state.seeded || {crimson:true};
   save({keepTime:true, noPush:true});
   if (view.gameId && !game(view.gameId)) view.gameId = null;
   render();
+}
+/* A newer build has written the library. This tab is out of date: it keeps
+   working on this device but stops sending, so it can't push old data back. */
+let staleBuild = '';
+const newerThanMe = s => !!(s && s.build && buildKey(s.build) > buildKey(BUILD));
+function markStale(ver){
+  staleBuild = ver;
+  setStatus('error', `a newer Game Log (${ver}) saved your library. Reload this tab to keep syncing`);
+  try { showUpdate(ver); } catch(e) {}
+}
+/* Fold a copy from the server into this one. Returns true when the server is missing something. */
+function mergeIn(remote, note){
+  if (!remote || !Array.isArray(remote.games)) return true;
+  if (newerThanMe(remote)) { markStale(remote.build); return false; }
+  const m = mergeLib(state, migrate(JSON.parse(JSON.stringify(remote))));
+  if (m.local) { adopt(migrate(m.state)); if (note) toast(note); }
+  if (m.remote) {
+    /* the old Worker only accepts a copy with a later mtime than its own */
+    state.mtime = Math.max(state.mtime || 0, remote.mtime || 0) + 1;
+    save({keepTime:true, noPush:true});
+  }
+  return m.remote;
 }
 async function readErr(r){
   if (r.status === 401) return 'the sync key doesn\'t match the Worker\'s SECRET';
@@ -1164,9 +1255,9 @@ async function pull(){
     const r = await api('/');
     if (!r.ok) throw new Error(await readErr(r));
     const remote = await r.json();
-    const lt = state.mtime || 0, rt = (remote && remote.mtime) || 0;
-    if (remote && Array.isArray(remote.games) && rt > lt) { adopt(remote); toast('Updated from your other device'); setStatus('ok'); }
-    else if (!remote || lt > rt) { syncBusy = false; await push(); }
+    const needPush = mergeIn(remote, 'Updated from your other device');
+    if (staleBuild) {}
+    else if (needPush) { syncBusy = false; await push(); }
     else setStatus('ok');
   } catch(e) { setStatus('error', e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker. Check the URL and your connection' : e.message); }
   syncBusy = false;
@@ -1175,16 +1266,30 @@ async function pull(){
   pullPlay();
 }
 function schedulePush(){ if (!syncOn()) return; clearTimeout(pushT); pushT = setTimeout(push, 1200); }
-async function push(){
-  if (!syncOn() || syncBusy) { if (syncBusy) schedulePush(); return; }
+async function push(retried){
+  if (!syncOn() || staleBuild) return;
+  if (syncBusy) { schedulePush(); return; }
   syncBusy = true; setStatus('syncing');
+  let again = false;
   try {
+    state.build = BUILD;
     const r = await api('/', {method:'PUT', body:JSON.stringify(state)});
-    if (r.status === 409) { adopt(await r.json()); toast('Your other device had newer changes, so those are loaded'); setStatus('ok'); }
+    if (r.status === 409) {
+      /* the server's copy has changes this one doesn't: merge them in, then send the result */
+      again = mergeIn(await r.json(), 'Merged in changes from your other device') && !retried;
+      if (!staleBuild && !again) setStatus('ok');
+    }
+    else if (r.status === 426) { const j = await r.json().catch(() => ({})); markStale(j.build || 'newer'); }
     else if (!r.ok) throw new Error(await readErr(r));
-    else setStatus('ok');
+    else {
+      /* the updated Worker merges on its side too and sends back anything this copy lacked */
+      const j = await r.json().catch(() => null);
+      if (j && j.state) mergeIn(j.state, 'Merged in changes from your other device');
+      setStatus('ok');
+    }
   } catch(e) { setStatus('error', e.message === 'Failed to fetch' ? 'couldn\'t reach the Worker. Check the URL and your connection' : e.message); }
   syncBusy = false;
+  if (again) return push(true);
 }
 async function steamSearch(q){
   const r = await api('/steam/search?q=' + encodeURIComponent(q));
@@ -2689,7 +2794,7 @@ document.getElementById('importFile').addEventListener('change', async e => {
     const s = JSON.parse(await f.text());
     if (!Array.isArray(s.games)) throw new Error('the file has no games list');
     if (confirm(`Replace your current library with ${s.games.length} games from this backup?`)) {
-      state = migrate(s); state.seeded = state.seeded || {crimson:true}; save(); view.gameId = null; render(); toast('Library restored');
+      state = migrate(s); state.seeded = state.seeded || {crimson:true}; save({touchAll:true}); view.gameId = null; render(); toast('Library restored');
     }
   } catch(err) { alert('Couldn\'t restore: ' + err.message + '. Pick a Game Log backup file.'); }
   e.target.value = '';

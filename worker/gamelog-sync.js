@@ -51,10 +51,18 @@
 
    ROUTES (all need the x-sync-key header)
    GET  /                 -> the saved library JSON (or null)
-   PUT  /                 -> save library. Refused with 409 if the stored
-                             copy is newer, so a stale device can't
-                             overwrite fresher data. The previous copy is
-                             kept under "state-prev" as a safety net.
+   PUT  /                 -> save library. Merged into the stored copy game
+                             by game (newer change wins each game) and the
+                             merged copy is stored. If the stored copy had
+                             something the save lacked, the reply carries it
+                             as "state". A build older than the one that
+                             last saved gets 426; a build from before
+                             merging gets 409 with the stored copy. ?force=1
+                             replaces everything. The previous copy is kept
+                             under "state-prev", plus one copy an hour for
+                             two weeks under "bak:<date>T<hour>".
+   GET  /?backups         -> list the hourly backup keys, newest first
+   GET  /?backup=<key>    -> one backup (or state-prev)
    GET  /steam/search?q=  -> up to 6 Steam matches with cover art URLs
    GET  /steam/library?limit=10   most recently played games
    GET  /steam/library?all=1      every owned game (demos left out)
@@ -82,6 +90,55 @@
 const KEYNAME = 'state';
 const PREV = 'state-prev';
 const MAX_BYTES = 1024 * 1024;
+
+/* ---------- Merging saves (same rules as the app's mergeLib) ----------
+   Each game carries u (when you last changed it); deleted games leave a
+   marker in gone {id: time}; fields outside games share metaU. A save is
+   merged into the stored copy game by game, the newer u winning each game,
+   so a device can only overwrite the games it actually changed. Saves from
+   a build older than the one that last wrote are refused. */
+const BAK_TTL = 14 * 86400;   // hourly backups kept for two weeks
+const META_SKIP = ['games', 'gone', 'mtime', 'metaU', 'build'];
+function buildKey(v) { const m = /^(\d{4})\.(\d\d)\.(\d\d)-([a-z]+)$/.exec(v || ''); return m ? m[1] + m[2] + m[3] + String(m[4].length) + m[4] : ''; }
+function stampless(g) {
+  const { u, ach, ...rest } = g;
+  if (rest.goals && rest.goals.sum) { const { sum, ...gl } = rest.goals; rest.goals = gl; }
+  return JSON.stringify(rest);
+}
+const metaOf = s => JSON.stringify(Object.keys(s).filter(k => !META_SKIP.includes(k)).sort().map(k => [k, s[k]]));
+function mergeLib(incoming, stored) {
+  const gone = Object.assign({}, stored.gone || {});
+  for (const id in (incoming.gone || {})) if (!(gone[id] >= incoming.gone[id])) gone[id] = incoming.gone[id];
+  // Same u on both sides (data from before stamps): newer build, then later mtime. Ties keep the stored copy.
+  const bi = buildKey(incoming.build) || '0', bs = buildKey(stored.build) || '0';
+  const inTies = bi !== bs ? bi > bs : (incoming.mtime || 0) > (stored.mtime || 0);
+  const I = new Map(incoming.games.map(g => [g.id, g])), S = new Map(stored.games.map(g => [g.id, g]));
+  const ids = [...S.keys(), ...[...I.keys()].filter(id => !S.has(id))];
+  const games = [];
+  let gaveBack = false;   // the stored copy had something the incoming one lacked
+  for (const id of ids) {
+    const a = I.get(id), b = S.get(id), au = a ? +a.u || 0 : -1, bu = b ? +b.u || 0 : -1;
+    const same = a && b && stampless(a) === stampless(b);
+    const useIn = !b || (a && !same && (au !== bu ? au > bu : inTies));
+    const g = useIn ? a : (b || a);
+    if (gone[id] && gone[id] >= (+g.u || 0)) { if (a) gaveBack = true; continue; }
+    if (gone[id]) delete gone[id];
+    if (!useIn && !same) gaveBack = true;
+    games.push(g);
+  }
+  const im = +incoming.metaU || 0, sm = +stored.metaU || 0;
+  const metaIn = im !== sm ? im > sm : inTies;
+  const src = metaIn ? incoming : stored, out = {};
+  for (const k in src) if (!META_SKIP.includes(k)) out[k] = src[k];
+  if (!metaIn && metaOf(incoming) !== metaOf(stored)) gaveBack = true;
+  const newer = buildKey(incoming.build) > buildKey(stored.build) ? incoming.build : (stored.build || incoming.build);
+  Object.assign(out, { games, gone, metaU: Math.max(im, sm), mtime: Math.max(incoming.mtime || 0, stored.mtime || 0, Date.now()), build: newer });
+  return { state: out, gaveBack };
+}
+async function hourlyBackup(env, stored) {
+  const key = 'bak:' + new Date().toISOString().slice(0, 13);   // bak:2026-10-27T06
+  if (await env.STATE.get(key) === null) await env.STATE.put(key, stored, { expirationTtl: BAK_TTL });
+}
 const ASSET_BASE = 'https://shared.akamai.steamstatic.com/store_item_assets/';
 
 const MIN = 60000, HOUR = 60 * MIN, DAY = 24 * HOUR;
@@ -722,6 +779,16 @@ export default {
 
     if (url.pathname !== '/') return reply({ error: 'not found' }, 404);
 
+    if (request.method === 'GET' && url.searchParams.has('backups')) {
+      // ?backups lists the hourly copies; ?backup=bak:2026-10-27T06 returns one
+      const list = await env.STATE.list({ prefix: 'bak:' });
+      return reply({ backups: list.keys.map(k => k.name).sort().reverse() });
+    }
+    if (request.method === 'GET' && url.searchParams.has('backup')) {
+      const k = url.searchParams.get('backup') || '';
+      const v = /^bak:\d{4}-\d\d-\d\dT\d\d$/.test(k) || k === PREV ? await env.STATE.get(k) : null;
+      return new Response(v || 'null', { headers: Object.assign({ 'content-type': 'application/json', 'cache-control': 'no-store' }, CORS) });
+    }
     if (request.method === 'GET') {
       const stored = await env.STATE.get(KEYNAME);
       return new Response(stored || 'null', { headers: Object.assign({ 'content-type': 'application/json', 'cache-control': 'no-store' }, CORS) });
@@ -735,16 +802,33 @@ export default {
       if (!parsed || !Array.isArray(parsed.games)) return reply({ error: 'not a Game Log library' }, 400);
 
       const stored = await env.STATE.get(KEYNAME);
-      if (stored) {
-        let cur = null; try { cur = JSON.parse(stored); } catch (e) {}
-        const force = url.searchParams.get('force') === '1';
-        if (!force && cur && (cur.mtime || 0) > (parsed.mtime || 0)) {
-          return new Response(stored, { status: 409, headers: Object.assign({ 'content-type': 'application/json' }, CORS) });
+      let cur = null; if (stored) { try { cur = JSON.parse(stored); } catch (e) {} }
+      const force = url.searchParams.get('force') === '1';
+      let toSave = parsed, gaveBack = false;
+      if (cur && Array.isArray(cur.games) && !force) {
+        if (!parsed.build) {
+          // A build from before merging: it would replace everything, so send it
+          // the stored copy instead (it loads a 409's body as newer data).
+          if (cur.build || (cur.mtime || 0) > (parsed.mtime || 0)) {
+            return new Response(stored, { status: 409, headers: Object.assign({ 'content-type': 'application/json' }, CORS) });
+          }
+        } else {
+          if (cur.build && buildKey(parsed.build) < buildKey(cur.build)) {
+            return reply({ error: 'a newer Game Log build saved this library; reload the app', build: cur.build }, 426);
+          }
+          const m = mergeLib(parsed, cur);
+          toSave = m.state; gaveBack = m.gaveBack;
         }
-        await env.STATE.put(PREV, stored);
       }
-      await env.STATE.put(KEYNAME, body);
-      return reply({ ok: true, bytes: body.length, mtime: parsed.mtime || null });
+      const out = toSave === parsed ? body : JSON.stringify(toSave);
+      if (out.length > MAX_BYTES) return reply({ error: 'payload too large' }, 413);
+      if (stored) {
+        if (stored === out) return reply({ ok: true, bytes: out.length, mtime: toSave.mtime || null, state: gaveBack ? toSave : undefined });
+        await env.STATE.put(PREV, stored);
+        await hourlyBackup(env, stored);
+      }
+      await env.STATE.put(KEYNAME, out);
+      return reply({ ok: true, bytes: out.length, mtime: toSave.mtime || null, state: gaveBack ? toSave : undefined });
     }
 
     return reply({ error: 'method not allowed' }, 405);
