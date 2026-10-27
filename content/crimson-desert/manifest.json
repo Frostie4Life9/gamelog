@@ -2,14 +2,56 @@
   "slug": "crimson-desert",
   "title": "Crimson Desert",
   "steamId": 3321460,
-  "note": "Story, Power, Collectibles and Missables are your original lists, carried over as-is. Side Quests, Pets and Armor are waiting for the survey pass, so they are empty on purpose.",
+  "note": "Side Quests has one goal per questline, matching the game's Faction Quests list (69 lines, game version 2.0.0); Knowledge > Quests in game shows what each still needs. Pets and Armor list everything sourced so far but have no total yet: no complete public roster exists. Charting the Unknown: ocean, ship and housing goals open after Howling Hill; the character stories, castles and Garden of Trials after the main story.",
   "tabs": [
-    { "id": "story",     "name": "Main Story",   "tier": "story",   "file": "story.json" },
-    { "id": "side",      "name": "Side Quests",  "tier": "side",    "file": "side.json" },
-    { "id": "missables", "name": "Missables",    "tier": "extra",   "file": "missables.json" },
-    { "id": "collect",   "name": "Collectibles", "tier": "collect", "file": "collect.json" },
-    { "id": "pets",      "name": "Pets",         "tier": "collect", "file": "pets.json" },
-    { "id": "armor",     "name": "Armor",        "tier": "collect", "file": "armor.json" },
-    { "id": "power",     "name": "Power",        "tier": "extra",   "file": "power.json" }
+    {
+      "id": "story",
+      "name": "Main Story",
+      "tier": "story",
+      "file": "story.json"
+    },
+    {
+      "id": "side",
+      "name": "Side Quests",
+      "tier": "side",
+      "file": "side.json",
+      "expected": 69
+    },
+    {
+      "id": "dlc",
+      "name": "Charting the Unknown",
+      "tier": "side",
+      "file": "dlc.json"
+    },
+    {
+      "id": "missables",
+      "name": "Missables",
+      "tier": "extra",
+      "file": "missables.json"
+    },
+    {
+      "id": "collect",
+      "name": "Collectibles",
+      "tier": "collect",
+      "file": "collect.json"
+    },
+    {
+      "id": "pets",
+      "name": "Pets",
+      "tier": "collect",
+      "file": "pets.json"
+    },
+    {
+      "id": "armor",
+      "name": "Armor",
+      "tier": "collect",
+      "file": "armor.json"
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "tier": "extra",
+      "file": "power.json"
+    }
   ]
 }

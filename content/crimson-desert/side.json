@@ -1,1 +1,1145 @@
-{ "entries": [] }
+{
+ "entries": [
+  {
+   "id": "cd-side-house-alfonso",
+   "name": "House Alfonso",
+   "region": "Hernand",
+   "how": "The game lists 7 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-celeste",
+   "name": "House Celeste",
+   "region": "Hernand",
+   "how": "Bounty board: Hellhounds, Masked Hunter, Legendary Animals, Outlaws in Hernand, Legendary Wolf, Frozen Eldertree, Queen of the Silkspun Citadel, Abandoned Factory. The game lists 35 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "unlocks": "Silver bounties.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-felix",
+   "name": "House Felix",
+   "region": "Hernand",
+   "how": "The game lists 7 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-goldleaf-merchant-guild",
+   "name": "Goldleaf Merchant Guild",
+   "region": "Hernand",
+   "how": "Extinguishing the Last Flames: seven objectives around the Guildhouse. The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "unlocks": "Hernandian Banquet Cloak, Kinetic Counterweight.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-grace",
+   "name": "House Grace",
+   "region": "Hernand",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-st-halssius-s-house-of-healing",
+   "name": "St. Halssius's House of Healing",
+   "region": "Hernand",
+   "how": "The game lists 1 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-kharonso-troll-alliance",
+   "name": "Kharonso Troll Alliance",
+   "region": "Hernand",
+   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-pororin-forest-guardians",
+   "name": "Pororin Forest Guardians",
+   "region": "Hernand",
+   "how": "Children of the Woods (search several regions for the missing Shai), Trembling Woods, Toll of Pywel, Pororin Research Institute, Halted Research. The game lists 25 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "unlocks": "Trembling Woods opens Pororin Village; its Authorized Access part gives the Sotdae of Bond perch, which you need for every bird pet.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-roberts",
+   "name": "House Roberts",
+   "region": "Hernand",
+   "how": "Estate in Dismay (five parts: First Trial of Trust, Stolen Quarry, Troubled Count, Sealed in Stone, The Count's Honor), then Continuing Concern and Boulder from the Sky. The game lists 11 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "unlocks": "Gold Vein Map, Mining Knuckledrill, Azurite, Bloodstones, Engraved Gold Earring.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-scholastone-institute",
+   "name": "Scholastone Institute",
+   "region": "Hernand",
+   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-serkis",
+   "name": "House Serkis",
+   "region": "Hernand",
+   "how": "Fort Anvil, the manor and its liberation. The game lists 17 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "unlocks": "Staglord's Shield, Abyss Artifact.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-lanford",
+   "name": "House Lanford",
+   "region": "Hernand",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-beggars-alliance",
+   "name": "Beggars' Alliance",
+   "region": "Hernand",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-hernandian-parish-of-solumen",
+   "name": "Hernandian Parish of Solumen",
+   "region": "Hernand",
+   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-vellua-fishermen-s-guild",
+   "name": "Vellua Fishermen's Guild",
+   "region": "Hernand",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-witches",
+   "name": "Witches",
+   "region": "Hernand",
+   "how": "Witch of Strength, Humility, Wisdom and Kindness, plus smaller entries like Flight, Refined Power and Wayward Woods Witch. The game lists 23 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "unlocks": "Witch services: Abyss Gear, recipes, blueprints, sockets, extraction and synthesis.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-hernand-requests",
+   "name": "Hernand Requests",
+   "region": "Hernand",
+   "how": "The game lists 35 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-hernand-commissions",
+   "name": "Hernand Commissions",
+   "region": "Hernand",
+   "how": "The game lists 63 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-hernand-s-politics",
+   "name": "Hernand's Politics",
+   "region": "Hernand",
+   "how": "The game lists 14 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-greymanes",
+   "name": "Greymanes",
+   "region": "Pailune (Howling Hill)",
+   "how": "Your own faction: camp recovery, comrades and commissions, starting at Howling Hill. Lines include Scattered Embers, Grounds of the Sunrise and Greymane Commissions. Commissions pay out Medium Bags. If progress stalls, switch back to Kliff. The game lists 100 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "unlocks": "Grounds of the Sunrise (Luke's Request) gates the upgraded housing in Charting the Unknown.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-antumbra-order",
+   "name": "Antumbra Order",
+   "region": "Pailune",
+   "how": "Darkness over the Sanctum runs across twelve Sanctums; then Cloister of Ruination. The game lists 18 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "unlocks": "Abyss Artifact, Vessel of Dark Pursuit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-pailune-militia",
+   "name": "Pailune Militia",
+   "region": "Pailune",
+   "how": "Crossroads of Succession, Outlaws in Pailune, Bloodied Path, Dark Shadow Engulfing the Fort. The game lists 39 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-beighen-tribe",
+   "name": "Beighen Tribe",
+   "region": "Pailune",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-longleaf-tribe",
+   "name": "Longleaf Tribe",
+   "region": "Pailune",
+   "how": "The game lists 11 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-knytlingar-clan",
+   "name": "Knytlingar Clan",
+   "region": "Pailune",
+   "how": "The game lists 2 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-stjar-clan",
+   "name": "Stjar Clan",
+   "region": "Pailune",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-odeck-tribe",
+   "name": "Odeck Tribe",
+   "region": "Pailune",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-skoghorn-tribe",
+   "name": "Skoghorn Tribe",
+   "region": "Pailune",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-pailune-requests",
+   "name": "Pailune Requests",
+   "region": "Pailune",
+   "how": "The game lists 9 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-pailune-commissions",
+   "name": "Pailune Commissions",
+   "region": "Pailune",
+   "how": "The game lists 30 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-pailune-s-politics",
+   "name": "Pailune's Politics",
+   "region": "Pailune",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-azerian",
+   "name": "House Azerian",
+   "region": "Demeniss",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-byron",
+   "name": "House Byron",
+   "region": "Demeniss",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-elemore",
+   "name": "House Elemore",
+   "region": "Demeniss",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-marshell",
+   "name": "House Marshell",
+   "region": "Demeniss",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-silvermoon-trade-group",
+   "name": "Silvermoon Trade Group",
+   "region": "Demeniss",
+   "how": "The game lists 7 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-church-of-solumen",
+   "name": "Church of Solumen",
+   "region": "Demeniss",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-tariv-sorcerers",
+   "name": "Tariv Sorcerers",
+   "region": "Demeniss",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-thorel",
+   "name": "House Thorel",
+   "region": "Demeniss",
+   "how": "The game lists 24 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-house-wells",
+   "name": "House Wells",
+   "region": "Demeniss",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-demeniss-requests",
+   "name": "Demeniss Requests",
+   "region": "Demeniss",
+   "how": "The game lists 27 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-demeniss-commissions",
+   "name": "Demeniss Commissions",
+   "region": "Demeniss",
+   "how": "The game lists 54 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-demeniss-s-politics",
+   "name": "Demeniss's Politics",
+   "region": "Demeniss",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-aeserion-the-great-serpent",
+   "name": "Aeserion, the Great Serpent",
+   "region": "Delesyia",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-gearmelt-confectionery",
+   "name": "Gearmelt Confectionery",
+   "region": "Delesyia",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-marni",
+   "name": "Marni",
+   "region": "Delesyia",
+   "how": "The game lists 27 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-national-delesyian-institute",
+   "name": "National Delesyian Institute",
+   "region": "Delesyia",
+   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-ironwheel-of-dewhaven",
+   "name": "Ironwheel of Dewhaven",
+   "region": "Delesyia",
+   "how": "The game lists 12 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-ironflame-orcs",
+   "name": "Ironflame Orcs",
+   "region": "Delesyia",
+   "how": "The game lists 12 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-delesyian-aerial-force",
+   "name": "Delesyian Aerial Force",
+   "region": "Delesyia",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-society-of-progress",
+   "name": "Society of Progress",
+   "region": "Delesyia",
+   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-blackwater-oil-merchant-guild",
+   "name": "Blackwater Oil Merchant Guild",
+   "region": "Delesyia",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-cogknights",
+   "name": "Cogknights",
+   "region": "Delesyia",
+   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-marnirail",
+   "name": "Marnirail",
+   "region": "Delesyia",
+   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-redfox-trading-company",
+   "name": "Redfox Trading Company",
+   "region": "Delesyia",
+   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-delesyia-requests",
+   "name": "Delesyia Requests",
+   "region": "Delesyia",
+   "how": "The game lists 18 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-delesyia-commissions",
+   "name": "Delesyia Commissions",
+   "region": "Delesyia",
+   "how": "The game lists 36 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-delesyia-s-politics",
+   "name": "Delesyia's Politics",
+   "region": "Delesyia",
+   "how": "The game lists 2 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-lords-of-unclaimed-lands",
+   "name": "Lords of Unclaimed Lands",
+   "region": "Crimson Desert",
+   "how": "The game lists 17 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-muiquun-outlaws",
+   "name": "Muiquun Outlaws",
+   "region": "Crimson Desert",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-redwind-merchant-guild",
+   "name": "Redwind Merchant Guild",
+   "region": "Crimson Desert",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-sage-of-the-desert",
+   "name": "Sage of the Desert",
+   "region": "Crimson Desert",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-tommaso",
+   "name": "Tommaso",
+   "region": "Crimson Desert",
+   "how": "The game lists 14 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-urdavah",
+   "name": "Urdavah",
+   "region": "Crimson Desert",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-varnia",
+   "name": "Varnia",
+   "region": "Crimson Desert",
+   "how": "The game lists 1 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-abyss",
+   "name": "Abyss",
+   "region": "Crimson Desert",
+   "how": "The game lists 1 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-crimson-desert-requests",
+   "name": "Crimson Desert Requests",
+   "region": "Crimson Desert",
+   "how": "The game lists 11 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-crimson-desert-commissions",
+   "name": "Crimson Desert Commissions",
+   "region": "Crimson Desert",
+   "how": "The game lists 45 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-side-crimson-desert-s-politics",
+   "name": "Crimson Desert's Politics",
+   "region": "Crimson Desert",
+   "how": "The game lists 12 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "sources": [
+    {
+     "t": "Console Pulse: all faction quests",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools database: faction quests by region",
+     "u": "https://crimsondesert.gaming.tools/faction-quests"
+    }
+   ],
+   "verified": "sourced"
+  }
+ ]
+}

@@ -1,1 +1,652 @@
-{ "entries": [] }
+{
+ "entries": [
+  {
+   "id": "cd-pet-30-unique",
+   "name": "Pets challenge: tame 30 unique pets",
+   "how": "Life challenge. Pets have to look different to count: two identical-looking dogs of one breed count once. Taming 30 also fills the starting roster cap.",
+   "unlocks": "Counts toward the Life challenges trophy.",
+   "sources": [
+    {
+     "t": "PowerPyx: all Life challenges",
+     "u": "https://www.powerpyx.com/crimson-desert-all-life-challenges/"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-desert-cat",
+   "name": "Desert Cat",
+   "region": "Crimson Desert",
+   "how": "West side of Varnia. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-grey-cat",
+   "name": "Grey Cat",
+   "region": "Hernand",
+   "how": "Pororin. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-patchy-cat",
+   "name": "Patchy Cat",
+   "region": "Crimson Desert",
+   "how": "On a bell tower roof. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-shepherd",
+   "name": "Shepherd",
+   "region": "Hernand",
+   "how": "Near the soldier guarding the Hellwood Inner Gate. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-kitten",
+   "name": "Kitten",
+   "region": "Demeniss",
+   "how": "Jijeong Temple area. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-long-haired-cat",
+   "name": "Long-Haired Cat",
+   "region": "Hernand",
+   "how": "Exact spot not documented yet. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-feathered-weasel",
+   "name": "Feathered Weasel",
+   "region": "Delesyia",
+   "how": "Exact spot not documented yet. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-skunky",
+   "name": "Skunky",
+   "region": "Hernand",
+   "how": "Exact spot not documented yet. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-calphade-military-dog-boarhound",
+   "name": "Calphade Military Dog Boarhound",
+   "region": "Hernand",
+   "how": "Outside the shooting arena. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-wolfdog",
+   "name": "Wolfdog",
+   "region": "Pailune",
+   "how": "West side of Pailune City, by the trees. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-pororin-cat",
+   "name": "Pororin Cat",
+   "region": "Hernand",
+   "how": "Hernand Castle courtyard well. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-jindo",
+   "name": "Jindo",
+   "region": "Hernand",
+   "how": "Behind a house east of Hernand Bank. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-white-dog",
+   "name": "White Dog",
+   "region": "Hernand",
+   "how": "By a cart on the street in Hernand. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-boarhound",
+   "name": "Boarhound",
+   "region": "Hernand",
+   "how": "By the fire at Embernest Beacon. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-black-cat",
+   "name": "Black Cat",
+   "region": "Hernand",
+   "how": "Roof of Annabella's Shop. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-greyhound",
+   "name": "Greyhound",
+   "region": "Hernand",
+   "how": "Hernand guard station courtyard. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-beagle",
+   "name": "Beagle",
+   "region": "Hernand",
+   "how": "Hernand guard station courtyard. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-moon-cat",
+   "name": "Moon Cat",
+   "region": "Hernand",
+   "how": "Small altar by the road. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-pointy-eared-bulldog",
+   "name": "Pointy-Eared Bulldog",
+   "region": "Hernand",
+   "how": "Stable courtyard. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-floppy-eared-bulldog",
+   "name": "Floppy-Eared Bulldog",
+   "region": "Hernand",
+   "how": "By the street. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-ashen-cat",
+   "name": "Ashen Cat",
+   "region": "Hernand",
+   "how": "Small wall outside Hernand Tavern. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-saluki",
+   "name": "Saluki",
+   "region": "Hernand",
+   "how": "Outside the stables in the Hernand Castle courtyard. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-husky",
+   "name": "Husky",
+   "region": "Hernand",
+   "how": "Outside the Hunter's Cabin. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-hernandian-short-haired-cat",
+   "name": "Hernandian Short-Haired Cat",
+   "region": "Hernand",
+   "how": "Roof of a shed by the road. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-loafy-cat",
+   "name": "Loafy Cat",
+   "region": "Hernand",
+   "how": "Several around Florindale. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-short-haired-cat",
+   "name": "Short-Haired Cat",
+   "region": "Hernand",
+   "how": "Central Florindale. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-varnisian-cat",
+   "name": "Varnisian Cat",
+   "region": "Hernand",
+   "how": "Behind the eastern house in Florindale. Cats: pick it up with the carry button and pet it while carrying, then feed it. Pet it (+5 Trust, up to 5 times a day) and feed it meat (grilled +20, up to 3 a day) until Trust hits 100, then Take In. Takes at least 4 in-game days; resting skips 12 hours.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    },
+    {
+     "t": "PowerPyx: how to get pets",
+     "u": "https://www.powerpyx.com/crimson-desert-how-to-get-pets/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-blue-jay",
+   "name": "Blue Jay",
+   "region": "Pailune (Greymane Camp)",
+   "how": "Cliff edge at Greymane Camp. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: all bird pets",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-all-bird-pets-list-and-how-to-tame-birds/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-ringneck-parrot",
+   "name": "Ringneck Parrot",
+   "region": "Pailune (Greymane Camp)",
+   "how": "Cliff edge at Greymane Camp; takes longer to show up. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: all bird pets",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-all-bird-pets-list-and-how-to-tame-birds/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-gray-parrot",
+   "name": "Gray Parrot",
+   "region": "Pailune (Greymane Camp)",
+   "how": "Cliff edge at Greymane Camp; takes longer to show up. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: all bird pets",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-all-bird-pets-list-and-how-to-tame-birds/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-crow",
+   "name": "Crow",
+   "region": "Pailune (Greymane Camp)",
+   "how": "Cliff edge at Greymane Camp, or a low river area. Meat works. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: all bird pets",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-all-bird-pets-list-and-how-to-tame-birds/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-sparrow",
+   "name": "Sparrow",
+   "region": "Pailune (Greymane Camp)",
+   "how": "Cliff edge at Greymane Camp. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: all bird pets",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-all-bird-pets-list-and-how-to-tame-birds/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-seagull",
+   "name": "Seagull",
+   "region": "Demeniss",
+   "how": "Shore at the main Demeniss port, or riverbanks. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: all bird pets",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-all-bird-pets-list-and-how-to-tame-birds/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-white-pigeon",
+   "name": "White Pigeon",
+   "region": "Trader's Expanse",
+   "how": "On the mountains in the Trader's Expanse area. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: all bird pets",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-all-bird-pets-list-and-how-to-tame-birds/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-eagle",
+   "name": "Eagle",
+   "region": "Crimson Desert",
+   "how": "On the desert mountains. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: all bird pets",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-all-bird-pets-list-and-how-to-tame-birds/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-rare-owl",
+   "name": "Owl (rare)",
+   "region": "Hernand",
+   "how": "Night, ideally around 4:00. Best spots: high ground south of Scholastone Institute, south of the main route through Pororin, Three-Brothers Cliff (Delesyia), the outer ledges of Longbranch Shade Hideout (Pailune), Spire of Insight. Stock the perch with Tough Meat (Lean Meat as backup). Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: rare owl pet",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-how-to-get-the-rare-owl-pet/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-iron-eagle",
+   "name": "Iron Eagle (legendary)",
+   "region": "Delesyia",
+   "how": "Special pet added in Patch 1.05. Hawkstone Ruins area, south of Delesyia. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-hyacinth-macaw",
+   "name": "Hyacinth Macaw (legendary)",
+   "region": "Hernand",
+   "how": "Special pet added in Patch 1.05. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In. Exact spot: check MapMaster.",
+   "sources": [
+    {
+     "t": "MapMaster: Crimson Desert pet locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Pet"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-phoenix",
+   "name": "Phoenix (legendary)",
+   "region": "Crimson Desert",
+   "how": "South of Trader's Expanse. Needs the Sotdae of Bond perch (Pororin Forest Guardians: Trembling Woods, Authorized Access). Place it, stock food, keep it stocked until Trust is 100, then Take In.",
+   "sources": [
+    {
+     "t": "KeenGamer: all bird pets",
+     "u": "https://www.keengamer.com/articles/guides/crimson-desert-all-bird-pets-list-and-how-to-tame-birds/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pet-baby-wyvern",
+   "name": "Baby Wyvern",
+   "how": "Added in Patch 1.08. Registers as a pet now and is set to grow into a mount in a later update; Patch 1.11 gave baby wyverns their own map icon.",
+   "sources": [
+    {
+     "t": "Shacknews: 1.08.00 patch notes",
+     "u": "https://www.shacknews.com/article/149263/crimson-desert-version-10800-patch-notes"
+    },
+    {
+     "t": "DLCompare: 1.11.00 pets up to 100",
+     "u": "https://www.dlcompare.com/gaming-news/crimson-desert-patch-11100-lets-players-collect-up-to-100-pets"
+    }
+   ],
+   "verified": "sourced"
+  }
+ ]
+}

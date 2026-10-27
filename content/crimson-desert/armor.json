@@ -1,1 +1,993 @@
-{ "entries": [] }
+{
+ "entries": [
+  {
+   "id": "cd-armor-ynitium-leather",
+   "name": "Ynitium Leather set",
+   "region": "Kliff",
+   "how": "Starting equipment. 3-4 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-canta-plate",
+   "name": "Canta Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Rhett's Equipment Shop, Hernand. 3-4 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-bolton-plate",
+   "name": "Bolton Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Hernand Contribution Shop. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-unyielding-warrior-s-plate",
+   "name": "Unyielding Warrior's Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Tranan at Greymane Camp or Temir in Thalwynd; also craftable. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-fallen-kingdom",
+   "name": "Fallen Kingdom set",
+   "region": "Kliff/Oongka",
+   "how": "Hernand Sanctums, ruins and waterfall caves. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-shadowleaf",
+   "name": "Shadowleaf set",
+   "region": "Kliff/Oongka",
+   "how": "Getting Closer to Nature research. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-odeck-s-protector",
+   "name": "Odeck's Protector set",
+   "region": "Kliff/Oongka (Damiane after 1.13)",
+   "how": "Odeck guardian rewards and Sanctum routes. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-blackwing-leather",
+   "name": "Blackwing Leather set",
+   "region": "Kliff/Oongka",
+   "how": "Mask and armor drop from Crowcaller at the end of Chapter 5; boots in the St. Halssius's House of Healing chest; more in Pororin Village and the Sanctum of Penitence. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-frostcursed-plate",
+   "name": "Frostcursed Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Chests in Chattering Rocks, Mistshard Cave, Sanctum of Expiation, Well of Tragedy Grotto and Lunar Spirit Grotto. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-plate-of-the-shadows",
+   "name": "Plate of the Shadows set",
+   "region": "Kliff/Oongka",
+   "how": "Beloth and western Hernand caves. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-scorchflame-plate",
+   "name": "Scorchflame Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Tristan the Flame Knight, the Stonewall Farm tower, the Golden Trading Post chest and the Silent Falls Hideout chest. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-lightning-bolt-plate",
+   "name": "Lightning Bolt Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Fallen God faction, Sanctum of Exaltation, Bari shop. 2 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-frozen-heart-plate",
+   "name": "Frozen Heart Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Delesyia Castle, Marni's Laboratorium, faction quests. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-skyblazer",
+   "name": "Skyblazer set",
+   "region": "Kliff/Oongka",
+   "how": "Serpent Scale Cave, Fort Windridge, Wyvern's Nest. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-golden-greed-plate",
+   "name": "Golden Greed Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Crimson Desert caves, Sanctum of Renunciation, Bursada ruins. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-northern-fighter-s",
+   "name": "Northern Fighter's set",
+   "region": "Kliff/Oongka",
+   "how": "Crafted from Armor of the World manuals. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-jester-leather",
+   "name": "Jester Leather set",
+   "region": "Kliff/Oongka",
+   "how": "Crafted from Leather Armors of the World manuals. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-pailune-cloth",
+   "name": "Pailune Cloth set",
+   "region": "Kliff/Oongka",
+   "how": "Brenner's Contribution Shop, Pailune. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-riding",
+   "name": "Riding set",
+   "region": "Kliff/Oongka",
+   "how": "Fiona's Saddlery, Demeniss City (check it is character armor, not horse gear). Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-rabbit-leather",
+   "name": "Rabbit Leather set",
+   "region": "Kliff/Oongka",
+   "how": "Crafted from Leather Armors of the World manuals. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-grey-wolf-leather",
+   "name": "Grey Wolf Leather set",
+   "region": "Kliff/Oongka",
+   "how": "Reach 100 Trust with Lola in Pailune City. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-hungering-fang-leather",
+   "name": "Hungering Fang Leather set",
+   "region": "Kliff/Oongka",
+   "how": "Tied to Ludvig in the middle of Chapter 7; also Ancient Mine Site Ruins IV and a Pailune cave. 4 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-helfryn-leather",
+   "name": "Helfryn Leather set",
+   "region": "Kliff/Oongka",
+   "how": "Hidden rooms and towers in Demeniss. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-weasel-leather",
+   "name": "Weasel Leather set",
+   "region": "Kliff/Oongka",
+   "how": "Adrina at the Calphadean Costume Shop. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-cursed-soul-plate",
+   "name": "Cursed Soul Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Windrift, Shadowwolf, Demenissian and Anvil Hill caves. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-sahazhad-plate",
+   "name": "Sahazhad Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Rickmore's Varnia Contribution Shop. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-icewing-plate",
+   "name": "Icewing Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Cave of Ancients, Witch's Hideout, Claggy Chasm, Sanctum of Solace, the Eldertree quest. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-sunset-reed",
+   "name": "Sunset Reed set",
+   "region": "Kliff/Oongka",
+   "how": "Castlewood Ruins, Echoing Waves Cave, the Chapter 3 boss, Sanctum of Absolution. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-dark-ringleader-s",
+   "name": "Dark Ringleader's set",
+   "region": "Kliff/Oongka",
+   "how": "Hernand waterfall caves and tunnels. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-dark-marksman-s",
+   "name": "Dark Marksman's set",
+   "region": "Kliff/Oongka",
+   "how": "Fort Musket and desert watchtowers. 3 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-masked-liberator-s",
+   "name": "Masked Liberator's set",
+   "region": "Kliff/Oongka",
+   "how": "Fort Manub, Sandshift Basin, Firesand Helmhole, Gearmelt Confectionery. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-solas-plate",
+   "name": "Solas Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Armor and boots awarded after Chapter 7; the rest via Krall Foundry crafting. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-belkandor-plate",
+   "name": "Belkandor Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Delesyia blueprint, then crafting. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-valortread-plate",
+   "name": "Valortread Plate set",
+   "region": "Oongka",
+   "how": "Torchlight Cabin chest (Hernand). 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-ashad-plate",
+   "name": "Ashad Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Vat'nholl, Silver Wolf Mountain, Snowhaven, Burnhand Quarry, Frostpierce Cave. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-greymane-light",
+   "name": "Greymane Light set",
+   "region": "Kliff/Oongka",
+   "how": "Greymane and camp progression (Patch 1.12). 3-4 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-unyielding-hero-s-plate",
+   "name": "Unyielding Hero's Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Chapter 6, Calphade shop, and the Hunter, cannon and wagon challenges. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-knight-of-carnage-plate",
+   "name": "Knight of Carnage Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Brek's Back Alley Shop and Chapter 8. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-tarandus-the-ashen",
+   "name": "Tarandus the Ashen set",
+   "region": "Kliff/Oongka",
+   "how": "Odeck shop, a faction quest, and the bear, insect and cave challenges. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-martial-monk",
+   "name": "Martial Monk set",
+   "region": "Kliff/Oongka",
+   "how": "Chapter 9 and the wrestling challenge. 3 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-demenissian-grand-general",
+   "name": "Demenissian Grand General set",
+   "region": "Kliff/Oongka",
+   "how": "Chapter 8, House Elemore, Demeniss Equipment Shop. 2 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-red-rider-s-plate",
+   "name": "Red Rider's Plate set",
+   "region": "Kliff/Oongka",
+   "how": "Demeniss and Tashkalp shops, Dawnreach Maze. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-ator-s-will",
+   "name": "Ator's Will set",
+   "region": "Kliff/Oongka",
+   "how": "Helm, gloves, boots and cloth armor drop from Ator, Archon of Antumbra (Pailune). 4 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-light-of-the-battlefield",
+   "name": "Light of the Battlefield set",
+   "region": "Damiane",
+   "how": "Howlsands, Sun's Gate Cave, Varnia Sewers, a desert shipwreck. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-official-knight-s",
+   "name": "Official Knight's set",
+   "region": "Damiane",
+   "how": "Plate armor, boots and gloves drop from Lucian Bastier in Chapter 8 (Awakened Lucian Bastier). 3 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    },
+    {
+     "t": "MapMaster: armor locations",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Armor"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-elegant-carmine",
+   "name": "Elegant Carmine set",
+   "region": "Damiane",
+   "how": "Delesyia blueprints, crafted at a Smithy. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-white-bloodwind",
+   "name": "White Bloodwind set",
+   "region": "Damiane",
+   "how": "Reach 100 Trust with five regional NPCs. Piece count not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-autumn-banquet",
+   "name": "Autumn Banquet set",
+   "region": "Damiane",
+   "how": "Kingshield ruins, Sanctum of Mortification, West Demeniss church, Crescent Cave. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-wanderer-of-faith",
+   "name": "Wanderer of Faith set",
+   "region": "Damiane",
+   "how": "Silvermoon Tradehouse and Demeniss caves. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-goldlight-plate",
+   "name": "Goldlight Plate set",
+   "region": "Damiane",
+   "how": "Mirror Chasm, Dawnreach, Hyena Den, Well of Enlightenment. 5 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-blinding-arrow-s-light",
+   "name": "Blinding Arrow's Light set",
+   "region": "Damiane",
+   "how": "Malchor at Bloodsteel Camp after liberating it and reaching 100 Trust. 3 pieces.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-lonely-bomb-leather-armor",
+   "name": "Lonely Bomb Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Tashkalp Back Alley Shop after Overlord of Desolate Monoliths.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-huskall-leather-armor",
+   "name": "Huskall Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Temir at the Calphade Equipment Shop.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-stein-leather-armor",
+   "name": "Stein Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Sumore's Back Alley Shop, northeast Hernand.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-martial-artist-s-cloth-garb",
+   "name": "Martial Artist's Cloth Garb (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Patch 1.13 challenge or shop route.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-vildyne-leather-armor",
+   "name": "Vildyne Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Hernand Tailor after Sword of Trial IV.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-oak-barrel-leather-armor",
+   "name": "Oak Barrel Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Pailune Back Alley Shop after meeting eight tavern owners.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-besnet-cloth-armor",
+   "name": "Besnet Cloth Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Burhum Equipment Shop after the Maze of Burhum. Cannot be dyed.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-devan-s-cloth-armor",
+   "name": "Devan's Cloth Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Carl at the Greymane Camp Provisions Tent.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-mardian-leather-armor",
+   "name": "Mardian Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Carl at the Greymane Camp Provisions Tent.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-valnos-leather-armor",
+   "name": "Valnos Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Carl at the Greymane Camp Provisions Tent.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-grave-robber-s-leather-armor",
+   "name": "Grave Robber's Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Randolph at the Pailune Back Alley Shop.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-blacksmith-s-leather-armor",
+   "name": "Blacksmith's Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "Tranan at Greymane Camp.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-buellen-leather-armor",
+   "name": "Buellen Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "How to get it is not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-doventry-leather-armor",
+   "name": "Doventry Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "How to get it is not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-bounty-hunter-s-leather-armor",
+   "name": "Bounty Hunter's Leather Armor (single piece)",
+   "region": "Kliff/Oongka",
+   "how": "How to get it is not documented yet.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-golden-freesword-light-armor",
+   "name": "Golden Freesword Light Armor (single piece)",
+   "region": "Damiane",
+   "how": "Random drop from Twilight Messengers.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-duskmoon-cloth-armor",
+   "name": "Duskmoon Cloth Armor (single piece)",
+   "region": "Damiane",
+   "how": "Desert Mouth Maze in the Smoking Lands.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-rovenia-cloth-armor",
+   "name": "Rovenia Cloth Armor (single piece)",
+   "region": "Damiane",
+   "how": "Path to the Crimson Mountains dispatch.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-frenoa-plate-armor",
+   "name": "Frenoa Plate Armor (single piece)",
+   "region": "Damiane",
+   "how": "When Lightning Strikes V challenge.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-rivenheim-cloth-armor",
+   "name": "Rivenheim Cloth Armor (single piece)",
+   "region": "Damiane",
+   "how": "Ancient Rift Maze.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-sermena-cloth-armor",
+   "name": "Sermena Cloth Armor (single piece)",
+   "region": "Damiane",
+   "how": "Glory in Ruins dispatch after Chapter 9.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-armor-dark-executioner-s-leather-armor",
+   "name": "Dark Executioner's Leather Armor (single piece)",
+   "region": "Damiane",
+   "how": "Heart of Pyre Isle epilogue quest.",
+   "sources": [
+    {
+     "t": "Console Pulse: all armor sets (through 1.17)",
+     "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-armor-sets"
+    }
+   ],
+   "verified": "sourced"
+  }
+ ]
+}

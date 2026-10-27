@@ -1,0 +1,214 @@
+{
+ "entries": [
+  {
+   "id": "cd-dlc-ocean-story",
+   "name": "Ocean storyline (Great Ocean of Pywel)",
+   "region": "Great Ocean of Pywel",
+   "prereq": "Finish the Howling Hill quest (Chapter III).",
+   "how": "Sail to islands off the coast and take on enemy forces at sea. Playable before you finish the main story.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Bleeding Cool: Charting the Unknown",
+     "u": "https://bleedingcool.com/games/crimson-desert-shows-off-the-new-charting-the-unknown-dlc/"
+    },
+    {
+     "t": "Steam: Charting the Unknown",
+     "u": "https://store.steampowered.com/app/5001840/Crimson_Desert_Enhanced_Charting_the_Unknown/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-ship",
+   "name": "Build your ship",
+   "region": "Great Ocean of Pywel",
+   "prereq": "Finish the Howling Hill quest (Chapter III).",
+   "how": "Through the ship-building storyline. Alternatives: send comrades on a ship-building dispatch from a port, or buy one from a Fleet Office manager. You can customize it.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Bleeding Cool: Charting the Unknown",
+     "u": "https://bleedingcool.com/games/crimson-desert-shows-off-the-new-charting-the-unknown-dlc/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-strongholds",
+   "name": "Set up sea strongholds with your Greymanes",
+   "region": "Great Ocean of Pywel",
+   "prereq": "Finish the Howling Hill quest (Chapter III).",
+   "how": "Part of the ocean content: defeat the force holding an island, then set up a stronghold.",
+   "sources": [
+    {
+     "t": "Bleeding Cool: Charting the Unknown",
+     "u": "https://bleedingcool.com/games/crimson-desert-shows-off-the-new-charting-the-unknown-dlc/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-dive",
+   "name": "Explore underwater ruins and chests",
+   "region": "Underwater",
+   "how": "No unlock needed, but diving uses breath. A diving suit extends it (pre-order bonus: Charter's Diving Set and Charter's Light Diving Set). Sunken ruins, treasure, new creatures and mounts.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Bleeding Cool: Charting the Unknown",
+     "u": "https://bleedingcool.com/games/crimson-desert-shows-off-the-new-charting-the-unknown-dlc/"
+    },
+    {
+     "t": "Steam: Charting the Unknown",
+     "u": "https://store.steampowered.com/app/5001840/Crimson_Desert_Enhanced_Charting_the_Unknown/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-housing",
+   "name": "Design your house (upgraded housing)",
+   "prereq": "Set up camp at Howling Hill and finish Luke's Request in the Grounds of the Sunrise Greymanes quest.",
+   "how": "Build the structure, walls and windows yourself.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Bleeding Cool: Charting the Unknown",
+     "u": "https://bleedingcool.com/games/crimson-desert-shows-off-the-new-charting-the-unknown-dlc/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-business",
+   "name": "Rent and run a business",
+   "how": "Rent facilities such as a restaurant or smithy and manage them.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Steam: Charting the Unknown",
+     "u": "https://store.steampowered.com/app/5001840/Crimson_Desert_Enhanced_Charting_the_Unknown/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-romance",
+   "name": "Romance and marriage",
+   "how": "Earn the trust of certain characters. Close companions can also visit Greymane Camp.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Bleeding Cool: Charting the Unknown",
+     "u": "https://bleedingcool.com/games/crimson-desert-shows-off-the-new-charting-the-unknown-dlc/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-kliff",
+   "name": "Kliff's new storyline",
+   "prereq": "Finish the main story.",
+   "how": "Starts from the Journal once the main story is done.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Steam: Charting the Unknown",
+     "u": "https://store.steampowered.com/app/5001840/Crimson_Desert_Enhanced_Charting_the_Unknown/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-oongka",
+   "name": "Oongka's new storyline",
+   "prereq": "Finish the main story.",
+   "how": "Starts from the Journal once the main story is done.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Steam: Charting the Unknown",
+     "u": "https://store.steampowered.com/app/5001840/Crimson_Desert_Enhanced_Charting_the_Unknown/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-damiane",
+   "name": "Damiane's new storyline",
+   "prereq": "Finish the main story.",
+   "how": "Starts from the Journal once the main story is done.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Steam: Charting the Unknown",
+     "u": "https://store.steampowered.com/app/5001840/Crimson_Desert_Enhanced_Charting_the_Unknown/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-castles",
+   "name": "Claim all three Greymane castles",
+   "prereq": "Finish the main story. Plus the related quests and stronghold missions.",
+   "how": "Claim liberated castles and decorate them.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Bleeding Cool: Charting the Unknown",
+     "u": "https://bleedingcool.com/games/crimson-desert-shows-off-the-new-charting-the-unknown-dlc/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-dlc-garden",
+   "name": "Clear the Garden of Trials",
+   "region": "Pywelm",
+   "prereq": "Finish the main story.",
+   "how": "Boss gauntlet: back-to-back fights against bosses you have already beaten.",
+   "sources": [
+    {
+     "t": "Insider Gaming: DLC features revealed",
+     "u": "https://insider-gaming.com/crimson-desert-charting-the-unknown-dlc-features-revealed/"
+    },
+    {
+     "t": "Bleeding Cool: Charting the Unknown",
+     "u": "https://bleedingcool.com/games/crimson-desert-shows-off-the-new-charting-the-unknown-dlc/"
+    }
+   ],
+   "verified": "sourced"
+  }
+ ]
+}
