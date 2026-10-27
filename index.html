@@ -114,7 +114,7 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .slot .cover .ct{font-size:clamp(22px,2.3vw,28px)}
 .slot .lbl{font-size:15px;font-weight:600;line-height:1.25}
 .slot .sub{font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:center}
-.score{position:absolute;bottom:12px;right:10px;z-index:3;min-width:34px;height:34px;padding:0 8px;border-radius:999px;display:grid;place-items:center;background:rgba(22,26,51,.82);backdrop-filter:blur(6px);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;color:var(--gold)}
+.score{position:absolute;bottom:12px;right:10px;z-index:3;min-width:34px;height:34px;padding:0 8px;border-radius:999px;display:grid;place-items:center;background:rgba(22,26,51,.92);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;color:var(--gold)}
 
 .timeline{display:flex;flex-direction:column;border-top:1px solid var(--line-soft)}
 .tl{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line-soft);background:transparent;border-left:0;border-right:0;border-top:0;text-align:left;color:inherit;width:100%}
@@ -1006,6 +1006,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.27-b', note:'SNAPPIER: the Library no longer blurs behind every score badge, which made scrolling a big shelf heavy. Opening a game used to snapshot every cover on the shelf for the slide animation; now only the cover you tapped. Typing in notes and fields saves a moment after you stop instead of on every key, and search waits for a pause before redrawing the shelf.'},
   {v:'2026.10.27-a', note:'SAFER SYNC: sync used to treat your library as one block, so whichever copy saved last replaced everything. An old tab left open could put back stale versions of every game, like turning an Ongoing game back into Backlog. Now each game remembers when you last changed it, and sync merges game by game: the newer change wins for each game, and a copy can only overwrite the games it actually changed. Deleted games stay deleted on every device. A tab running an older build stops sending as soon as a newer build has saved, and asks you to reload. Restoring a backup still replaces everything everywhere. For the server side, paste the updated gamelog-sync.js into the Worker: it merges the same way, refuses saves from older builds, and keeps hourly backups for two weeks.'},
   {v:'2026.10.24-a', note:'IDEAS BUTTON: a lightbulb in the top bar opens a list for writing down features you want in this app. Tick them off or delete them. They save on this device and sync in the background, so Claude can read them. On a narrow computer window the tabs other than the current app show just their icons so the button fits.'},
   {v:'2026.10.23-a', note:'GOALS FOR BIG GAMES: games can now carry a deep checklist that lives in the repo, one file per tab, so size never bloats your synced library. Crimson Desert gets a Goals section in place of Quests, with tabs for Main Story, Side Quests, Missables, Collectibles, Pets, Armor and Power. Your old quest lists and ticks carried over. Search covers every tab, and you can filter by region, show only missables, and see what is left. Progress is weighted by estimated time once every goal has one. Each game gets a finish line: Beat it, Main + side, 100% or Shelved. CATCH-UP TOOLS: sweep a region, or mark everything before a goal as assumed. Assumed goals show lighter, tapping one confirms it, and any bulk change can be undone. CHECK-IN: when a tracked session ends, a sheet asks where you left off and what you finished. Side Quests, Pets and Armor are empty on purpose until the research pass fills them in.'},
@@ -1153,7 +1154,13 @@ function stamp(touchAll){
 
 let state = load();
 resnap();
+let saveT = 0;
+function saveSoon(){ clearTimeout(saveT); saveT = setTimeout(() => { saveT = 0; save(); }, 400); }
+function flushSave(){ if (saveT) save(); }
+addEventListener('pagehide', flushSave);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flushSave(); });
 function save(opts = {}){
+  clearTimeout(saveT); saveT = 0;
   if (!opts.keepTime) { stamp(opts.touchAll); state.mtime = Date.now(); }
   resnap();
   state.build = BUILD;
@@ -1250,6 +1257,7 @@ async function readErr(r){
 }
 async function pull(){
   if (!syncOn() || syncBusy) return;
+  flushSave();
   syncBusy = true; setStatus('syncing');
   try {
     const r = await api('/');
@@ -1903,16 +1911,19 @@ const ICON = {
   logo:'<svg width="28" height="28" viewBox="0 0 28 28"><rect x="3" y="4" width="15" height="20" rx="3" fill="#3B2A6B"/><rect x="3" y="4" width="3" height="20" rx="1.5" fill="#F5B63F"/><rect x="10" y="4" width="15" height="20" rx="3" fill="#F5B63F" opacity=".9"/><path d="M15 11l6 3-6 3z" fill="#161A33"/></svg>'
 };
 
+/* Only the game being opened (or just closed) gets a view-transition name.
+   Naming every cover made the browser snapshot the whole shelf on each tap. */
+let vtId = null;
 function coverHTML(g, opts = {}){
   const st = stats(g);
-  const vt = opts.vt === false ? '' : `view-transition-name:cv-${g.id};`;
+  const vt = opts.vt === false || g.id !== vtId ? '' : `view-transition-name:cv-${g.id};`;
   const url = /^https:\/\/[^\s"'<>]+$/.test(g.cover) ? g.cover : '';
   const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
   const bg = `background:radial-gradient(110% 70% at ${x}% 8%,${b}cc 0%,transparent 58%),repeating-linear-gradient(${ang}deg,rgba(255,255,255,.045) 0 2px,transparent 2px 16px),linear-gradient(165deg,${a} 10%,#12152B 95%);`;
   const wide = url && !/library_600x900/.test(url);
   return `<div class="cover ${url ? 'img' : ''} ${wide ? 'wide' : ''}" style="${bg}${vt}">
     <div class="spine"></div>
-    ${url ? `<img class="art" src="${esc(url)}" alt="" loading="lazy" onerror="this.parentNode.classList.remove('img','wide');this.remove()">` : ''}
+    ${url ? `<img class="art" src="${esc(url)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('img','wide');this.remove()">` : ''}
     <div class="ct">${esc(g.title)}</div>
     ${opts.score && g.rating ? `<div class="score" aria-label="Score ${g.rating} out of 10">${g.rating}</div>` : ''}
     ${opts.bar !== false && st.total && !isLive(g) ? `<div class="bar"><i style="width:${st.pct}%"></i></div>` : ''}
@@ -2649,7 +2660,7 @@ document.addEventListener('click', e => {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0);
       if (el.dataset.tab === 'sync' && Date.now() - (steamSum.fetched || 0) > 5 * 60000) fetchSummary();
       break;
-    case 'open': view.art = null; go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); { const og = game(el.dataset.id); view.goals = null; if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
+    case 'open': view.art = null; vtId = el.dataset.id; document.querySelectorAll('.cover').forEach(c => c.style.viewTransitionName = ''); { const c = el.querySelector('.cover'); if (c) c.style.viewTransitionName = 'cv-' + vtId; } go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); { const og = game(el.dataset.id); view.goals = null; if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
     case 'back': go(() => { view.gameId = null; }); window.scrollTo(0,0); break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
@@ -2767,14 +2778,15 @@ document.addEventListener('change', e => {
   if (el.dataset.f && (el.dataset.rerender || el.dataset.rerenderBlur || el.type === 'date')) { setPath(g, el.dataset.f, el.value.trim ? el.value.trim() : el.value); save(); render(); }
 });
 
+let searchT;
 document.addEventListener('input', e => {
   const el = e.target;
-  if (el.id === 'search') { view.q = el.value; const pos = el.selectionStart; render(); const s = document.getElementById('search'); s.focus(); s.setSelectionRange(pos, pos); return; }
+  if (el.id === 'search') { view.q = el.value; clearTimeout(searchT); searchT = setTimeout(() => { const cur = document.getElementById('search'); const pos = cur ? cur.selectionStart : view.q.length; render(); const s = document.getElementById('search'); if (s) { s.focus(); s.setSelectionRange(pos, pos); } }, 140); return; }
   if (el.id === 'gsearch') { const V = goalView(); V.q = el.value; V.limit = GOAL_PAGE; const pos = el.selectionStart; render(); const s = document.getElementById('gsearch'); if (s) { s.focus(); s.setSelectionRange(pos, pos); } return; }
   const g = current(el);
   if (!g || !el.dataset.f || el.dataset.rerender || el.type === 'date') return;
   const val = el.dataset.num ? (parseFloat(el.value) || 0) : el.value;
-  setPath(g, el.dataset.f, val); save();
+  setPath(g, el.dataset.f, val); saveSoon();
   if (el.dataset.f === 'title') { const h = document.querySelector('.hero h1'); if (h) h.textContent = val; }
 });
 
