@@ -264,6 +264,7 @@ a.scorecard:hover{border-color:var(--line)}
 .subhead .h2{margin:0}
 @media (max-width:900px){.store-top,.reqs{grid-template-columns:1fr}}
 @media (max-width:520px){.facts{grid-template-columns:1fr}.dlc li{grid-template-columns:1fr auto}.dlc .trkcell{grid-column:1/-1}}
+.pane.off{content-visibility:hidden;contain-intrinsic-size:0;height:0;overflow:hidden}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r-lg);padding:48px 24px;text-align:center;color:var(--mist)}
 .empty b{display:block;color:var(--paper);font-size:18px;margin-bottom:6px}
 
@@ -419,7 +420,7 @@ a.scorecard:hover{border-color:var(--line)}
 .gcatch .row label{color:var(--mist);font-size:14px}
 .gcatch select{width:auto;max-width:220px}
 .glist{list-style:none;margin:0;padding:0}
-.glist li{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.glist li{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line-soft);content-visibility:auto;contain-intrinsic-size:auto 56px}
 .glist li:last-child{border-bottom:0}
 .glist li.d .gname{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--line)}
 .glist li.a .gname{color:var(--mist)}
@@ -560,8 +561,11 @@ a.scorecard:hover{border-color:var(--line)}
 ::view-transition-group(sx-bar){animation-duration:.4s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
 ::view-transition-old(root){animation:sx-leave .2s ease-in both}
 ::view-transition-new(root){animation:sx-arrive .42s cubic-bezier(.2,.8,.2,1) .06s both}
-html.vt-in::view-transition-old(root),html.vt-in::view-transition-new(root){animation:none}
-html.vt-in::view-transition-group(*){animation-duration:.24s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+html.vt-in::view-transition-old(root){animation:vt-out .14s ease-in both}
+html.vt-in::view-transition-new(root){animation:vt-in .26s cubic-bezier(.2,.8,.2,1) .04s both}
+html.vt-in::view-transition-group(*){animation-duration:.3s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+@keyframes vt-out{to{opacity:0}}
+@keyframes vt-in{from{opacity:0;transform:translateY(8px)}}
 @keyframes sx-leave{to{opacity:0;transform:scale(.985)}}
 @keyframes sx-arrive{from{opacity:0;transform:translateY(14px)}}
 @media (prefers-reduced-motion:reduce){
@@ -1008,6 +1012,7 @@ html.vt-in::view-transition-group(*){animation-duration:.24s;animation-timing-fu
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.27-d', note:'SMOOTH AND FAST: the animations are back, shorter and GPU-only. Continue, Library and Sync now stay built while you\'re on another screen, so switching back is instant and you land where you were scrolled. A screen only redraws when something on it changed. Long goal lists skip rows that are off screen.'},
   {v:'2026.10.27-c', note:'FASTER SWITCHING AND SCROLLING: Continue and Library now swap instantly instead of cross-fading. Opening or closing a game keeps the cover glide, just quicker. Covers off screen are skipped until you scroll near them, the top bars stopped blurring what scrolls under them, and covers with art no longer paint a hidden pattern behind the image.'},
   {v:'2026.10.27-b', note:'SNAPPIER: the Library no longer blurs behind every score badge, which made scrolling a big shelf heavy. Opening a game used to snapshot every cover on the shelf for the slide animation; now only the cover you tapped. Typing in notes and fields saves a moment after you stop instead of on every key, and search waits for a pause before redrawing the shelf.'},
   {v:'2026.10.27-a', note:'SAFER SYNC: sync used to treat your library as one block, so whichever copy saved last replaced everything. An old tab left open could put back stale versions of every game, like turning an Ongoing game back into Backlog. Now each game remembers when you last changed it, and sync merges game by game: the newer change wins for each game, and a copy can only overwrite the games it actually changed. Deleted games stay deleted on every device. A tab running an older build stops sending as soon as a newer build has saved, and asks you to reload. Restoring a backup still replaces everything everywhere. For the server side, paste the updated gamelog-sync.js into the Worker: it merges the same way, refuses saves from older builds, and keeps hourly backups for two weeks.'},
@@ -1157,6 +1162,9 @@ function stamp(touchAll){
 
 let state = load();
 resnap();
+/* screens kept built between visits (see render); a save makes them all stale */
+const PANES = ['continue', 'library', 'sync', 'game'], paneStale = new Set(PANES);
+function dirtyAll(){ PANES.forEach(k => paneStale.add(k)); }
 let saveT = 0;
 function saveSoon(){ clearTimeout(saveT); saveT = setTimeout(() => { saveT = 0; save(); }, 400); }
 function flushSave(){ if (saveT) save(); }
@@ -1164,6 +1172,7 @@ addEventListener('pagehide', flushSave);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flushSave(); });
 function save(opts = {}){
   clearTimeout(saveT); saveT = 0;
+  dirtyAll();
   if (!opts.keepTime) { stamp(opts.touchAll); state.mtime = Date.now(); }
   resnap();
   state.build = BUILD;
@@ -1914,12 +1923,17 @@ const ICON = {
   logo:'<svg width="28" height="28" viewBox="0 0 28 28"><rect x="3" y="4" width="15" height="20" rx="3" fill="#3B2A6B"/><rect x="3" y="4" width="3" height="20" rx="1.5" fill="#F5B63F"/><rect x="10" y="4" width="15" height="20" rx="3" fill="#F5B63F" opacity=".9"/><path d="M15 11l6 3-6 3z" fill="#161A33"/></svg>'
 };
 
-/* Only the game being opened (or just closed) gets a view-transition name.
-   Naming every cover made the browser snapshot the whole shelf on each tap. */
-let vtId = null;
+/* Only the hero cover carries a view-transition name in markup. The shelf
+   cover it morphs from or to is named by hand at the moment you tap, so the
+   browser never snapshots the whole shelf. */
+function nameCover(el, id){
+  for (const c of document.querySelectorAll('#app .cover')) c.style.viewTransitionName = '';
+  const c = el && (el.classList.contains('cover') ? el : el.querySelector('.cover'));
+  if (c && id) c.style.viewTransitionName = 'cv-' + id;
+}
 function coverHTML(g, opts = {}){
   const st = stats(g);
-  const vt = opts.vt === false || g.id !== vtId ? '' : `view-transition-name:cv-${g.id};`;
+  const vt = opts.hero ? `view-transition-name:cv-${g.id};` : '';
   const url = /^https:\/\/[^\s"'<>]+$/.test(g.cover) ? g.cover : '';
   const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
   const bg = `radial-gradient(110% 70% at ${x}% 8%,${b}cc 0%,transparent 58%),repeating-linear-gradient(${ang}deg,rgba(255,255,255,.045) 0 2px,transparent 2px 16px),linear-gradient(165deg,${a} 10%,#12152B 95%);`;
@@ -2159,7 +2173,7 @@ function renderGame(g){
   <header class="hero">
     ${/^https:\/\//.test(g.hero) ? `<div class="hero-img" style="background-image:url('${esc(g.hero)}')"></div>` : `<div class="hero-bg" style="background:radial-gradient(60% 80% at 20% 30%,${tint[1]}66,transparent 70%),radial-gradient(50% 70% at 70% 20%,${tint[0]},transparent 70%)"></div>`}
     <div class="hero-in">
-      ${coverHTML(g, {bar:false})}
+      ${coverHTML(g, {bar:false, hero:true})}
       <div>
         <button class="back" data-act="back">${ICON.back}${view.tab === 'library' ? 'Library' : 'Continue'}</button>
         <h1>${esc(g.title)}</h1>
@@ -2617,20 +2631,62 @@ function secReview(g){
 }
 
 /* ---------- Render + navigation ---------- */
-function render(){
+/* Each screen lives in its own pane that stays built while you're elsewhere.
+   Going back to a screen whose data hasn't changed just un-hides it (and puts
+   you back where you were scrolled) instead of rebuilding hundreds of covers.
+   Any save marks every pane stale, so a changed screen is redrawn on arrival. */
+const panes = {}, scrollAt = {};
+let shownPane = null, paneGame = null;
+const paneKey = () => view.gameId ? 'game' : view.tab === 'continue' || view.tab === 'sync' ? view.tab : 'library';
+function pane(k){
+  if (!panes[k]) { const d = document.createElement('div'); d.dataset.pane = k; d.className = 'pane off'; document.getElementById('app').appendChild(d); panes[k] = d; }
+  return panes[k];
+}
+function showPane(k){
+  if (shownPane === k) return;
+  if (shownPane) { scrollAt[shownPane] = window.scrollY; panes[shownPane].classList.add('off'); }
+  pane(k).classList.remove('off'); shownPane = k;
+}
+/* render() follows a change, so the other kept screens may be out of date too;
+   navigate() only draws the one screen it needs and leaves the rest trusted. */
+function render(onlyThis){
   renderChrome();
   const g = view.gameId && game(view.gameId);
   if (view.gameId && !g) view.gameId = null;
-  document.getElementById('app').innerHTML = g ? renderGame(g) : view.tab === 'continue' ? renderContinue() : view.tab === 'sync' ? renderSync() : renderLibrary();
+  const k = paneKey();
+  pane(k).innerHTML = g ? renderGame(g) : k === 'continue' ? renderContinue() : k === 'sync' ? renderSync() : renderLibrary();
+  paneGame = g ? g.id : paneGame;
+  PANES.forEach(o => o === k ? paneStale.delete(o) : onlyThis || paneStale.add(o));
+  showPane(k);
   document.title = g ? `${g.title} · Game Log` : 'Game Log';
 }
+/* Show the screen view now points at, reusing its pane when nothing changed */
+function navigate(){
+  const k = paneKey();
+  if (paneStale.has(k) || (k === 'game' && paneGame !== view.gameId)) { const was = shownPane; render(true); if (was !== k) return 'fresh'; }
+  renderChrome(); showPane(k);
+  const g = view.gameId && game(view.gameId);
+  document.title = g ? `${g.title} · Game Log` : 'Game Log';
+  return 'kept';
+}
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-function go(fn, morph){
-  if (morph && document.startViewTransition && !reduced.matches) {
+/* how: 'open' (a game page, always drawn fresh, starts at the top),
+   'back' (to the shelf you came from, morphs the cover home), or a tab switch.
+   Animations are opacity and transform only, so the GPU does the work. */
+function go(fn, how, fromId){
+  const run = () => {
+    fn();
+    if (how === 'open') { render(); window.scrollTo(0, 0); return; }
+    const k = paneKey(); navigate();
+    window.scrollTo(0, scrollAt[k] || 0);
+    if (how === 'back' && fromId) nameCover(panes[k] && panes[k].querySelector(`[data-act="open"][data-id="${CSS.escape(fromId)}"]`), fromId);
+    else nameCover(null);
+  };
+  if (document.startViewTransition && !reduced.matches) {
     const de = document.documentElement; de.classList.add('vt-in');
-    const t = document.startViewTransition(() => { fn(); render(); });
+    const t = document.startViewTransition(run);
     t.finished.finally(() => de.classList.remove('vt-in'));
-  } else { fn(); render(); }
+  } else run();
 }
 let toastT;
 function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200); }
@@ -2654,7 +2710,7 @@ function addItem(kind, layer){
 function addGame(){
   const inp = document.getElementById('newTitle'); const t = inp.value.trim(); if (!t) { inp.focus(); return; }
   const g = blankGame(t); state.games.push(g); save();
-  go(() => { view.gameId = g.id; view.section = 'quests'; }); window.scrollTo(0,0); toast(`Added ${t}`);
+  go(() => { view.gameId = g.id; view.section = 'quests'; }, 'open'); toast(`Added ${t}`);
 }
 
 document.addEventListener('click', e => {
@@ -2663,11 +2719,11 @@ document.addEventListener('click', e => {
   if (a === 'toggle') return; // checkbox: handled on change
   const g = current(el);
   switch (a) {
-    case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0);
+    case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; });
       if (el.dataset.tab === 'sync' && Date.now() - (steamSum.fetched || 0) > 5 * 60000) fetchSummary();
       break;
-    case 'open': view.art = null; vtId = el.dataset.id; document.querySelectorAll('.cover').forEach(c => c.style.viewTransitionName = ''); { const c = el.querySelector('.cover'); if (c) c.style.viewTransitionName = 'cv-' + vtId; } go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }, true); window.scrollTo(0,0); { const og = game(el.dataset.id); view.goals = null; if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
-    case 'back': go(() => { view.gameId = null; }, true); window.scrollTo(0,0); break;
+    case 'open': view.art = null; nameCover(el, el.dataset.id); go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }, 'open'); { const og = game(el.dataset.id); view.goals = null; if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
+    case 'back': { const from = view.gameId; go(() => { view.gameId = null; }, 'back', from); } break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
     case 'goal': {
