@@ -84,13 +84,14 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .muted{color:var(--mist)} .dim{color:var(--dim)}
 
 /* Covers */
-.cover{position:relative;aspect-ratio:2/3;border-radius:var(--r-md);overflow:hidden;isolation:isolate;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 18px 40px -18px rgba(0,0,0,.6);background-color:var(--raise)}
+.cover{position:relative;aspect-ratio:2/3;border-radius:var(--r-md);overflow:hidden;isolation:isolate;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 12px 22px -12px rgba(0,0,0,.6);background-color:var(--raise)}
+.cover:not(.img){background:var(--bg)}
 .cover .ct{position:absolute;inset:auto 14px 16px 14px;font-weight:800;font-variation-settings:'wdth' 75,'opsz' 96;line-height:.92;letter-spacing:-.02em;text-wrap:balance;text-shadow:0 2px 18px rgba(0,0,0,.35);z-index:2}
 .cover .spine{position:absolute;top:0;bottom:0;left:0;width:6px;background:rgba(255,255,255,.18);z-index:2}
 .cover .bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.35);z-index:3}
 .cover .bar i{display:block;height:100%;background:var(--gold)}
 .cover .art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.cover.wide .art{object-position:center;filter:saturate(1.05)}
+.cover.wide .art{object-position:center}
 .cover.img .ct,.cover.img .spine{display:none}
 
 /* Continue screen */
@@ -108,7 +109,7 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 
 .shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 18px}
-.slot{border:0;background:transparent;padding:0;text-align:left;display:flex;flex-direction:column;gap:10px}
+.slot{border:0;background:transparent;padding:0;text-align:left;display:flex;flex-direction:column;gap:10px;content-visibility:auto;contain-intrinsic-size:auto 160px auto 300px;overflow-clip-margin:24px}
 .slot .cover{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .slot:hover .cover{transform:translateY(-4px)}
 .slot .cover .ct{font-size:clamp(22px,2.3vw,28px)}
@@ -268,7 +269,7 @@ a.scorecard:hover{border-color:var(--line)}
 
 /* Game page */
 .hero{position:relative;isolation:isolate;margin:-40px calc(-1 * clamp(18px,4vw,56px)) 0;padding:40px clamp(18px,4vw,56px) 0;overflow:hidden}
-.hero-bg{position:absolute;inset:0;z-index:-1;filter:blur(60px) saturate(1.2);opacity:.55;transform:scale(1.3)}
+.hero-bg{position:absolute;inset:-15%;z-index:-1;opacity:.55}
 .hero-img{position:absolute;inset:0;z-index:-1;background-size:cover;background-position:center 30%;opacity:.5}
 .hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--night) 0%,rgba(22,26,51,.55) 45%,rgba(22,26,51,.2) 100%),linear-gradient(180deg,transparent 40%,var(--night) 96%)}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,var(--night) 92%)}
@@ -300,7 +301,7 @@ a.scorecard:hover{border-color:var(--line)}
 .pips .val span{display:block;font-size:13px;color:var(--mist)}
 .pips.lg .pip{width:30px;height:44px;border-radius:7px}
 
-.sections{position:sticky;top:0;z-index:4;background:rgba(22,26,51,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft);margin:0 calc(-1 * clamp(18px,4vw,56px)) 32px;padding:0 clamp(18px,4vw,56px)}
+.sections{position:sticky;top:0;z-index:4;background:rgba(22,26,51,.97);border-bottom:1px solid var(--line-soft);margin:0 calc(-1 * clamp(18px,4vw,56px)) 32px;padding:0 clamp(18px,4vw,56px)}
 .sections-in{max-width:1080px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 .sections-in::-webkit-scrollbar{display:none}
 .sec{border:0;background:transparent;color:var(--mist);padding:16px 14px 14px;font-weight:600;font-size:15px;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:8px}
@@ -364,7 +365,7 @@ a.scorecard:hover{border-color:var(--line)}
   .shell{grid-template-columns:1fr}
   .rail{display:none}
   main{padding:24px 16px 110px}
-  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(22,26,51,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line-soft);padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:10;background:rgba(22,26,51,.98);border-top:1px solid var(--line-soft);padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
   .tabbar button{flex:1;border:0;background:transparent;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;padding:6px}
   .tabbar button.on{color:var(--paper)}
   .tabbar button.on svg{color:var(--gold)}
@@ -542,8 +543,7 @@ a.scorecard:hover{border-color:var(--line)}
 .sx-t[aria-current="page"]{background:var(--c);border-color:var(--c);color:var(--sx-on)}
 .sx-t[aria-current="page"] svg{color:inherit}
 @media (min-width:900px){
-  .sx-bar{position:sticky;top:0;z-index:70;background:color-mix(in srgb,var(--sx-paper) 88%,transparent);
-    -webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
+  .sx-bar{position:sticky;top:0;z-index:70;background:color-mix(in srgb,var(--sx-paper) 97%,transparent)}
   .sx-in{min-height:var(--sx-barh)}
   .sx-tabs{display:flex;gap:6px;margin-left:auto;flex:0 1 auto;min-width:0}
   .sx-gbtn,.sx-menu{display:none!important}
@@ -560,6 +560,8 @@ a.scorecard:hover{border-color:var(--line)}
 ::view-transition-group(sx-bar){animation-duration:.4s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
 ::view-transition-old(root){animation:sx-leave .2s ease-in both}
 ::view-transition-new(root){animation:sx-arrive .42s cubic-bezier(.2,.8,.2,1) .06s both}
+html.vt-in::view-transition-old(root),html.vt-in::view-transition-new(root){animation:none}
+html.vt-in::view-transition-group(*){animation-duration:.24s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
 @keyframes sx-leave{to{opacity:0;transform:scale(.985)}}
 @keyframes sx-arrive{from{opacity:0;transform:translateY(14px)}}
 @media (prefers-reduced-motion:reduce){
@@ -1006,6 +1008,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.27-c', note:'FASTER SWITCHING AND SCROLLING: Continue and Library now swap instantly instead of cross-fading. Opening or closing a game keeps the cover glide, just quicker. Covers off screen are skipped until you scroll near them, the top bars stopped blurring what scrolls under them, and covers with art no longer paint a hidden pattern behind the image.'},
   {v:'2026.10.27-b', note:'SNAPPIER: the Library no longer blurs behind every score badge, which made scrolling a big shelf heavy. Opening a game used to snapshot every cover on the shelf for the slide animation; now only the cover you tapped. Typing in notes and fields saves a moment after you stop instead of on every key, and search waits for a pause before redrawing the shelf.'},
   {v:'2026.10.27-a', note:'SAFER SYNC: sync used to treat your library as one block, so whichever copy saved last replaced everything. An old tab left open could put back stale versions of every game, like turning an Ongoing game back into Backlog. Now each game remembers when you last changed it, and sync merges game by game: the newer change wins for each game, and a copy can only overwrite the games it actually changed. Deleted games stay deleted on every device. A tab running an older build stops sending as soon as a newer build has saved, and asks you to reload. Restoring a backup still replaces everything everywhere. For the server side, paste the updated gamelog-sync.js into the Worker: it merges the same way, refuses saves from older builds, and keeps hourly backups for two weeks.'},
   {v:'2026.10.24-a', note:'IDEAS BUTTON: a lightbulb in the top bar opens a list for writing down features you want in this app. Tick them off or delete them. They save on this device and sync in the background, so Claude can read them. On a narrow computer window the tabs other than the current app show just their icons so the button fits.'},
@@ -1919,9 +1922,9 @@ function coverHTML(g, opts = {}){
   const vt = opts.vt === false || g.id !== vtId ? '' : `view-transition-name:cv-${g.id};`;
   const url = /^https:\/\/[^\s"'<>]+$/.test(g.cover) ? g.cover : '';
   const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
-  const bg = `background:radial-gradient(110% 70% at ${x}% 8%,${b}cc 0%,transparent 58%),repeating-linear-gradient(${ang}deg,rgba(255,255,255,.045) 0 2px,transparent 2px 16px),linear-gradient(165deg,${a} 10%,#12152B 95%);`;
+  const bg = `radial-gradient(110% 70% at ${x}% 8%,${b}cc 0%,transparent 58%),repeating-linear-gradient(${ang}deg,rgba(255,255,255,.045) 0 2px,transparent 2px 16px),linear-gradient(165deg,${a} 10%,#12152B 95%);`;
   const wide = url && !/library_600x900/.test(url);
-  return `<div class="cover ${url ? 'img' : ''} ${wide ? 'wide' : ''}" style="${bg}${vt}">
+  return `<div class="cover ${url ? 'img' : ''} ${wide ? 'wide' : ''}" style="--bg:${bg}${vt}">
     <div class="spine"></div>
     ${url ? `<img class="art" src="${esc(url)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('img','wide');this.remove()">` : ''}
     <div class="ct">${esc(g.title)}</div>
@@ -2622,9 +2625,12 @@ function render(){
   document.title = g ? `${g.title} · Game Log` : 'Game Log';
 }
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-function go(fn){
-  if (document.startViewTransition && !reduced.matches) document.startViewTransition(() => { fn(); render(); });
-  else { fn(); render(); }
+function go(fn, morph){
+  if (morph && document.startViewTransition && !reduced.matches) {
+    const de = document.documentElement; de.classList.add('vt-in');
+    const t = document.startViewTransition(() => { fn(); render(); });
+    t.finished.finally(() => de.classList.remove('vt-in'));
+  } else { fn(); render(); }
 }
 let toastT;
 function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200); }
@@ -2660,8 +2666,8 @@ document.addEventListener('click', e => {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; }); window.scrollTo(0,0);
       if (el.dataset.tab === 'sync' && Date.now() - (steamSum.fetched || 0) > 5 * 60000) fetchSummary();
       break;
-    case 'open': view.art = null; vtId = el.dataset.id; document.querySelectorAll('.cover').forEach(c => c.style.viewTransitionName = ''); { const c = el.querySelector('.cover'); if (c) c.style.viewTransitionName = 'cv-' + vtId; } go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }); window.scrollTo(0,0); { const og = game(el.dataset.id); view.goals = null; if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
-    case 'back': go(() => { view.gameId = null; }); window.scrollTo(0,0); break;
+    case 'open': view.art = null; vtId = el.dataset.id; document.querySelectorAll('.cover').forEach(c => c.style.viewTransitionName = ''); { const c = el.querySelector('.cover'); if (c) c.style.viewTransitionName = 'cv-' + vtId; } go(() => { view.gameId = el.dataset.id; view.section = el.dataset.section || 'save'; }, true); window.scrollTo(0,0); { const og = game(el.dataset.id); view.goals = null; if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
+    case 'back': go(() => { view.gameId = null; }, true); window.scrollTo(0,0); break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
     case 'goal': {
