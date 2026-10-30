@@ -413,6 +413,7 @@ a.scorecard:hover{border-color:var(--line)}
 .gmissbtn{border:1px solid var(--line);background:transparent;color:var(--mist);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600}
 .gmissbtn.on{background:var(--rose);border-color:var(--rose);color:var(--night)}
 .gcover{color:var(--mist);font-size:14px;margin:0 0 14px}
+.saveread{padding:14px 18px}.saveread p{margin:3px 0}
 .gcover b{color:var(--paper)}
 .gcatch{margin-bottom:16px}
 .gcatch h3{margin:0 0 6px;font-size:17px}
@@ -1007,6 +1008,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.30-a', note:'READS YOUR SAVE: a small reader on your PC decrypts your Crimson Desert save (read-only) and sends Game Log what it finds. Main-story goals tick themselves, and the Goals page shows your next main quest and what your journal has in progress. A tick from your save never overrides you: untick it and it stays unticked.'},
   {v:'2026.10.27-h', note:'COVER LANDS CLEANLY: the flying cover measured its landing spot while the new screen was still 8px low from its fade-up, so it touched down a little short and snapped up at the end. It now measures first, so it lands exactly on the header cover (and on its shelf spot when going back).'},
   {v:'2026.10.27-g', note:'LIGHTER ANIMATIONS: your performance log showed the app code finishing in 1 to 12ms, but every screen change spent two or three 55ms frames inside the browser\'s page-transition effect, which photographs the whole 4K page before and after. Screen changes no longer use it. The new screen swaps in at once and fades up, and opening or closing a game flies a copy of the cover between the shelf and the header. Same look, a fraction of the drawing work.'},
   {v:'2026.10.27-f', note:'PERFORMANCE LOG: the app now records, on this device, how long each screen change, click and redraw takes, how many frames run late during each animation, and any frame that takes over 50ms to draw along with the code behind it. Sync page > Performance log > Copy report puts a summary on your clipboard to paste to Claude.'},
@@ -1873,6 +1875,7 @@ async function loadPack(g, force){
     p.man = {title:clip(man.title, 120), note:clip(man.note, 600), tabs:tabs.map(t => ({id:t.id, name:clip(t.name, 40), tier:t.tier, expected:t.expected > 0 ? Math.round(+t.expected) : 0}))};
     p.state = 'ready';
     adoptPack(g, p);
+    pullSaveProgress(g);
   } catch(e) {
     p.state = 'err'; p.err = e.message === 'Failed to fetch' ? 'couldn’t reach the content files' : e.message;
   }
@@ -1913,6 +1916,54 @@ function refreshSum(g){
   const next = {order:p.man.tabs.map(t => t.id), tabs};
   if (JSON.stringify(next) === JSON.stringify(G.sum)) return false;
   G.sum = next; return true;
+}
+/* ---------- Save reader ----------
+   A helper on the PC reads a game's save (read-only) and PUTs a report to the
+   Worker at /progress/<slug>: {savedAt, done:[{tab,id}], summary}. Game Log
+   only knows that format, never the save itself. A goal the report marks done
+   is ticked once; after that it's yours, so unticking sticks. */
+const SAVEREAD = {};   // slug -> {rep, err, at, busy}
+async function pullSaveProgress(g, force){
+  if (!g || !g.content || !syncOn()) return;
+  const s = SAVEREAD[g.content] = SAVEREAD[g.content] || {};
+  if (s.busy || (!force && s.at && Date.now() - s.at < 60000)) return;
+  s.busy = true;
+  try {
+    const r = await api('/progress/' + g.content);
+    if (!r.ok) throw new Error(r.status === 404 ? 'the Worker needs the save-reader update' : `the Worker returned ${r.status}`);
+    const rep = await r.json(); s.err = '';
+    if (rep && Array.isArray(rep.done)) s.rep = rep;
+  } catch(e) { s.err = e.message; }
+  s.busy = false; s.at = Date.now();
+  if (s.rep) applySaveProgress(g, s.rep);
+  refresh();
+}
+function applySaveProgress(g, rep){
+  const p = PACKS[g.content]; if (!p || p.state !== 'ready') return;
+  const G = ensureGoals(g), seen = new Set(Array.isArray(G.saveSeen) ? G.saveSeen : []);
+  let n = 0;
+  for (const d of rep.done) {
+    if (!d || !p.tabs[d.tab] || !p.tabs[d.tab].some(e => e.id === d.id)) continue;
+    const k = d.tab + '/' + d.id; if (seen.has(k)) continue;
+    seen.add(k);
+    if (!goalSt(g, d.tab, d.id)) { setGoal(g, d.tab, d.id, 'd'); n++; }
+  }
+  const moved = G.saveAt !== rep.savedAt;
+  G.saveSeen = [...seen]; G.saveAt = rep.savedAt;
+  if (n || moved) { refreshSum(g); save(); }
+  if (n) toast(`${n} goal${n > 1 ? 's' : ''} ticked from your save`);
+}
+function saveReadPanel(g){
+  const s = SAVEREAD[g.content];
+  if (!s || (!s.rep && !s.err)) return '';
+  if (!s.rep) return `<p class="gcover"><b>Save reader:</b> couldn’t get a report (${esc(s.err)}).</p>`;
+  const r = s.rep, m = r.summary || {}, mins = Math.round((Date.now() - r.savedAt) / 60000);
+  const when = mins < 1 ? 'just now' : mins < 60 ? `${mins} min ago` : mins < 2880 ? `${Math.round(mins / 60)} h ago` : fmtDate(localDate(new Date(r.savedAt)));
+  const prog = Array.isArray(m.inProgress) ? m.inProgress.slice(0, 10) : [];
+  return `<section class="panel gcover saveread"><p><b>From your save</b> · saved ${esc(when)}${r.slot ? ` · ${esc(r.slot)}` : ''}</p>
+    ${m.next ? `<p>Next main quest: <b>${esc(m.next)}</b>${m.chapter ? ` (${esc(m.chapter)})` : ''}${m.chaptersLeft != null ? `, ${m.chaptersLeft} chapter${m.chaptersLeft === 1 ? '' : 's'} left` : ''}.</p>` : ''}
+    ${m.questsDone != null ? `<p>${m.questsDone} quests finished in your journal${prog.length ? `. In progress: ${prog.map(esc).join(', ')}` : ''}.</p>` : ''}
+    ${m.note ? `<p class="dim">${esc(m.note)}</p>` : ''}</section>`;
 }
 const countsTab = (g, tier) => g.finish !== 'shelved' && FINISH[g.finish || 'beat'].includes(tier);
 
@@ -2483,6 +2534,7 @@ function secGoals(g){
       <div class="seg" role="tablist" aria-label="Finish line">${Object.keys(FINISH_LABEL).map(k => `<button class="${(g.finish || 'beat') === k ? 'on' : ''}" data-act="goal-finish" data-v="${k}">${FINISH_LABEL[k]}</button>`).join('')}</div>
       ${f === 'shelved' ? `<input type="text" data-f="goals.why" value="${esc(G.why)}" placeholder="Why shelve it? (optional)" aria-label="Why shelved">` : `<span class="lbl">Counting: ${counted.length ? esc(counted.join(', ')) : 'nothing yet'}</span>`}
     </div>
+    ${saveReadPanel(g)}
     ${p.man.note ? `<p class="gcover">${esc(p.man.note)}</p>` : ''}
     <div class="seg gtabs" role="tablist" aria-label="Goal tabs">${tabs.map(t => {
       const n = p.tabs[t.id].length, left = n - tcount(t.id);
@@ -2868,7 +2920,7 @@ document.addEventListener('click', e => {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; });
       if (el.dataset.tab === 'sync' && Date.now() - (steamSum.fetched || 0) > 5 * 60000) fetchSummary();
       break;
-    case 'open': view.art = null; { const id = el.dataset.id; go(() => { view.gameId = id; view.section = el.dataset.section || 'save'; view.goals = null; }, 'open', null, el); const og = game(id); if (og) { fetchAch(og); if (og.content) loadPack(og); } } break;
+    case 'open': view.art = null; { const id = el.dataset.id; go(() => { view.gameId = id; view.section = el.dataset.section || 'save'; view.goals = null; }, 'open', null, el); const og = game(id); if (og) { fetchAch(og); if (og.content) { loadPack(og); pullSaveProgress(og); } } } break;
     case 'back': { const from = view.gameId; go(() => { view.gameId = null; }, 'back', from); } break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;

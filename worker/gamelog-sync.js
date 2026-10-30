@@ -777,6 +777,30 @@ export default {
       }
     }
 
+    // /progress/<slug>: what the PC save reader last saw for one game.
+    // The reader PUTs it; Game Log GETs it and ticks the matching goals.
+    const pm = /^\/progress\/([a-z0-9-]{1,60})$/.exec(url.pathname);
+    if (pm) {
+      const pk = 'progress:' + pm[1];
+      if (request.method === 'GET') {
+        const v = await env.STATE.get(pk);
+        return new Response(v || 'null', { headers: Object.assign({ 'content-type': 'application/json', 'cache-control': 'no-store' }, CORS) });
+      }
+      if (request.method === 'PUT') {
+        const body = await request.text();
+        if (body.length > 200000) return reply({ error: 'payload too large' }, 413);
+        let p;
+        try { p = JSON.parse(body); } catch (e) { return reply({ error: 'body is not valid JSON' }, 400); }
+        if (!p || !Array.isArray(p.done) || typeof p.savedAt !== 'number') return reply({ error: 'not a progress report' }, 400);
+        const prev = await env.STATE.get(pk);
+        if (prev) { try { if ((JSON.parse(prev).savedAt || 0) > p.savedAt) return reply({ ok: true, stale: true }); } catch (e) {} }
+        p.receivedAt = Date.now();
+        await env.STATE.put(pk, JSON.stringify(p));
+        return reply({ ok: true });
+      }
+      return reply({ error: 'method not allowed' }, 405);
+    }
+
     if (url.pathname !== '/') return reply({ error: 'not found' }, 404);
 
     if (request.method === 'GET' && url.searchParams.has('backups')) {

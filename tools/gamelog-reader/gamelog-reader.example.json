@@ -1,0 +1,4 @@
+{
+  "url": "https://gamelog-sync.YOUR-SUBDOMAIN.workers.dev",
+  "key": "the same sync secret you pasted into Game Log's Sync page"
+}
