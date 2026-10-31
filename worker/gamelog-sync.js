@@ -79,6 +79,10 @@
                              then answer like /steam/play. The Play button
                              uses it; appid and t (click time, ms) are optional
                              hints so the session starts at the click.
+   GET  /steam/post?appid=&id=  -> one news post with its full text as
+                             blocks, for the app's reader
+   GET  /steam/wishlist[?fresh=1] -> your wishlist with art, release dates,
+                             review scores and prices (cached 6 hours)
    GET  /steam/summary    -> per-game achievement counts and recent news
                              dates for the whole library, plus how much of
                              the library is loaded and when the background
@@ -383,6 +387,138 @@ function excerpt(text, max) {
   return { text: cut.slice(0, at > max * 0.6 ? at : max).trim() + '…', more: true };
 }
 
+/* Full post body for the in-app reader. Steam posts are BBCode (older ones
+   sometimes HTML), so they're turned into a short list of plain blocks the
+   app draws itself: no markup from Steam ever reaches the page.
+   Block: {t:'h', l, r} heading · {t:'p', r, q?} paragraph (q = quoted)
+          {t:'li', d, n, r} list item (d depth, n number or 0) · {t:'img', u}
+          {t:'yt', id} YouTube video · {t:'hr'}
+   r is a list of runs: a plain string, or {x, b?, i?, u?} (bold, italic, link). */
+const CLAN_IMG = 'https://clan.akamai.steamstatic.com/images/';
+const BB_TOKEN = /\[(\/?)([a-z][a-z0-9]*|\*)(?:=([^\]]*))?((?:\s+[a-z0-9_]+=(?:"[^"]*"|'[^']*'|[^\s\]]+))*)\s*\]/gi;
+function decodeEnt(s) {
+  return s.replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&#(\d+);/g, (m, n) => { try { return String.fromCodePoint(+n); } catch (e) { return ''; } }).replace(/&amp;/g, '&');
+}
+function htmlToBB(s) {
+  const map = { strong: 'b', em: 'i', ul: 'list', ol: 'olist', blockquote: 'quote' };
+  return s.replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<img\s[^>]*?src\s*=\s*["']([^"']+)["'][^>]*>/gi, '[img]$1[/img]')
+    .replace(/<a\s[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>/gi, '[url=$1]').replace(/<\/a\s*>/gi, '[/url]')
+    .replace(/<(\/?)(h[1-6]|p|ul|ol|li|b|strong|i|em|blockquote|hr|table|tr|td|th)\b[^>]*>/gi, (m, c, t) => {
+      t = t.toLowerCase();
+      if (t === 'li') return c ? '' : '[*]';
+      return `[${c}${map[t] || t}]`;
+    })
+    .replace(/<[^>]+>/g, '');
+}
+function fixUrl(u) {
+  u = String(u || '').trim();
+  const qv = /^["']([^"']*)["']/.exec(u);
+  if (qv) u = qv[1];
+  u = decodeEnt(u).replace('{STEAM_CLAN_IMAGE}', CLAN_IMG.slice(0, -1));
+  if (u.startsWith('//')) u = 'https:' + u;
+  return /^https?:\/\/[^\s"'<>]+$/i.test(u) ? u.replace(/^http:/i, 'https:') : '';
+}
+const MAX_BLOCKS = 600, MAX_CHARS = 60000;
+function bbBlocks(src) {
+  const s = htmlToBB(String(src || '')).replace(/\r/g, '');
+  const blocks = [];
+  let cur = null, chars = 0, b = 0, it = 0, link = null, quote = 0, img = null, skip = 0, cell = false;
+  const lists = [];
+  const flush = () => {
+    if (cur) {
+      const r = cur.r;
+      while (r.length && !String(typeof r[0] === 'string' ? r[0] : r[0].x).trim()) r.shift();
+      while (r.length && !String(typeof r[r.length - 1] === 'string' ? r[r.length - 1] : r[r.length - 1].x).trim()) r.pop();
+      if (r.length) {
+        if (typeof r[0] === 'string') r[0] = r[0].replace(/^\s+/, ''); else r[0].x = r[0].x.replace(/^\s+/, '');
+        const l = r.length - 1;
+        if (typeof r[l] === 'string') r[l] = r[l].replace(/\s+$/, ''); else r[l].x = r[l].x.replace(/\s+$/, '');
+        if (blocks.length < MAX_BLOCKS) blocks.push(cur);
+      }
+    }
+    cur = null;
+  };
+  const open = (t, extra) => { flush(); cur = Object.assign({ t, r: [] }, extra || {}); if (quote && t === 'p') cur.q = 1; };
+  const add = x => {
+    if (chars > MAX_CHARS || !x) return;
+    if (!cur) { if (!x.trim()) return; open('p'); }
+    chars += x.length;
+    let u = link === true ? fixUrl(x) : link;
+    const run = (b || it || u) ? Object.assign({ x }, b ? { b: 1 } : {}, it ? { i: 1 } : {}, u ? { u } : {}) : x;
+    const r = cur.r, last = r[r.length - 1];
+    if (last !== undefined) {
+      const ls = typeof last === 'string', rs = typeof run === 'string';
+      if (ls && rs) { r[r.length - 1] = last + run; return; }
+      if (!ls && !rs && !!last.b === !!run.b && !!last.i === !!run.i && last.u === run.u) { last.x += run.x; return; }
+    }
+    r.push(run);
+  };
+  const text = raw => {
+    if (skip) return;
+    if (img) { img.src += raw; return; }
+    const parts = decodeEnt(raw.replace(/\{STEAM_CLAN_IMAGE\}\S*/g, '')).split('\n');
+    parts.forEach((x, k) => {
+      if (k > 0) { if (cur && cur.t !== 'h' && !cell) flush(); else if (cur && cell) add(' '); }
+      add(x.replace(/[ \t]+/g, ' '));
+    });
+  };
+  let at = 0, m;
+  BB_TOKEN.lastIndex = 0;
+  while ((m = BB_TOKEN.exec(s))) {
+    if (m.index > at) text(s.slice(at, m.index));
+    at = BB_TOKEN.lastIndex;
+    const close = !!m[1], tag = m[2].toLowerCase(), arg = m[3], attrs = m[4] || '';
+    const attr = k => { const a = new RegExp('\\b' + k + '=(?:"([^"]*)"|\'([^\']*)\'|([^\\s\\]]+))', 'i').exec(attrs); return a ? (a[1] || a[2] || a[3] || '') : ''; };
+    if (skip) { if (close && (tag === 'video' || tag === 'noparse' || tag === 'previewyoutube')) skip = 0; continue; }
+    if (/^h[1-6]$/.test(tag)) { if (close) flush(); else open('h', { l: Math.min(3, +tag[1]) }); continue; }
+    switch (tag) {
+      case 'p': flush(); break;
+      case 'b': case 'strong': b = close ? 0 : 1; break;
+      case 'i': case 'em': it = close ? 0 : 1; break;
+      case 'url': link = close ? null : (arg ? fixUrl(arg) || null : true); break;
+      case 'img': {
+        if (close) { if (img) { const u = fixUrl(img.src); img = null; if (u) { flush(); if (blocks.length < MAX_BLOCKS) blocks.push({ t: 'img', u }); } } break; }
+        const u = fixUrl(attr('src') || arg || '');
+        if (u) { flush(); if (blocks.length < MAX_BLOCKS) blocks.push({ t: 'img', u }); img = { src: '', done: true }; }
+        else img = { src: '' };
+        break; }
+      case 'previewyoutube': {
+        if (close) break;
+        const id = String(arg || '').split(';')[0].trim();
+        if (/^[\w-]{6,20}$/.test(id)) { flush(); blocks.push({ t: 'yt', id }); }
+        break; }
+      case 'video': if (!close) skip = 1; break;
+      case 'noparse': break;
+      case 'list': case 'olist':
+        flush();
+        if (close) lists.pop(); else lists.push({ o: tag === 'olist', n: 0 });
+        break;
+      case '*': {
+        flush();
+        const L = lists[lists.length - 1];
+        if (L) L.n++;
+        open('li', { d: Math.max(1, Math.min(3, lists.length)), n: L && L.o ? L.n : 0 });
+        break; }
+      case 'quote': flush(); quote = Math.max(0, quote + (close ? -1 : 1)); break;
+      case 'hr': if (!close) { flush(); blocks.push({ t: 'hr' }); } break;
+      case 'table': flush(); cell = false; break;
+      case 'tr': flush(); cell = !close; if (!close) open('p'); break;
+      case 'td': case 'th':
+        if (!close && cur && cur.r.length) add('  ·  ');
+        if (tag === 'th') b = close ? 0 : 1;
+        break;
+      default: break;   // center, u, s, spoiler, code and anything unknown: keep the text, drop the tag
+    }
+    if (img && img.done) img = null;
+  }
+  if (at < s.length) text(s.slice(at));
+  flush();
+  // drop images that repeat back to back and a trailing rule
+  return blocks.filter((x, k) => !(x.t === 'img' && blocks[k - 1] && blocks[k - 1].t === 'img' && blocks[k - 1].u === x.u));
+}
+
 const OFFICIAL_FEED = 'steam_community_announcements';
 const NEWS_KEEP = 30;
 
@@ -401,7 +537,8 @@ async function newsData(net, appid) {
       id: String(n.gid), title: n.title || 'Untitled', url: n.url || '',
       label: n.feedlabel || '', date: n.date || 0,
       kind: patch ? 'patch' : 'news',
-      excerpt: ex.text, more: ex.more
+      excerpt: ex.text, more: ex.more,
+      body: bbBlocks(n.contents)
     };
   }).sort((a, b) => b.date - a.date);
   return { appid: +appid, items };
@@ -524,8 +661,10 @@ function summarize(entry, kind, rec) {
     entry.al = last ? { name: last.name, time: last.time } : null;
   }
   if (kind === 'news' && rec.d) entry.nd = rec.d.items.slice(0, 8).map(i => i.date);
-  if (kind === 'store') entry.se = rec.e && !rec.d ? 1 : 0;
+  if (kind === 'store') { entry.se = rec.e && !rec.d ? 1 : 0; if (rec.d) entry.rv = revSum(rec.d); }
 }
+// [percent positive, Steam's label, review count], or 0 when the game has no reviews
+const revSum = d => d && d.reviews && d.reviews.total ? [d.reviews.pct, d.reviews.label, d.reviews.total] : 0;
 
 // Background TTLs: busier games refresh more often
 function bgTTL(kind, g, entry) {
@@ -576,7 +715,7 @@ async function runBatch(env, why) {
   const now = Date.now();
   if (meta.pauseUntil && meta.pauseUntil > now) return { skipped: 'Steam asked us to slow down. Resuming soon' };
   const net = makeNet(parseInt(env.STEAM_BUDGET, 10) || DEFAULT_BUDGET);
-  let done = 0, stopped = '';
+  let done = 0, stopped = '', backfilled = 0;
   const idx = (await kvJSON(env, 'idx')) || {};
   let lib;
   try {
@@ -613,11 +752,20 @@ async function runBatch(env, why) {
       if (changed) await kvPut(env, key, rec);
     }
     meta.left = queue.reduce((n, j) => n + j.due.length, 0) - done;
+    // Store pages saved before the summary carried review scores: read them back from KV, no Steam calls
+    for (const g of games) {
+      if (backfilled >= 60) break;
+      const e = idx[g.id];
+      if (!e || !e.store || e.rv !== undefined) continue;
+      const rec = await kvJSON(env, 'g:' + g.id);
+      e.rv = revSum(rec && rec.store && rec.store.d);
+      backfilled++;
+    }
   } catch (e) {
     stopped = e.message;
     if (e.status === 429) meta.pauseUntil = now + 15 * MIN;
   }
-  if (done) await kvPut(env, 'idx', idx);
+  if (done || backfilled) await kvPut(env, 'idx', idx);
   meta.lastRun = now; meta.lastWhy = why; meta.lastDone = done; meta.lastCalls = net.used; meta.lastErr = stopped;
   if (why === 'cron') meta.lastCron = now;
   // Idle runs only check in every few hours, to save KV writes
@@ -638,7 +786,7 @@ async function summary(env) {
     const e = I[g.id];
     if (!e) continue;
     if (KINDS.every(k => e[k])) ready++;
-    out[g.id] = { ach: e.at === undefined ? null : { total: e.at, done: e.ad, last: e.al || null }, news: e.nd || [], noStore: !!e.se };
+    out[g.id] = { ach: e.at === undefined ? null : { total: e.at, done: e.ad, last: e.al || null }, news: e.nd || [], noStore: !!e.se, rv: e.rv || null };
   }
   const M = meta || {};
   return {
@@ -715,6 +863,56 @@ async function playData(env) {
   };
 }
 
+/* ---------- Wishlist ----------
+   Your Steam wishlist with art, release dates, review scores and prices.
+   Kept in KV under "wish" for six hours. Steam only shares a wishlist
+   when the profile's game details are public. */
+const WISH_TTL = 6 * HOUR;
+const WISH_MAX = 300;
+async function wishlist(env, fresh) {
+  needSteam(env);
+  const saved = await kvJSON(env, 'wish');
+  if (!fresh && saved && Date.now() - saved.t < WISH_TTL) return saved;
+  const net = makeNet();
+  try {
+    const sid = await steamId64(env, net);
+    const r = await net.get(`https://api.steampowered.com/IWishlistService/GetWishlist/v1/?key=${env.STEAM_KEY}&steamid=${sid}`);
+    if (!r.ok) throw new StErr(`Steam returned ${r.status}`, 502);
+    const list = ((r.j && r.j.response && r.j.response.items) || []).filter(x => x && x.appid).slice(0, WISH_MAX);
+    const info = {};
+    for (let i = 0; i < list.length; i += 50) {
+      const chunk = list.slice(i, i + 50).map(x => ({ appid: x.appid }));
+      const input = { ids: chunk, context: { language: 'english', country_code: 'US' },
+        data_request: { include_assets: true, include_basic_info: true, include_release: true, include_reviews: true, include_all_purchase_options: true } };
+      const { j } = await net.get('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input)));
+      for (const it of (j && j.response && j.response.store_items) || []) info[it.appid || it.id] = it;
+    }
+    const items = list.map(x => {
+      const it = info[x.appid] || {};
+      const a = it.assets, rel = it.release || {};
+      const art = f => f && a && a.asset_url_format ? ASSET_BASE + a.asset_url_format.replace('${FILENAME}', f) : '';
+      const rv = it.reviews && (it.reviews.summary_filtered || it.reviews.summary_unfiltered);
+      const bp = it.best_purchase_option || (Array.isArray(it.purchase_options) ? it.purchase_options[0] : null);
+      return {
+        id: x.appid, name: it.name || '', pri: x.priority || 0, added: x.date_added || 0,
+        cover: art(a && (a.library_capsule_2x || a.library_capsule)), header: art(a && a.header),
+        date: rel.steam_release_date || rel.original_release_date || 0,
+        soon: !!rel.is_coming_soon, soonText: rel.coming_soon_display || rel.custom_release_date_message || '',
+        rv: rv && rv.review_count ? [rv.percent_positive, rv.review_score_label || '', rv.review_count] : null,
+        free: !!it.is_free,
+        price: bp ? (bp.formatted_final_price || '') : '', was: bp && bp.discount_pct ? (bp.formatted_original_price || '') : '',
+        off: bp ? (bp.discount_pct || 0) : 0
+      };
+    }).filter(x => x.name);
+    const out = { t: Date.now(), items, empty: !list.length };
+    await kvPut(env, 'wish', out);
+    return out;
+  } catch (e) {
+    if (saved) return Object.assign({}, saved, { err: e.message });
+    throw e;
+  }
+}
+
 /* ---------- Router ---------- */
 async function steamRoute(request, env, url) {
   const p = url.pathname, q = k => (url.searchParams.get(k) || '').trim();
@@ -738,8 +936,19 @@ async function steamRoute(request, env, url) {
   if (p === '/steam/news') {
     const count = Math.max(1, Math.min(NEWS_KEEP, parseInt(q('count'), 10) || 15));
     const d = await cached(env, q('appid'), 'news', fresh);
-    return { appid: d.appid, items: d.items.slice(0, count) };
+    // bodies stay on the Worker; the app asks for one with /steam/post when you open it
+    return { appid: d.appid, items: d.items.slice(0, count).map(({ body, ...i }) => Object.assign(i, { full: !!body })) };
   }
+  if (p === '/steam/post') {
+    const id = q('id');
+    let d = await cached(env, q('appid'), 'news', false);
+    let item = d.items.find(i => i.id === id);
+    // saved before posts kept their full text: fetch the feed again once
+    if (!item || !item.body) { d = await cached(env, q('appid'), 'news', true); item = d.items.find(i => i.id === id); }
+    if (!item) throw new StErr('That post is no longer in Steam\'s news feed', 404);
+    return item;
+  }
+  if (p === '/steam/wishlist') return wishlist(env, fresh);
   if (p === '/steam/play') return playData(env);
   if (p === '/steam/check') {
     if (Date.now() - lastCheck > 2000) {

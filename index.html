@@ -459,6 +459,81 @@ a.scorecard:hover{border-color:var(--line)}
 .cksheet .picks li:last-child{border-bottom:0}
 .cksheet .picks h4{margin:14px 0 0;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim)}
 
+/* full-post reader */
+.rdwrap{position:fixed;inset:0;z-index:125;display:grid;place-items:end center}
+.rdback{position:absolute;inset:0;background:rgba(10,12,28,.7)}
+.rdsheet{position:relative;width:min(780px,100%);height:min(94vh,100%);display:flex;flex-direction:column;background:var(--deep);border:1px solid var(--line);border-radius:var(--r-lg) var(--r-lg) 0 0;box-shadow:0 -12px 40px rgba(0,0,0,.5);overflow:hidden}
+@media (min-width:700px){.rdwrap{place-items:center}.rdsheet{border-radius:var(--r-lg);height:min(90vh,1100px)}}
+.rdtop{display:flex;align-items:center;gap:10px;padding:12px 12px 12px clamp(18px,4vw,30px);border-bottom:1px solid var(--line-soft);font-size:13px;color:var(--dim)}
+.rdtop .grow{flex:1;min-width:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rdtop .kind{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--raise);color:var(--mist)}
+.rdtop .kind.patch{background:rgba(143,184,255,.16);color:var(--sky)}
+.rdx,.rdnav{border:0;background:var(--raise);color:var(--paper);width:36px;height:36px;border-radius:999px;display:grid;place-items:center;flex:0 0 auto}
+.rdnav:disabled{opacity:.35;cursor:default}
+.rdx:hover,.rdnav:not(:disabled):hover{background:var(--line)}
+.rdbody{overflow-y:auto;overscroll-behavior:contain;padding:22px clamp(18px,4vw,30px) calc(28px + env(safe-area-inset-bottom))}
+.rdbody>h2{margin:0 0 18px;font-size:clamp(22px,3vw,28px);line-height:1.2;letter-spacing:-.01em}
+.rdtext{max-width:68ch;font-size:16px;line-height:1.65;color:var(--paper)}
+.rdtext p{margin:0 0 14px}
+.rdtext p.q{border-left:3px solid var(--gold);padding-left:14px;color:var(--mist)}
+.rdtext h3{margin:26px 0 10px;font-size:20px;line-height:1.3}
+.rdtext h4{margin:22px 0 8px;font-size:17px}
+.rdtext h5{margin:18px 0 6px;font-size:15px;text-transform:uppercase;letter-spacing:.04em;color:var(--mist)}
+.rdtext .li{position:relative;margin:0 0 6px;padding-left:22px}
+.rdtext .li::before{content:'';position:absolute;left:6px;top:.72em;width:6px;height:6px;border-radius:3px;background:var(--gold)}
+.rdtext .li.n::before{content:attr(data-n) '.';background:none;width:auto;height:auto;top:0;left:0;color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
+.rdtext .li.d2{margin-left:22px} .rdtext .li.d3{margin-left:44px}
+.rdtext .li.d2::before,.rdtext .li.d3::before{background:var(--dim)}
+.rdtext img{display:block;max-width:100%;height:auto;margin:18px 0;border-radius:var(--r-sm);background:var(--night)}
+.rdtext hr{border:0;border-top:1px solid var(--line);margin:24px 0}
+.rdtext a{color:var(--sky)}
+.rdyt{position:relative;display:block;margin:18px 0;border-radius:var(--r-sm);overflow:hidden;aspect-ratio:16/9;background:var(--night)}
+.rdyt img{width:100%;height:100%;object-fit:cover;margin:0}
+.rdyt span{position:absolute;inset:auto 0 0 0;padding:28px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;font-weight:700;font-size:14px}
+.rdfoot{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--line-soft)}
+.post h3 button{border:0;background:none;padding:0;color:var(--paper);text-align:left;font:inherit;cursor:pointer}
+.post h3 button:hover{color:var(--gold);text-decoration:underline}
+.post .acts{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:14px}
+.post .acts button{border:0;background:none;padding:0;color:var(--gold);font-weight:600;cursor:pointer}
+/* wrapping a game up */
+.wrapask{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin:0 0 18px;padding:14px 16px;border-radius:var(--r-md);background:rgba(245,182,63,.1);border:1px solid rgba(245,182,63,.35)}
+.wrapask p{margin:0;flex:1;min-width:220px;font-size:15px}
+.wrapask p b{color:var(--gold)}
+.wrapask .acts{display:flex;gap:8px;flex-wrap:wrap}
+.wraprow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:22px 0 0;padding-top:16px;border-top:1px solid var(--line-soft);font-size:14px;color:var(--mist)}
+.wraprow span{margin-right:4px}
+.wrapcard{margin:0 0 18px}
+.wrapcard h3{margin:0 0 4px;font-size:19px;display:flex;align-items:center;gap:10px}
+.wrapcard h3 svg{color:var(--gold)}
+.wrapcard .hint{margin:0 0 14px;color:var(--mist);font-size:14.5px}
+.wrapcard label.l{display:block;margin:14px 0 6px;font-weight:700;font-size:14px}
+.wrapcard textarea{min-height:64px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid var(--line);background:transparent;color:var(--mist);padding:6px 12px;border-radius:999px;font-size:14px}
+.chips button.on{background:var(--gold);border-color:var(--gold);color:var(--gold-ink);font-weight:700}
+/* play on cards, Steam score next to yours */
+.slotw{position:relative;content-visibility:auto;contain-intrinsic-size:auto 160px auto 300px}
+.slotw .slot{content-visibility:visible;width:100%}
+.cplay{position:absolute;top:8px;right:8px;z-index:4;width:38px;height:38px;border-radius:999px;display:grid;place-items:center;background:var(--gold);color:var(--gold-ink);box-shadow:0 6px 16px rgba(0,0,0,.45);transition:opacity .15s,transform .15s}
+.cplay svg{width:15px;height:15px;fill:currentColor;margin-left:2px}
+.cplay:hover{transform:scale(1.08)}
+@media (hover:hover){.cplay{opacity:0}.slotw:hover .cplay,.cplay:focus-visible{opacity:1}}
+.srv{position:absolute;bottom:12px;left:10px;z-index:3;height:26px;padding:0 8px;border-radius:999px;display:inline-flex;align-items:center;gap:4px;background:rgba(22,26,51,.88);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--mist)}
+.srv svg{width:12px;height:12px}
+.srv.hi,.steamrv.hi b{color:var(--mint)} .srv.mid,.steamrv.mid b{color:var(--gold)} .srv.lo,.steamrv.lo b{color:var(--rose)}
+.steamrv{display:flex;flex-direction:column;line-height:1.15}
+.steamrv b{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+.steamrv span{font-size:12.5px;color:var(--dim)}
+/* wishlist */
+.wishgrp{margin:0 0 40px}
+.wish .lbl a{color:inherit;text-decoration:none}
+.wish .sub .soon{color:var(--gold);font-weight:600}
+.wish .sub .off{color:var(--mint);font-weight:700}
+.wish .sub s{color:var(--dim)}
+.wishnote{margin:-12px 0 24px;color:var(--mist);font-size:14px}
+.wishnote .warnt{color:var(--rose)}
+a.tl{text-decoration:none}
+
 /* ---- update bar ---- */
 .updbar{position:fixed;left:0;right:0;top:0;z-index:130;padding:calc(10px + env(safe-area-inset-top)) 16px 0;pointer-events:none}
 .updbar[hidden]{display:none}
@@ -994,6 +1069,7 @@ a.scorecard:hover{border-color:var(--line)}
 <nav class="tabbar" id="tabbar"></nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div id="ck"></div>
+<div id="rd"></div>
 <div class="updbar" id="updbar" hidden role="status">
   <div class="updin"><span class="upddot"></span><span class="updtxt" id="updtxt">A new version is ready</span>
     <button class="updgo" id="updgo" type="button">Reload</button>
@@ -1008,6 +1084,7 @@ a.scorecard:hover{border-color:var(--line)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.10.31-a', note:'READ POSTS IN THE APP: What\u2019s new opens any patch note or announcement in a full reader with headings, lists, images and video links, and arrows to step through posts. WRAP IT UP YOUR WAY: a new Shelved status (shelved with honor, kept out of Continue) and a Done enough option for finished games, with why you stopped, your best moment and what would bring you back. When a game in progress reaches its finish line, it asks once whether to call it finished. QUICK WINS: Play buttons on Library and Continue cards, your Library sort follows you across devices, Steam\u2019s review score sits next to your score (and there\u2019s a Steam score sort), and Library has a Wishlist view with release dates, prices and sales. Wishlist games releasing in the next 60 days show in Coming up. Your Worker needs the updated gamelog-sync.js for the reader, review scores and wishlist.'},
   {v:'2026.10.30-a', note:'READS YOUR SAVE: a small reader on your PC decrypts your Crimson Desert save (read-only) and sends Game Log what it finds. Main-story goals tick themselves, and the Goals page shows your next main quest and what your journal has in progress. A tick from your save never overrides you: untick it and it stays unticked.'},
   {v:'2026.10.27-h', note:'COVER LANDS CLEANLY: the flying cover measured its landing spot while the new screen was still 8px low from its fade-up, so it touched down a little short and snapped up at the end. It now measures first, so it lands exactly on the header cover (and on its shelf spot when going back).'},
   {v:'2026.10.27-g', note:'LIGHTER ANIMATIONS: your performance log showed the app code finishing in 1 to 12ms, but every screen change spent two or three 55ms frames inside the browser\'s page-transition effect, which photographs the whole 4K page before and after. Screen changes no longer use it. The new screen swaps in at once and fades up, and opening or closing a game flies a copy of the cover between the shelf and the header. Same look, a fraction of the drawing work.'},
@@ -1124,8 +1201,13 @@ function perfReport(){
 }
 /* ---------- Data ---------- */
 const KEY = 'gamelog_v1';
-const STATUSES = ['playing','ongoing','paused','backlog','done','dropped'];
-const LABEL = {playing:'Playing', ongoing:'Ongoing', paused:'Paused', backlog:'Backlog', done:'Finished', dropped:'Dropped'};
+const STATUSES = ['playing','ongoing','paused','backlog','done','shelved','dropped'];
+const LABEL = {playing:'Playing', ongoing:'Ongoing', paused:'Paused', backlog:'Backlog', done:'Finished', shelved:'Shelved', dropped:'Dropped'};
+/* Finished, Done enough and Shelved are all ways of ending a game well.
+   Done enough = stopped short of everything on purpose; Shelved = set down
+   with honor, out of Continue, never counted as a failure. */
+const statusLabel = g => g.status === 'done' && g.wrap && g.wrap.enough ? 'Done enough' : LABEL[g.status];
+const SHELF_WHY = ['Got what I came for', 'The rest is grind', 'Ran out of steam', 'Waiting on an update or DLC', 'Not the right time'];
 const LAYERS = [
   ['story','Story','Main quest, companions and the side quests that matter.'],
   ['power','Power','Skills, gear and upgrades that make the fights better.'],
@@ -1149,6 +1231,7 @@ function blankGame(title){
   return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
     content:'', finish:'', goals:null,
     note:{where:'', next:'', recap:''}, review:'',
+    wrap:{enough:false, why:'', best:'', back:'', keep:''},
     layers:{story:{inFinish:true,items:[]}, power:{inFinish:false,items:[]}, checklist:{inFinish:false,items:[]}},
     missables:[], releases:[]};
 }
@@ -1157,6 +1240,8 @@ function normalize(g){
   const b = blankGame(g.title || 'Untitled');
   for (const k in b) if (g[k] === undefined) g[k] = b[k];
   g.note = Object.assign({where:'',next:'',recap:''}, g.note);
+  g.wrap = Object.assign({enough:false, why:'', best:'', back:'', keep:''}, g.wrap && typeof g.wrap === 'object' ? g.wrap : {});
+  g.wrap.enough = !!g.wrap.enough;
   LAYERS.forEach(([k]) => { g.layers[k] = g.layers[k] || {inFinish:k === 'story', items:[]}; });
   g.rating = Math.max(0, Math.min(10, Math.round(+g.rating || 0)));
   g.hours = +g.hours || 0;
@@ -1323,6 +1408,7 @@ function setStatus(st, err){
 function adopt(next){
   state = next; state.seeded = state.seeded || {crimson:true};
   save({keepTime:true, noPush:true});
+  try { applyPrefs(); } catch(e) {}
   if (view.gameId && !game(view.gameId)) view.gameId = null;
   refresh();
 }
@@ -1368,6 +1454,7 @@ async function pull(){
   syncBusy = false;
   autoArt();
   checkNews();
+  fetchWish();
   pullPlay();
 }
 function schedulePush(){ if (!syncOn()) return; clearTimeout(pushT); pushT = setTimeout(push, 1200); }
@@ -1665,8 +1752,21 @@ document.addEventListener('visibilitychange', () => { if (document.visibilitySta
 save({keepTime:true, noPush:true});
 
 const SORT_KEY = 'gamelog_sort';
-const SORTS = ['title','score','recent','progress'];
-const view = {tab:'continue', gameId:null, section:'save', filter:'all', q:'', sort:(() => { try { const v = localStorage.getItem(SORT_KEY); return SORTS.includes(v) ? v : 'title'; } catch(e) { return 'title'; } })(), art:null};
+const SORTS = ['title','score','steam','recent','progress'];
+/* The Library sort lives in the synced library (state.prefs), so every device
+   opens on the same order. The per-device copy is only a fallback. */
+const view = {tab:'continue', gameId:null, section:'save', filter:'all', q:'', lib:'games', sort:(() => {
+  const p = state.prefs && state.prefs.sort; if (SORTS.includes(p)) return p;
+  try { const v = localStorage.getItem(SORT_KEY); return SORTS.includes(v) ? v : 'title'; } catch(e) { return 'title'; } })(), art:null};
+function applyPrefs(){
+  const p = state.prefs && state.prefs.sort;
+  if (SORTS.includes(p) && p !== view.sort) { view.sort = p; try { localStorage.setItem(SORT_KEY, p); } catch(e) {} }
+}
+function setSort(v){
+  if (!SORTS.includes(v)) return;
+  view.sort = v; try { localStorage.setItem(SORT_KEY, v); } catch(e) {}
+  state.prefs = Object.assign({}, state.prefs, {sort:v}); save();
+}
 const game = id => state.games.find(g => g.id === id);
 
 /* ---------- When did I last play? ----------
@@ -2067,8 +2167,20 @@ function nameCover(el, id){
   const c = el && (el.classList.contains('cover') ? el : el.querySelector('.cover'));
   if (c && id) c.style.viewTransitionName = 'cv-' + id;
 }
+/* Steam's review score for a game: from the library summary, or from a store
+   page this device already loaded. [percent positive, label, review count] */
+function revOf(g){
+  if (!(g.steamId > 0)) return null;
+  const s = steamSum.games && steamSum.games[g.steamId];
+  if (s && Array.isArray(s.rv)) return s.rv;
+  const c = storeCache[g.steamId], r = c && c.data && c.data.reviews;
+  return r && r.total ? [r.pct, r.label, r.total] : null;
+}
+const rvTier = p => p >= 80 ? 'hi' : p >= 50 ? 'mid' : 'lo';
+const THUMB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2 2 0 0 1 3 2l-1 4h6a2 2 0 0 1 2 2.3l-1.4 7A2 2 0 0 1 17.6 20H7"/></svg>';
+const rvTitle = rv => `Steam: ${rv[1] || 'reviews'}, ${rv[0]}% of ${Number(rv[2]).toLocaleString()} reviews positive`;
 function coverHTML(g, opts = {}){
-  const st = stats(g);
+  const st = stats(g), rv = opts.score ? revOf(g) : null;
   const vt = '';
   const url = /^https:\/\/[^\s"'<>]+$/.test(g.cover) ? g.cover : '';
   const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
@@ -2079,6 +2191,7 @@ function coverHTML(g, opts = {}){
     ${url ? `<img class="art" src="${esc(url)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('img','wide');this.remove()">` : ''}
     <div class="ct">${esc(g.title)}</div>
     ${opts.score && g.rating ? `<div class="score" aria-label="Score ${g.rating} out of 10">${g.rating}</div>` : ''}
+    ${rv ? `<div class="srv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}" aria-label="${esc(rvTitle(rv))}">${THUMB}${rv[0]}%</div>` : ''}
     ${opts.bar !== false && st.total && !isLive(g) ? `<div class="bar"><i style="width:${st.pct}%"></i></div>` : ''}
   </div>`;
 }
@@ -2148,12 +2261,20 @@ function renderContinue(){
   if (!pool.length) return `<div class="page">
     <h1 class="h1">Continue</h1><p class="lede">Games you're playing or have paused show up here with your save point, so coming back is easy. Live service games go here too once they are set to Ongoing.</p>
     <div class="empty"><b>Nothing in progress</b>Open a game in your library and set it to Playing, Paused or Ongoing.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="library">Go to library</button></div></div></div>`;
-  const allUp = state.games.flatMap(g => upcoming(g).map(r => ({g, r}))).sort((a,b) => a.r.date.localeCompare(b.r.date));
-  const upSection = allUp.length ? `<h2 class="h2">Coming up</h2><div class="timeline">${allUp.map(({g, r}) => `
-      <button class="tl" data-act="open" data-id="${g.id}" data-section="releases">
-        <div class="day">${new Date(r.date + 'T00:00').getDate()}<small>${fmtDate(r.date, {month:'short', year:'numeric'})}</small></div>
-        <div class="what"><b>${esc(r.name)}</b><span>${esc(g.title)}</span></div>
-        <div class="cd">${countdown(r.date)}</div>
+  const today = localDate();
+  const wishUp = ((wish && wish.items) || []).map(x => ({x, date:wishDay(x)})).filter(o => o.date && o.date >= today && daysBetween(today, o.date) <= 60);
+  const allUp = [...state.games.flatMap(g => upcoming(g).map(r => ({g, r, date:r.date}))), ...wishUp].sort((a,b) => a.date.localeCompare(b.date));
+  const dayCell = d => `<div class="day">${new Date(d + 'T00:00').getDate()}<small>${fmtDate(d, {month:'short', year:'numeric'})}</small></div>`;
+  const upSection = allUp.length ? `<h2 class="h2">Coming up</h2><div class="timeline">${allUp.map(o => o.x ? `
+      <a class="tl" href="${esc(wishStore(o.x))}" target="_blank" rel="noopener noreferrer">
+        ${dayCell(o.date)}
+        <div class="what"><b>${esc(o.x.name)}</b><span>On your wishlist</span></div>
+        <div class="cd">${countdown(o.date)}</div>
+      </a>` : `
+      <button class="tl" data-act="open" data-id="${o.g.id}" data-section="releases">
+        ${dayCell(o.r.date)}
+        <div class="what"><b>${esc(o.r.name)}</b><span>${esc(o.g.title)}</span></div>
+        <div class="cd">${countdown(o.r.date)}</div>
       </button>`).join('')}</div>` : '';
   // Feature: the game you're playing right now, otherwise the one you played most recently
   const f = pool[0], rest = pool.slice(1), st = stats(f), rel = upcoming(f)[0], miss = openMissables(f);
@@ -2180,7 +2301,8 @@ function renderContinue(){
       <button class="slot" data-act="open" data-id="${f.id}" aria-label="Open ${esc(f.title)}">${coverHTML(f, {score:true})}</button>
       <div>
         <h2>${esc(f.title)}</h2>
-        <div class="meta"><span>${LABEL[f.status]}</span><span>${f === nowG ? `Playing now · since ${fmtClock(playNow.s)}` : since(f.lastPlayed)}</span>${isLiveF ? `${actTag(f)}${f.peak ? `<span>${esc(f.peak)}</span>` : ''}${f.seasons ? `<span>${f.seasons} season${f.seasons > 1 ? 's' : ''}</span>` : ''}` : `<span>${st.pct}% to finish line</span>`}${miss ? `<span class="alert">${miss} missable${miss > 1 ? 's' : ''} open</span>` : ''}${newTag(f)}</div>
+        <div class="meta"><span>${statusLabel(f)}</span><span>${f === nowG ? `Playing now · since ${fmtClock(playNow.s)}` : since(f.lastPlayed)}</span>${isLiveF ? `${actTag(f)}${f.peak ? `<span>${esc(f.peak)}</span>` : ''}${f.seasons ? `<span>${f.seasons} season${f.seasons > 1 ? 's' : ''}</span>` : ''}` : `<span>${st.pct}% to finish line</span>`}${miss ? `<span class="alert">${miss} missable${miss > 1 ? 's' : ''} open</span>` : ''}${newTag(f)}</div>
+        ${wrapAsk(f)}
         ${f.note.where || f.note.next ? `<div class="save">
           <div><h4>Where you were</h4><p>${esc(f.note.where) || '<span class="dim">Not written yet</span>'}</p></div>
           <div class="next"><h4>Next step</h4><p>${esc(f.note.next) || '<span class="dim">Not written yet</span>'}</p></div>
@@ -2192,8 +2314,9 @@ function renderContinue(){
           <input class="tick" type="checkbox" aria-label="Mark done: ${esc(i.text)}" data-act="toggle" data-kind="${i.kind}" data-tab="${esc(i.tab || '')}" data-layer="${x.k}" data-id="${esc(i.id)}" data-game="${f.id}">
           <span class="t">${esc(i.text)}</span><span></span></li>`).join('')}</ul>${x.more > 0 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${x.more} more in ${x.where}</p>` : ''}</div>`).join('')}
         ${rel ? `<p class="dim" style="margin:14px 0 0;font-size:13px">${esc(rel.name)} ${countdown(rel.date).toLowerCase()}</p>` : ''}
-        <div class="actions">
-          <button class="btn" data-act="open" data-id="${f.id}">Open game</button>
+        <div class="actions" data-game="${f.id}">
+          ${f === nowG ? '' : playBtn(f).replace('data-act="launch"', `data-act="launch" data-game="${f.id}"`)}
+          <button class="btn ${f === nowG || !playBtn(f) ? '' : 'quiet'}" data-act="open" data-id="${f.id}">Open game</button>
           <button class="btn quiet" data-act="played" data-game="${f.id}">I played today</button>
           ${/^https?:\/\//.test(f.note.recap) ? `<a class="btn quiet" href="${esc(f.note.recap)}" target="_blank" rel="noopener">Watch recap</a>` : ''}
         </div>
@@ -2208,39 +2331,127 @@ function renderContinue(){
   </div>`;
 }
 
+function cardPlay(g){
+  const id = Math.floor(Number(g.steamId));
+  if (!CAN_LAUNCH || !(id > 0) || (playNow && playNow.a === id)) return '';
+  return `<a class="cplay" href="steam://run/${id}" data-act="launch" data-game="${g.id}" aria-label="Play ${esc(g.title)} in Steam" title="Play in Steam"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg></a>`;
+}
 function slot(g){
   const st = stats(g);
-  return `<button class="slot" data-act="open" data-id="${g.id}">
+  return `<div class="slotw"><button class="slot" data-act="open" data-id="${g.id}">
     ${coverHTML(g, {score:true})}
     <div><div class="lbl">${esc(g.title)}</div>
-    <div class="sub"><span>${LABEL[g.status]}</span>${actTag(g)}${isLive(g) ? (g.peak ? `<span>${esc(g.peak)}</span>` : '') : st.total ? `<span>${st.pct}%</span>` : ''}${achPct(g) !== null ? `<span class="achchip" title="${g.ach.done} of ${g.ach.total} achievements">${ICON.trophy}${achPct(g)}%</span>` : ''}${newTag(g)}</div></div>
-  </button>`;
+    <div class="sub"><span>${statusLabel(g)}</span>${actTag(g)}${isLive(g) ? (g.peak ? `<span>${esc(g.peak)}</span>` : '') : st.total ? `<span>${st.pct}%</span>` : ''}${achPct(g) !== null ? `<span class="achchip" title="${g.ach.done} of ${g.ach.total} achievements">${ICON.trophy}${achPct(g)}%</span>` : ''}${newTag(g)}</div></div>
+  </button>${cardPlay(g)}</div>`;
 }
 
 /* ---------- Library ---------- */
+const libSwitch = () => `<div class="seg" role="tablist" aria-label="Library view" style="margin-top:12px">
+  <button class="${view.lib !== 'wish' ? 'on' : ''}" data-act="lib-view" data-v="games" aria-selected="${view.lib !== 'wish'}">My games</button>
+  <button class="${view.lib === 'wish' ? 'on' : ''}" data-act="lib-view" data-v="wish" aria-selected="${view.lib === 'wish'}">Wishlist${wish && wish.items && wish.items.length ? `<span class="n">${wish.items.length}</span>` : ''}</button></div>`;
 function renderLibrary(){
+  if (view.lib === 'wish') return renderWishlist();
   const q = view.q.toLowerCase();
   const sorters = {
     title:(a,b) => a.title.localeCompare(b.title),
     score:(a,b) => b.rating - a.rating || a.title.localeCompare(b.title),
+    steam:(a,b) => ((revOf(b) || [-1])[0] - (revOf(a) || [-1])[0]) || a.title.localeCompare(b.title),
     recent:(a,b) => playedKey(b) - playedKey(a) || a.title.localeCompare(b.title),
     progress:(a,b) => stats(b).pct - stats(a).pct
   };
   const list = state.games.filter(g => (view.filter === 'all' || g.status === view.filter) && g.title.toLowerCase().includes(q)).sort(sorters[view.sort]);
   const count = s => s === 'all' ? state.games.length : state.games.filter(g => g.status === s).length;
+  const wrapped = count('done') + count('shelved');
   return `<div class="page">
     <div class="libhead">
-      <div><h1 class="h1">Library</h1><p class="lede" style="margin:0">${state.games.length} game${state.games.length === 1 ? '' : 's'}, scored out of 10.</p></div>
+      <div><h1 class="h1">Library</h1><p class="lede" style="margin:0">${state.games.length} game${state.games.length === 1 ? '' : 's'}, scored out of 10.${wrapped ? ` ${wrapped} wrapped up your way.` : ''}</p>${libSwitch()}</div>
       <div class="addgame"><input type="text" id="newTitle" placeholder="Add a game by title" aria-label="Game title"><button class="btn" data-act="add-game">Add game</button><button class="btn quiet" data-act="steam-import" ${importing ? 'disabled' : ''}>${importing ? 'Importing…' : 'Import from Steam'}</button></div>
     </div>
     <div class="libtools">
       <div class="seg" role="tablist" aria-label="Filter by status">${['all', ...STATUSES].map(s => `<button class="${view.filter === s ? 'on' : ''}" data-act="filter" data-f="${s}">${s === 'all' ? 'All' : LABEL[s]}<span class="n">${count(s)}</span></button>`).join('')}</div>
       <input type="search" class="search" id="search" placeholder="Search titles" value="${esc(view.q)}" aria-label="Search titles">
-      <select id="sort" aria-label="Sort">${[['title','Title A–Z'],['score','Highest score'],['recent','Recently played'],['progress','Most progress']].map(([v,l]) => `<option value="${v}" ${view.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+      <select id="sort" aria-label="Sort">${[['title','Title A–Z'],['score','Highest score'],['steam','Steam score'],['recent','Recently played'],['progress','Most progress']].map(([v,l]) => `<option value="${v}" ${view.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
     </div>
     ${list.length ? `<div class="shelf">${list.map(slot).join('')}</div>`
       : `<div class="empty"><b>${state.games.length ? 'No matches' : 'Your shelf is empty'}</b>${state.games.length ? 'Try another filter or search.' : 'Add your first game with the field above.'}</div>`}
   </div>`;
+}
+
+/* ---------- Wishlist ----------
+   Your Steam wishlist from the Worker (cached there for six hours, here for
+   thirty minutes). Cards open the store page; upcoming releases also show
+   in Continue's Coming up. Steam dates are midnight UTC, so they're read in UTC. */
+const WISH_KEY = 'gamelog_wish';
+let wish = (() => { try { return JSON.parse(localStorage.getItem(WISH_KEY)) || null; } catch(e) { return null; } })();
+let wishLoading = false, wishErr = '';
+async function fetchWish(force){
+  if (!syncOn() || wishLoading) return;
+  if (!force && wish && Date.now() - (wish.fetched || 0) < 30 * 60000) return;
+  wishLoading = true; wishErr = '';
+  if (view.lib === 'wish') refresh(false);
+  try {
+    const r = await api('/steam/wishlist' + (force ? '?fresh=1' : ''));
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(r.status === 404 && j.error === 'not found' ? 'Your Worker needs the updated gamelog-sync.js for the wishlist.' : (j.error || `Worker returned ${r.status}`));
+    wish = Object.assign(j, {fetched:Date.now()});
+    try { localStorage.setItem(WISH_KEY, JSON.stringify(wish)); } catch(e) {}
+  } catch(e) { wishErr = e.message === 'Failed to fetch' ? 'couldn\u2019t reach the Worker' : e.message; }
+  wishLoading = false; refresh();
+}
+const wishDay = x => x.date ? new Date(x.date * 1000).toISOString().slice(0, 10) : '';
+const wishSoon = x => x.soon || (x.date && x.date * 1000 > Date.now());
+const wishStore = x => `https://store.steampowered.com/app/${Math.floor(Number(x.id))}/`;
+function wishCover(x){
+  const url = /^https:\/\/[^\s"'<>]+$/.test(x.cover || '') ? x.cover : /^https:\/\/[^\s"'<>]+$/.test(x.header || '') ? x.header : '';
+  const h = hash(x.name), [a, b] = PALETTES[h % 8], ang = 20 + (h >> 4) % 140, xx = 15 + (h >> 9) % 70;
+  const bg = `radial-gradient(110% 70% at ${xx}% 8%,${b}cc 0%,transparent 58%),repeating-linear-gradient(${ang}deg,rgba(255,255,255,.045) 0 2px,transparent 2px 16px),linear-gradient(165deg,${a} 10%,#12152B 95%);`;
+  const rv = x.rv && x.rv[2] ? x.rv : null;
+  return `<div class="cover ${url ? 'img' : ''} ${url && url !== x.cover ? 'wide' : ''}" style="--bg:${bg}">
+    <div class="spine"></div>
+    ${url ? `<img class="art" src="${esc(url)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('img','wide');this.remove()">` : ''}
+    <div class="ct">${esc(x.name)}</div>
+    ${rv ? `<div class="srv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}">${THUMB}${rv[0]}%</div>` : ''}
+  </div>`;
+}
+function wishCard(x){
+  const soon = wishSoon(x), d = wishDay(x);
+  const when = soon ? (x.date && d ? `${fmtDate(d)}${daysBetween(localDate(), d) <= 60 ? ` \u00b7 ${countdown(d).toLowerCase()}` : ''}` : (x.soonText || 'Coming soon')) : '';
+  const price = x.free ? 'Free' : x.price ? (x.off ? `<span class="off">-${x.off}%</span><span>${esc(x.price)}</span>${x.was ? `<s>${esc(x.was)}</s>` : ''}` : esc(x.price)) : '';
+  return `<a class="slot wish" href="${esc(wishStore(x))}" target="_blank" rel="noopener noreferrer" title="Open ${esc(x.name)} on the Steam store">
+    ${wishCover(x)}
+    <div><div class="lbl">${esc(x.name)}</div>
+    <div class="sub">${soon ? `<span class="soon">${esc(when)}</span>` : price ? price : '<span>Out now</span>'}</div></div>
+  </a>`;
+}
+function renderWishlist(){
+  const head = (extra = '') => `<div class="libhead">
+      <div><h1 class="h1">Library</h1><p class="lede" style="margin:0">Games on your Steam wishlist, with release dates for the ones still coming.</p>${libSwitch()}</div>
+      ${extra}</div>`;
+  if (!syncOn()) return `<div class="page">${head()}<div class="empty"><b>Connect sync to load your wishlist</b>It comes from Steam through your Worker.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="sync">Go to Sync</button></div></div></div>`;
+  if (!wish) {
+    if (!wishLoading && !wishErr) fetchWish();
+    return `<div class="page">${head()}<div class="empty"><b>${wishErr ? 'Couldn\u2019t load your wishlist' : 'Loading your wishlist'}</b>${wishErr ? esc(wishErr) : 'Asking Steam\u2026'}${wishErr ? '<div class="actions" style="justify-content:center"><button class="btn" data-act="wish-refresh">Try again</button></div>' : ''}</div></div>`;
+  }
+  const items = wish.items || [], sort = view.wishSort || 'soon';
+  const tools = `<div class="addgame"><select id="wishSort" aria-label="Sort wishlist">${[['soon','Releasing soonest'],['order','Your wishlist order'],['added','Recently added'],['score','Steam score'],['sale','Biggest discount']].map(([v, l]) => `<option value="${v}" ${sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+    <button class="btn quiet" data-act="wish-refresh" ${wishLoading ? 'disabled' : ''}>${wishLoading ? 'Refreshing\u2026' : 'Refresh'}</button></div>`;
+  const note = wishErr || wish.err ? `<p class="wishnote"><span class="warnt">Couldn\u2019t refresh: ${esc(wishErr || wish.err)}</span></p>` : wish.t ? `<p class="wishnote">From Steam ${esc(agoText(wish.t))}.</p>` : '';
+  if (!items.length) return `<div class="page">${head(tools)}${note}<div class="empty"><b>Nothing on your wishlist</b>${wish.empty ? 'Steam returned an empty wishlist. If yours has games, set Steam > Profile > Privacy > Game details to Public.' : 'Steam had no store details for the games on it.'}</div></div>`;
+  const pri = x => x.pri > 0 ? x.pri : 1e9;
+  const by = {
+    soon:(a, b) => (a.date || 9e12) - (b.date || 9e12) || pri(a) - pri(b),
+    order:(a, b) => pri(a) - pri(b) || a.name.localeCompare(b.name),
+    added:(a, b) => (b.added || 0) - (a.added || 0),
+    score:(a, b) => ((b.rv || [-1])[0] - (a.rv || [-1])[0]) || a.name.localeCompare(b.name),
+    sale:(a, b) => (b.off || 0) - (a.off || 0) || pri(a) - pri(b)
+  }[sort] || ((a, b) => 0);
+  const shelf = list => `<div class="shelf">${list.map(wishCard).join('')}</div>`;
+  let body;
+  if (sort === 'soon') {
+    const up = items.filter(wishSoon).sort(by), out = items.filter(x => !wishSoon(x)).sort((a, b) => pri(a) - pri(b) || a.name.localeCompare(b.name));
+    body = `${up.length ? `<section class="wishgrp"><h2 class="h2">Coming soon</h2>${shelf(up)}</section>` : ''}${out.length ? `<section class="wishgrp"><h2 class="h2">Out now</h2>${shelf(out)}</section>` : ''}`;
+  } else body = shelf([...items].sort(by));
+  return `<div class="page">${head(tools)}${note}${body}</div>`;
 }
 
 /* ---------- Sync page ---------- */
@@ -2324,10 +2535,11 @@ function renderGame(g){
         <h1>${esc(g.title)}</h1>
         <div class="hero-row">
           ${playBtn(g)}
-          <select class="status-pick" data-f="status" data-rerender="1" aria-label="Status">${STATUSES.map(s => `<option value="${s}" ${g.status === s ? 'selected' : ''}>${LABEL[s]}</option>`).join('')}</select>
+          <select class="status-pick" data-f="status" data-rerender="1" aria-label="Status">${STATUSES.map(s => `<option value="${s}" ${g.status === s ? 'selected' : ''}>${s === g.status ? statusLabel(g) : LABEL[s]}</option>`).join('')}</select>
           ${isLive(g) ? liveStat(g) : ring(st)}
           ${achPct(g) !== null ? `<button data-act="section" data-s="achievements" aria-label="Open achievements" style="border:0;background:none;padding:0;color:inherit;text-align:left;cursor:pointer">${ring({total:g.ach.total, done:g.ach.done, pct:achPct(g)}, 'achievements')}</button>` : ''}
           ${pips(g)}
+          ${(rv => rv ? `<div class="steamrv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}"><b>${rv[0]}%</b><span>Steam \u00b7 ${esc(rv[1] || 'reviews')}</span></div>` : '')(revOf(g))}
           ${newTag(g, 'button')}
         </div>
       </div>
@@ -2348,8 +2560,61 @@ function sessLine(g){
   return `<p class="achlast">Last session: <b>${fmtDur(last.e - last.s)}</b> <span class="dim">· ${day}, ${fmtClock(last.s)} to ${fmtClock(last.e)}${g.sessions.length > 1 ? ` · ${fmtDur(total)} tracked over ${g.sessions.length} sessions` : ''}</span></p>`;
 }
 
+/* ---------- Wrapping a game up ----------
+   Reaching the finish line is a natural place to stop, so the game asks once
+   (Keep going hides it until the finish line changes). From any in-progress
+   game you can call it Finished, Done enough or Shelved with honor. */
+const lineKey = g => g.content ? (g.finish || 'beat') : 'quests';
+const atLine = g => { if (isLive(g) || !inProgress(g)) return false; const st = stats(g); return !!(st.total && st.pct >= 100 && !st.shelved); };
+const HONOR = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg>';
+function wrapAsk(g){
+  if (!atLine(g) || g.wrap.keep === lineKey(g)) return '';
+  const line = g.content ? FINISH_LABEL[g.finish || 'beat'] : 'your finish line';
+  return `<div class="wrapask" data-game="${g.id}"><p><b>You reached ${esc(line)}.</b> Anything past this is a bonus, not unfinished business.</p>
+    <div class="acts"><button class="btn sm" data-act="wrap" data-v="full" data-game="${g.id}">Call it finished</button><button class="btn quiet sm" data-act="wrap-keep" data-game="${g.id}">Keep going</button></div></div>`;
+}
+function wrapRow(g){
+  if (isLive(g) || !inProgress(g)) return '';
+  return `<div class="wraprow"><span>Wrapping up?</span>
+    <button class="btn quiet sm" data-act="wrap" data-v="full">Finished it</button>
+    <button class="btn quiet sm" data-act="wrap" data-v="enough">Done enough</button>
+    <button class="btn quiet sm" data-act="wrap" data-v="shelved">Shelve with honor</button></div>`;
+}
+function wrapCard(g){
+  const W = g.wrap, shelved = g.status === 'shelved', enough = g.status === 'done' && W.enough;
+  if (g.status !== 'done' && !shelved) return '';
+  const head = shelved ? 'Shelved with honor' : enough ? 'Done enough' : 'Finished';
+  const hint = shelved ? 'You set this one down on purpose. It stays in your Library, out of Continue, and it isn\u2019t a failure.'
+    : enough ? 'You stopped short of everything, on purpose. What\u2019s left is optional, not unfinished business.'
+    : 'You saw it through.';
+  return `<section class="panel wrapcard">
+    <h3>${HONOR}${head}${g.finished ? ` <span class="dim" style="font-size:14px;font-weight:500">\u00b7 ${fmtDate(g.finished)}</span>` : ''}</h3>
+    <p class="hint">${hint}</p>
+    ${shelved || enough ? `<label class="l">Why I stopped</label>
+    <div class="chips" role="group" aria-label="Why I stopped">${SHELF_WHY.map(w => `<button class="${W.why === w ? 'on' : ''}" data-act="wrap-why" data-v="${esc(w)}" aria-pressed="${W.why === w}">${esc(w)}</button>`).join('')}</div>` : ''}
+    <label class="l" for="w-best">Best moment</label>
+    <textarea id="w-best" data-f="wrap.best" placeholder="What you'll remember about it.">${esc(W.best)}</textarea>
+    ${shelved || enough ? `<label class="l" for="w-back">I'd come back for</label>
+    <input type="text" id="w-back" data-f="wrap.back" value="${esc(W.back)}" placeholder="A DLC, a big patch, a friend to play with\u2026">` : ''}
+    <div class="actions" style="margin-top:16px">
+      ${g.status === 'done' ? `<button class="btn quiet sm" data-act="wrap" data-v="${enough ? 'full' : 'enough'}">${enough ? 'Actually, I finished it' : 'Call it done enough instead'}</button>` : ''}
+      <button class="btn quiet sm" data-act="wrap-reopen">Pick it back up</button>
+    </div>
+  </section>`;
+}
+function setWrap(g, v){
+  g.status = v === 'shelved' ? 'shelved' : 'done';
+  g.wrap.enough = v === 'enough';
+  if (v === 'full') g.wrap.why = '';
+  if (!g.finished) g.finished = localDate();
+  save(); render();
+  toast(v === 'shelved' ? `${g.title} is shelved with honor` : v === 'enough' ? `${g.title}: done enough` : `${g.title} finished`);
+}
+
 function secSave(g){
   return `
+    ${wrapAsk(g)}
+    ${wrapCard(g)}
     <div class="played">
       <p><b>${since(g.lastPlayed)}</b>${g.lastPlayed ? ` <span class="dim">(${fmtDate(g.lastPlayed)})</span>` : ''}</p>
       <button class="btn quiet sm" data-act="played">I played today</button>
@@ -2375,7 +2640,8 @@ function secSave(g){
         ${isLive(g) ? `<div class="field"><label for="f-peak">Peak rank or milestone</label><input type="text" id="f-peak" data-f="peak" value="${esc(g.peak)}" placeholder="Diamond, Season 4 finisher…"></div>
         <div class="field"><label for="f-seasons">Seasons played</label><input type="number" id="f-seasons" min="0" step="1" data-f="seasons" data-num="1" value="${g.seasons || ''}"></div>` : ''}
       </div>
-    </div>`;
+    </div>
+    ${wrapRow(g)}`;
 }
 
 function secAch(g){
@@ -2612,13 +2878,114 @@ function secNews(g){
       const isNew = base && i.date > base;
       return `<article class="post ${isNew ? 'fresh' : ''}">
         <div class="ph"><span class="kind ${i.kind}">${i.kind === 'patch' ? 'Patch notes' : 'News'}</span>${isNew ? '<span class="newtag">New</span>' : ''}<span class="when">${day(i.date)}${i.label ? ' \u00b7 ' + esc(i.label) : ''}</span></div>
-        <h3>${safe(i.url) ? `<a href="${esc(safe(i.url))}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a>` : esc(i.title)}</h3>
+        <h3><button data-act="news-read" data-id="${esc(i.id)}">${esc(i.title)}</button></h3>
         ${i.excerpt ? `<p class="ex">${esc(i.excerpt)}</p>` : ''}
-        ${i.more && safe(i.url) ? `<a class="more" href="${esc(safe(i.url))}" target="_blank" rel="noopener noreferrer">Read the full post on Steam</a>` : ''}
+        <div class="acts"><button data-act="news-read" data-id="${esc(i.id)}">${i.more ? 'Read the full post' : 'Open post'}</button>${safe(i.url) ? `<a class="more" href="${esc(safe(i.url))}" target="_blank" rel="noopener noreferrer">On Steam</a>` : ''}</div>
       </article>`;
     }).join('')}</div>`
     : `<div class="empty"><b>${all.length ? 'No patch notes found' : 'Nothing posted yet'}</b>${all.length ? 'Switch to All to see announcements.' : `Steam has no news for ${esc(g.title)}.`}</div>`}
   </section>`;
+}
+
+/* ---------- Full-post reader ----------
+   Opens a news post over the page and draws its full text from blocks the
+   Worker made out of Steam's BBCode (see bbBlocks in gamelog-sync.js). Only
+   plain text, https links and https images are drawn, never Steam's markup.
+   Bodies are kept in memory for this visit; the list itself stays small. */
+const postCache = new Map();   // "appid:id" -> {state:'loading'|'ready'|'err', item, err}
+let reader = null;             // {gid, id}
+const httpsOnly = u => /^https:\/\/[^\s"'<>]+$/i.test(String(u || '')) ? u : '';
+function readerList(g){
+  const c = newsCache[g.steamId], f = view.newsFilter || 'all';
+  return ((c && c.items) || []).filter(i => f === 'all' || i.kind === 'patch');
+}
+function openReader(g, id){
+  reader = {gid:g.id, id};
+  document.documentElement.style.overflow = 'hidden';
+  renderReader(); loadPost(g, id);
+}
+function closeReader(){
+  const id = reader && reader.id; reader = null;
+  document.documentElement.style.overflow = '';
+  renderReader();
+  const back = id && document.querySelector(`.post [data-act="news-read"][data-id="${CSS.escape(id)}"]`);
+  if (back) back.focus({preventScroll:true});
+}
+function stepReader(dir){
+  if (!reader) return;
+  const g = game(reader.gid); if (!g) return;
+  const list = readerList(g), at = list.findIndex(i => i.id === reader.id), nx = list[at + dir];
+  if (!nx) return;
+  reader.id = nx.id; renderReader(true); loadPost(g, nx.id);
+}
+async function loadPost(g, id){
+  const k = g.steamId + ':' + id, c = postCache.get(k);
+  if (c && (c.state === 'ready' || c.state === 'loading')) return;
+  postCache.set(k, {state:'loading'}); renderReader();
+  try {
+    const r = await api(`/steam/post?appid=${g.steamId}&id=${encodeURIComponent(id)}`);
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(r.status === 404 && j.error === 'not found' ? 'Your Worker needs the updated gamelog-sync.js to show full posts here.' : (j.error || `Worker returned ${r.status}`));
+    postCache.set(k, {state:'ready', item:j});
+  } catch(e) {
+    postCache.set(k, {state:'err', err: e.message === 'Failed to fetch' ? 'Couldn\u2019t reach the Worker.' : e.message});
+  }
+  if (reader && reader.id === id) renderReader();
+}
+function runsHTML(r){
+  return (r || []).map(x => {
+    if (typeof x === 'string') return esc(x);
+    let h = esc(x.x);
+    if (x.b) h = `<b>${h}</b>`;
+    if (x.i) h = `<i>${h}</i>`;
+    const u = httpsOnly(x.u);
+    return u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${h}</a>` : h;
+  }).join('');
+}
+function blocksHTML(blocks){
+  return (blocks || []).map(b => {
+    switch (b.t) {
+      case 'h': { const t = 'h' + (2 + Math.min(3, Math.max(1, +b.l || 1))); return `<${t}>${runsHTML(b.r)}</${t}>`; }
+      case 'li': return `<p class="li ${b.n ? 'n' : ''} d${Math.min(3, +b.d || 1)}"${b.n ? ` data-n="${+b.n}"` : ''}>${runsHTML(b.r)}</p>`;
+      case 'img': { const u = httpsOnly(b.u); return u ? `<img src="${esc(u)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ''; }
+      case 'yt': return /^[\w-]{6,20}$/.test(b.id) ? `<a class="rdyt" href="https://www.youtube.com/watch?v=${b.id}" target="_blank" rel="noopener noreferrer"><img src="https://i.ytimg.com/vi/${b.id}/hqdefault.jpg" alt="" loading="lazy"><span>Watch on YouTube</span></a>` : '';
+      case 'hr': return '<hr>';
+      default: return `<p${b.q ? ' class="q"' : ''}>${runsHTML(b.r)}</p>`;
+    }
+  }).join('');
+}
+function renderReader(scrollTop){
+  const host = document.getElementById('rd');
+  if (!reader) { host.innerHTML = ''; return; }
+  const g = game(reader.gid); if (!g) { closeReader(); return; }
+  const list = readerList(g), at = list.findIndex(i => i.id === reader.id);
+  const base = (newsCache[g.steamId] && newsCache[g.steamId].items || []).find(i => i.id === reader.id) || {};
+  const c = postCache.get(g.steamId + ':' + reader.id) || {state:'loading'};
+  const it = c.state === 'ready' ? Object.assign({}, base, c.item) : base;
+  const day = it.date ? fmtDate(localDate(new Date(it.date * 1000))) : '';
+  const url = /^https?:\/\//.test(it.url || '') ? it.url : '';
+  const body = c.state === 'ready' ? (c.item.body && c.item.body.length ? blocksHTML(c.item.body) : `<p>${esc(it.excerpt || 'This post has no text.')}</p>`)
+    : c.state === 'err' ? `${it.excerpt ? `<p style="white-space:pre-line">${esc(it.excerpt)}</p>` : ''}<p class="dim">${esc(c.err)} ${url ? 'You can still read it on Steam.' : ''}</p>`
+    : `${it.excerpt ? `<p style="white-space:pre-line;color:var(--mist)">${esc(it.excerpt)}</p>` : ''}<p class="dim">Loading the full post\u2026</p>`;
+  const keep = !scrollTop && host.querySelector('.rdbody');
+  const y = keep ? keep.scrollTop : 0, hadFocus = host.contains(document.activeElement) ? document.activeElement.dataset.act : '';
+  host.innerHTML = `<div class="rdwrap"><div class="rdback" data-act="rd-close"></div>
+    <section class="rdsheet" role="dialog" aria-modal="true" aria-labelledby="rd-h">
+      <div class="rdtop">
+        <div class="grow"><span class="kind ${it.kind === 'patch' ? 'patch' : ''}">${it.kind === 'patch' ? 'Patch notes' : 'News'}</span><span>${esc(g.title)}${day ? ' \u00b7 ' + esc(day) : ''}</span></div>
+        <button class="rdnav" data-act="rd-prev" aria-label="Newer post" ${at > 0 ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="rdnav" data-act="rd-next" aria-label="Older post" ${at >= 0 && at < list.length - 1 ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+        <button class="rdx" data-act="rd-close" aria-label="Close">${ICON.x}</button>
+      </div>
+      <div class="rdbody">
+        <h2 id="rd-h">${esc(it.title || 'Post')}</h2>
+        <div class="rdtext">${body}</div>
+        ${url ? `<div class="rdfoot"><a class="btn quiet sm" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open on Steam</a></div>` : ''}
+      </div>
+    </section></div>`;
+  const nb = host.querySelector('.rdbody'); if (nb) nb.scrollTop = y;
+  const f = host.querySelector(hadFocus ? `[data-act="${hadFocus}"]:not(:disabled)` : '.rdx') || host.querySelector('.rdx');
+  if (f && (!keep || hadFocus)) f.focus({preventScroll:true});
 }
 
 function secStore(g){
@@ -2924,6 +3291,8 @@ document.addEventListener('click', e => {
     case 'back': { const from = view.gameId; go(() => { view.gameId = null; }, 'back', from); } break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
+    case 'lib-view': view.lib = el.dataset.v === 'wish' ? 'wish' : 'games'; render(); if (view.lib === 'wish') fetchWish(); break;
+    case 'wish-refresh': fetchWish(true); break;
     case 'goal': {
       const cur = goalSt(g, el.dataset.tab, el.dataset.id), before = stats(g).pct;
       setGoal(g, el.dataset.tab, el.dataset.id, cur === 'd' ? '' : 'd'); afterGoals(g);
@@ -2962,6 +3331,14 @@ document.addEventListener('click', e => {
     case 'ach-filter': view.achFilter = el.dataset.v; render(); break;
     case 'ach-refresh': fetchAch(g, {force:true}); break;
     case 'news-filter': view.newsFilter = el.dataset.v; render(); break;
+    case 'news-read': if (g) openReader(g, el.dataset.id); break;
+    case 'wrap': if (g) setWrap(g, el.dataset.v); break;
+    case 'wrap-keep': if (g) { g.wrap.keep = lineKey(g); save(); render(); } break;
+    case 'wrap-why': if (g) { g.wrap.why = g.wrap.why === el.dataset.v ? '' : el.dataset.v; save(); render(); } break;
+    case 'wrap-reopen': if (g) { g.status = 'playing'; g.wrap.enough = false; save(); render(); toast(`${g.title} is back in Continue`); } break;
+    case 'rd-close': closeReader(); break;
+    case 'rd-prev': stepReader(-1); break;
+    case 'rd-next': stepReader(1); break;
     case 'news-refresh': fetchNews(g, {force:true}); break;
     case 'store-refresh': fetchStore(g, {force:true}); break;
     case 'store-play': playTrailer(el, g); break;
@@ -3021,7 +3398,8 @@ document.addEventListener('pointerout', e => {
 
 document.addEventListener('change', e => {
   const el = e.target;
-  if (el.id === 'sort') { view.sort = el.value; try { localStorage.setItem(SORT_KEY, view.sort); } catch(e) {} render(); return; }
+  if (el.id === 'sort') { setSort(el.value); render(); return; }
+  if (el.id === 'wishSort') { view.wishSort = el.value; render(); return; }
   if (el.id === 'achSort') { view.achSort = el.value; render(); return; }
   if (el.id === 'gregion') { const V = goalView(); V.region = el.value; V.limit = GOAL_PAGE; render(); return; }
   if (el.id === 'gsw-region') { goalView().swRegion = el.value; return; }
@@ -3043,7 +3421,14 @@ document.addEventListener('change', e => {
     if (el.checked && stats(g).total && stats(g).pct === 100 && el.dataset.kind === 'item') toast(`Finish line reached in ${g.title}`);
     render(); return;
   }
-  if (el.dataset.f && (el.dataset.rerender || el.dataset.rerenderBlur || el.type === 'date')) { setPath(g, el.dataset.f, el.value.trim ? el.value.trim() : el.value); save(); render(); }
+  if (el.dataset.f && (el.dataset.rerender || el.dataset.rerenderBlur || el.type === 'date')) {
+    setPath(g, el.dataset.f, el.value.trim ? el.value.trim() : el.value);
+    if (el.dataset.f === 'status') {
+      if ((g.status === 'done' || g.status === 'shelved') && !g.finished) g.finished = localDate();
+      if (g.status !== 'done') g.wrap.enough = false;
+    }
+    save(); render();
+  }
 });
 
 /* Hovering a game starts decoding its big header art, so by the time you
@@ -3067,6 +3452,10 @@ document.addEventListener('input', e => {
 });
 
 document.addEventListener('keydown', e => {
+  if (reader) {
+    if (e.key === 'Escape') { closeReader(); return; }
+    if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) { stepReader(e.key === 'ArrowLeft' ? -1 : 1); return; }
+  }
   if (e.key === 'Escape' && ckOpen) { closeCheckin(); return; }
   if (e.key !== 'Enter') return;
   const el = e.target;
