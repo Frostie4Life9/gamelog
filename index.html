@@ -354,7 +354,7 @@ a.scorecard:hover{border-color:var(--line)}
 .sw.auto{width:auto;padding:0 12px;background:var(--raise);color:var(--mist);font-size:13px;font-weight:600}
 .sw.auto.on{color:var(--paper)}
 
-.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;background:var(--paper);color:var(--night);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;transition:opacity .2s,transform .2s;pointer-events:none;z-index:20}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;background:var(--paper);color:var(--night);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;transition:opacity .2s,transform .2s;pointer-events:none;z-index:320}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
 /* Responsive */
@@ -553,6 +553,81 @@ a.tl{text-decoration:none}
 .buildid{font-variant-numeric:tabular-nums;color:var(--dim);font-size:13px}
 .hist{margin:8px 0 0;padding-left:18px;color:var(--mist);font-size:14px}
 .hist code{color:var(--gold);margin-right:8px;font-size:12px}
+/* ---- Game Mode: a full-screen, cinematic way to browse the shelf ---- */
+.gm{position:fixed;inset:0;z-index:300;background:#090B18;color:var(--paper);overflow:hidden;isolation:isolate;display:flex;flex-direction:column;user-select:none;-webkit-user-select:none}
+.gm[hidden]{display:none}
+.gm-stage{position:absolute;inset:0;z-index:0;overflow:hidden}
+.gm-bg{position:absolute;inset:0;background-size:cover;background-position:center 28%;opacity:0;transform:scale(1.04);transition:opacity .55s cubic-bezier(.2,.8,.2,1),transform 6s ease-out}
+.gm-bg.on{opacity:1;transform:scale(1)}
+.gm-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease;pointer-events:none}
+.gm-vid.on{opacity:1}
+.gm-shade{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(9,11,24,.92) 0%,rgba(9,11,24,.62) 34%,rgba(9,11,24,.08) 66%),
+  linear-gradient(180deg,rgba(9,11,24,.55) 0%,transparent 18%,transparent 46%,rgba(9,11,24,.8) 70%,#090B18 100%)}
+.gm-top{position:relative;z-index:2;display:flex;align-items:center;gap:10px;padding:calc(14px + env(safe-area-inset-top)) clamp(16px,4vw,56px) 0}
+.gm-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-variation-settings:'wdth' 80,'opsz' 48;font-size:18px;margin-right:auto}
+.gm-brand small{font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-variation-settings:normal}
+.gm-seg{display:flex;gap:4px;background:rgba(9,11,24,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:4px}
+.gm-seg button{border:0;background:transparent;color:var(--mist);font-weight:600;font-size:13px;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.gm-seg button.on{background:var(--paper);color:var(--night)}
+.gm-ib{border:0;width:40px;height:40px;border-radius:999px;display:grid;place-items:center;background:rgba(9,11,24,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--paper);border:1px solid rgba(255,255,255,.08);flex:none}
+.gm-ib:hover{background:rgba(42,49,96,.85)}
+.gm-ib svg{width:18px;height:18px}
+.gm-info{position:relative;z-index:2;margin-top:auto;padding:0 clamp(16px,4vw,56px);max-width:min(760px,100%)}
+.gm-info>*{transition:opacity .35s cubic-bezier(.2,.8,.2,1),transform .35s cubic-bezier(.2,.8,.2,1)}
+.gm-info.swap>*{opacity:0;transform:translateY(10px)}
+.gm-now{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mint);margin-bottom:10px}
+.gm-now::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(98,214,184,.2)}
+.gm-title{margin:0 0 14px;font-size:clamp(40px,7vw,104px);line-height:.9;font-weight:800;font-variation-settings:'wdth' 75,'opsz' 96;letter-spacing:-.03em;text-wrap:balance;text-shadow:0 4px 40px rgba(0,0,0,.5)}
+.gm-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;font-size:14px;color:var(--mist);margin-bottom:14px}
+.gm-meta b{color:var(--paper);font-weight:700}
+.gm-meta .st{padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--paper);font-weight:600}
+.gm-meta .sc{color:var(--gold)}
+.gm-meta .rv.hi{color:var(--mint)}.gm-meta .rv.mid{color:var(--gold)}.gm-meta .rv.lo{color:var(--rose)}
+.gm-prog{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mist);margin-bottom:14px}
+.gm-prog i{display:block;width:160px;height:5px;border-radius:5px;background:rgba(255,255,255,.14);overflow:hidden}
+.gm-prog i span{display:block;height:100%;background:var(--gold);border-radius:5px}
+.gm-blurb{margin:0 0 20px;color:#C9CDEA;font-size:15px;line-height:1.55;max-width:60ch;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:0}
+.gm-act{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(18px,3vh,30px)}
+.gm-act .btn{padding:12px 22px;font-size:15px;text-decoration:none}
+.gm-act .btn svg{width:15px;height:15px;fill:currentColor}
+.gm-act .btn.quiet{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.gm-act .btn.quiet:hover{background:rgba(255,255,255,.2)}
+.gm-railw{position:relative;z-index:2}
+.gm-rail{display:flex;align-items:flex-end;gap:clamp(10px,1.2vw,16px);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;padding:34px clamp(22px,4vw,56px) calc(16px + env(safe-area-inset-bottom));scroll-padding-inline:clamp(16px,4vw,56px)}
+.gm-rail::-webkit-scrollbar{display:none}
+.gm-card{flex:0 0 auto;width:clamp(92px,8.5vw,138px);border:0;padding:0;background:transparent;scroll-snap-align:center;border-radius:var(--r-md);transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .28s;opacity:.62;transform-origin:50% 100%}
+.gm-card .cover{box-shadow:0 10px 24px -10px rgba(0,0,0,.8)}
+.gm-card .cover .ct{font-size:clamp(14px,1.4vw,20px);inset:auto 9px 10px 9px}
+.gm-card:hover{opacity:.9}
+.gm-card.on{opacity:1;transform:scale(1.12) translateY(-4px)}
+.gm-card.on .cover{box-shadow:0 0 0 3px var(--gold),0 16px 30px -10px rgba(0,0,0,.9)}
+.gm-card:focus-visible{outline:none}
+.gm-card:focus-visible .cover{box-shadow:0 0 0 3px var(--paper)}
+.gm-card.on:focus-visible .cover{box-shadow:0 0 0 3px var(--gold),0 0 0 6px rgba(245,182,63,.3),0 16px 30px -10px rgba(0,0,0,.9)}
+.gm-card .gm-dot{position:absolute;top:8px;left:8px;z-index:4;width:10px;height:10px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 3px rgba(9,11,24,.6)}
+.gm-card{position:relative}
+.gm-next{margin:0 0 20px;max-width:60ch;font-size:16px;line-height:1.5;color:var(--paper)}
+.gm-next b{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.gm-hint{position:absolute;right:clamp(16px,4vw,56px);bottom:calc(100% - 22px);display:flex;gap:16px;font-size:12px;color:var(--dim)}
+.gm-hint kbd{font:inherit;font-weight:700;color:var(--mist);padding:1px 6px;border-radius:5px;background:rgba(255,255,255,.08);margin-right:5px}
+.gm-empty{position:relative;z-index:2;margin:auto;text-align:center;color:var(--mist);padding:24px}
+.gm-empty b{display:block;color:var(--paper);font-size:20px;margin-bottom:6px}
+.gm-snd.on{color:var(--gold)}
+@media (hover:none),(max-width:760px){.gm-hint{display:none}}
+@media (hover:none){.gm-fs{display:none}}
+@media (max-width:760px){
+  .gm-top{flex-wrap:wrap;gap:8px}
+  .gm-brand small{display:none}
+  .gm-seg{order:3;width:100%;overflow-x:auto;scrollbar-width:none}
+  .gm-seg::-webkit-scrollbar{display:none}
+  .gm-blurb{-webkit-line-clamp:2;font-size:14px}
+  .gm-shade{background:linear-gradient(180deg,rgba(9,11,24,.6) 0%,transparent 22%,transparent 34%,rgba(9,11,24,.85) 62%,#090B18 100%)}
+  .gm-act .btn{padding:11px 18px}
+}
+@media (prefers-reduced-motion:reduce){.gm-bg{transform:none!important}}
+.navbtn.gmbtn{margin-top:6px;border:1px solid var(--line-soft)}
+.navbtn.gmbtn svg{color:var(--gold)}
 </style>
 <!-- suite:css v10 · shared by Kitchen, Grocery, Lift, DishLog, Protocol, Rail, Game Log, Playback — edit tools/suite.py in the kitchen repo, not here -->
 <style id="suite-css">
@@ -1070,6 +1145,7 @@ a.tl{text-decoration:none}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div id="ck"></div>
 <div id="rd"></div>
+<div id="gm" class="gm" hidden role="dialog" aria-modal="true" aria-label="Game Mode"></div>
 <div class="updbar" id="updbar" hidden role="status">
   <div class="updin"><span class="upddot"></span><span class="updtxt" id="updtxt">A new version is ready</span>
     <button class="updgo" id="updgo" type="button">Reload</button>
@@ -1084,6 +1160,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.02-a', note:'GAME MODE: a full-screen, cinematic way to browse your games. Covers run along the bottom, the selected game\u2019s art fills the screen, and after a moment its Steam trailer fades in (muted until you turn sound on). It shows your status, score, Steam score, hours, progress to your finish line and your Next step note, with Play and Details buttons. Views for Recently played, In progress, Backlog and Wrapped up. Arrow keys, a controller (A details, X play, Y sound, B exit, bumpers jump five), mouse wheel or swipes. Open it from the rail, the tab bar, the G key, or add #game-mode to the address to land straight in it. F goes full screen.'},
   {v:'2026.10.31-a', note:'READ POSTS IN THE APP: What\u2019s new opens any patch note or announcement in a full reader with headings, lists, images and video links, and arrows to step through posts. WRAP IT UP YOUR WAY: a new Shelved status (shelved with honor, kept out of Continue) and a Done enough option for finished games, with why you stopped, your best moment and what would bring you back. When a game in progress reaches its finish line, it asks once whether to call it finished. QUICK WINS: Play buttons on Library and Continue cards, your Library sort follows you across devices, Steam\u2019s review score sits next to your score (and there\u2019s a Steam score sort), and Library has a Wishlist view with release dates, prices and sales. Wishlist games releasing in the next 60 days show in Coming up. Your Worker needs the updated gamelog-sync.js for the reader, review scores and wishlist.'},
   {v:'2026.10.30-a', note:'READS YOUR SAVE: a small reader on your PC decrypts your Crimson Desert save (read-only) and sends Game Log what it finds. Main-story goals tick themselves, and the Goals page shows your next main quest and what your journal has in progress. A tick from your save never overrides you: untick it and it stays unticked.'},
   {v:'2026.10.27-h', note:'COVER LANDS CLEANLY: the flying cover measured its landing spot while the new screen was still 8px low from its fade-up, so it touched down a little short and snapped up at the end. It now measures first, so it lands exactly on the header cover (and on its shelf spot when going back).'},
@@ -2239,6 +2316,7 @@ function renderChrome(){
     <div class="navlist">
       <button class="navbtn ${navOn('continue')}" data-act="tab" data-tab="continue">${ICON.play}Continue<span class="count">${active || ''}</span></button>
       <button class="navbtn ${navOn('library')}" data-act="tab" data-tab="library">${ICON.shelf}Library<span class="count">${state.games.length}</span></button>
+      <button class="navbtn gmbtn" data-act="game-mode" title="Game Mode (G)">${GM_ICON}Game Mode</button>
     </div>
     ${ups.length ? `<div><p class="rail-sub">Coming up</p><div class="rail-up">${ups.map(({g,r}) => `
       <button data-act="open" data-id="${g.id}" data-section="releases"><div class="d">${new Date(r.date + 'T00:00').getDate()}<small>${fmtDate(r.date,{month:'short'})}</small></div>
@@ -2249,6 +2327,7 @@ function renderChrome(){
   document.getElementById('tabbar').innerHTML = `
     <button class="${navOn('continue')}" data-act="tab" data-tab="continue">${ICON.play}Continue</button>
     <button class="${navOn('library')}" data-act="tab" data-tab="library">${ICON.shelf}Library</button>
+    <button data-act="game-mode">${GM_ICON}Game Mode</button>
     <button class="${navOn('sync')}" data-act="tab" data-tab="sync">${ICON.sync}Sync</button>`;
 }
 
@@ -3325,6 +3404,7 @@ document.addEventListener('click', e => {
     case 'ck-skip': closeCheckin(); break;
     case 'ck-save': saveCheckin(); break;
     case 'add-game': addGame(); break;
+    case 'game-mode': gmOpen(); break;
     case 'launch': toast('Opening in Steam\u2026'); watchLaunch(g); break; // the link itself does the launch
     case 'steam-import': importSteam(); break;
     case 'steam-import-all': importSteam(true); break;
@@ -3477,9 +3557,392 @@ document.getElementById('importFile').addEventListener('change', async e => {
   e.target.value = '';
 });
 
+/* ---------- Game Mode ----------
+   A full-screen way to browse the shelf: covers along the bottom, the
+   selected game's art fills the screen, and after a moment its Steam trailer
+   fades in, muted. Works with a mouse, keys, a controller or swipes. Opens
+   from the rail, the tab bar, the G key, or #game-mode in the address. */
+const GM_KEY = 'gamelog_gm';
+const GM_FILTERS = [['recent','Recently played'],['progress','In progress'],['backlog','Backlog'],['wrapped','Wrapped up']];
+const GM_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="12" rx="2"/><path d="M10 7.8v4.4l3.8-2.2z" fill="currentColor"/><path d="M5 20h3M10.5 20h3M16 20h3"/></svg>';
+const GM_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>';
+const GM_SND = ['<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>',
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg>'];
+const GM_FS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+const gm = {open:false, filter:'recent', muted:true, list:[], i:0, flip:0, vid:null, hls:null, tok:0, loadT:0, swapT:0, lastFocus:null,
+            pad:0, padSeen:false, padPrev:null, padDir:0, padNext:0, tried:new Set(), sx:null};
+try { const s = JSON.parse(localStorage.getItem(GM_KEY)); if (s) { if (GM_FILTERS.some(f => f[0] === s.filter)) gm.filter = s.filter; gm.muted = s.muted !== false; } } catch(e) {}
+function gmSave(){ try { localStorage.setItem(GM_KEY, JSON.stringify({filter:gm.filter, muted:gm.muted})); } catch(e) {} }
+const gmHost = () => document.getElementById('gm');
+const gmCur = () => gm.list[gm.i] || null;
+const gmUrl = u => /^https:\/\/[^\s"'<>()\\]+$/.test(u || '') ? u : '';
+const gmMotion = () => !reduced.matches && !!Element.prototype.animate;
+const gmQuietData = () => !!(navigator.connection && navigator.connection.saveData);
+
+function gmList(){
+  const gs = state.games, now = g => !!(playNow && g.steamId && playNow.a === g.steamId);
+  const pick = gm.filter === 'progress' ? gs.filter(g => inProgress(g) || liveShown(g) || now(g))
+    : gm.filter === 'backlog' ? gs.filter(g => g.status === 'backlog')
+    : gm.filter === 'wrapped' ? gs.filter(g => g.status === 'done' || g.status === 'shelved' || g.status === 'dropped')
+    : gs.slice();
+  return pick.sort((a, b) => playedKey(b) - playedKey(a) || a.title.localeCompare(b.title));
+}
+// Big art: Steam's wide hero, else a screenshot or header from the store page, else the cover
+function gmArt(g){
+  const c = g.steamId && storeCache[g.steamId], d = c && c.data;
+  return gmUrl(g.hero) || (d && d.shots && d.shots[0] && gmUrl(d.shots[0].full)) || (d && gmUrl(d.header)) || gmUrl(g.cover);
+}
+function gmTrailers(g){
+  const c = g.steamId && storeCache[g.steamId], d = c && c.data;
+  return d && Array.isArray(d.trailers) ? d.trailers.filter(t => gmUrl(t.mp4) || gmUrl(t.webm) || gmUrl(t.hls)) : [];
+}
+const gmHours = h => h >= 10 ? `${Math.round(h)}h` : `${Math.round(h * 10) / 10}h`;
+
+function gmInfoHTML(g){
+  const now = !!(playNow && g.steamId && playNow.a === g.steamId);
+  const st = stats(g), rv = revOf(g), ap = achPct(g);
+  const c = g.steamId && storeCache[g.steamId], d = c && c.data;
+  const meta = [
+    `<span class="st">${esc(statusLabel(g))}</span>`,
+    g.rating ? `<span class="sc"><b class="sc">${g.rating}</b>/10 · ${SCORE_WORD[g.rating]}</span>` : '',
+    rv ? `<span class="rv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}">Steam ${rv[0]}%</span>` : '',
+    g.hours ? `<span><b>${gmHours(g.hours)}</b> played</span>` : '',
+    g.lastPlayed ? `<span>${esc(since(g.lastPlayed))}</span>` : '',
+    ap !== null ? `<span>${ap}% achievements</span>` : ''
+  ].filter(Boolean).join('');
+  const prog = st.total && !isLive(g) && !st.shelved ? `<div class="gm-prog"><i><span style="width:${st.pct}%"></span></i>${st.pct}% to your finish line</div>` : '';
+  const next = (g.note && (g.note.next || g.note.where) || '').trim();
+  const line = next ? `<p class="gm-next"><b>${g.note.next ? 'Next step' : 'Where you were'}</b>${esc(next)}</p>`
+    : d && d.short ? `<p class="gm-blurb">${esc(d.short)}</p>` : '';
+  const id = Math.floor(Number(g.steamId));
+  const play = CAN_LAUNCH && id > 0 && !now ? `<a class="btn play" href="steam://run/${id}" data-gm="play">${GM_PLAY}Play</a>` : '';
+  const manual = (reduced.matches || gmQuietData()) && gmTrailers(g).length;
+  return `${now ? `<div class="gm-now">Playing now · since ${esc(fmtClock(playNow.s))}</div>` : ''}
+    <h2 class="gm-title">${esc(g.title)}</h2>
+    <div class="gm-meta">${meta}</div>${prog}${line}
+    <div class="gm-act">${play}<button class="btn ${play ? 'quiet' : ''}" type="button" data-gm="details">Details</button>${manual ? `<button class="btn quiet" type="button" data-gm="trailer">Watch trailer</button>` : ''}</div>`;
+}
+
+function gmRender(){
+  const host = gmHost();
+  gmStopVid();
+  gm.list = gmList(); gm.i = 0;
+  const pad = gm.padSeen;
+  host.innerHTML = `
+    <div class="gm-stage"><div class="gm-bg"></div><div class="gm-bg"></div><div class="gm-shade"></div></div>
+    <div class="gm-top">
+      <div class="gm-brand">${ICON.logo}<span>Game Log <small>Game Mode</small></span></div>
+      <div class="gm-seg" role="tablist" aria-label="Which games">${GM_FILTERS.map(([k, l]) => `<button type="button" role="tab" aria-selected="${gm.filter === k}" class="${gm.filter === k ? 'on' : ''}" data-gm="filter" data-v="${k}">${l}</button>`).join('')}</div>
+      <button class="gm-ib gm-snd" type="button" data-gm="mute"></button>
+      ${document.fullscreenEnabled ? `<button class="gm-ib gm-fs" type="button" data-gm="fs" aria-label="Full screen" title="Full screen (F)">${GM_FS}</button>` : ''}
+      <button class="gm-ib" type="button" data-gm="close" aria-label="Exit Game Mode" title="Exit (Esc)">${ICON.x}</button>
+    </div>
+    ${gm.list.length ? `<div class="gm-info"></div>
+    <div class="gm-railw">
+      <div class="gm-hint" aria-hidden="true">${pad
+        ? '<span><kbd>A</kbd>Details</span><span><kbd>X</kbd>Play</span><span><kbd>Y</kbd>Sound</span><span><kbd>B</kbd>Exit</span>'
+        : '<span><kbd>← →</kbd>Browse</span><span><kbd>Enter</kbd>Details</span><span><kbd>P</kbd>Play</span><span><kbd>M</kbd>Sound</span><span><kbd>Esc</kbd>Exit</span>'}</div>
+      <div class="gm-rail" role="listbox" aria-label="Games">${gm.list.map((g, k) => `<button type="button" class="gm-card" role="option" aria-selected="false" tabindex="-1" data-gm="pick" data-i="${k}" aria-label="${esc(g.title)}">${coverHTML(g, {bar:false})}${playNow && g.steamId && playNow.a === g.steamId ? '<span class="gm-dot" title="Playing now"></span>' : ''}</button>`).join('')}</div>
+    </div>`
+    : `<div class="gm-empty"><b>Nothing here yet</b>No games in ${esc(GM_FILTERS.find(f => f[0] === gm.filter)[1].toLowerCase())}. Try another view.</div>`}`;
+  gmSnd();
+  if (gm.list.length) gmSelect(0, {first:true});
+  else { const p = gmPalette(null); host.querySelector('.gm-bg').style.backgroundImage = p; host.querySelector('.gm-bg').classList.add('on'); }
+}
+function gmPalette(g){
+  const [a, b] = g ? paletteFor(g) : ['#2A3160', '#3B2A6B'];
+  return `radial-gradient(70% 90% at 72% 18%,${b}88,transparent 70%),linear-gradient(160deg,${a},#090B18 80%)`;
+}
+
+function gmSelect(i, o = {}){
+  const host = gmHost();
+  if (!gm.list.length) return;
+  i = Math.max(0, Math.min(gm.list.length - 1, i));
+  if (i === gm.i && !o.first) return;
+  gm.i = i;
+  const g = gm.list[i];
+  const old = host.querySelector('.gm-card.on');
+  if (old) { old.classList.remove('on'); old.setAttribute('aria-selected', 'false'); old.tabIndex = -1; }
+  const card = host.querySelector(`.gm-card[data-i="${i}"]`);
+  if (card) {
+    card.classList.add('on'); card.setAttribute('aria-selected', 'true'); card.tabIndex = 0;
+    if (o.focus !== false && (o.first || host.contains(document.activeElement))) card.focus({preventScroll:true});
+    const rail = card.parentElement, x = card.offsetLeft - (rail.clientWidth - card.offsetWidth) / 2;
+    rail.scrollTo({left:Math.max(0, x), behavior:o.first || !gmMotion() ? 'auto' : 'smooth'});
+  }
+  gmStopVid();
+  gmBg(g);
+  gmInfo(g, o.first);
+  // warm the neighbours' art so stepping along never waits on a download
+  [gm.list[i - 1], gm.list[i + 1]].forEach(n => { const u = n && gmArt(n); if (u && !warmed.has(u)) { warmed.add(u); const im = new Image(); im.src = u; } });
+  clearTimeout(gm.loadT);
+  gm.loadT = setTimeout(() => gmLoad(g), o.first ? 300 : 450);
+}
+function gmStep(n){ if (gm.list.length) gmSelect(gm.i + n); }
+
+function gmBg(g){
+  const bgs = gmHost().querySelectorAll('.gm-bg'); if (bgs.length < 2) return;
+  const u = gmArt(g), css = u ? `url("${u}")` : gmPalette(g);
+  const show = () => {
+    if (!gm.open || gmCur() !== g) return;
+    const on = bgs[0].classList.contains('on') ? bgs[0] : bgs[1].classList.contains('on') ? bgs[1] : null;
+    if (on && on.dataset.css === css) return;
+    const next = on === bgs[0] ? bgs[1] : bgs[0];
+    next.style.backgroundImage = css; next.dataset.css = css;
+    next.classList.remove('on'); void next.offsetWidth; next.classList.add('on');
+    if (on) on.classList.remove('on');
+  };
+  if (u) { const im = new Image(); im.src = u; (im.decode ? im.decode() : Promise.resolve()).then(show, show); } else show();
+}
+function gmInfo(g, first, quiet){
+  const box = gmHost().querySelector('.gm-info'); if (!box) return;
+  const html = gmInfoHTML(g);
+  const had = box.contains(document.activeElement) ? document.activeElement.dataset.gm : '';
+  const put = () => { box.innerHTML = html; if (had) { const f = box.querySelector(`[data-gm="${had}"]`); if (f) f.focus({preventScroll:true}); } };
+  clearTimeout(gm.swapT);
+  if (first || quiet || !gmMotion()) { box.classList.remove('swap'); put(); return; }
+  box.classList.add('swap');
+  gm.swapT = setTimeout(() => { put(); requestAnimationFrame(() => requestAnimationFrame(() => box.classList.remove('swap'))); }, 150);
+}
+
+// After the selection settles: fetch the store page if this device doesn't have it, then roll the trailer
+async function gmLoad(g){
+  const tok = ++gm.tok;
+  const c = g.steamId && storeCache[g.steamId];
+  if (g.steamId && syncOn() && !gm.tried.has(g.steamId) && (!c || !c.data || Date.now() - (c.fetched || 0) > STORE_TTL)) {
+    gm.tried.add(g.steamId);
+    await fetchStore(g);
+    if (tok !== gm.tok || !gm.open || gmCur() !== g) return;
+    gmInfo(g, false, true);
+    gmBg(g);
+  }
+  await new Promise(r => setTimeout(r, 900));
+  if (tok !== gm.tok || !gm.open || gmCur() !== g) return;
+  if (!reduced.matches && !gmQuietData()) gmTrailer(g);
+}
+function gmTrailer(g){
+  if (!gm.open || document.hidden || gm.vid) return;
+  const t = gmTrailers(g)[0]; if (!t) return;
+  const stage = gmHost().querySelector('.gm-stage'); if (!stage) return;
+  const v = document.createElement('video');
+  v.className = 'gm-vid'; v.muted = gm.muted; v.playsInline = true; v.preload = 'auto'; v.disablePictureInPicture = true;
+  v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+  if (gmUrl(t.thumb)) v.poster = t.thumb;
+  stage.insertBefore(v, stage.querySelector('.gm-shade'));
+  gm.vid = v;
+  v.addEventListener('playing', () => { if (gm.vid === v) v.classList.add('on'); });
+  v.addEventListener('ended', () => { if (gm.vid === v) gmStopVid(); });   // back to the still art when it finishes
+  const srcs = [t.mp4, t.webm].map(gmUrl).filter(Boolean);
+  const fail = () => { if (gm.vid === v) gmStopVid(); };
+  const nextSrc = () => {
+    if (gm.vid !== v) return;
+    const s = srcs.shift();
+    if (s) { v.src = s; gmPlayVid(v); }
+    else gmHlsPlay(v, gmUrl(t.hls), fail);
+  };
+  v.addEventListener('error', nextSrc);
+  nextSrc();
+}
+function gmPlayVid(v){
+  const p = v.play(); if (!p) return;
+  p.catch(() => {   // sound not allowed yet: go quiet rather than show nothing
+    if (gm.vid !== v || v.muted) return;
+    v.muted = gm.muted = true; gmSnd(); v.play().catch(() => {});
+  });
+}
+async function gmHlsPlay(v, url, fail){
+  if (!url) return fail();
+  v.removeAttribute('src');
+  if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = url; gmPlayVid(v); return; }   // Safari, iOS
+  try {
+    const Hls = await loadHls();
+    if (gm.vid !== v) return;
+    if (!Hls || !Hls.isSupported()) return fail();
+    const h = gm.hls = new Hls({capLevelToPlayerSize:true});
+    h.on(Hls.Events.ERROR, (e, d) => { if (d.fatal) fail(); });
+    h.on(Hls.Events.MANIFEST_PARSED, () => { if (gm.vid === v) gmPlayVid(v); });
+    h.loadSource(url); h.attachMedia(v);
+  } catch(e) { fail(); }
+}
+function gmStopVid(){
+  gm.tok++;
+  if (gm.hls) { try { gm.hls.destroy(); } catch(e) {} gm.hls = null; }
+  const v = gm.vid; gm.vid = null;
+  if (!v) return;
+  v.classList.remove('on');
+  const drop = () => { try { v.pause(); v.removeAttribute('src'); v.load(); } catch(e) {} v.remove(); };
+  if (gmMotion() && gm.open) setTimeout(drop, 500); else drop();
+}
+function gmSnd(){
+  const b = gmHost().querySelector('.gm-snd'); if (!b) return;
+  b.innerHTML = GM_SND[gm.muted ? 0 : 1];
+  b.classList.toggle('on', !gm.muted);
+  b.setAttribute('aria-pressed', String(!gm.muted));
+  b.setAttribute('aria-label', gm.muted ? 'Trailer sound off' : 'Trailer sound on');
+  b.title = (gm.muted ? 'Sound off' : 'Sound on') + ' (M)';
+}
+function gmMute(){
+  gm.muted = !gm.muted; gmSave(); gmSnd();
+  if (gm.vid) { gm.vid.muted = gm.muted; if (!gm.muted) gmPlayVid(gm.vid); }
+  else if (!gm.muted) { const g = gmCur(); if (g) gmTrailer(g); }
+}
+function gmFs(){
+  if (!document.fullscreenEnabled) return;
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  else gmHost().requestFullscreen().catch(() => {});
+}
+function gmLaunch(byKey){
+  const g = gmCur(); if (!g) return;
+  const id = Math.floor(Number(g.steamId));
+  if (!CAN_LAUNCH || !(id > 0)) { toast(id > 0 ? 'Play works on your PC' : 'Only Steam games can launch from here'); return; }
+  if (playNow && playNow.a === id) { toast(`${g.title} is already running`); return; }
+  if (byKey) location.href = `steam://run/${id}`;
+  toast('Opening in Steam…'); watchLaunch(g);
+}
+function gmDetails(){
+  const g = gmCur(); if (!g) return;
+  gmClose();
+  view.art = null;
+  go(() => { view.gameId = g.id; view.section = 'save'; view.goals = null; }, 'open');
+  fetchAch(g); if (g.content) { loadPack(g); pullSaveProgress(g); }
+}
+
+function gmOpen(){
+  if (gm.open) return;
+  if (reader) closeReader();
+  if (ckOpen) closeCheckin();
+  const host = gmHost();
+  gm.open = true; gm.lastFocus = document.activeElement; gm.padPrev = null;
+  host.hidden = false;
+  document.documentElement.style.overflow = 'hidden';
+  try { if (location.hash !== '#game-mode') history.pushState({gm:1}, '', location.pathname + location.search + '#game-mode'); } catch(e) {}
+  gmRender();
+  if (gmMotion()) host.animate([{opacity:0, transform:'scale(1.015)'}, {opacity:1, transform:'none'}], {duration:280, easing:EASE});
+  gmPadWatch();
+}
+// Closing undoes the history entry opening added, so the phone back button and the X agree
+function gmClose(){
+  if (!gm.open) return;
+  gmShut();
+  try {
+    if (history.state && history.state.gm) history.back();
+    else if (location.hash === '#game-mode') history.replaceState(null, '', location.pathname + location.search);
+  } catch(e) {}
+}
+function gmShut(){
+  if (!gm.open) return;
+  gm.open = false;
+  clearTimeout(gm.loadT); clearTimeout(gm.swapT); cancelAnimationFrame(gm.pad); gm.pad = 0;
+  gmStopVid();
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  const host = gmHost();
+  const fin = () => { if (gm.open) return; host.hidden = true; host.innerHTML = ''; };
+  document.documentElement.style.overflow = '';
+  if (gmMotion()) host.animate([{opacity:1}, {opacity:0}], {duration:200, easing:EASE}).finished.then(fin, fin); else fin();
+  const f = gm.lastFocus; gm.lastFocus = null;
+  if (f && f.isConnected && f.focus) f.focus({preventScroll:true});
+}
+window.addEventListener('popstate', () => {
+  if (gm.open && !(history.state && history.state.gm)) gmShut();
+  else if (!gm.open && history.state && history.state.gm) gmOpen();
+});
+
+/* Controller: d-pad or left stick to browse (holds repeat), A details, X play,
+   Y sound, B exit, bumpers jump five. Only polls while Game Mode is open and a
+   controller has spoken up. */
+function gmPadWatch(){
+  if (!gm.open || gm.pad) return;
+  const any = navigator.getGamepads && Array.from(navigator.getGamepads()).some(p => p && p.connected);
+  if (any || gm.padSeen) { gm.padSeen = true; gm.pad = requestAnimationFrame(gmPadLoop); }
+}
+window.addEventListener('gamepadconnected', () => { const was = gm.padSeen; gm.padSeen = true; if (gm.open) { gmPadWatch(); if (!was) { const h = gmHost().querySelector('.gm-hint'); if (h) h.innerHTML = '<span><kbd>A</kbd>Details</span><span><kbd>X</kbd>Play</span><span><kbd>Y</kbd>Sound</span><span><kbd>B</kbd>Exit</span>'; } } });
+function gmPadLoop(){
+  gm.pad = 0;
+  if (!gm.open) return;
+  gm.pad = requestAnimationFrame(gmPadLoop);
+  if (document.hidden) return;
+  const p = Array.from(navigator.getGamepads ? navigator.getGamepads() : []).find(x => x && x.connected);
+  if (!p) return;
+  const held = p.buttons.map(b => !!(b && b.pressed));
+  if (!gm.padPrev) { gm.padPrev = held; return; }   // a button already down when we opened doesn't count
+  const edge = i => held[i] && !gm.padPrev[i];
+  const ax = p.axes[0] || 0, now = performance.now();
+  const dir = held[15] || ax > .55 ? 1 : held[14] || ax < -.55 ? -1 : 0;
+  if (!dir) gm.padDir = 0;
+  else if (dir !== gm.padDir) { gm.padDir = dir; gm.padNext = now + 380; gmStep(dir); }
+  else if (now >= gm.padNext) { gm.padNext = now + 110; gmStep(dir); }
+  const acts = [[0, gmDetails], [1, gmClose], [2, () => gmLaunch(true)], [3, gmMute], [4, () => gmStep(-5)], [5, () => gmStep(5)]];
+  gm.padPrev = held;
+  for (const [i, fn] of acts) if (edge(i)) { fn(); break; }
+}
+
+(() => {
+  const host = gmHost();
+  host.addEventListener('click', e => {
+    const el = e.target.closest('[data-gm]'); if (!el) return;
+    switch (el.dataset.gm) {
+      case 'pick': { const i = +el.dataset.i; if (i === gm.i) gmDetails(); else gmSelect(i); break; }
+      case 'filter': if (gm.filter !== el.dataset.v) { gm.filter = el.dataset.v; gmSave(); gmRender(); } break;
+      case 'mute': gmMute(); break;
+      case 'fs': gmFs(); break;
+      case 'close': gmClose(); break;
+      case 'details': gmDetails(); break;
+      case 'play': gmLaunch(false); break;   // the link itself does the launch
+      case 'trailer': { const g = gmCur(); if (g) gmTrailer(g); break; }
+    }
+  });
+  // Swipe the big picture sideways to step through games (the cover rail scrolls on its own)
+  host.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'mouse' || e.target.closest('.gm-rail,.gm-top,button,a')) { gm.sx = null; return; }
+    gm.sx = {x:e.clientX, y:e.clientY, t:performance.now()};
+  }, {passive:true});
+  host.addEventListener('pointerup', e => {
+    const s = gm.sx; gm.sx = null; if (!s) return;
+    const dx = e.clientX - s.x, dy = e.clientY - s.y;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5 && performance.now() - s.t < 800) gmStep(dx < 0 ? 1 : -1);
+  }, {passive:true});
+  host.addEventListener('pointercancel', () => { gm.sx = null; }, {passive:true});
+  // Vertical mouse wheel over the rail moves it sideways
+  host.addEventListener('wheel', e => {
+    const rail = e.target.closest('.gm-rail'); if (!rail || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault(); rail.scrollLeft += e.deltaY;
+  }, {passive:false});
+  document.addEventListener('keydown', e => {
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable;
+    if (!gm.open) {
+      if ((e.key === 'g' || e.key === 'G') && !typing && !e.ctrlKey && !e.metaKey && !e.altKey && !reader && !ckOpen && !document.querySelector('.sx-ideas:not([hidden])')) { e.preventDefault(); gmOpen(); }
+      return;
+    }
+    if (e.ctrlKey || e.metaKey || e.altKey || e.key === 'Tab') return;
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    const onCard = !!e.target.closest('.gm-card');
+    let used = true;
+    if (k === 'ArrowRight' || k === 'ArrowDown') gmStep(1);
+    else if (k === 'ArrowLeft' || k === 'ArrowUp') gmStep(-1);
+    else if (k === 'PageDown') gmStep(5);
+    else if (k === 'PageUp') gmStep(-5);
+    else if (k === 'Home') gmSelect(0);
+    else if (k === 'End') gmSelect(gm.list.length - 1);
+    else if (k === 'Escape' || k === 'Backspace') gmClose();
+    else if (k === 'Enter' && (onCard || !e.target.closest('#gm button,#gm a'))) gmDetails();
+    else if (k === 'p') gmLaunch(true);
+    else if (k === 'm') gmMute();
+    else if (k === 'f') gmFs();
+    else used = false;
+    if (used) { e.preventDefault(); e.stopImmediatePropagation(); }
+    if (/^Arrow|^Page|^Home$|^End$/.test(k)) { const c = gmHost().querySelector('.gm-card.on'); if (c && document.activeElement !== c) c.focus({preventScroll:true}); }
+  }, true);
+  // Trailers stop when you leave the tab and pick back up when you return
+  document.addEventListener('visibilitychange', () => {
+    if (!gm.open || !gm.vid) return;
+    if (document.hidden) gm.vid.pause(); else gmPlayVid(gm.vid);
+  });
+})();
+
 render();
 pull();
 loadIndex();
+if (location.hash === '#game-mode') gmOpen();
 setInterval(() => { if (document.visibilityState === 'visible') pullPlay(); }, 60000);
 setInterval(() => document.querySelectorAll('[data-sync-status]').forEach(el => el.textContent = syncText()), 30000);
 
