@@ -148,7 +148,7 @@ const ASSET_BASE = 'https://shared.akamai.steamstatic.com/store_item_assets/';
 const MIN = 60000, HOUR = 60 * MIN, DAY = 24 * HOUR;
 const LIB_MAX_AGE = 10 * MIN;            // owned-games list
 const KINDS = ['store', 'ach', 'news'];
-const COST = { store: 4, ach: 3, news: 1 }; // worst-case Steam calls per refresh
+const COST = { store: 5, ach: 3, news: 1 }; // worst-case Steam calls per refresh
 const DEMAND_TTL = { store: 3 * DAY, ach: 30 * MIN, news: HOUR }; // when you open a game
 const RETRY_AFTER_ERROR = 2 * HOUR;
 const DEFAULT_BUDGET = 40;
@@ -575,17 +575,28 @@ function trailerSrc(m) {
 async function storeData(net, appid) {
   const [det, rev] = await Promise.all([
     net.get(`https://store.steampowered.com/api/appdetails?appids=${appid}&l=english&cc=US`),
-    net.get(`https://store.steampowered.com/appreviews/${appid}?json=1&language=all&purchase_type=all&num_per_page=0&filter=summary`)
+    net.get(`https://store.steampowered.com/appreviews/${appid}?json=1&language=all&purchase_type=all&review_type=all&num_per_page=0&filter=all`)
   ]);
   if (!det.ok) throw new StErr(`Steam returned ${det.status}`, 502);
   const d = det.j && det.j[appid] && det.j[appid].success && det.j[appid].data;
   if (!d) throw new StErr('Steam has no store page for this game (it may be delisted or region-locked)', 404);
 
   const qs = rev.j && rev.j.query_summary;
-  const reviews = qs && qs.total_reviews ? {
+  let reviews = qs && qs.total_reviews ? {
     label: qs.review_score_desc || '', total: qs.total_reviews,
     pct: Math.round(qs.total_positive / qs.total_reviews * 100)
   } : null;
+  // appreviews often comes back empty to Cloudflare's servers; the store
+  // browse API (the one that already supplies cover art) carries the same summary
+  if (!reviews) {
+    try {
+      const input = { ids: [{ appid: +appid }], context: { language: 'english', country_code: 'US' }, data_request: { include_reviews: true } };
+      const { j } = await net.get('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input)));
+      const it = j && j.response && j.response.store_items && j.response.store_items[0];
+      const rv = it && it.reviews && (it.reviews.summary_filtered || it.reviews.summary_unfiltered);
+      if (rv && rv.review_count) reviews = { label: rv.review_score_label || '', total: rv.review_count, pct: rv.percent_positive };
+    } catch (e) { if (e.status === 429) throw e; }
+  }
 
   const p = d.price_overview;
   const price = d.is_free ? { free: true } : p ? {
@@ -661,7 +672,7 @@ function summarize(entry, kind, rec) {
     entry.al = last ? { name: last.name, time: last.time } : null;
   }
   if (kind === 'news' && rec.d) entry.nd = rec.d.items.slice(0, 8).map(i => i.date);
-  if (kind === 'store') { entry.se = rec.e && !rec.d ? 1 : 0; if (rec.d) entry.rv = revSum(rec.d); }
+  if (kind === 'store') { entry.se = rec.e && !rec.d ? 1 : 0; if (rec.d) { entry.rv = revSum(rec.d); entry.rvv = 2; } }
 }
 // [percent positive, Steam's label, review count], or 0 when the game has no reviews
 const revSum = d => d && d.reviews && d.reviews.total ? [d.reviews.pct, d.reviews.label, d.reviews.total] : 0;
@@ -726,6 +737,8 @@ async function runBatch(env, why) {
       const entry = idx[g.id] || {};
       const due = KINDS.filter(k => {
         if (!entry[k]) return true;
+        // store pages saved before the review-score fallback, with no score: fetch again once
+        if (k === 'store' && !entry.rv && entry.rvv !== 2 && !entry.se) return true;
         const retry = entry[k + 'Retry'];
         return now - entry[k] > (retry || bgTTL(k, g, entry));
       });
