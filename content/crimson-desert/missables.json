@@ -1,5 +1,142 @@
-{ "entries": [
-  { "id": "cd-m1", "name": "Companion loyalty quests: finish before the late-game siege chapters", "missable": true, "verified": "user" },
-  { "id": "cd-m2", "name": "Make a manual save before starting the final chapters", "missable": true, "verified": "user" },
-  { "id": "cd-m3", "name": "Collect Sealed Abyss Artifacts before grinding challenges (tracking trap)", "missable": true, "verified": "user" }
-] }
+{
+ "entries": [
+  {
+   "id": "cd-m1",
+   "name": "Companion loyalty quests: finish before the late-game siege chapters",
+   "missable": true,
+   "verified": "user"
+  },
+  {
+   "id": "cd-m2",
+   "name": "Make a manual save before starting the final chapters",
+   "missable": true,
+   "verified": "user"
+  },
+  {
+   "id": "cd-m3",
+   "name": "Collect Sealed Abyss Artifacts before grinding challenges (tracking trap)",
+   "missable": true,
+   "verified": "user"
+  },
+  {
+   "id": "cd-miss-back-alley",
+   "name": "Back Alley Cleanup (Above the Law)",
+   "how": "Doesn't count bounties you finished before you started it. Do it before turning in all your bounties. One later report says a patch fixed this, but nobody has confirmed it.",
+   "sources": [
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Shadowlord",
+   "missable": true
+  },
+  {
+   "id": "cd-miss-barrage",
+   "name": "Into the Barrage: hit 5 enemies with one cannon shot (Battle)",
+   "how": "Only a few chances, mostly during Chapter 8's big battles. Bring a cannon into those fights.",
+   "sources": [
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Battlefield Conqueror",
+   "missable": true
+  },
+  {
+   "id": "cd-miss-marni",
+   "name": "Marni Laser Helm (Special Weapons)",
+   "how": "Only the regular version counts. Don't upgrade it to the Kuku version before the challenge registers. Keep all 10 special weapons un-upgraded until the category is done.",
+   "sources": [
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Grand Collector of Arms, Unvanquished Strategist",
+   "missable": true
+  },
+  {
+   "id": "cd-miss-vessel",
+   "name": "Keep the Vessel of Dark Pursuit (Special Weapons)",
+   "how": "Don't sell or donate it. There's no known way to get another one.",
+   "sources": [
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Grand Collector of Arms, Unvanquished Strategist",
+   "missable": true
+  },
+  {
+   "id": "cd-miss-disruption",
+   "name": "Disruption: needs Jackal enemies (Operation)",
+   "how": "Jackals stop spawning in Pailune once its camps and faction quests are cleared. Patch 1.05's Re-Blockade may bring them back.",
+   "sources": [
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Pailune",
+   "unlocks": "Brilliant Tactician",
+   "missable": true
+  },
+  {
+   "id": "cd-miss-sinking-fort",
+   "name": "Sinking Fort watchtower (Battle)",
+   "how": "The watchtower may not come back after you liberate every enemy base. Do it before clearing the last bases.",
+   "sources": [
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    },
+    {
+     "t": "8BitToast: achievements guide",
+     "u": "https://8bittoast.com/crimson-desert-achievements-trophy-guide/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Battlefield Conqueror",
+   "missable": true
+  },
+  {
+   "id": "cd-miss-cannon-v",
+   "name": "Barraging Cannon V watchtower (Cannon)",
+   "how": "Same risk as Sinking Fort: finish it before liberating every base.",
+   "sources": [
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    },
+    {
+     "t": "8BitToast: achievements guide",
+     "u": "https://8bittoast.com/crimson-desert-achievements-trophy-guide/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Master of Artillery",
+   "missable": true
+  },
+  {
+   "id": "cd-miss-camps",
+   "name": "Hold off clearing enemy camps until challenges are done",
+   "how": "Several challenges need live camps or enemies, and quests can't be replayed after the story (free roam stays open).",
+   "sources": [
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "missable": true
+  }
+ ]
+}

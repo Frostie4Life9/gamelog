@@ -1,0 +1,372 @@
+{
+ "entries": [
+  {
+   "id": "cd-ch-sword",
+   "name": "Sword challenges (6)",
+   "how": "Mastery (Goyen's Advice): 6 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-shield",
+   "name": "Shield challenges (6)",
+   "how": "Mastery (Goyen's Advice): 6 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-bow",
+   "name": "Bow challenges (6)",
+   "how": "Mastery (Goyen's Advice): 6 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-spear",
+   "name": "Spear challenges (5)",
+   "how": "Mastery (Goyen's Advice): 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-2h",
+   "name": "Two-Handed Weapon challenges (6)",
+   "how": "Mastery (Goyen's Advice): 6 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-cannon",
+   "name": "Cannon challenges (5)",
+   "how": "Mastery (Goyen's Advice): 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Barraging Cannon V can be lost: see Missables.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-rapier",
+   "name": "Rapier and Shield challenges (5)",
+   "how": "Mastery (Goyen's Advice): 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-gun",
+   "name": "Gun challenges (5)",
+   "how": "Mastery (Goyen's Advice): 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-special",
+   "name": "Special Weapons challenges (10)",
+   "how": "Mastery (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Two of these can be lost: see Missables.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-horse",
+   "name": "Horse challenges (10)",
+   "how": "Mastery (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-training",
+   "name": "Training challenges (10)",
+   "how": "Combat (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-battle",
+   "name": "Battle challenges (10)",
+   "how": "Combat (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Into the Barrage and Sinking Fort can be lost: see Missables.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-operation",
+   "name": "Operation challenges (10)",
+   "how": "Combat (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Disruption can be lost: see Missables.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-hunting",
+   "name": "Hunting challenges (11)",
+   "how": "Life: 11 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-life",
+   "name": "Life challenges (12)",
+   "how": "Life: 12 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-trade",
+   "name": "Trade challenges (5)",
+   "how": "Life: 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-abovelaw",
+   "name": "Above the Law (Master Du's Dare) challenges (10)",
+   "how": "Life: 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Back Alley Cleanup can be lost: see Missables.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-greymane",
+   "name": "Challenges and Changes (Alustin's Trials) challenges (9)",
+   "how": "Life: 9 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-shooting",
+   "name": "Shooting challenges (2)",
+   "how": "Minigames: 2 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-strength",
+   "name": "Test of Strength challenges (4)",
+   "how": "Minigames: 4 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-duel",
+   "name": "Duel challenges (5)",
+   "how": "Minigames: 5 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-racing",
+   "name": "Racing challenges (1)",
+   "how": "Minigames: 1 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-mind",
+   "name": "Mind Games challenges (3)",
+   "how": "Minigames: 3 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "The Games Wiki: trophies",
+     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+    }
+   ],
+   "verified": "sourced"
+  }
+ ]
+}

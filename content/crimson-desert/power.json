@@ -1,4 +1,239 @@
-{ "entries": [
-  { "id": "cd-p1", "name": "Learn Focused Force Palm via Observe (Ch. 4, or again in Ch. 9)", "verified": "user" },
-  { "id": "cd-p2", "name": "Upgrade gear before the DLC", "verified": "user" }
-] }
+{
+ "entries": [
+  {
+   "id": "cd-p1",
+   "name": "Learn Focused Force Palm via Observe (Ch. 4, or again in Ch. 9)",
+   "verified": "user"
+  },
+  {
+   "id": "cd-p2",
+   "name": "Upgrade gear before the DLC",
+   "verified": "user"
+  },
+  {
+   "id": "cd-pow-forward-slash",
+   "name": "Observe: Forward Slash",
+   "how": "Hold CTRL near them to Observe. Swordsmen at the Communal Training Grounds (SE of Hernand) or the Training Camp in Meandering Hills (NE of Hernand). From Chapter I.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Hernand"
+  },
+  {
+   "id": "cd-pow-spinning-slash",
+   "name": "Observe: Spinning Slash",
+   "how": "Hold CTRL near them to Observe. Communal Training Grounds or the Meandering Hills Training Camp. From Chapter I.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Hernand"
+  },
+  {
+   "id": "cd-pow-unarmed",
+   "name": "Observe: Unarmed Combat",
+   "how": "Hold CTRL near them to Observe. Communal Training Grounds, SE of Hernand. From Chapter I.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Hernand"
+  },
+  {
+   "id": "cd-pow-charged-shot",
+   "name": "Observe: Charged Shot",
+   "how": "Hold CTRL near them to Observe. Bowman practicing between rounds of the Lioncrest Manor archery contest, or Blue Fangs at the Pailune archery range after liberating Pailune.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pow-counter",
+   "name": "Observe: Counter",
+   "how": "Hold CTRL near them to Observe. Meandering Hills Training Camp, or Hernand Castle Courtyard guards during the Mystical Key quest.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Hernand"
+  },
+  {
+   "id": "cd-pow-drop-kick",
+   "name": "Observe: Drop Kick",
+   "how": "Hold CTRL near them to Observe. Bandits, usually axe-wielders, in Hernand blockaded areas or the Hernand in Chaos questline. From Chapter II.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Hernand"
+  },
+  {
+   "id": "cd-pow-natures-snare",
+   "name": "Observe: Nature's Snare",
+   "how": "Hold CTRL near them to Observe. Apparition at Haunted Hill Ruins, NE of Hernand. Needs Focus first.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Hernand"
+  },
+  {
+   "id": "cd-pow-aerial-roll",
+   "name": "Observe: Aerial Roll",
+   "how": "Hold CTRL near them to Observe. Your first fight with the Crowcaller in the Church of Demeniss graveyard.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Demeniss"
+  },
+  {
+   "id": "cd-pow-clothesline",
+   "name": "Observe: Clothesline",
+   "how": "Hold CTRL near them to Observe. Black Bears at any camp. Vilkom Outpost is the nearest early one. Also in Chapter VI and VII battles.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pow-turning-slash",
+   "name": "Observe: Turning Slash",
+   "how": "Hold CTRL near them to Observe. Saigord, the Staglord, at Icemoor Castle Ruins (usually around Chapter VII).",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pow-body-slam",
+   "name": "Observe: Body Slam",
+   "how": "Hold CTRL near them to Observe. Sir Catfish during the liberation of Vellua (Beyond the Silent Waves questline).",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pow-explosive-evasive",
+   "name": "Observe: Explosive Evasive Shot",
+   "how": "Hold CTRL near them to Observe. Bleed Warpike Commander while liberating Fort Warspike (Nemesis' Demise, House Alfonso). After Chapter VI.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pow-multishot",
+   "name": "Observe: Multishot",
+   "how": "Hold CTRL near them to Observe. Same Bleed Warpike Commander at Fort Warspike.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pow-double-jump",
+   "name": "Observe: Double Jump",
+   "how": "Hold CTRL near them to Observe. Shai on the west side of Pororinm, after you unlock the secret village.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pow-tornado-kick",
+   "name": "Observe: Tornado Kick (Damiane)",
+   "how": "Hold CTRL near them to Observe. Communal Training Grounds, the Meandering Hills Training Camp, or Blue Fangs at the Pailune Training Grounds after Chapter VII.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pow-quick-reload",
+   "name": "Observe: Quick Reload (Damiane)",
+   "how": "Hold CTRL near them to Observe. Bastier Inquisitors in Demeniss. In Chapter VIII, the Inquisitors in the church west of the Demeniss Graveyard stand still while you stay in the no-weapons zone.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Demeniss"
+  },
+  {
+   "id": "cd-pow-fishing",
+   "name": "Observe: Fishing (life skill)",
+   "how": "Hold CTRL near them to Observe. Fishermen in the river near Wycliffe Mappery, or any fishing dock.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-pow-spraying",
+   "name": "Observe: Spraying (life skill)",
+   "how": "Hold CTRL near them to Observe. Farmers NE of Stonewell Farm.",
+   "sources": [
+    {
+     "t": "Vulkk: all Observe skill locations",
+     "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Demeniss"
+  }
+ ]
+}

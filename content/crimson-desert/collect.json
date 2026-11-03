@@ -1,5 +1,293 @@
-{ "entries": [
-  { "id": "cd-c1", "name": "Collect all Sealed Abyss Artifacts", "verified": "user" },
-  { "id": "cd-c2", "name": "Watchtower challenges", "verified": "user" },
-  { "id": "cd-c3", "name": "Remaining collectibles", "verified": "user" }
-] }
+{
+ "entries": [
+  {
+   "id": "cd-c1",
+   "name": "Collect all Sealed Abyss Artifacts",
+   "verified": "user"
+  },
+  {
+   "id": "cd-c2",
+   "name": "Watchtower challenges",
+   "verified": "user"
+  },
+  {
+   "id": "cd-c3",
+   "name": "Remaining collectibles",
+   "verified": "user"
+  },
+  {
+   "id": "cd-col-bells",
+   "name": "Ring all 8 hidden bells",
+   "how": "Each bell clears the map fog around it. Do these first: they make every other collectible easier to find.",
+   "sources": [
+    {
+     "t": "PowerPyx: all Sealed Abyss Artifact locations",
+     "u": "https://www.powerpyx.com/crimson-desert-all-sealed-abyss-artifact-locations/"
+    },
+    {
+     "t": "8BitToast: achievements guide",
+     "u": "https://8bittoast.com/crimson-desert-achievements-trophy-guide/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-art-hernand",
+   "name": "Sealed Abyss Artifacts: Hernand",
+   "how": "Not marked on the map. They sit along roads and in small roadside shrines and show as purple icons on the minimap when you're close. Guiding Light (CTRL + Left Click) makes a blue glimmer near one. 141 in the game across all regions.",
+   "sources": [
+    {
+     "t": "PowerPyx: all Sealed Abyss Artifact locations",
+     "u": "https://www.powerpyx.com/crimson-desert-all-sealed-abyss-artifact-locations/"
+    },
+    {
+     "t": "MapMaster: Sealed Abyss Artifact map",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Sealed%20Abyss%20Artifact"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Hernand"
+  },
+  {
+   "id": "cd-col-art-demeniss",
+   "name": "Sealed Abyss Artifacts: Demeniss",
+   "how": "Not marked on the map. They sit along roads and in small roadside shrines and show as purple icons on the minimap when you're close. Guiding Light (CTRL + Left Click) makes a blue glimmer near one. 141 in the game across all regions.",
+   "sources": [
+    {
+     "t": "PowerPyx: all Sealed Abyss Artifact locations",
+     "u": "https://www.powerpyx.com/crimson-desert-all-sealed-abyss-artifact-locations/"
+    },
+    {
+     "t": "MapMaster: Sealed Abyss Artifact map",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Sealed%20Abyss%20Artifact"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Demeniss"
+  },
+  {
+   "id": "cd-col-art-pailune",
+   "name": "Sealed Abyss Artifacts: Pailune",
+   "how": "Not marked on the map. They sit along roads and in small roadside shrines and show as purple icons on the minimap when you're close. Guiding Light (CTRL + Left Click) makes a blue glimmer near one. 141 in the game across all regions.",
+   "sources": [
+    {
+     "t": "PowerPyx: all Sealed Abyss Artifact locations",
+     "u": "https://www.powerpyx.com/crimson-desert-all-sealed-abyss-artifact-locations/"
+    },
+    {
+     "t": "MapMaster: Sealed Abyss Artifact map",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Sealed%20Abyss%20Artifact"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Pailune"
+  },
+  {
+   "id": "cd-col-art-delysia",
+   "name": "Sealed Abyss Artifacts: Delesyia",
+   "how": "Not marked on the map. They sit along roads and in small roadside shrines and show as purple icons on the minimap when you're close. Guiding Light (CTRL + Left Click) makes a blue glimmer near one. 141 in the game across all regions.",
+   "sources": [
+    {
+     "t": "PowerPyx: all Sealed Abyss Artifact locations",
+     "u": "https://www.powerpyx.com/crimson-desert-all-sealed-abyss-artifact-locations/"
+    },
+    {
+     "t": "MapMaster: Sealed Abyss Artifact map",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Sealed%20Abyss%20Artifact"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Delesyia"
+  },
+  {
+   "id": "cd-col-art-crimson-desert",
+   "name": "Sealed Abyss Artifacts: Crimson Desert",
+   "how": "Not marked on the map. They sit along roads and in small roadside shrines and show as purple icons on the minimap when you're close. Guiding Light (CTRL + Left Click) makes a blue glimmer near one. 141 in the game across all regions.",
+   "sources": [
+    {
+     "t": "PowerPyx: all Sealed Abyss Artifact locations",
+     "u": "https://www.powerpyx.com/crimson-desert-all-sealed-abyss-artifact-locations/"
+    },
+    {
+     "t": "MapMaster: Sealed Abyss Artifact map",
+     "u": "https://mapmaster.io/games/crimson-desert/guides/Sealed%20Abyss%20Artifact"
+    }
+   ],
+   "verified": "sourced",
+   "region": "Crimson Desert"
+  },
+  {
+   "id": "cd-col-abyss",
+   "name": "All 40 The Abyss",
+   "how": "Abyss challenges (Restoration). Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Conqueror of the Abysses (Gold). Counts toward Expert Explorer (Gold)."
+  },
+  {
+   "id": "cd-col-secret",
+   "name": "All 60 Secret Places",
+   "how": "Wandering Footsteps challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    },
+    {
+     "t": "Vulkk: all 60 Secret Places",
+     "u": "https://vulkk.com/2026/07/28/crimson-desert-secret-places-challenges-guide-all-60-abyss-artifact-locations/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Pilgrim of Wonders (Silver). Counts toward Expert Explorer (Gold)."
+  },
+  {
+   "id": "cd-col-ruins",
+   "name": "All 37 Ancient Ruins puzzles",
+   "how": "The Thread in the Forest challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    },
+    {
+     "t": "Gamer Guides: puzzles",
+     "u": "https://www.gamerguides.com/crimson-desert/guide/puzzles"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Puzzle Solver (Silver). Counts toward Expert Explorer (Gold)."
+  },
+  {
+   "id": "cd-col-sanctums",
+   "name": "All 16 Sanctums",
+   "how": "The Forgotten Sun challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Lightbringer (Silver). Counts toward Expert Explorer (Gold)."
+  },
+  {
+   "id": "cd-col-spires",
+   "name": "All 8 Spires",
+   "how": "Land Meets Sky challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Conqueror of Spires (Bronze). Counts toward Expert Explorer (Gold)."
+  },
+  {
+   "id": "cd-col-constellations",
+   "name": "All 13 Constellations",
+   "how": "Maps of the Night challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Navigator of the Stars (Bronze). Counts toward Expert Explorer (Gold)."
+  },
+  {
+   "id": "cd-col-mazes",
+   "name": "All 4 Mazes",
+   "how": "Winding Paths challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Maze Pathfinder (Bronze). Counts toward Expert Explorer (Gold)."
+  },
+  {
+   "id": "cd-col-legendary",
+   "name": "All 22 Legendary Animals",
+   "how": "Hazy Tales challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Counts toward Expert Explorer (Gold)."
+  },
+  {
+   "id": "cd-col-newpower",
+   "name": "All 7 New Power bosses",
+   "how": "Primal Frenzy challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
+   "sources": [
+    {
+     "t": "PowerPyx: all challenges guide",
+     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
+    },
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced",
+   "unlocks": "Counts toward Expert Explorer (Gold)."
+  },
+  {
+   "id": "cd-col-caves",
+   "name": "Explore 100 caves",
+   "how": "Part of the Life challenges for Natural Collector, along with catching one of each insect and arthropod.",
+   "sources": [
+    {
+     "t": "PowerPyx: trophy guide & roadmap",
+     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced"
+  }
+ ]
+}

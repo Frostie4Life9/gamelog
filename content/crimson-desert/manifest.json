@@ -2,7 +2,7 @@
   "slug": "crimson-desert",
   "title": "Crimson Desert",
   "steamId": 3321460,
-  "note": "Side Quests has one goal per questline, matching the game's Faction Quests list (69 lines, game version 2.0.0); Knowledge > Quests in game shows what each still needs. Pets and Armor list everything sourced so far but have no total yet: no complete public roster exists. Charting the Unknown: ocean, ship and housing goals open after Howling Hill; the character stories, castles and Garden of Trials after the main story.",
+  "note": "Side Quests has one goal per questline, matching the game's Faction Quests list (69 lines, game version 2.0.0); Knowledge > Quests in game shows what each still needs. Pets and Armor list everything sourced so far but have no total yet: no complete public roster exists. Charting the Unknown: ocean, ship and housing goals open after Howling Hill; the character stories, castles and Garden of Trials after the main story. Collectibles, Challenges, Missables and Power were filled from trophy and challenge guides (Nov 2026). Most challenges only count after you pick up their Sealed Abyss Artifact.",
   "tabs": [
     {
       "id": "story",
@@ -34,6 +34,13 @@
       "name": "Collectibles",
       "tier": "collect",
       "file": "collect.json"
+    },
+    {
+      "id": "challenges",
+      "name": "Challenges",
+      "tier": "extra",
+      "file": "challenges.json",
+      "expected": 23
     },
     {
       "id": "pets",

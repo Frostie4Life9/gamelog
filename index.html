@@ -1160,6 +1160,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.03-a', note:'SHARPER TRAILERS: Game Mode and Store page trailers now open at the best quality your screen can show instead of starting around 240-480p and climbing slowly. Game Mode used to switch trailers before the quality ever caught up. CRIMSON DESERT GOALS FILLED IN: Collectibles now has all 8 hidden bells, Sealed Abyss Artifacts by region and every exploration category with its count (60 Secret Places, 37 Ancient Ruins, 40 Abyss, 16 Sanctums and more). A new Challenges tab lists all 23 challenge categories. Missables has 8 sourced warnings: challenges that can be lost, special weapons not to sell or upgrade, and why to hold off on clearing camps. Power has 18 Observe skills, with who to watch and where. Every new goal links its sources.'},
   {v:'2026.11.02-a', note:'GAME MODE: a full-screen, cinematic way to browse your games. Covers run along the bottom, the selected game\u2019s art fills the screen, and after a moment its Steam trailer fades in (muted until you turn sound on). It shows your status, score, Steam score, hours, progress to your finish line and your Next step note, with Play and Details buttons. Views for Recently played, In progress, Backlog and Wrapped up. Arrow keys, a controller (A details, X play, Y sound, B exit, bumpers jump five), mouse wheel or swipes. Open it from the rail, the tab bar, the G key, or add #game-mode to the address to land straight in it. F goes full screen.'},
   {v:'2026.10.31-a', note:'READ POSTS IN THE APP: What\u2019s new opens any patch note or announcement in a full reader with headings, lists, images and video links, and arrows to step through posts. WRAP IT UP YOUR WAY: a new Shelved status (shelved with honor, kept out of Continue) and a Done enough option for finished games, with why you stopped, your best moment and what would bring you back. When a game in progress reaches its finish line, it asks once whether to call it finished. QUICK WINS: Play buttons on Library and Continue cards, your Library sort follows you across devices, Steam\u2019s review score sits next to your score (and there\u2019s a Steam score sort), and Library has a Wishlist view with release dates, prices and sales. Wishlist games releasing in the next 60 days show in Coming up. Your Worker needs the updated gamelog-sync.js for the reader, review scores and wishlist.'},
   {v:'2026.10.30-a', note:'READS YOUR SAVE: a small reader on your PC decrypts your Crimson Desert save (read-only) and sends Game Log what it finds. Main-story goals tick themselves, and the Goals page shows your next main quest and what your journal has in progress. A tick from your save never overrides you: untick it and it stays unticked.'},
@@ -1786,6 +1787,13 @@ function loadHls(){
     document.head.appendChild(el);
   });
 }
+// Start trailers sharp. hls.js otherwise guesses ~500 kbps before it has measured
+// anything, opens on the 360-480p rung, and only climbs after a few segments, which
+// Game Mode never waits for. Assume a fast link so it opens on the best rung that
+// fits the player (capLevelToPlayerSize), then let normal ABR adjust from real speed.
+function newHls(Hls){
+  return new Hls({capLevelToPlayerSize:true, abrEwmaDefaultEstimate:30e6, abrEwmaDefaultEstimateMax:60e6, testBandwidth:false});
+}
 async function playTrailer(btn, g){
   const c = storeCache[g.steamId], t = c && c.data && c.data.trailers.filter(x => x.hls || x.mp4 || x.webm)[+btn.dataset.i];
   if (!t) return;
@@ -1804,7 +1812,7 @@ async function hlsPlay(v, url, fail){
     const Hls = await loadHls();
     if (!Hls || !Hls.isSupported()) return fail();
     v.querySelectorAll('source').forEach(x => x.remove());
-    const h = new Hls({capLevelToPlayerSize:true});
+    const h = newHls(Hls);
     h.on(Hls.Events.ERROR, (e, d) => { if (d.fatal) { h.destroy(); fail(); } });
     h.loadSource(url); h.attachMedia(v);
     h.on(Hls.Events.MANIFEST_PARSED, () => v.play().catch(() => {}));
@@ -3758,7 +3766,7 @@ async function gmHlsPlay(v, url, fail){
     const Hls = await loadHls();
     if (gm.vid !== v) return;
     if (!Hls || !Hls.isSupported()) return fail();
-    const h = gm.hls = new Hls({capLevelToPlayerSize:true});
+    const h = gm.hls = newHls(Hls);
     h.on(Hls.Events.ERROR, (e, d) => { if (d.fatal) fail(); });
     h.on(Hls.Events.MANIFEST_PARSED, () => { if (gm.vid === v) gmPlayVid(v); });
     h.loadSource(url); h.attachMedia(v);
