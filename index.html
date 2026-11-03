@@ -451,6 +451,32 @@ a.scorecard:hover{border-color:var(--line)}
 .cksheet{position:relative;width:min(560px,100%);max-height:92vh;overflow-y:auto;background:var(--deep);border:1px solid var(--line);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:22px clamp(18px,4vw,28px) calc(22px + env(safe-area-inset-bottom));box-shadow:0 -12px 40px rgba(0,0,0,.5)}
 @media (min-width:700px){.ckwrap{place-items:center}.cksheet{border-radius:var(--r-lg)}}
 .cksheet h2{margin:0 0 4px;font-size:22px}
+/* welcome back (re-entry kit) */
+.wbsheet{width:min(680px,100%)}
+.wbsheet .kick{margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.wbsheet h3{margin:22px 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.wbsheet .save{margin-bottom:0}
+.wbsheet ul.wbl{list-style:none;margin:0;padding:0}
+.wbsheet ul.wbl li{padding:7px 0;border-bottom:1px solid var(--line-soft);font-size:14px;line-height:1.45}
+.wbsheet ul.wbl li:last-child{border-bottom:0}
+.wbsheet .wbtab{display:flex;justify-content:space-between;gap:12px;font-weight:600;font-size:14px;margin:10px 0 2px}
+.wbsheet .wbtab span{color:var(--mist);font-weight:500}
+.wbsheet .warn{color:var(--coral, #ff8a7a)}
+.wbsheet .wbsetup{white-space:pre-wrap;font-size:14px;line-height:1.5;margin:0;border-left:3px solid var(--mint);padding:2px 0 2px 14px}
+.wbsheet details{margin-top:22px;border:1px solid var(--line);border-radius:var(--r);padding:0 14px}
+.wbsheet summary{cursor:pointer;padding:12px 0;font-weight:700}
+.wbsheet .ctl{width:100%;border-collapse:collapse;font-size:13.5px;margin:4px 0 14px}
+.wbsheet .ctl th{text-align:left;color:var(--dim);font-weight:600;padding:6px 8px 6px 0;border-bottom:1px solid var(--line)}
+.wbsheet .ctl td{padding:6px 8px 6px 0;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.wbsheet .ctl td:first-child{color:var(--mist)}
+.wbsheet .src{font-size:12px;color:var(--dim);margin:0 0 14px}
+.wbsheet .src a{color:inherit}
+.wbsheet a.btn{text-decoration:none}
+@media (max-width:560px){.wbsheet .actions{gap:8px}.wbsheet .actions .btn{padding:10px 16px;font-size:15px}}
+.wbsheet .actions{position:sticky;bottom:calc(-22px - env(safe-area-inset-bottom));background:var(--deep);padding:14px 0 calc(4px + env(safe-area-inset-bottom));margin-top:18px;border-top:1px solid var(--line-soft)}
+.wbcue{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 18px;padding:12px 16px;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:var(--r);background:rgba(255,255,255,.03)}
+.wbcue p{margin:0;flex:1 1 220px;font-size:14px}
+@media (max-width:560px){.wbsheet .save{grid-template-columns:1fr}.wbsheet .ctl{font-size:12.5px}}
 .cksheet .sub{margin:0 0 16px;color:var(--mist);font-size:14px}
 .cksheet label.l{display:block;margin:14px 0 6px;font-weight:700;font-size:15px}
 .cksheet textarea{min-height:72px}
@@ -1144,6 +1170,7 @@ a.tl{text-decoration:none}
 <nav class="tabbar" id="tabbar"></nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div id="ck"></div>
+<div id="wb"></div>
 <div id="rd"></div>
 <div id="gm" class="gm" hidden role="dialog" aria-modal="true" aria-label="Game Mode"></div>
 <div class="updbar" id="updbar" hidden role="status">
@@ -1160,6 +1187,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.03-b', note:'WELCOME BACK KIT: open a game you haven\u2019t played in 3+ weeks and it greets you once with everything you need to jump back in: how long you\u2019ve been away, where you left off and what to start with, your last sessions, Steam posts since you left, where you stand in each goal tab, what not to miss, and your build. Crimson Desert also gets a spoiler-free controls and systems refresher (keyboard and controller). I\u2019m caught up hides it until your next long break, and Not now hides it until you reload. It also shows on Continue, and Save point has a Re-entry kit button for any time. NEW NOTE: My build & setup under Save point, for your loadout, go-to skills and changed settings.'},
   {v:'2026.11.03-a', note:'SHARPER TRAILERS: Game Mode and Store page trailers now open at the best quality your screen can show instead of starting around 240-480p and climbing slowly. Game Mode used to switch trailers before the quality ever caught up. CRIMSON DESERT GOALS FILLED IN: Collectibles now has all 8 hidden bells, Sealed Abyss Artifacts by region and every exploration category with its count (60 Secret Places, 37 Ancient Ruins, 40 Abyss, 16 Sanctums and more). A new Challenges tab lists all 23 challenge categories. Missables has 8 sourced warnings: challenges that can be lost, special weapons not to sell or upgrade, and why to hold off on clearing camps. Power has 18 Observe skills, with who to watch and where. Every new goal links its sources.'},
   {v:'2026.11.02-a', note:'GAME MODE: a full-screen, cinematic way to browse your games. Covers run along the bottom, the selected game\u2019s art fills the screen, and after a moment its Steam trailer fades in (muted until you turn sound on). It shows your status, score, Steam score, hours, progress to your finish line and your Next step note, with Play and Details buttons. Views for Recently played, In progress, Backlog and Wrapped up. Arrow keys, a controller (A details, X play, Y sound, B exit, bumpers jump five), mouse wheel or swipes. Open it from the rail, the tab bar, the G key, or add #game-mode to the address to land straight in it. F goes full screen.'},
   {v:'2026.10.31-a', note:'READ POSTS IN THE APP: What\u2019s new opens any patch note or announcement in a full reader with headings, lists, images and video links, and arrows to step through posts. WRAP IT UP YOUR WAY: a new Shelved status (shelved with honor, kept out of Continue) and a Done enough option for finished games, with why you stopped, your best moment and what would bring you back. When a game in progress reaches its finish line, it asks once whether to call it finished. QUICK WINS: Play buttons on Library and Continue cards, your Library sort follows you across devices, Steam\u2019s review score sits next to your score (and there\u2019s a Steam score sort), and Library has a Wishlist view with release dates, prices and sales. Wishlist games releasing in the next 60 days show in Coming up. Your Worker needs the updated gamelog-sync.js for the reader, review scores and wishlist.'},
@@ -1308,7 +1336,7 @@ const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d 
 function blankGame(title){
   return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
     content:'', finish:'', goals:null,
-    note:{where:'', next:'', recap:''}, review:'',
+    note:{where:'', next:'', recap:'', setup:''}, review:'', wbSeen:'',
     wrap:{enough:false, why:'', best:'', back:'', keep:''},
     layers:{story:{inFinish:true,items:[]}, power:{inFinish:false,items:[]}, checklist:{inFinish:false,items:[]}},
     missables:[], releases:[]};
@@ -1317,7 +1345,8 @@ function blankGame(title){
 function normalize(g){
   const b = blankGame(g.title || 'Untitled');
   for (const k in b) if (g[k] === undefined) g[k] = b[k];
-  g.note = Object.assign({where:'',next:'',recap:''}, g.note);
+  g.note = Object.assign({where:'',next:'',recap:'',setup:''}, g.note);
+  g.wbSeen = String(g.wbSeen || '');
   g.wrap = Object.assign({enough:false, why:'', best:'', back:'', keep:''}, g.wrap && typeof g.wrap === 'object' ? g.wrap : {});
   g.wrap.enough = !!g.wrap.enough;
   LAYERS.forEach(([k]) => { g.layers[k] = g.layers[k] || {inFinish:k === 'story', items:[]}; });
@@ -1982,6 +2011,145 @@ function saveCheckin(){
   toast(ticked ? `Saved, and ticked ${ticked} goal${ticked > 1 ? 's' : ''}` : 'Check-in saved');
 }
 
+/* ---------- Welcome back (re-entry kit) ----------
+   After a long break (BREAK_DAYS) an in-progress game greets you once with
+   everything you need to get going again: how long you've been away, your
+   own notes, your last sessions, what changed on Steam, where you stand, what
+   not to miss, your setup note, and (when the game's pack has one) a
+   spoiler-free controls and systems refresher. "I'm caught up" stops it
+   showing until the next long break; it can always be opened from Save point. */
+const BREAK_DAYS = 21;
+const awayDays = g => g.lastPlayed ? Math.max(0, daysBetween(g.lastPlayed, localDate())) : 0;
+const playingNow = g => !!(playNow && g.steamId && playNow.a === g.steamId);
+const onBreak = g => inProgress(g) && !!g.lastPlayed && awayDays(g) >= BREAK_DAYS && !playingNow(g);
+const wbDue = g => onBreak(g) && g.wbSeen !== g.lastPlayed && !wbSnooze.has(g.id);
+const wbSnooze = new Set();   // "Not now" lasts until the app reloads
+let wbOpen = null;            // game id
+const REFRESH = {};           // slug -> {state, data}
+function awayText(d){
+  if (d < 14) return `${d} day${d === 1 ? '' : 's'}`;
+  if (d < 60) return `${Math.round(d / 7)} weeks`;
+  if (d < 365) return `${Math.round(d / 30.4)} months`;
+  const y = Math.floor(d / 365), m = Math.round((d - y * 365) / 30.4);
+  return `${y} year${y > 1 ? 's' : ''}${m ? `, ${m} month${m > 1 ? 's' : ''}` : ''}`;
+}
+async function loadRefresher(g){
+  const slug = g.content; if (!slug) return null;
+  if (REFRESH[slug]) return REFRESH[slug];
+  const r = REFRESH[slug] = {state:'loading', data:null};
+  try {
+    const p = await loadPack(g);
+    const file = p && p.man && p.man.refresher;
+    if (!file) { r.state = 'none'; return r; }
+    const d = await getContent(`${slug}/${file}`);
+    const str = (x, n) => clip(x, n);
+    r.data = {
+      intro:str(d.intro, 400),
+      groups:(Array.isArray(d.groups) ? d.groups : []).slice(0, 8).map(x => ({
+        title:str(x.title, 60),
+        cols:(Array.isArray(x.cols) ? x.cols : []).slice(0, 3).map(c => str(c, 40)),
+        rows:(Array.isArray(x.rows) ? x.rows : []).slice(0, 40).filter(Array.isArray).map(row => row.slice(0, 4).map(c => str(c, 120)))
+      })).filter(x => x.rows.length),
+      tips:(Array.isArray(d.tips) ? d.tips : []).slice(0, 20).map(t => str(t, 300)).filter(Boolean),
+      sources:(Array.isArray(d.sources) ? d.sources : []).filter(x => x && /^https:\/\//.test(x.u || '')).slice(0, 8).map(x => ({t:str(x.t, 80), u:x.u}))
+    };
+    r.state = 'ready';
+  } catch(e) { r.state = 'err'; }
+  return r;
+}
+async function openWelcome(g){
+  wbOpen = g.id; renderWelcome();
+  if (g.content) { await loadPack(g); await loadRefresher(g); if (wbOpen === g.id) renderWelcome(); }
+  if (g.steamId && syncOn()) fetchNews(g, {quiet:true});
+}
+function closeWelcome(caughtUp){
+  const g = wbOpen && game(wbOpen);
+  if (g) { if (caughtUp) { g.wbSeen = g.lastPlayed; save(); } else wbSnooze.add(g.id); }
+  wbOpen = null; renderWelcome(); render();
+}
+function renderWelcome(){
+  const host = document.getElementById('wb'); if (!host) return;
+  const g = wbOpen && game(wbOpen);
+  if (!g) { wbOpen = null; host.innerHTML = ''; return; }
+  const d = awayDays(g), brk = onBreak(g), st = stats(g);
+  const lead = brk ? `It's been ${awayText(d)}` : g.lastPlayed ? since(g.lastPlayed) : 'No sessions logged yet';
+  const bits = [g.lastPlayed ? `last played ${fmtDate(g.lastPlayed, {month:'short', day:'numeric', year:'numeric'})}` : '', g.hours ? `${g.hours} h played` : '', st.total && !isLive(g) ? `${st.pct}% to your finish line` : ''].filter(Boolean);
+
+  // Your notes
+  const notes = `<h3>Where you were</h3>${g.note.where || g.note.next ? `<div class="save">
+      <div><h4>Where you left off</h4><p>${esc(g.note.where) || '<span class="dim">Not written</span>'}</p></div>
+      <div class="next"><h4>Start with</h4><p>${esc(g.note.next) || '<span class="dim">Not written</span>'}</p></div></div>`
+    : `<p class="dim" style="margin:0;font-size:14px">No note from last time. The check-in after your next session will ask, so it's there for the next break.</p>`}`;
+
+  // Your last sessions
+  const sess = g.sessions.slice(-3).reverse();
+  const sessH = sess.length ? `<h3>Your last sessions</h3><ul class="wbl">${sess.map(x => `<li>${fmtDate(localDate(new Date(x.s)), {weekday:'short', month:'short', day:'numeric'})} <span class="dim">· ${fmtDur(x.e - x.s)}, ${fmtClock(x.s)} to ${fmtClock(x.e)}</span></li>`).join('')}</ul>` : '';
+
+  // Since you left
+  const nn = newCount(g), lastAch = g.ach && g.ach.last;
+  const sinceH = nn || lastAch ? `<h3>Since you left</h3><ul class="wbl">
+      ${nn ? `<li><b>${nn} Steam post${nn > 1 ? 's' : ''}</b> since you last played <button class="btn quiet sm" style="margin-left:8px" data-act="wb-news" data-game="${g.id}">Read them</button></li>` : ''}
+      ${lastAch ? `<li>Your last achievement: <b>${esc(lastAch.name)}</b> <span class="dim">· ${fmtDate(localDate(new Date(lastAch.time * 1000)))}</span></li>` : ''}
+    </ul>` : '';
+
+  // Where you stand
+  const todo = g.content ? goalTodo(g) : null;
+  let standH = '';
+  if (todo && todo.length) {
+    standH = `<h3>Where you stand</h3>${todo.filter(x => x.counts).concat(todo.filter(x => !x.counts)).slice(0, 3).map(x => `<div class="wbtab">${esc(x.label)} <span>${x.done} of ${x.total} done</span></div>
+      <ul class="wbl">${x.open.slice(0, 3).map(i => `<li>${esc(i.text)}</li>`).join('')}</ul>`).join('')}`;
+  } else if (!g.content) {
+    const open = LAYERS.map(([k, label]) => [label, g.layers[k].items]).filter(([, it]) => it.some(i => !i.done));
+    if (open.length) standH = `<h3>Where you stand</h3>${open.slice(0, 3).map(([label, it]) => `<div class="wbtab">${esc(label)} <span>${it.filter(i => i.done).length} of ${it.length} done</span></div>
+      <ul class="wbl">${it.filter(i => !i.done).slice(0, 3).map(i => `<li>${esc(i.text)}</li>`).join('')}</ul>`).join('')}`;
+  }
+
+  // Don't miss
+  const gm = g.content ? goalMiss(g) : null;
+  const miss = gm ? gm.items : g.missables.filter(m => !m.done).map(m => ({text:m.text}));
+  const missN = gm ? gm.n : miss.length;
+  const missH = miss.length ? `<h3 class="warn">Don't miss (${missN} open)</h3><ul class="wbl">${miss.slice(0, 4).map(m => `<li>${esc(m.text)}</li>`).join('')}</ul>${missN > 4 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${missN - 4} more in Goals</p>` : ''}` : '';
+
+  // My setup
+  const setupH = `<h3>Your setup</h3>${g.note.setup ? `<p class="wbsetup">${esc(g.note.setup)}</p>` : `<p class="dim" style="margin:0;font-size:14px">Nothing saved. Add your build, loadout and settings under Save point so they're here next time.</p>`}`;
+
+  // Refresher (from the content pack)
+  const R = g.content && REFRESH[g.content];
+  let refH = '';
+  if (R && R.state === 'ready' && R.data) {
+    const D = R.data;
+    refH = `<details ${brk ? 'open' : ''}><summary>Controls and systems refresher</summary>
+      ${D.intro ? `<p class="dim" style="margin:0 0 10px;font-size:13px">${esc(D.intro)}</p>` : ''}
+      ${D.groups.map(x => `<table class="ctl"><thead><tr><th>${esc(x.title)}</th>${x.cols.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead>
+        <tbody>${x.rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>`).join('')}
+      ${D.tips.length ? `<h3 style="margin-top:6px">Systems worth remembering</h3><ul class="wbl">${D.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+      ${D.sources.length ? `<p class="src">Sources: ${D.sources.map(x => `<a href="${esc(x.u)}" target="_blank" rel="noopener noreferrer">${esc(x.t)}</a>`).join(' · ')}</p>` : ''}
+    </details>`;
+  } else if (R && R.state === 'loading') refH = '<p class="dim" style="margin:18px 0 0;font-size:13px">Loading the controls refresher…</p>';
+
+  // Story recap
+  const recap = /^https?:\/\//.test(g.note.recap)
+    ? `<a class="btn quiet" href="${esc(g.note.recap)}" target="_blank" rel="noopener noreferrer">Watch your recap</a>`
+    : `<a class="btn quiet" href="https://www.youtube.com/results?search_query=${encodeURIComponent(g.title + ' story recap')}" target="_blank" rel="noopener noreferrer" title="Recap videos can run past where you are">Find a story recap</a>`;
+
+  const play = playBtn(g).replace('data-act="launch"', `data-act="launch" data-game="${g.id}" data-wb="1"`);
+  host.innerHTML = `<div class="ckwrap"><div class="ckback" data-act="wb-later"></div>
+    <section class="cksheet wbsheet" role="dialog" aria-modal="true" aria-labelledby="wb-h">
+      <p class="kick">${brk ? 'Welcome back' : 'Re-entry kit'}</p>
+      <h2 id="wb-h">${esc(g.title)}</h2>
+      <p class="sub">${esc(lead)}${bits.length ? ` \u00b7 ${esc(bits.join(' \u00b7 '))}` : ''}</p>
+      ${notes}${sessH}${sinceH}${standH}${missH}${setupH}${refH}
+      ${!/^https?:\/\//.test(g.note.recap) ? `<p class="dim" style="margin:16px 0 0;font-size:12.5px">Recap videos can spoil past your point. Save one you trust under Save point and it shows here instead.</p>` : ''}
+      <div class="actions">
+        ${play}
+        <button class="btn ${play ? 'quiet' : ''}" data-act="wb-done">I'm caught up</button>
+        ${recap}
+        <button class="btn quiet" data-act="wb-later">Not now</button>
+      </div>
+    </section></div>`;
+  if (!host.dataset.focused || host.dataset.focused !== g.id) { host.dataset.focused = g.id; setTimeout(() => { const h = document.querySelector('.wbsheet'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({preventScroll:true}); } }, 0); }
+}
+
 /* ---------- Goals (deep per-game checklists) ----------
    Content (what the goals ARE) lives in the repo under content/<slug>/, one
    file per tab, so a game with hundreds of entries never bloats your synced
@@ -2057,7 +2225,7 @@ async function loadPack(g, force){
       (Array.isArray(d.entries) ? d.entries : []).forEach((e, i) => { const c = cleanEntry(e, t, i); if (c && !seen.has(c.id)) { seen.add(c.id); out.push(c); } });
       p.tabs[t.id] = out;
     }
-    p.man = {title:clip(man.title, 120), note:clip(man.note, 600), tabs:tabs.map(t => ({id:t.id, name:clip(t.name, 40), tier:t.tier, expected:t.expected > 0 ? Math.round(+t.expected) : 0}))};
+    p.man = {title:clip(man.title, 120), note:clip(man.note, 600), refresher:/^[a-z0-9-]+\.json$/.test(man.refresher || '') ? man.refresher : '', tabs:tabs.map(t => ({id:t.id, name:clip(t.name, 40), tier:t.tier, expected:t.expected > 0 ? Math.round(+t.expected) : 0}))};
     p.state = 'ready';
     adoptPack(g, p);
     pullSaveProgress(g);
@@ -2390,6 +2558,7 @@ function renderContinue(){
         <h2>${esc(f.title)}</h2>
         <div class="meta"><span>${statusLabel(f)}</span><span>${f === nowG ? `Playing now · since ${fmtClock(playNow.s)}` : since(f.lastPlayed)}</span>${isLiveF ? `${actTag(f)}${f.peak ? `<span>${esc(f.peak)}</span>` : ''}${f.seasons ? `<span>${f.seasons} season${f.seasons > 1 ? 's' : ''}</span>` : ''}` : `<span>${st.pct}% to finish line</span>`}${miss ? `<span class="alert">${miss} missable${miss > 1 ? 's' : ''} open</span>` : ''}${newTag(f)}</div>
         ${wrapAsk(f)}
+        ${onBreak(f) ? `<div class="wbcue" data-game="${f.id}"><p><b>It's been ${awayText(awayDays(f))}.</b> Get your bearings before you jump in.</p><button class="btn sm" data-act="wb-open" data-game="${f.id}">Welcome back kit</button></div>` : ''}
         ${f.note.where || f.note.next ? `<div class="save">
           <div><h4>Where you were</h4><p>${esc(f.note.where) || '<span class="dim">Not written yet</span>'}</p></div>
           <div class="next"><h4>Next step</h4><p>${esc(f.note.next) || '<span class="dim">Not written yet</span>'}</p></div>
@@ -2707,7 +2876,8 @@ function secSave(g){
       <button class="btn quiet sm" data-act="played">I played today</button>
     </div>
     ${sessLine(g)}
-    <p style="margin:0 0 16px"><button class="btn quiet sm" data-act="ck-open">${g.sessions.length ? 'Check in on last session' : 'Check in now'}</button></p>
+    ${onBreak(g) ? `<div class="wbcue"><p><b>It's been ${awayText(awayDays(g))}.</b> Your notes, progress and a refresher are in one place.</p><button class="btn sm" data-act="wb-open">Welcome back kit</button></div>` : ''}
+    <p style="margin:0 0 16px;display:flex;flex-wrap:wrap;gap:8px"><button class="btn quiet sm" data-act="ck-open">${g.sessions.length ? 'Check in on last session' : 'Check in now'}</button>${onBreak(g) ? '' : '<button class="btn quiet sm" data-act="wb-open">Re-entry kit</button>'}</p>
     ${g.ach && g.ach.last ? `<p class="achlast">Last achievement: <b>${esc(g.ach.last.name)}</b> <span class="dim">· ${fmtDate(localDate(new Date(g.ach.last.time * 1000)))}</span></p>` : ''}
     <div class="journal">
       <div class="panel">
@@ -2719,6 +2889,10 @@ function secSave(g){
         <textarea data-f="note.next" aria-label="Next step" placeholder="One clear thing to start with.">${esc(g.note.next)}</textarea>
       </div>
     </div>
+    <div class="journal" style="grid-template-columns:1fr"><div class="panel">
+      <h3>My build &amp; setup</h3><p class="hint">Loadout, skills you lean on, settings you changed. Shows in your Welcome back kit.</p>
+      <textarea data-f="note.setup" aria-label="My build and setup" placeholder="Main weapon and build, go-to combos, settings to remember.">${esc(g.note.setup)}</textarea>
+    </div></div>
     <div class="panel">
       <div class="stats">
         <div class="field"><label for="f-recap">Story recap link</label><input type="url" id="f-recap" data-f="note.recap" value="${esc(g.note.recap)}" placeholder="https://youtube.com/…"></div>
@@ -3374,7 +3548,7 @@ document.addEventListener('click', e => {
     case 'tab': go(() => { view.tab = el.dataset.tab; view.gameId = null; });
       if (el.dataset.tab === 'sync' && Date.now() - (steamSum.fetched || 0) > 5 * 60000) fetchSummary();
       break;
-    case 'open': view.art = null; { const id = el.dataset.id; go(() => { view.gameId = id; view.section = el.dataset.section || 'save'; view.goals = null; }, 'open', null, el); const og = game(id); if (og) { fetchAch(og); if (og.content) { loadPack(og); pullSaveProgress(og); } } } break;
+    case 'open': view.art = null; { const id = el.dataset.id; go(() => { view.gameId = id; view.section = el.dataset.section || 'save'; view.goals = null; }, 'open', null, el); const og = game(id); if (og) { fetchAch(og); if (og.content) { loadPack(og); pullSaveProgress(og); } if (wbDue(og)) openWelcome(og); } } break;
     case 'back': { const from = view.gameId; go(() => { view.gameId = null; }, 'back', from); } break;
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
@@ -3411,9 +3585,13 @@ document.addEventListener('click', e => {
     case 'ck-open': openCheckin(g, g.sessions[g.sessions.length - 1] || null, true); break;
     case 'ck-skip': closeCheckin(); break;
     case 'ck-save': saveCheckin(); break;
+    case 'wb-open': if (g) openWelcome(g); break;
+    case 'wb-done': closeWelcome(true); break;
+    case 'wb-later': closeWelcome(false); break;
+    case 'wb-news': { const wg = wbOpen && game(wbOpen); closeWelcome(true); if (wg) { go(() => { view.gameId = wg.id; view.section = 'news'; }, 'open'); enterNews(wg); } } break;
     case 'add-game': addGame(); break;
     case 'game-mode': gmOpen(); break;
-    case 'launch': toast('Opening in Steam\u2026'); watchLaunch(g); break; // the link itself does the launch
+    case 'launch': toast('Opening in Steam\u2026'); watchLaunch(g); if (el.dataset.wb) closeWelcome(true); break; // the link itself does the launch
     case 'steam-import': importSteam(); break;
     case 'steam-import-all': importSteam(true); break;
     case 'ach-filter': view.achFilter = el.dataset.v; render(); break;
@@ -3545,6 +3723,7 @@ document.addEventListener('keydown', e => {
     if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) { stepReader(e.key === 'ArrowLeft' ? -1 : 1); return; }
   }
   if (e.key === 'Escape' && ckOpen) { closeCheckin(); return; }
+  if (e.key === 'Escape' && wbOpen) { closeWelcome(false); return; }
   if (e.key !== 'Enter') return;
   const el = e.target;
   if (el.id === 'newTitle') addGame();

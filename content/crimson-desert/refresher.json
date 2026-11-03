@@ -1,0 +1,151 @@
+{
+ "intro": "Default bindings. Where guides disagree, the cell shows a dash. If you remapped anything, Settings > Controls wins. Nothing here spoils the story.",
+ "groups": [
+  {
+   "title": "Combat",
+   "cols": [
+    "Keyboard & mouse",
+    "Controller"
+   ],
+   "rows": [
+    [
+     "Light / heavy attack",
+     "Left / right click",
+     "RB / RT"
+    ],
+    [
+     "Kick, unarmed attack",
+     "F",
+     "Y"
+    ],
+    [
+     "Guard, parry (time it)",
+     "Ctrl or Mouse 4",
+     "LB"
+    ],
+    [
+     "Roll / evade (double tap)",
+     "Alt, or Mouse 5 to evade",
+     "B"
+    ],
+    [
+     "Force Palm",
+     "Middle mouse",
+     "Right stick click"
+    ],
+    [
+     "Axiom Force",
+     "Tab",
+     "-"
+    ],
+    [
+     "Swap weapon",
+     "Z",
+     "-"
+    ],
+    [
+     "Use gear",
+     "B",
+     "-"
+    ]
+   ]
+  },
+  {
+   "title": "Moving around",
+   "cols": [
+    "Keyboard & mouse",
+    "Controller"
+   ],
+   "rows": [
+    [
+     "Run (double tap to sprint)",
+     "Shift",
+     "-"
+    ],
+    [
+     "Jump, climb, glide (hold mid-air)",
+     "Space",
+     "X"
+    ],
+    [
+     "Crouch, slide while running",
+     "C",
+     "Left stick click"
+    ],
+    [
+     "Call your horse (any distance)",
+     "H",
+     "D-pad up"
+    ],
+    [
+     "Lock on",
+     "-",
+     "D-pad down"
+    ]
+   ]
+  },
+  {
+   "title": "Menus and finding things",
+   "cols": [
+    "Keyboard & mouse",
+    "Controller"
+   ],
+   "rows": [
+    [
+     "Map / Inventory / Skills / Journal",
+     "M / I / K / J",
+     "-"
+    ],
+    [
+     "Quick slots: comrade, gear, food (hold)",
+     "F1 / F2 / F3",
+     "D-pad up / left / right"
+    ],
+    [
+     "Observe someone to learn a skill",
+     "Hold Ctrl when the prompt shows",
+     "Hold LB"
+    ],
+    [
+     "Guiding Light (find nearby artifacts)",
+     "Ctrl + left click",
+     "LB + RB"
+    ]
+   ]
+  }
+ ],
+ "tips": [
+  "Food is your only healing. There are no potions. Clear Soup is the cheapest good option. Cook at a campfire or a camp cooking station.",
+  "Palmar Pills revive you at about 30% HP. Craft them from water plus insects or plants.",
+  "Damaged gear can't be repaired, so sell it for Silver.",
+  "Refinement at the Blacksmith: levels 1-4 need basic materials, 5 and up also need Abyss Artifacts. Inspect > Refinement Information shows every level's cost.",
+  "A successful parry refills Stamina and Spirit. Running out of Stamina leaves you stuck mid-dodge or mid-climb.",
+  "Fast travel: stand on an Abyss Nexus (white circle, 'Mysterious Energy') until it glows to unlock it.",
+  "Feed your horse hay, sugar beets or Horse Tonic. A starved horse slows to a crawl.",
+  "Vendor stock refreshes every in-game day. Sell books and recipes after reading them; your journal keeps them.",
+  "Camp upgrades come from Greymane faction quests, not a menu.",
+  "Using an item from the quick menu only slows time. Open the full inventory to pause."
+ ],
+ "sources": [
+  {
+   "t": "Vulkk: controls guide",
+   "u": "https://vulkk.com/2026/03/20/crimson-desert-controls-guide/"
+  },
+  {
+   "t": "The Games Wiki: controls",
+   "u": "https://thegameswiki.com/crimson-desert/wiki/controls"
+  },
+  {
+   "t": "PowerPyx: Sealed Abyss Artifacts (Guiding Light)",
+   "u": "https://www.powerpyx.com/crimson-desert-all-sealed-abyss-artifact-locations/"
+  },
+  {
+   "t": "KeenGamer: 30 beginner tips",
+   "u": "https://www.keengamer.com/articles/guides/crimson-desert-30-beginner-tips-to-help-you-get-started/"
+  },
+  {
+   "t": "GamesHedge: things the game doesn't tell you",
+   "u": "https://www.gameshedge.com/things-crimson-desert-doesnt-tell-you-worth-knowing/"
+  }
+ ]
+}
