@@ -136,20 +136,21 @@ def cd_quest_states(raw):
     return states
 
 
-# Main story, from the game's quest table (game version 2.0.x). Chapter groups
-# 1001-1012 are the 12 chapters; 1000 is the opening and 1013 the epilogue.
+# Main story: save keys from the game's quest table (game version 2.0.x), names as
+# guides show them. Groups 1001-1012 are Chapters 1-12; 1000 the Prologue, 1013 the Epilogue.
+# Each quest is goal cd-main-<key> in content/crimson-desert/story.json.
 CD_MAIN = [
     (1000, 10001, "Ambush"), (1000, 1000123, "Unknown Space"),
-    (1001, 1000027, "Trials of Kindness"), (1001, 1000509, "Traces"),
-    (1002, 1000004, "Unexpected Gift"), (1002, 10011000, "Damiane"), (1002, 1000267, "The End of Greed"),
+    (1001, 1000027, "Trials of Kindness"), (1001, 1000509, "Trace"),
+    (1002, 1000004, "Unexpected Gift"), (1002, 10011000, "Hernand in Chaos"), (1002, 1000267, "The End of Greed"),
     (1003, 11006000, "Homestead"), (1003, 10029000, "The Face Behind the Mask"), (1003, 1001048, "Pioneering"),
-    (1004, 1000142, "Mysterious Pot"), (1004, 1001216, "Daily Life"), (1004, 10040400, "Forbidden Knowledge"),
-    (1005, 1000118, "Damiane"), (1005, 1000724, "Damiane"),
-    (1006, 10060100, "Blazing Beacon"), (1006, 1000781, "Below the Banners"), (1006, 1000281, "Turning Tides"), (1006, 1000112, "The Unyielding Shields"),
-    (1007, 1000579, "Yann"), (1007, 1000597, "Dawn"), (1007, 1000099, "Decisive Battle"), (1007, 1000009, "Twisted Fate"),
-    (1008, 1001076, "Ashen Steps"), (1008, 1000725, "Kliff"), (1008, 1000180, "Traitor"),
-    (1009, 1000354, "Yann"), (1009, 1000212, "Shattered Ties"), (1009, 1000292, "Thinning Blade"), (1009, 1000305, "Six Statues and the Beast"), (1009, 1000319, "Veiled Witch"), (1009, 1000355, "Enlightenment"),
-    (1010, 1000767, "Damiane"), (1010, 1000776, "Greater Firepower"),
+    (1004, 1000142, "Mysterious Iron Pot"), (1004, 1001216, "Daily Life"), (1004, 10040400, "Forbidden Knowledge"),
+    (1005, 1000118, "Uninvited Guest"), (1005, 1000724, "Black and White"),
+    (1006, 10060100, "Blazing Beacon"), (1006, 1000781, "Under the Banner Pike Again"), (1006, 1000281, "Turning Tides"), (1006, 1000112, "The Unyielding Shields"),
+    (1007, 1000579, "Dawn Mist"), (1007, 1000597, "Dawnrise"), (1007, 1000099, "Decisive Battle"), (1007, 1000009, "Twisted Fate"),
+    (1008, 1001076, "Ashen Steps"), (1008, 1000725, "To Demeniss"), (1008, 1000180, "Traitor"),
+    (1009, 1000354, "The Calling"), (1009, 1000212, "Shattered Ties"), (1009, 1000292, "Thinning Blade"), (1009, 1000305, "Six Pensive Statues and the Evil Spirit"), (1009, 1000319, "Veiled Witch"), (1009, 1000355, "Enlightenment"),
+    (1010, 1000767, "Secret Weapon"), (1010, 1000776, "Greater Firepower"),
     (1011, 1000741, "Brave New World"), (1011, 1000135, "Foreboding Shadow"),
     (1012, 1000139, "The Final Battle"), (1012, 1000726, "The Void"),
     (1013, 1000358, "Journey's End"),
@@ -163,18 +164,14 @@ def cd_report(states):
     for grp, key, _ in CD_MAIN:
         groups.setdefault(grp, []).append(key)
     group_done = {g: all(done_q(k) for k in ks) for g, ks in groups.items()}
-    done = []
-    if group_done[1011]:
-        done.append({"tab": "story", "id": "cd-s3"})        # second-to-last chapter
-    if group_done[1012] and group_done[1013]:
-        done.append({"tab": "story", "id": "cd-s4"})        # final chapter
+    done = [{"tab": "story", "id": f"cd-main-{k}"} for _, k, _ in CD_MAIN if done_q(k)]
     nxt = next(((g, n) for g, k, n in CD_MAIN if not done_q(k)), None)
     left = sum(1 for g in range(1001, 1013) if not group_done[g])
     summary = {"chaptersLeft": left}
     if nxt:
         g, n = nxt
         summary["next"] = n
-        summary["chapter"] = "Epilogue" if g == 1013 else "Opening" if g == 1000 else f"Chapter {g - 1000}"
+        summary["chapter"] = "Epilogue" if g == 1013 else "Prologue" if g == 1000 else f"Chapter {g - 1000}"
     else:
         summary["note"] = "Main story finished."
     return done, summary
@@ -194,7 +191,7 @@ def crimson_desert():
         "game": "crimson-desert",
         "savedAt": int(os.path.getmtime(path) * 1000),
         "slot": ("Autosave" if num >= 100 else f"Slot {num + 1}") if num >= 0 else slot,
-        "reader": "gamelog-reader 1",
+        "reader": "gamelog-reader 2",
         "done": done,
         "summary": summary,
     }, path

@@ -1,7 +1,683 @@
-{ "entries": [
-  { "id": "cd-s1", "name": "Watch a story recap video", "verified": "user" },
-  { "id": "cd-s2", "name": "Finish open companion loyalty quests", "verified": "user" },
-  { "id": "cd-s3", "name": "Finish second-to-last chapter", "verified": "user" },
-  { "id": "cd-s4", "name": "Finish final chapter", "verified": "user" },
-  { "id": "cd-s5", "name": "Charting the Unknown DLC story", "verified": "user" }
-] }
+{
+ "entries": [
+  {
+   "id": "cd-s1",
+   "name": "Watch a story recap video",
+   "verified": "user"
+  },
+  {
+   "id": "cd-s2",
+   "name": "Finish open companion loyalty quests",
+   "verified": "user"
+  },
+  {
+   "id": "cd-main-10001",
+   "name": "Ambush",
+   "region": "Prologue: Dead of Night",
+   "how": "Steps: Unfamiliar Lands, In Ashes.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000123",
+   "name": "Unknown Space",
+   "region": "Prologue: Dead of Night",
+   "how": "Steps: Realm of Uncertainty, New Journey.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000027",
+   "name": "Trials of Kindness",
+   "region": "Ch 1: The First Encounter",
+   "how": "Steps: Where Rumors Gather, Mysterious Man, True Wisdom in Kindness, Actions Speak Louder than Words, Hearts Beyond Borders.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000509",
+   "name": "Trace",
+   "region": "Ch 1: The First Encounter",
+   "how": "Steps: Mystical Key, Polar Opposites, Abyss without Balance, Woman in White.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000004",
+   "name": "Unexpected Gift",
+   "region": "Ch 2: Golden Greed",
+   "how": "Steps: Where the Light Leads, Memory Fragment, Reunion.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-10011000",
+   "name": "Hernand in Chaos",
+   "region": "Ch 2: Golden Greed",
+   "how": "Steps: For Honor, Awestruck, Shadow Cast Over the River, Where Misery Gathers, Trial After Trial, The Man Trapped in the Mire, Missing Companion, Secrets Hidden in the Dark.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000267",
+   "name": "The End of Greed",
+   "region": "Ch 2: Golden Greed",
+   "how": "Steps: The Dark Veil, The Flames of Greed, Kidnapped Healer, Rebellion or Revolution, Cheers Echoing From the Edge.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-11006000",
+   "name": "Homestead",
+   "region": "Ch 3: Howling Hill",
+   "how": "Steps: Old Friend, First Step to Rebuilding, A Fresh Start, Reward for Their Sweat, Return of the Comrade, Familiar Curses.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-10029000",
+   "name": "The Face Behind the Mask",
+   "region": "Ch 3: Howling Hill",
+   "how": "Steps: Return, Traces in the Manor, Nonhuman, Seed of Unease, Dance with the Devil.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1001048",
+   "name": "Pioneering",
+   "region": "Ch 3: Howling Hill",
+   "how": "Steps: Hope After the Draught, Scattered Comrades, Rumors from the Sawmill, A Gentle Touch, Bustling Hill, Greymanes Reunited.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000142",
+   "name": "Mysterious Iron Pot",
+   "region": "Ch 4: The Price of Knowledge",
+   "how": "Steps: Kilnden Workshop, Kiln Repair at the Kilnden Workshop, The Mysterious Pot, The Iron Pot's Usage.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1001216",
+   "name": "Daily Life",
+   "region": "Ch 4: The Price of Knowledge",
+   "how": "Steps: Disturbance at the Arena, Skilled in Archery.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-10040400",
+   "name": "Forbidden Knowledge",
+   "region": "Ch 4: The Price of Knowledge",
+   "how": "Steps: The Words of Alustin, Scholastone, On the Right Path, Gate to the Otherworld, Spire of the Stars, Obsession and Madness, Casted Shadow.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000118",
+   "name": "Uninvited Guest",
+   "region": "Ch 5: Guest Unbidden",
+   "how": "Steps: Double-sided Invitation, Unwelcomed Guests, Demenissian Delegation, Exposed Plot.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000724",
+   "name": "Black and White",
+   "region": "Ch 5: Guest Unbidden",
+   "how": "Steps: The Missing Seal, Crowcaller, The Crow's Warning, Bloodwind, Secret at the Church, Toward the Nest.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-10060100",
+   "name": "Blazing Beacon",
+   "region": "Ch 6: Cracks in the Shield",
+   "how": "Steps: News, To the Battlefield, The Counterattack.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000781",
+   "name": "Under the Banner Pike Again",
+   "region": "Ch 6: Cracks in the Shield",
+   "how": "Steps: Cradle of Defense, The Touch of Deliverance, Fire on the Frontlines.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000281",
+   "name": "Turning Tides",
+   "region": "Ch 6: Cracks in the Shield",
+   "how": "Steps: Fire Support, In Ashes, Hidden Fangs, Reclamation.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000112",
+   "name": "The Unyielding Shields",
+   "region": "Ch 6: Cracks in the Shield",
+   "how": "Steps: A Thousand Troops, Traitor, All Quiet on the Front, News of Victory, Return Home.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000579",
+   "name": "Dawn Mist",
+   "region": "Ch 7: Homecoming",
+   "how": "Steps: Ashes of Treachery, Trust Lost, Bared Fang, Rekindled Hope, Podium of Resolve.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000597",
+   "name": "Dawnrise",
+   "region": "Ch 7: Homecoming",
+   "how": "Steps: Shadows Over Pailune, Driving out the Shadows, Lurking Wolves, Reclamation, Lonely Jackals, Resolution.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000099",
+   "name": "Decisive Battle",
+   "region": "Ch 7: Homecoming",
+   "how": "Steps: The Counterattack, Unleashed Fury, The Final Bridge, Broken Claws, Battle at Silverwolf Mountain, Incomplete Victory.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000009",
+   "name": "Twisted Fate",
+   "region": "Ch 7: Homecoming",
+   "how": "Steps: Ludvig's Whereabouts, Time to Face Justice.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1001076",
+   "name": "Ashen Steps",
+   "region": "Ch 8: Blood Coronation",
+   "how": "Steps: Healing Pailune, A Bond, Ritual Preparations, Where the Wind Guides You.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000725",
+   "name": "To Demeniss",
+   "region": "Ch 8: Blood Coronation",
+   "how": "Steps: Chasing a Shadow, Blazing Fire, Whispering Shadows, Bloodied Invitation, Resolve Amidst a Storm, Preparations for Advance, Rebel Suppression, The Cursed Knight, The Blood Coronation.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000180",
+   "name": "Traitor",
+   "region": "Ch 8: Blood Coronation",
+   "how": "Steps: Clue, A Fleeting Dream.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000354",
+   "name": "The Calling",
+   "region": "Ch 9: The Sage of the Desert",
+   "how": "Steps: An Unknown Voice, The Cloister of Enlightenment.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000212",
+   "name": "Shattered Ties",
+   "region": "Ch 9: The Sage of the Desert",
+   "how": "Steps: Mark of the Scar, Shackles of Fate.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000292",
+   "name": "Thinning Blade",
+   "region": "Ch 9: The Sage of the Desert",
+   "how": "Steps: Crossing Point, Unwavering Steps.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000305",
+   "name": "Six Pensive Statues and the Evil Spirit",
+   "region": "Ch 9: The Sage of the Desert",
+   "how": "Steps: Morning Fog, Jijeong Temple in Chaos, Path to Enlightenment, Path of the Disciple, True Strength, Face the Inner Self.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000319",
+   "name": "Veiled Witch",
+   "region": "Ch 9: The Sage of the Desert",
+   "how": "Steps: Fragments of Darkness, Pursuit Beyond the Veil, Black Witch.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000355",
+   "name": "Enlightenment",
+   "region": "Ch 9: The Sage of the Desert",
+   "how": "Steps: The Cloister of Enlightenment (II), The Sage of the Desert, New Perspectives, Lust for Power.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000767",
+   "name": "Secret Weapon",
+   "region": "Ch 10: Counterattack",
+   "how": "Steps: Untouchable, The Gate of War, Master of the Ironworks, Hidden Ace, Clockwork Insect Clash.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000776",
+   "name": "Greater Firepower",
+   "region": "Ch 10: Counterattack",
+   "how": "Steps: Beating Heart, Invaders from the East, Frozen Hearted Predator, Lingering Shadow.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000741",
+   "name": "Brave New World",
+   "region": "Ch 11: Truth and Reality",
+   "how": "Steps: The City of Steel, Crossroads, Strange Manor, Fortress Keys, Truth and Lies.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced",
+   "prereq": "Finish Chapter 10."
+  },
+  {
+   "id": "cd-main-1000135",
+   "name": "Foreboding Shadow",
+   "region": "Ch 11: Truth and Reality",
+   "how": "Steps: Master of a Forgotten Land, Whispers in the Wind, Cloud Castle Orbian.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000139",
+   "name": "The Final Battle",
+   "region": "Ch 12: The Abyss",
+   "how": "Steps: Precise Execution, Deferred Advance, Departure of the Brave, Forbidden Gate.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000726",
+   "name": "The Void",
+   "region": "Ch 12: The Abyss",
+   "how": "Steps: A Shadow in the Void, Blinding Darkness.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-main-1000358",
+   "name": "Journey's End",
+   "region": "Epilogue: Journey's End",
+   "how": "Steps: A New Beginning, Peace in Hernand, The Unyielding Shields, The Heart of Pywel, The Desert's Edge, The Enduring Flame, Evolving City, New Horizons.",
+   "sources": [
+    {
+     "t": "Destructoid: all main story chapters and quests",
+     "u": "https://www.destructoid.com/all-main-story-chapters-and-quests-in-crimson-desert/"
+    },
+    {
+     "t": "Shacknews: main mission list",
+     "u": "https://www.shacknews.com/article/148382/crimson-desert-main-mission-list"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-s5",
+   "name": "Charting the Unknown DLC story",
+   "verified": "user"
+  }
+ ]
+}

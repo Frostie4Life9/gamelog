@@ -16,7 +16,7 @@ Log file: `gamelog-reader.log` next to the script.
 ## Games
 | Game | What it reads | Goals it ticks |
 |---|---|---|
-| Crimson Desert | Quest states | Main Story: second-to-last and final chapter. Shows the next main quest and chapters left. |
+| Crimson Desert | Quest states | Main Story: each of the 39 main quests. Shows the next main quest and chapters left. |
 
 Each game is one reader function in `gamelog_reader.py` that returns the same
 report shape. If a patch breaks a reader, only that game stops updating (the log
