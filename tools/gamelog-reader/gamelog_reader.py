@@ -225,12 +225,14 @@ def send(cfg, slug, report):
         return json.loads(r.read() or b"{}")
 
 
-def run_once(cfg, dry, last):
+def run_once(cfg, dry, last, once=False):
+    ok = True
     for slug, reader in READERS.items():
         try:
             got = reader()
         except Exception as e:  # a broken reader only affects its own game
             log(f"{slug}: couldn't read the save: {e}")
+            ok = False
             continue
         if not got:
             continue
@@ -238,7 +240,7 @@ def run_once(cfg, dry, last):
         sig = (path, report["savedAt"])
         if last.get(slug) == sig:
             continue
-        if time.time() - report["savedAt"] / 1000 < SETTLE_SECONDS and not dry:
+        if time.time() - report["savedAt"] / 1000 < SETTLE_SECONDS and not dry and not once:
             continue  # still being written; next pass picks it up
         if dry:
             print(json.dumps(report, indent=2))
@@ -250,6 +252,8 @@ def run_once(cfg, dry, last):
             log(f"{slug}: sent ({report['slot']}, {len(report['done'])} goals done, next: {report['summary'].get('next', '-')}) {res}")
         except Exception as e:
             log(f"{slug}: couldn't reach the Worker: {e}")
+            ok = False
+    return ok
 
 
 def main():
@@ -257,8 +261,11 @@ def main():
     cfg = {} if dry else load_config()
     last = {}
     if "--once" in sys.argv or dry:
-        run_once(cfg, dry, last)
-        return
+        ok = run_once(cfg, dry, last, once=True)
+        if ok and not last:
+            log("no Crimson Desert save found on this PC")
+            ok = False
+        sys.exit(0 if ok else 1)
     log("watching saves")
     while True:
         run_once(cfg, dry, last)
