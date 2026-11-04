@@ -16,7 +16,10 @@ Log file: `gamelog-reader.log` next to the script.
 ## Games
 | Game | What it reads | Goals it ticks |
 |---|---|---|
-| Crimson Desert | Quest states | Main Story: each of the 39 main quests. Shows the next main quest and chapters left. |
+| Crimson Desert | Quest, mission and knowledge states | Main Story (39 main quests, next quest, chapters left); Challenges (156); Collectibles: Abyss, Secret Places, Ancient Ruins, Sanctums, Spires, Constellations, Mazes, Legendary Animals, New Power bosses; Power: Kliff's Observe skills. |
+
+`cd_goals.json` maps save keys to goals. It's built from the `save` field on entries in
+`content/crimson-desert/*.json`, so keep it next to the script.
 
 Each game is one reader function in `gamelog_reader.py` that returns the same
 report shape. If a patch breaks a reader, only that game stops updating (the log

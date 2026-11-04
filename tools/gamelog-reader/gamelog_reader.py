@@ -120,20 +120,48 @@ def cd_elements(raw, start, end, type_index, fields):
     return out
 
 
-def cd_quest_states(raw):
+def cd_states(raw, block, type_name, key_field, value_field):
     types, blocks = cd_schema(raw)
     names = [t[0] for t in types]
-    if "QuestSaveData" not in blocks or "QuestStateData" not in names:
-        raise ValueError("no quest data found (the save layout may have changed)")
-    ti = names.index("QuestStateData")
-    off, sz = blocks["QuestSaveData"]
-    states = {}
-    for q in cd_elements(raw, off, off + sz, ti, types[ti][1]):
-        if "_questKey" in q:
-            states[q["_questKey"]] = max(states.get(q["_questKey"], 0), q.get("_state", 0))
+    if block not in blocks or type_name not in names:
+        raise ValueError(f"no {type_name} found (the save layout may have changed)")
+    ti = names.index(type_name)
+    off, sz = blocks[block]
+    out = {}
+    for e in cd_elements(raw, off, off + sz, ti, types[ti][1]):
+        if key_field in e:
+            out[e[key_field]] = max(out.get(e[key_field], 0), e.get(value_field, 0))
+    return out
+
+
+def cd_quest_states(raw):
+    states = cd_states(raw, "QuestSaveData", "QuestStateData", "_questKey", "_state")
     if len(states) < 20:
         raise ValueError(f"only {len(states)} quests decoded (the save layout may have changed)")
     return states
+
+
+# Challenges, collectibles and Observe skills: cd_goals.json (built from Game Log's
+# content files) maps mission and knowledge keys in the save to goals.
+CD_GOALS = os.path.join(HERE, "cd_goals.json")
+
+
+def cd_extra_done(raw):
+    try:
+        goals = json.load(open(CD_GOALS, encoding="utf-8"))
+    except FileNotFoundError:
+        log("crimson-desert: cd_goals.json is missing, so only main quests are read")
+        return []
+    done = []
+    missions = cd_states(raw, "QuestSaveData", "MissionStateData", "_key", "_state")
+    for key, (tab, gid) in goals.get("mission", {}).items():
+        if missions.get(int(key), 0) >= COMPLETED:
+            done.append({"tab": tab, "id": gid})
+    known = cd_states(raw, "KnowledgeSaveData", "KnowledgeElementSaveData", "_key", "_level")
+    for key, (tab, gid) in goals.get("knowledge", {}).items():
+        if int(key) in known:
+            done.append({"tab": tab, "id": gid})
+    return done
 
 
 # Main story: save keys from the game's quest table (game version 2.0.x), names as
@@ -183,15 +211,16 @@ def crimson_desert():
     if not saves:
         return None
     path = max(saves, key=os.path.getmtime)
-    states = cd_quest_states(cd_decrypt(path))
-    done, summary = cd_report(states)
+    raw = cd_decrypt(path)
+    done, summary = cd_report(cd_quest_states(raw))
+    done += cd_extra_done(raw)
     slot = os.path.basename(os.path.dirname(path))
     num = int(slot[4:]) if slot[4:].isdigit() else -1
     return {
         "game": "crimson-desert",
         "savedAt": int(os.path.getmtime(path) * 1000),
         "slot": ("Autosave" if num >= 100 else f"Slot {num + 1}") if num >= 0 else slot,
-        "reader": "gamelog-reader 2",
+        "reader": "gamelog-reader 3",
         "done": done,
         "summary": summary,
     }, path

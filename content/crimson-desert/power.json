@@ -3,7 +3,10 @@
   {
    "id": "cd-p1",
    "name": "Learn Focused Force Palm via Observe (Ch. 4, or again in Ch. 9)",
-   "verified": "user"
+   "verified": "user",
+   "save": {
+    "knowledge": 1001756
+   }
   },
   {
    "id": "cd-p2",
@@ -21,7 +24,10 @@
     }
    ],
    "verified": "sourced",
-   "region": "Hernand"
+   "region": "Hernand",
+   "save": {
+    "knowledge": 40036
+   }
   },
   {
    "id": "cd-pow-spinning-slash",
@@ -34,7 +40,10 @@
     }
    ],
    "verified": "sourced",
-   "region": "Hernand"
+   "region": "Hernand",
+   "save": {
+    "knowledge": 40069
+   }
   },
   {
    "id": "cd-pow-unarmed",
@@ -47,7 +56,10 @@
     }
    ],
    "verified": "sourced",
-   "region": "Hernand"
+   "region": "Hernand",
+   "save": {
+    "knowledge": 1001789
+   }
   },
   {
    "id": "cd-pow-charged-shot",
@@ -59,7 +71,10 @@
      "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
     }
    ],
-   "verified": "sourced"
+   "verified": "sourced",
+   "save": {
+    "knowledge": 40065
+   }
   },
   {
    "id": "cd-pow-counter",
@@ -72,7 +87,10 @@
     }
    ],
    "verified": "sourced",
-   "region": "Hernand"
+   "region": "Hernand",
+   "save": {
+    "knowledge": 1003524
+   }
   },
   {
    "id": "cd-pow-drop-kick",
@@ -98,7 +116,10 @@
     }
    ],
    "verified": "sourced",
-   "region": "Hernand"
+   "region": "Hernand",
+   "save": {
+    "knowledge": 1001744
+   }
   },
   {
    "id": "cd-pow-aerial-roll",
@@ -111,7 +132,10 @@
     }
    ],
    "verified": "sourced",
-   "region": "Demeniss"
+   "region": "Demeniss",
+   "save": {
+    "knowledge": 40082
+   }
   },
   {
    "id": "cd-pow-clothesline",
@@ -123,7 +147,10 @@
      "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
     }
    ],
-   "verified": "sourced"
+   "verified": "sourced",
+   "save": {
+    "knowledge": 40028
+   }
   },
   {
    "id": "cd-pow-turning-slash",
@@ -135,7 +162,10 @@
      "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
     }
    ],
-   "verified": "sourced"
+   "verified": "sourced",
+   "save": {
+    "knowledge": 40072
+   }
   },
   {
    "id": "cd-pow-body-slam",
@@ -147,7 +177,10 @@
      "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
     }
    ],
-   "verified": "sourced"
+   "verified": "sourced",
+   "save": {
+    "knowledge": 1000001
+   }
   },
   {
    "id": "cd-pow-explosive-evasive",
@@ -159,7 +192,10 @@
      "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
     }
    ],
-   "verified": "sourced"
+   "verified": "sourced",
+   "save": {
+    "knowledge": 1000908
+   }
   },
   {
    "id": "cd-pow-multishot",
@@ -171,7 +207,10 @@
      "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
     }
    ],
-   "verified": "sourced"
+   "verified": "sourced",
+   "save": {
+    "knowledge": 40063
+   }
   },
   {
    "id": "cd-pow-double-jump",
@@ -183,7 +222,10 @@
      "u": "https://vulkk.com/2026/04/10/all-observe-skill-locations-in-crimson-desert/"
     }
    ],
-   "verified": "sourced"
+   "verified": "sourced",
+   "save": {
+    "knowledge": 1001116
+   }
   },
   {
    "id": "cd-pow-tornado-kick",

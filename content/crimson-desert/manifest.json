@@ -2,7 +2,7 @@
   "slug": "crimson-desert",
   "title": "Crimson Desert",
   "steamId": 3321460,
-  "note": "Main Story has all 39 main quests by chapter; the save reader ticks the ones you've finished. Side Quests has one goal per faction questline (69, game v2.0.0). Pets and Armor have no complete public roster yet. Charting the Unknown: ocean, ship and housing open after Howling Hill; character stories, castles and Garden of Trials after the main story. Most challenges only count after you pick up their Sealed Abyss Artifact.",
+  "note": "Your save reader ticks Main Story, every Challenge, the Collectibles categories (Abyss, Secret Places, Ancient Ruins, Sanctums, Spires, Constellations, Mazes, Legendary Animals, New Power bosses) and Kliff's Observe skills. Side Quests, Pets, Armor and Charting the Unknown are still ticked by hand. Most challenges only count after you pick up their Sealed Abyss Artifact.",
   "refresher": "refresher.json",
   "tabs": [
     {
@@ -42,7 +42,7 @@
       "name": "Challenges",
       "tier": "extra",
       "file": "challenges.json",
-      "expected": 23
+      "expected": 156
     },
     {
       "id": "pets",

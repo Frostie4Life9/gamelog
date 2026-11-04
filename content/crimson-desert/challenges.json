@@ -1,369 +1,2497 @@
 {
  "entries": [
   {
-   "id": "cd-ch-sword",
-   "name": "Sword challenges (6)",
-   "how": "Mastery (Goyen's Advice): 6 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000209",
+   "name": "Sword of Trials I",
+   "region": "Mastery: Sword",
+   "how": "Defeat 3 enemies within 30 seconds using a one-handed sword. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000209
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-shield",
-   "name": "Shield challenges (6)",
-   "how": "Mastery (Goyen's Advice): 6 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000214",
+   "name": "Sword of Trials II",
+   "region": "Mastery: Sword",
+   "how": "Defeat 3 enemies at once using a one-handed sword. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000214
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-bow",
-   "name": "Bow challenges (6)",
-   "how": "Mastery (Goyen's Advice): 6 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000217",
+   "name": "Sword of Trials III",
+   "region": "Mastery: Sword",
+   "how": "Defeat 3 enemies with a one-handed sword without taking damage. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000217
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-spear",
-   "name": "Spear challenges (5)",
-   "how": "Mastery (Goyen's Advice): 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000642",
+   "name": "Sword of Trials IV",
+   "region": "Mastery: Sword",
+   "how": "Defeat 3 enemies at once using a one-handed sword with Turning Slash. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000642
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-2h",
-   "name": "Two-Handed Weapon challenges (6)",
-   "how": "Mastery (Goyen's Advice): 6 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000653",
+   "name": "Sword of Trials V",
+   "region": "Mastery: Sword",
+   "how": "Defeat 3 enemies in a row with a one-handed sword only using Stab. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000653
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-cannon",
-   "name": "Cannon challenges (5)",
-   "how": "Mastery (Goyen's Advice): 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Barraging Cannon V can be lost: see Missables.",
+   "id": "cd-ch-1000672",
+   "name": "Sword of Trials VI",
+   "region": "Mastery: Sword",
+   "how": "Challenge_SealedArtifact_Mastery_OneHandSword_VI_1. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000672
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-rapier",
-   "name": "Rapier and Shield challenges (5)",
-   "how": "Mastery (Goyen's Advice): 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000599",
+   "name": "Shield of Unchanging Will I",
+   "region": "Mastery: Shield",
+   "how": "Defeat 3 enemies with a shield. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000599
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-gun",
-   "name": "Gun challenges (5)",
-   "how": "Mastery (Goyen's Advice): 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000600",
+   "name": "Shield of Unchanging Will II",
+   "region": "Mastery: Shield",
+   "how": "Block 10 arrows with a shield. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000600
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-special",
-   "name": "Special Weapons challenges (10)",
-   "how": "Mastery (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Two of these can be lost: see Missables.",
+   "id": "cd-ch-1000601",
+   "name": "Shield of Unchanging Will III",
+   "region": "Mastery: Shield",
+   "how": "Hit 3 enemies at once with a shield. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000601
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-horse",
-   "name": "Horse challenges (10)",
-   "how": "Mastery (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000234",
+   "name": "Shield of Unchanging Will IV",
+   "region": "Mastery: Shield",
+   "how": "Defeat 5 enemies with a shield without taking damage. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000234
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-training",
-   "name": "Training challenges (10)",
-   "how": "Combat (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000238",
+   "name": "Shield of Unchanging Will V",
+   "region": "Mastery: Shield",
+   "how": "Flip 5 enemies with a shield. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000238
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-battle",
-   "name": "Battle challenges (10)",
-   "how": "Combat (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Into the Barrage and Sinking Fort can be lost: see Missables.",
+   "id": "cd-ch-1000239",
+   "name": "Shield of Unchanging Will VI",
+   "region": "Mastery: Shield",
+   "how": "Land 10 hits on enemies within 1 minute with the shield using Charge. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000239
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-operation",
-   "name": "Operation challenges (10)",
-   "how": "Combat (Goyen's Advice): 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Disruption can be lost: see Missables.",
+   "id": "cd-ch-1000602",
+   "name": "Bow Aimed at Fate I",
+   "region": "Mastery: Bow",
+   "how": "Take down 5 enemies with a bow within 60 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000602
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-hunting",
-   "name": "Hunting challenges (11)",
-   "how": "Life: 11 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000603",
+   "name": "Bow Aimed at Fate II",
+   "region": "Mastery: Bow",
+   "how": "Defeat 7 enemies in a row using only normal arrows. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000603
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-life",
-   "name": "Life challenges (12)",
-   "how": "Life: 12 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000604",
+   "name": "Bow Aimed at Fate III",
+   "region": "Mastery: Bow",
+   "how": "Hit 3 enemies in mid-air with a bow. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000604
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-trade",
-   "name": "Trade challenges (5)",
-   "how": "Life: 5 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000677",
+   "name": "Bow Aimed at Fate IV",
+   "region": "Mastery: Bow",
+   "how": "Take down 3 birds with a bow from a distance of over 15 meters. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000677
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-abovelaw",
-   "name": "Above the Law (Master Du's Dare) challenges (10)",
-   "how": "Life: 10 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively. Back Alley Cleanup can be lost: see Missables.",
+   "id": "cd-ch-1000689",
+   "name": "Bow Aimed at Fate V",
+   "region": "Mastery: Bow",
+   "how": "Take down 5 enemies at once from over 20 meters away using a bow. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000689
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-greymane",
-   "name": "Challenges and Changes (Alustin's Trials) challenges (9)",
-   "how": "Life: 9 challenges. Open the Challenges menu to see each one's exact task. Find this category's Sealed Abyss Artifact first; most of it won't count retroactively.",
+   "id": "cd-ch-1000690",
+   "name": "Bow Aimed at Fate VI",
+   "region": "Mastery: Bow",
+   "how": "Hit 5 enemies with Focused Shot. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000690
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-shooting",
-   "name": "Shooting challenges (2)",
-   "how": "Minigames: 2 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "id": "cd-ch-1000593",
+   "name": "Sharpened Spear I",
+   "region": "Mastery: Spear",
+   "how": "Land 15 counterattacks with a spear within 30 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000593
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-strength",
-   "name": "Test of Strength challenges (4)",
-   "how": "Minigames: 4 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "id": "cd-ch-1000594",
+   "name": "Sharpened Spear II",
+   "region": "Mastery: Spear",
+   "how": "Hit enemies 30 times with a spear within 30 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000594
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-duel",
-   "name": "Duel challenges (5)",
-   "how": "Minigames: 5 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "id": "cd-ch-1000192",
+   "name": "Sharpened Spear III",
+   "region": "Mastery: Spear",
+   "how": "Take down 5 enemies within 15 seconds using the Stab attack. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000192
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-racing",
-   "name": "Racing challenges (1)",
-   "how": "Minigames: 1 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "id": "cd-ch-1000691",
+   "name": "Sharpened Spear IV",
+   "region": "Mastery: Spear",
+   "how": "Defeat 3 enemies within 1 minute using a Spear Leap Attack. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000691
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
   },
   {
-   "id": "cd-ch-mind",
-   "name": "Mind Games challenges (3)",
-   "how": "Minigames: 3 challenges. Open the Challenges menu to see each one's exact task. Counts toward True Gamer (Silver).",
+   "id": "cd-ch-1000692",
+   "name": "Sharpened Spear V",
+   "region": "Mastery: Spear",
+   "how": "Defeat 5 enemies without taking damage from spears while maintaining 100% {Staticinfo:Knowledge:Knowledge_Hp#Health}. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000692
+   },
    "sources": [
     {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000765",
+   "name": "Overwhelming Slash I",
+   "region": "Mastery: Two-Handed Weapon",
+   "how": "Hit 3 enemies at once with a longsword while your {Staticinfo:Knowledge:Knowledge_Hp#Health} is below 50%. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000765
+   },
+   "sources": [
     {
-     "t": "The Games Wiki: trophies",
-     "u": "https://thegameswiki.com/crimson-desert/wiki/trophies"
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000924",
+   "name": "Overwhelming Slash II",
+   "region": "Mastery: Two-Handed Weapon",
+   "how": "Defeat 3 enemies with a longsword finisher without taking damage. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000924
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000925",
+   "name": "Overwhelming Slash III",
+   "region": "Mastery: Two-Handed Weapon",
+   "how": "Knock back 10 enemies within 30 seconds using a longsword. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000925
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000926",
+   "name": "Ground-Shaking Impact I",
+   "region": "Mastery: Two-Handed Weapon",
+   "how": "Land 30 hits on enemies within 30 seconds using a two-handed club or axe. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000926
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000927",
+   "name": "Ground-Shaking Impact II",
+   "region": "Mastery: Two-Handed Weapon",
+   "how": "Defeat 10 enemies with a two-handed club or axe without taking damage. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000927
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000928",
+   "name": "Ground-Shaking Impact III",
+   "region": "Mastery: Two-Handed Weapon",
+   "how": "Send 5 enemies flying at once with a two-handed club or axe. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000928
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000698",
+   "name": "Barraging Cannon I",
+   "region": "Mastery: Cannon",
+   "how": "Hit 3 enemies at once with a hand cannon. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000698
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000699",
+   "name": "Barraging Cannon II",
+   "region": "Mastery: Cannon",
+   "how": "Eliminate 3 enemies with the Charged Shot. Defeat 3 enemies with Fire Enhanced Charged Shot. Defeat 3 enemies with Ice Enhanced Charged Shot. Defeat 3 enemies with the Lightning Enhanced Charged Shot. Defeat 3 enemies using Wind Enhanced Charged Shot. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000699
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000700",
+   "name": "Barraging Cannon III",
+   "region": "Mastery: Cannon",
+   "how": "Defeat 10 enemies within 30 seconds using a hand cannon without destroying any surrounding objects. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000700
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000701",
+   "name": "Barraging Cannon IV",
+   "region": "Mastery: Cannon",
+   "how": "Defeat a mounted enemy from a distance of 30m or more using a hand cannon. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000701
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000702",
+   "name": "Barraging Cannon V",
+   "region": "Mastery: Cannon",
+   "how": "Destroy 2 watchtowers with a hand cannon within 10 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000702
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000704",
+   "name": "Dancing Blade, Shining Shield I",
+   "region": "Mastery: Rapier and Shield",
+   "how": "Defeat 5 enemies with a rapier within 60 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000704
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000705",
+   "name": "Dancing Blade, Shining Shield II",
+   "region": "Mastery: Rapier and Shield",
+   "how": "Stab enemies 10 times with a rapier without taking damage. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000705
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000706",
+   "name": "Dancing Blade, Shining Shield III",
+   "region": "Mastery: Rapier and Shield",
+   "how": "Hit a prone enemy 5 times with a rapier. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000706
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000707",
+   "name": "Dancing Blade, Shining Shield IV",
+   "region": "Mastery: Rapier and Shield",
+   "how": "Take down 3 enemies at once from over 10 meters away using a rapier. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000707
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000708",
+   "name": "Dancing Blade, Shining Shield V",
+   "region": "Mastery: Rapier and Shield",
+   "how": "Hit 9 enemies within 15 seconds with Shield Toss. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000708
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000710",
+   "name": "When Lightning Strikes I",
+   "region": "Mastery: Gun",
+   "how": "Take down 5 enemies from over 30 meters away using a gun. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000710
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000711",
+   "name": "When Lightning Strikes II",
+   "region": "Mastery: Gun",
+   "how": "Take down 3 enemies with a gun from over 5 meters away within 5 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000711
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000712",
+   "name": "When Lightning Strikes III",
+   "region": "Mastery: Gun",
+   "how": "Hit the target three times within one second using a pistol. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000712
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000713",
+   "name": "When Lightning Strikes IV",
+   "region": "Mastery: Gun",
+   "how": "Hit 7 mounted enemies with a gun while riding a horse. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000713
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000714",
+   "name": "When Lightning Strikes V",
+   "region": "Mastery: Gun",
+   "how": "Take down 3 enemies with regular shots. Take down 3 enemies with Evasive Shot or Focused Evasive Shot. Take down 3 enemies with aerial shots. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000714
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000655",
+   "name": "Special Weapon: Flamespitter",
+   "region": "Mastery: Special Weapons",
+   "how": "Burn 10 enemies within 15 seconds using the Flamespitter. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000655
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000715",
+   "name": "Special Weapon: Propeller Spear",
+   "region": "Mastery: Special Weapons",
+   "how": "Hit 5 enemies at once with a propeller spear wind attack. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000715
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000716",
+   "name": "Special Weapon: Knuckledrill",
+   "region": "Mastery: Special Weapons",
+   "how": "Hit the explosion from the overheated Knuckledrill 5 times. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000716
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000717",
+   "name": "Special Weapon: Lightning Spear",
+   "region": "Mastery: Special Weapons",
+   "how": "Defeat 30 enemies with the {Staticinfo:Item:Lightning_TwoHandSpear#lightning spear}. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000717
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000718",
+   "name": "Special Weapon: Bismuth Spear",
+   "region": "Mastery: Special Weapons",
+   "how": "Defeat 30 enemies with the {Staticinfo:Item:Bismuth_TwoHandSpear#bismuth spear}. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000718
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000719",
+   "name": "Special Armor: Lightning Bolt Plate Armor",
+   "region": "Mastery: Special Weapons",
+   "how": "Obtain Titan's armor. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000719
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000720",
+   "name": "Special Weapon: Gale Shield",
+   "region": "Mastery: Special Weapons",
+   "how": "Subdue 30 enemies with the {Staticinfo:Item:Wind_Power_OneHandShield#gale shield}. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000720
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000721",
+   "name": "Special Weapon: Marni Laser Helm",
+   "region": "Mastery: Special Weapons",
+   "how": "Hit 5 enemies with the {Staticinfo:Item:Marni_Laser_Helm#Marni Laser Helm}'s laser. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000721
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000722",
+   "name": "Special Weapon: Shotgun Shield",
+   "region": "Mastery: Special Weapons",
+   "how": "Defeat 30 enemies with the {Staticinfo:Item:Gun_OneHandShield#shotgun shield}. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000722
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000723",
+   "name": "Special Weapon: Vessel of Dark Pursuit",
+   "region": "Mastery: Special Weapons",
+   "how": "Defeat 100 enemies with {Staticinfo:Item:DarkLeader_TwoHandSword#Vessel of Dark Pursuit}. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000723
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000897",
+   "name": "Harmonious Hooves I",
+   "region": "Mastery: Horse",
+   "how": "Tame 2 wild horses. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000897
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000898",
+   "name": "Harmonious Hooves II",
+   "region": "Mastery: Horse",
+   "how": "Hunt 5 animals within 5 minutes while riding a horse. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000898
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000899",
+   "name": "Harmonious Hooves III",
+   "region": "Mastery: Horse",
+   "how": "While riding a horse, defeat 20 enemies within 5 minutes. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000899
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000900",
+   "name": "Harmonious Hooves IV",
+   "region": "Mastery: Horse",
+   "how": "Go to Sunset Valley to Varnia on horseback in 40 minutes. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000900
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000901",
+   "name": "Harmonious Hooves V",
+   "region": "Mastery: Horse",
+   "how": "Successfully mount a horse 3 times while descending from the air. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000901
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000902",
+   "name": "Harmonious Hooves VI",
+   "region": "Mastery: Horse",
+   "how": "Travel from the Silvermoon Tradehouse to Vellua within 10 minutes while on horseback. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000902
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000903",
+   "name": "Harmonious Hooves VII",
+   "region": "Mastery: Horse",
+   "how": "Ride a {Staticinfo:Knowledge:Knowledge_Strapero_Horse#Priden} for over 100m. Ride a {Staticinfo:Knowledge:Knowledge_Dabrera_Horse#Brianto} for over 100m. Ride a {Staticinfo:Knowledge:Knowledge_Pukre_Horse#Numont} for over 100m. Ride an {Staticinfo:Knowledge:Knowledge_Ayut_Horse#Elantrima} for over 100m. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000903
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000904",
+   "name": "Harmonious Hooves VIII",
+   "region": "Mastery: Horse",
+   "how": "While riding a horse, ram into and subdue 30 enemies ahead within 5 minutes. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000904
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000905",
+   "name": "Harmonious Hooves IX",
+   "region": "Mastery: Horse",
+   "how": "Obtain the {Staticinfo:Item:Sealed_Abyss_Artifact_0091#sealed Abyss artifact}. Leave the City of Delesyia at night and arrive at the City of Pailune before sunrise on horseback. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000905
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000906",
+   "name": "Harmonious Hooves X",
+   "region": "Mastery: Horse",
+   "how": "Tame the legendary steed {Staticinfo:Knowledge:Knowledge_White_Horse#Royler}. Tame the legendary Steed {Staticinfo:Knowledge:Knowledge_Black_Horse#Rokade}. Tame the legendary steed {Staticinfo:Knowledge:Knowledge_RedHare_Horse#Camora}. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000906
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000725",
+   "name": "Slam Master",
+   "region": "Combat: Training",
+   "how": "Hit enemies 30 times with Meteor Kick within 3 minutes. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000725
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000726",
+   "name": "Flash",
+   "region": "Combat: Training",
+   "how": "Hit 5 targets at once with Blinding Flash. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000726
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000727",
+   "name": "Seven Consecutive Strikes",
+   "region": "Combat: Training",
+   "how": "Hit enemies 9 times within 5 seconds with Force Palm. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000727
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000728",
+   "name": "Sinking Fort",
+   "region": "Combat: Training",
+   "how": "Destroy 3 watchtowers within 20 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000728
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000729",
+   "name": "Single Spark, Seven Strikes",
+   "region": "Combat: Training",
+   "how": "Take down 7 enemies with a single explosion. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000729
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000730",
+   "name": "Into the Barrage",
+   "region": "Combat: Training",
+   "how": "Defeat 5 enemies at once with the cannon. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000730
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000731",
+   "name": "Desperate Rescue",
+   "region": "Combat: Training",
+   "how": "Heal allies 3 times with Force Palm: Healing. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000731
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000732",
+   "name": "Judgment Cast Upon the Sleeping",
+   "region": "Combat: Training",
+   "how": "Attack sleeping enemies 5 times. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000732
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000733",
+   "name": "Giant Windmill",
+   "region": "Combat: Training",
+   "how": "Hit enemies 7 times within 30 seconds with Giant Swing. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000733
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000734",
+   "name": "Bare Courage",
+   "region": "Combat: Training",
+   "how": "Take down 3 enemies within 1 minute without using a weapon. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000734
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000605",
+   "name": "Steel Grip Against the Chest",
+   "region": "Combat: Battle",
+   "how": "Subdue 3 opponents within 1 minute using wrestling skills. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000605
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000606",
+   "name": "Stepping on Clouds",
+   "region": "Combat: Battle",
+   "how": "Use Aerial Force Palm to reach a height of 10m. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000606
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000607",
+   "name": "Sliding down the Slope",
+   "region": "Combat: Battle",
+   "how": "Slide down 50m. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000607
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000608",
+   "name": "Rainbow Across the Sky",
+   "region": "Combat: Battle",
+   "how": "Use a banner pike to pole vault 5 times in 30 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000608
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000609",
+   "name": "Keeping Balance on the Wind",
+   "region": "Combat: Battle",
+   "how": "Walk 10m on a rope. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000609
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000610",
+   "name": "Clash of a Protector",
+   "region": "Combat: Battle",
+   "how": "Successfully Parry 7 times without taking damage. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000610
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000611",
+   "name": "Tornado of Steel",
+   "region": "Combat: Battle",
+   "how": "Hit enemies 6 times with a normal Turning Slash. Hit enemies 6 times with a Fire-enhanced Turning Slash. Hit enemies 6 times with an Ice Enhanced Turning Slash. Hit enemies 6 times with a Lightning-enhanced Turning Slash. Hit enemies 6 times with a Wind-enhanced Turning Slash. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000611
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000612",
+   "name": "Like a Butterfly, Like a Storm",
+   "region": "Combat: Battle",
+   "how": "Challenge_SealedArtifact_Mastery_Battle_VIII_1. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000612
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000613",
+   "name": "Through the Current",
+   "region": "Combat: Battle",
+   "how": "Swim 100m at full speed without resting. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000613
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000143",
+   "name": "On a Storm of Beasts",
+   "region": "Combat: Battle",
+   "how": "Hang onto a bear for more than 10 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000143
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000736",
+   "name": "Waves of Lightning",
+   "region": "Combat: Operation",
+   "how": "Hit 10 enemies at once with the disruptor. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000736
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000737",
+   "name": "Hidden Banner Pike",
+   "region": "Combat: Operation",
+   "how": "Defeat 10 soldiers with banner pikes in the Demeniss region within 30 minutes. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000737
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000738",
+   "name": "End of the Shadow",
+   "region": "Combat: Operation",
+   "how": "Assassinate 5 enemies at night. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000738
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000739",
+   "name": "Judgment of the Storm",
+   "region": "Combat: Operation",
+   "how": "Defeat 30 enemies within 1 minute. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000739
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000740",
+   "name": "Seeds of Discord",
+   "region": "Combat: Operation",
+   "how": "Commit a crime in the City of Delesyia while wearing Varnian Contribution Armor. Commit a crime in the City of Varnia while wearing Delesyian Contribution Armor. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000740
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000790",
+   "name": "Touch of Darkness",
+   "region": "Combat: Operation",
+   "how": "Assassinate 3 enemies within 1 minute. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000790
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000791",
+   "name": "Disruption",
+   "region": "Combat: Operation",
+   "how": "Defeat 10 One-Eyed Jackals while wearing the Black Bears' Leather Helm. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000791
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000792",
+   "name": "Gunshot",
+   "region": "Combat: Operation",
+   "how": "Neutralize an Elite only using guns. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000792
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000793",
+   "name": "Meteor Run in the Dark",
+   "region": "Combat: Operation",
+   "how": "Destroy 2 Palisade Gates at night. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000793
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000794",
+   "name": "Dirge Beyond the Border",
+   "region": "Combat: Operation",
+   "how": "Subdue the guards in the Storm Veil. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000794
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000886",
+   "name": "Feather of the Earth",
+   "region": "Life: Hunting",
+   "how": "Carry five birds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000886
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000887",
+   "name": "Wild Showdown",
+   "region": "Life: Hunting",
+   "how": "Defeat 3 wolves unarmed. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000887
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000888",
+   "name": "Hunter's Discipline",
+   "region": "Life: Hunting",
+   "how": "Defeat 3 hyenas without moving more than 20m. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000888
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000889",
+   "name": "Mystical Ecosystem",
+   "region": "Life: Hunting",
+   "how": "Capture 3 Choppies. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000889
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000890",
+   "name": "A Will Harder than Rock",
+   "region": "Life: Hunting",
+   "how": "Defeat 10 stoneback crabs. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000890
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000891",
+   "name": "Small Predator",
+   "region": "Life: Hunting",
+   "how": "Catch and carry 5 animals from the weasel family. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000891
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000892",
+   "name": "Apex of the food chain",
+   "region": "Life: Hunting",
+   "how": "Subdue 3 herbivorous animals. Subdue 3 predators. Subdue 3 omnivorous animals. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000892
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000893",
+   "name": "Song of the Moon-Swallowing Sword",
+   "region": "Life: Hunting",
+   "how": "Cling to a wolf and stab it 6 times in a row. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000893
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000894",
+   "name": "Pine Broom",
+   "region": "Life: Hunting",
+   "how": "Subdue the bear using only a broom. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000894
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000895",
+   "name": "The End of Myth",
+   "region": "Life: Hunting",
+   "how": "Hunt and skin a Silver Fang. Hunt and skin a white bear. Hunt and skin a white-scaled crocodile. Hunt and skin a white bison. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000895
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000138",
+   "name": "When Animals Die",
+   "region": "Life: Hunting",
+   "how": "Obtain Thin Hide through Skinning. Obtain Thick Hide through Skinning. Obtain Sturdy Hide through Skinning. Obtain short hair hide through skinning. Obtain long hair hide through skinning. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000138
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000907",
+   "name": "Between Herbs and Poisons",
+   "region": "Life: Life",
+   "how": "Acquire all mushroom knowledge. Acquire all medicinal herb knowledge. Acquire all poisonous herb knowledge. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000907
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000908",
+   "name": "Crystals in the Veins",
+   "region": "Life: Life",
+   "how": "Acquire all mineral knowledge. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000908
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000909",
+   "name": "Animal Meat",
+   "region": "Life: Life",
+   "how": "Acquire all meat knowledge. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000909
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000910",
+   "name": "Tiny Citizens of Grasslands",
+   "region": "Life: Life",
+   "how": "Acquire all insect and arthropod knowledge. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000910
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000911",
+   "name": "Acquire Timber",
+   "region": "Life: Life",
+   "how": "Obtain 5 pieces of normal timber. Obtain 5 pieces of fine timber. Obtain 5 pieces of flawless timber. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000911
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000912",
+   "name": "The Underwater Ecosystem",
+   "region": "Life: Life",
+   "how": "Acquire all freshwater fish knowledge. Acquire all saltwater fish knowledge. Acquire all legendary fish knowledge. Acquire all underwater wildlife knowledge. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000912
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000913",
+   "name": "Provisions",
+   "region": "Life: Life",
+   "how": "Cook 3 dishes using the Field Cooking Tool. Cook 3 meals that can only be made with a special cooking tool. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000913
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000914",
+   "name": "Equipment",
+   "region": "Life: Life",
+   "how": "Craft a one-handed sword at the smithy. Craft a bow at the smithy. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000914
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000915",
+   "name": "Pets",
+   "region": "Life: Life",
+   "how": "Tame 30 unique pets. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000915
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000916",
+   "name": "The Fruit of Patience",
+   "region": "Life: Life",
+   "how": "Acquire all grain knowledge. Acquire all vegetable knowledge. Acquire all fruit knowledge. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000916
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001399",
+   "name": "Bounty of Meadows",
+   "region": "Life: Life",
+   "how": "Acquire all rare gatherable knowledge. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001399
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001400",
+   "name": "Caves Exploration Log",
+   "region": "Life: Life",
+   "how": "Acquire 100 Caves Knowledge. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001400
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001026",
+   "name": "Traveler with Oak Barrels",
+   "region": "Life: Trade",
+   "how": "Meet the inn owners from all the regions. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001026
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001027",
+   "name": "Rainbow Mane",
+   "region": "Life: Trade",
+   "how": "Learn Theoric's dyeing technique. Learn Monty's dyeing technique. Learn Pororin's dyeing technique. Learn Castiel's dyeing technique. Learn Laurick's dyeing technique. Learn Alton's dyeing technique. Learn Cormac's dyeing technique. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001027
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001028",
+   "name": "Mysterious Accessory Shop",
+   "region": "Life: Trade",
+   "how": "Visit all the Witches' workshops. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001028
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001029",
+   "name": "Contract of the Golden Crown",
+   "region": "Life: Trade",
+   "how": "Deliver trade goods to Hernandian royal court. Deliver trade goods to Demenissian royal court. Deliver trade goods to Varnian royal court. Deliver trade goods to Delesyian royal court. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001029
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001030",
+   "name": "Magnate of the Golden Desert",
+   "region": "Life: Trade",
+   "how": "Earn over 300,000 Camp Funds through trading. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001030
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001032",
+   "name": "Night of the Silent Banner Pike",
+   "region": "Life: Above the Law",
+   "how": "Destroy 10 banner pikes at night without being detected. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001032
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001033",
+   "name": "The Herder's Lament",
+   "region": "Life: Above the Law",
+   "how": "Sell 3 goats to Bram at the camp's ranch. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001033
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001034",
+   "name": "The Vanished Wagon",
+   "region": "Life: Above the Law",
+   "how": "Sell 3 wagons to the fence. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001034
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001035",
+   "name": "Back Alley Cleanup",
+   "region": "Life: Above the Law",
+   "how": "Hand over three criminals to the constabulary. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001035
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001036",
+   "name": "The Hand That Brushes Past All",
+   "region": "Life: Above the Law",
+   "how": "Pickpocket in Hernand. Pickpocket in Demeniss. Pickpocket in Delesyia. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001036
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001037",
+   "name": "Worth Its Weight",
+   "region": "Life: Above the Law",
+   "how": "Sell 10 pigs to the fence. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001037
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001038",
+   "name": "Hands Quicker than Eyes",
+   "region": "Life: Above the Law",
+   "how": "Steal 5 objects within 10 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001038
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001039",
+   "name": "Trespassing",
+   "region": "Life: Above the Law",
+   "how": "Open 20 locked doors. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001039
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001040",
+   "name": "The Dark Pilgrim Who Stole the Ember",
+   "region": "Life: Above the Law",
+   "how": "Steal candles from the Church of West Demeniss. Steal candles from the Church of East Demeniss. Steal candles from the Cathedral of Demeniss. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001040
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001041",
+   "name": "The Crow's Crown and the Last Chivalry",
+   "region": "Life: Above the Law",
+   "how": "Arrest the Worst Criminal. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001041
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001043",
+   "name": "Abyssal Star That Cleaves the Heavens",
+   "region": "Life: Challenges and Changes",
+   "how": "Jump from the Abyss and reach the ground within 30 seconds. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001043
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001044",
+   "name": "Well-Informed Greymane",
+   "region": "Life: Challenges and Changes",
+   "how": "Visit all Greymane Shrines. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001044
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001045",
+   "name": "Under the Ashen Banner Pike",
+   "region": "Life: Challenges and Changes",
+   "how": "Find 20 Greymanes. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001045
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001046",
+   "name": "Return of the Greymane",
+   "region": "Life: Challenges and Changes",
+   "how": "Complete Howling Hill Camp - Second Expansion. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001046
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001047",
+   "name": "A Voyage Without Wind or Sails",
+   "region": "Life: Challenges and Changes",
+   "how": "Travel 2km without moving on your own. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001047
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001048",
+   "name": "Greymane's Vow",
+   "region": "Life: Challenges and Changes",
+   "how": "Acquire Hernandian Signet. Acquire Demenissian Signet. Acquire Delesyian Signet. Acquire Tashkalp Seal. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001048
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000144",
+   "name": "Duo Win Streak",
+   "region": "Life: Challenges and Changes",
+   "how": "3-Win Duo Streak. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1000144
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001202",
+   "name": "4-Player Duo Champion",
+   "region": "Life: Challenges and Changes",
+   "how": "Win a 4-Player Duo Match. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001202
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1001203",
+   "name": "Spot the trickery in Duo",
+   "region": "Life: Challenges and Changes",
+   "how": "Spot the trickery in Duo. Needs its Sealed Abyss Artifact first.",
+   "save": {
+    "mission": 1001203
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000196",
+   "name": "Hawkeye",
+   "region": "Minigames: Shooting",
+   "how": "Win once in the archery contest. Archery Contest Win Streak. Beat the champion.",
+   "save": {
+    "mission": 1000196
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000304",
+   "name": "Silver Trigger",
+   "region": "Minigames: Shooting",
+   "how": "Win once in the shooting contest. Shooting Contest Win Streak. Beat the champion.",
+   "save": {
+    "mission": 1000304
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1003192",
+   "name": "Hero's Handshake I",
+   "region": "Minigames: Test of Strength",
+   "how": "Win an arm wrestling match. Arm Wrestling Win Streak. Beat the champion.",
+   "save": {
+    "mission": 1003192
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1003193",
+   "name": "Hero's Handshake II",
+   "region": "Minigames: Test of Strength",
+   "how": "Win an arm wrestling match. Have a win streak in arm wrestling. Beat the champion.",
+   "save": {
+    "mission": 1003193
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1003194",
+   "name": "Hero's Handshake III",
+   "region": "Minigames: Test of Strength",
+   "how": "Win an arm wrestling match. Have a win streak in arm wrestling. Beat the champion.",
+   "save": {
+    "mission": 1003194
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1002159",
+   "name": "Freesword's Grasp",
+   "region": "Minigames: Test of Strength",
+   "how": "Win once in hand wrestling. Hand Wrestling Win Streak. Beat the champion.",
+   "save": {
+    "mission": 1002159
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1002160",
+   "name": "Steel Fist",
+   "region": "Minigames: Duel",
+   "how": "Win once in the unarmed duel. Unarmed Duel Win Streak. Beat the champion.",
+   "save": {
+    "mission": 1002160
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000396",
+   "name": "Throne of the War God",
+   "region": "Minigames: Duel",
+   "how": "Win once in an all-out duel. All-out Duel Win Streak. Beat the champion.",
+   "save": {
+    "mission": 1000396
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1002161",
+   "name": "Indomitable Will",
+   "region": "Minigames: Duel",
+   "how": "Win once in a wrestling match. Wrestling Win Streak. Beat the champion.",
+   "save": {
+    "mission": 1002161
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1002162",
+   "name": "Dragon's Fang",
+   "region": "Minigames: Duel",
+   "how": "Win once in a spearsmanship contest. Spearsmanship Contest Win Streak. Beat the champion.",
+   "save": {
+    "mission": 1002162
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1002163",
+   "name": "Undying Knight",
+   "region": "Minigames: Duel",
+   "how": "Swordsmanship Contest Win Streak. Have a win streak in the swordsmanship contest. Beat the champion.",
+   "save": {
+    "mission": 1002163
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000423",
+   "name": "Darkhooves Grand Prix",
+   "region": "Minigames: Racing",
+   "how": "Have a win streak in horse racing. Horse racing Win Streak. Beat the champion.",
+   "save": {
+    "mission": 1000423
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1002158",
+   "name": "A Silent War",
+   "region": "Minigames: Mind Games",
+   "how": "Win a game of Rock, Paper, Scissors. Win in Rock, Paper, Scissors.",
+   "save": {
+    "mission": 1002158
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1000625",
+   "name": "A Bloom of High Stakes",
+   "region": "Minigames: Mind Games",
+   "how": "Win a Duo match. Duo win streak. Win against 1 opponent. Win against 2 opponents. Win against 3 opponents.",
+   "save": {
+    "mission": 1000625
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-ch-1002164",
+   "name": "Key of Destiny",
+   "region": "Minigames: Mind Games",
+   "how": "Win a game of Five-Card. Win consecutive matches of Five-Card. Win against 1 opponent. Win against 2 opponents. Win against 3 opponents.",
+   "save": {
+    "mission": 1002164
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"

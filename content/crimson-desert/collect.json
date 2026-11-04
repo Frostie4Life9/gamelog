@@ -117,167 +117,6 @@
    "region": "Crimson Desert"
   },
   {
-   "id": "cd-col-abyss",
-   "name": "All 40 The Abyss",
-   "how": "Abyss challenges (Restoration). Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
-   "sources": [
-    {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "PowerPyx: trophy guide & roadmap",
-     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
-    }
-   ],
-   "verified": "sourced",
-   "unlocks": "Conqueror of the Abysses (Gold). Counts toward Expert Explorer (Gold)."
-  },
-  {
-   "id": "cd-col-secret",
-   "name": "All 60 Secret Places",
-   "how": "Wandering Footsteps challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
-   "sources": [
-    {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "PowerPyx: trophy guide & roadmap",
-     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
-    },
-    {
-     "t": "Vulkk: all 60 Secret Places",
-     "u": "https://vulkk.com/2026/07/28/crimson-desert-secret-places-challenges-guide-all-60-abyss-artifact-locations/"
-    }
-   ],
-   "verified": "sourced",
-   "unlocks": "Pilgrim of Wonders (Silver). Counts toward Expert Explorer (Gold)."
-  },
-  {
-   "id": "cd-col-ruins",
-   "name": "All 37 Ancient Ruins puzzles",
-   "how": "The Thread in the Forest challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
-   "sources": [
-    {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "PowerPyx: trophy guide & roadmap",
-     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
-    },
-    {
-     "t": "Gamer Guides: puzzles",
-     "u": "https://www.gamerguides.com/crimson-desert/guide/puzzles"
-    }
-   ],
-   "verified": "sourced",
-   "unlocks": "Puzzle Solver (Silver). Counts toward Expert Explorer (Gold)."
-  },
-  {
-   "id": "cd-col-sanctums",
-   "name": "All 16 Sanctums",
-   "how": "The Forgotten Sun challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
-   "sources": [
-    {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "PowerPyx: trophy guide & roadmap",
-     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
-    }
-   ],
-   "verified": "sourced",
-   "unlocks": "Lightbringer (Silver). Counts toward Expert Explorer (Gold)."
-  },
-  {
-   "id": "cd-col-spires",
-   "name": "All 8 Spires",
-   "how": "Land Meets Sky challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
-   "sources": [
-    {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "PowerPyx: trophy guide & roadmap",
-     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
-    }
-   ],
-   "verified": "sourced",
-   "unlocks": "Conqueror of Spires (Bronze). Counts toward Expert Explorer (Gold)."
-  },
-  {
-   "id": "cd-col-constellations",
-   "name": "All 13 Constellations",
-   "how": "Maps of the Night challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
-   "sources": [
-    {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "PowerPyx: trophy guide & roadmap",
-     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
-    }
-   ],
-   "verified": "sourced",
-   "unlocks": "Navigator of the Stars (Bronze). Counts toward Expert Explorer (Gold)."
-  },
-  {
-   "id": "cd-col-mazes",
-   "name": "All 4 Mazes",
-   "how": "Winding Paths challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
-   "sources": [
-    {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "PowerPyx: trophy guide & roadmap",
-     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
-    }
-   ],
-   "verified": "sourced",
-   "unlocks": "Maze Pathfinder (Bronze). Counts toward Expert Explorer (Gold)."
-  },
-  {
-   "id": "cd-col-legendary",
-   "name": "All 22 Legendary Animals",
-   "how": "Hazy Tales challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
-   "sources": [
-    {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "PowerPyx: trophy guide & roadmap",
-     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
-    }
-   ],
-   "verified": "sourced",
-   "unlocks": "Counts toward Expert Explorer (Gold)."
-  },
-  {
-   "id": "cd-col-newpower",
-   "name": "All 7 New Power bosses",
-   "how": "Primal Frenzy challenges. Pick up the matching Sealed Abyss Artifact first, or progress in this category won't count.",
-   "sources": [
-    {
-     "t": "PowerPyx: all challenges guide",
-     "u": "https://www.powerpyx.com/crimson-desert-all-challenges-guide/"
-    },
-    {
-     "t": "PowerPyx: trophy guide & roadmap",
-     "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
-    }
-   ],
-   "verified": "sourced",
-   "unlocks": "Counts toward Expert Explorer (Gold)."
-  },
-  {
    "id": "cd-col-caves",
    "name": "Explore 100 caves",
    "how": "Part of the Life challenges for Natural Collector, along with catching one of each insect and arthropod.",
@@ -285,6 +124,3258 @@
     {
      "t": "PowerPyx: trophy guide & roadmap",
      "u": "https://www.powerpyx.com/crimson-desert-trophy-guide-roadmap/"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000082",
+   "name": "Dimensional Bonds",
+   "region": "The Abyss",
+   "how": "Restore Insight Pulse. Restore Resonance Pulse. Restore Leap Pulse. Restore Pulse of Jijeong Temple. Restore Cogwheel Pulse. Restore Solar Pulse. Restore Glacial Pulse. Restore the Abyss.",
+   "save": {
+    "mission": 1000082
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000066",
+   "name": "Ethereal Pathway",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000066
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000695",
+   "name": "Axiom Archive",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000695
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000696",
+   "name": "Vault of Vengeance",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Unlock the golden vault. Restore the Abyss.",
+   "save": {
+    "mission": 1000696
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000786",
+   "name": "Crow's Nest",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000786
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000929",
+   "name": "Root's End",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000929
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000084",
+   "name": "Skyloop Bridge",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000084
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000930",
+   "name": "Ether Rest",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000930
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000169",
+   "name": "Ether Fragment",
+   "region": "The Abyss",
+   "how": "Restore Abyss Debris. Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000169
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000931",
+   "name": "Sanctorum of Insight",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000931
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000932",
+   "name": "Forgotten Altar",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000932
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000933",
+   "name": "Sanctorum of Darkness",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000933
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000934",
+   "name": "Twisted Thicketway",
+   "region": "The Abyss",
+   "how": "Activate the wind device. Activate the Abyss Nexus. Defeat Kutum. Restore the Abyss.",
+   "save": {
+    "mission": 1000934
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000935",
+   "name": "Nest of Valor",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000935
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000936",
+   "name": "Ascetic's Rest",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000936
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000937",
+   "name": "Tomb of Perdition",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000937
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000938",
+   "name": "Ice Cradle",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000938
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000939",
+   "name": "Origin of Thoughts",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000939
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000940",
+   "name": "Roots of Truth",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000940
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000941",
+   "name": "Altar of Solitude",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000941
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000942",
+   "name": "Path of Trials",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000942
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000943",
+   "name": "Disconnected Truth",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000943
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000944",
+   "name": "Sanctum of Transcendence",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000944
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000945",
+   "name": "Path of Serpents",
+   "region": "The Abyss",
+   "how": "Restore Abyss Debris. Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000945
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000946",
+   "name": "Frostbitten Paradise",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000946
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000947",
+   "name": "Riddle Square",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000947
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000948",
+   "name": "Desert Fragment",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000948
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000949",
+   "name": "Crescent Skybridge",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000949
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000950",
+   "name": "Precipice of Truth",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000950
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000951",
+   "name": "Chaos Forest",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000951
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000952",
+   "name": "Throne of Truth",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000952
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000953",
+   "name": "Tree of Slumber",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000953
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000954",
+   "name": "Courtyard of Precision",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000954
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000955",
+   "name": "Monolith Crown",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000955
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000956",
+   "name": "Loop of Life",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000956
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000957",
+   "name": "Passage of Malice",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000957
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000959",
+   "name": "Dimensional Labyrinth",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000959
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000960",
+   "name": "Secret Garden",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000960
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000961",
+   "name": "Cradle of Truth",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1000961
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001500",
+   "name": "Crossroads of Uncertainty",
+   "region": "The Abyss",
+   "how": "Activate the Abyss Nexus. Restore the Abyss.",
+   "save": {
+    "mission": 1001500
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000094",
+   "name": "Precipice of Silence",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000094
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000303",
+   "name": "Giant Hand at Windy Hills",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000303
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000120",
+   "name": "Breathless Lake",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000120
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000577",
+   "name": "Peak's Green Bloom",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000577
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000145",
+   "name": "Lava Under Snowy Plains",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000145
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000437",
+   "name": "Blazing Sand",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000437
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000448",
+   "name": "A Detailed Glance",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000448
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000450",
+   "name": "Giant Hand of Everfrost",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000450
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000451",
+   "name": "Trial of the Sandscale",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000451
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000465",
+   "name": "The Southern End",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000465
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000656",
+   "name": "The Desert's Oasis",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000656
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000657",
+   "name": "Cliffside Marine Erosion Pillar",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000657
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000658",
+   "name": "A Hill Guided by Light",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000658
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000288",
+   "name": "Guide in the Darkness",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000288
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000871",
+   "name": "Where Sky Meets Earth",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000871
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000872",
+   "name": "Rock Worn Down by the Ocean Wind",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000872
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000873",
+   "name": "An Unreachable End",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000873
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000874",
+   "name": "Rock Atop the Altar",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000874
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000875",
+   "name": "Subtle Gap",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000875
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000876",
+   "name": "Haven Past the Snowfall",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000876
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000331",
+   "name": "Windcrest",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1000331
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1002843",
+   "name": "Hill of the Abandoned",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1002843
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003204",
+   "name": "Wrecked Dream",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003204
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003205",
+   "name": "Hill of Serenity",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003205
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003206",
+   "name": "The Stairway Falls",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003206
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003207",
+   "name": "Strange Rift",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003207
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003208",
+   "name": "Peak of Enlightenment",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003208
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003209",
+   "name": "Sanctuary of Reflection",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003209
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003210",
+   "name": "Thunderwater Falls",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003210
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003211",
+   "name": "Edge of Learning",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003211
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003212",
+   "name": "Threefold Fork",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003212
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003213",
+   "name": "The Secret-Laden Cave",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003213
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003214",
+   "name": "Peak of the Innovative Mind",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003214
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003215",
+   "name": "Cape of Hope",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003215
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003216",
+   "name": "Hunter's Overlook",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003216
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003217",
+   "name": "Forgotten Cliff",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003217
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003218",
+   "name": "Saltshade Hill",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003218
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003219",
+   "name": "Everflowing Spring",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003219
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003220",
+   "name": "Crimson Ridge",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003220
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003221",
+   "name": "Hangman's Crest",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003221
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003222",
+   "name": "Peak of Abundance",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003222
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003223",
+   "name": "Arehaza Peak",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003223
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003224",
+   "name": "Hill of Grief",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003224
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003225",
+   "name": "Remnants of Ruin",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003225
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003226",
+   "name": "The Desert's End",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003226
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003227",
+   "name": "Howlsands Dunes",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003227
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003228",
+   "name": "Mushroomcap Cliff",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003228
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003229",
+   "name": "Ivory Marches Garden",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003229
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003230",
+   "name": "Whitesand Cliff",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003230
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003231",
+   "name": "Cliff of Ruination",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003231
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003232",
+   "name": "The Wolf's Molar",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003232
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003233",
+   "name": "The Sage's Rest",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003233
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003234",
+   "name": "Where the Stars Linger",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003234
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003235",
+   "name": "Hill of Longing",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003235
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003236",
+   "name": "Silverwolf Lake",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003236
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003237",
+   "name": "Ancestors' Rest",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003237
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003238",
+   "name": "Peak of Grief",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003238
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003239",
+   "name": "The Dragon's Gaze",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003239
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003240",
+   "name": "Sandsea Waymark",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003240
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1003241",
+   "name": "Watcher on the Cliff",
+   "region": "Secret Places",
+   "save": {
+    "mission": 1003241
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000467",
+   "name": "Steel Mountains Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000467
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000468",
+   "name": "Trembling Woods Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000468
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000469",
+   "name": "Deepfog Basin Everfrost Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000469
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000470",
+   "name": "Duskwood Hill Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000470
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001894",
+   "name": "Dragon's Stone Chamber Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1001894
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001896",
+   "name": "Hidden Chamber of Wisdom Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1001896
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001897",
+   "name": "Secret Chamber of the Golden Plains Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1001897
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001898",
+   "name": "The Screaming Vault Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1001898
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1002103",
+   "name": "Memory-Laden Ruins Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1002103
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1002104",
+   "name": "Azure Moon Labyrinth Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1002104
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000471",
+   "name": "Timberdale Cliff Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000471
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000472",
+   "name": "Timberdale Gorge Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000472
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000473",
+   "name": "Hunter's Cabin Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000473
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000474",
+   "name": "Wiggling Hill Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000474
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000475",
+   "name": "Blue Thicket Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000475
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000476",
+   "name": "Black Wall Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000476
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001425",
+   "name": "Meandering Hills Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1001425
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001023",
+   "name": "Drakesfall Gorge Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1001023
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001024",
+   "name": "Mount Benus Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1001024
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000477",
+   "name": "Duskwood Waterside Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000477
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000479",
+   "name": "Beardtree Hills Rock Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000479
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000480",
+   "name": "Precipice of Echoes Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000480
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000481",
+   "name": "Deepfog Basin Dragon Head Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000481
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000482",
+   "name": "Five-Finger Mountain Icy Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000482
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000483",
+   "name": "Five-Finger Mountain Valley Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000483
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000484",
+   "name": "Red River Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000484
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000485",
+   "name": "Bamboo Forest Seonangdang Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000485
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000486",
+   "name": "Kingshield Mountains Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000486
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000857",
+   "name": "Halssius Conflux Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000857
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000487",
+   "name": "Sunrise Plains Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000487
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000488",
+   "name": "Golden Plains Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000488
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001022",
+   "name": "The Grey Forest Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1001022
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000489",
+   "name": "Arboria Forest Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000489
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000490",
+   "name": "Fuming Lands Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000490
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000491",
+   "name": "Beardtree Hills Sunflower Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000491
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000492",
+   "name": "Silver Wolf Mountain Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000492
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000034",
+   "name": "Haunted Hill Ruins",
+   "region": "Ancient Ruins",
+   "how": "Unravel the secret of the ancient ruins.",
+   "save": {
+    "mission": 1000034
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001442",
+   "name": "Sanctum of Penitence",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Penitence.",
+   "save": {
+    "mission": 1001442
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001443",
+   "name": "Sanctum of Temperance",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Temperance.",
+   "save": {
+    "mission": 1001443
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001444",
+   "name": "Sanctum of Atonement",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Atonement.",
+   "save": {
+    "mission": 1001444
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001445",
+   "name": "Sanctum of Deliverance",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Deliverance.",
+   "save": {
+    "mission": 1001445
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001446",
+   "name": "Sanctum of Benediction",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Benediction.",
+   "save": {
+    "mission": 1001446
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001447",
+   "name": "Sanctum of Absolution",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Absolution.",
+   "save": {
+    "mission": 1001447
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001448",
+   "name": "Sanctum of Expiation",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Expiation.",
+   "save": {
+    "mission": 1001448
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001449",
+   "name": "Sanctum of Mortification",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Mortification.",
+   "save": {
+    "mission": 1001449
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001450",
+   "name": "Sanctum of Revelation",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Revelation.",
+   "save": {
+    "mission": 1001450
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001451",
+   "name": "Sanctum of Renunciation",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Renunciation.",
+   "save": {
+    "mission": 1001451
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001452",
+   "name": "Sanctum of Faith",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Faith.",
+   "save": {
+    "mission": 1001452
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001453",
+   "name": "Sanctum of Oblation",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Oblation.",
+   "save": {
+    "mission": 1001453
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001454",
+   "name": "Sanctum of Veneration",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Veneration.",
+   "save": {
+    "mission": 1001454
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001455",
+   "name": "Sanctum of Devotion",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Devotion.",
+   "save": {
+    "mission": 1001455
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001456",
+   "name": "Sanctum of Solace",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Solace.",
+   "save": {
+    "mission": 1001456
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001457",
+   "name": "Sanctum of Exaltation",
+   "region": "Sanctums",
+   "how": "Restore the Sanctum of Exaltation.",
+   "save": {
+    "mission": 1001457
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000923",
+   "name": "Spire of Clockwork",
+   "region": "Spires",
+   "how": "Find a way to enter the spire. Reach the top of the spire. Go through the spire to enter the Abyss.",
+   "save": {
+    "mission": 1000923
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000260",
+   "name": "Spire of Frost",
+   "region": "Spires",
+   "how": "Find a way to enter the spire. Reach the top of the spire. Go through the spire to enter the Abyss.",
+   "save": {
+    "mission": 1000260
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000325",
+   "name": "Jijeong Temple Pagoda",
+   "region": "Spires",
+   "how": "Go through the spire to enter the Abyss.",
+   "save": {
+    "mission": 1000325
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000921",
+   "name": "Spire of Soaring",
+   "region": "Spires",
+   "how": "Reach the top of the spire. Restore Abyss Debris. Go through the spire to enter the Abyss.",
+   "save": {
+    "mission": 1000921
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000686",
+   "name": "Spire of Ringing Truth",
+   "region": "Spires",
+   "how": "Reach the top of the spire. Go through the spire to enter the Abyss.",
+   "save": {
+    "mission": 1000686
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000431",
+   "name": "Spire of the Stars",
+   "region": "Spires",
+   "how": "Activate the Spire of the Stars. Go through the spire to enter the Abyss.",
+   "save": {
+    "mission": 1000431
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000747",
+   "name": "Spire of the Sun",
+   "region": "Spires",
+   "how": "Find a way to enter the spire. Reach the top of the spire. Go through the spire to enter the Abyss.",
+   "save": {
+    "mission": 1000747
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000922",
+   "name": "Spire of Insight",
+   "region": "Spires",
+   "how": "Find a way to enter the spire. Reach the top of the spire. Go through the spire to enter the Abyss.",
+   "save": {
+    "mission": 1000922
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001385",
+   "name": "Adventurer Constellation",
+   "region": "Constellations",
+   "how": "Observe the adventurer constellation.",
+   "save": {
+    "mission": 1001385
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001394",
+   "name": "Black Dragon Constellation",
+   "region": "Constellations",
+   "how": "Observe the black dragon constellation.",
+   "save": {
+    "mission": 1001394
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001395",
+   "name": "Giant Constellation",
+   "region": "Constellations",
+   "how": "Observe the giant constellation.",
+   "save": {
+    "mission": 1001395
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001396",
+   "name": "Key Constellation",
+   "region": "Constellations",
+   "how": "Observe the key constellation.",
+   "save": {
+    "mission": 1001396
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001228",
+   "name": "Ship Constellation",
+   "region": "Constellations",
+   "how": "Observe the ship constellation.",
+   "save": {
+    "mission": 1001228
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001392",
+   "name": "Camel Constellation",
+   "region": "Constellations",
+   "how": "Observe the camel constellation.",
+   "save": {
+    "mission": 1001392
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001391",
+   "name": "Elephant Constellation",
+   "region": "Constellations",
+   "how": "Observe the elephant constellation.",
+   "save": {
+    "mission": 1001391
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001393",
+   "name": "Goblin Constellation",
+   "region": "Constellations",
+   "how": "Observe the goblin constellation.",
+   "save": {
+    "mission": 1001393
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001387",
+   "name": "Hammer Constellation",
+   "region": "Constellations",
+   "how": "Observe the hammer constellation.",
+   "save": {
+    "mission": 1001387
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001223",
+   "name": "Sealed Stone Constellation",
+   "region": "Constellations",
+   "how": "Observe the sealed stone constellation.",
+   "save": {
+    "mission": 1001223
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001384",
+   "name": "Shield Constellation",
+   "region": "Constellations",
+   "how": "Observe the shield constellation.",
+   "save": {
+    "mission": 1001384
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001388",
+   "name": "Woodland Spirit Owl Constellation",
+   "region": "Constellations",
+   "how": "Observe the woodland spirit owl constellation.",
+   "save": {
+    "mission": 1001388
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001386",
+   "name": "Wagon Constellation",
+   "region": "Constellations",
+   "how": "Observe the wagon constellation.",
+   "save": {
+    "mission": 1001386
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000443",
+   "name": "Maze of Burhum",
+   "region": "Mazes",
+   "how": "Find the hidden path within the maze.",
+   "save": {
+    "mission": 1000443
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000441",
+   "name": "Ancient Rift Maze",
+   "region": "Mazes",
+   "how": "Find the hidden path within the maze.",
+   "save": {
+    "mission": 1000441
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000401",
+   "name": "Smoking Lands Desert Mouth Maze",
+   "region": "Mazes",
+   "how": "Find the hidden path within the maze.",
+   "save": {
+    "mission": 1000401
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000228",
+   "name": "Maze of Dawnreach",
+   "region": "Mazes",
+   "how": "Find the hidden path within the maze.",
+   "save": {
+    "mission": 1000228
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001229",
+   "name": "Rokade",
+   "region": "Legendary Animals",
+   "how": "Tame the legendary Rokade.",
+   "save": {
+    "mission": 1001229
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1002243",
+   "name": "Black Lion",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary black lion.",
+   "save": {
+    "mission": 1002243
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001486",
+   "name": "Coelacanth",
+   "region": "Legendary Animals",
+   "how": "Catch a Legendary Coelacanth.",
+   "save": {
+    "mission": 1001486
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001493",
+   "name": "Giant White Bison",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary giant white bison.",
+   "save": {
+    "mission": 1001493
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001480",
+   "name": "Golden Carp",
+   "region": "Legendary Animals",
+   "how": "Catch a Legendary Golden Carp.",
+   "save": {
+    "mission": 1001480
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001474",
+   "name": "Golden Tench",
+   "region": "Legendary Animals",
+   "how": "Catch the Legendary Golden Tench.",
+   "save": {
+    "mission": 1001474
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001487",
+   "name": "Golden Coelacanth",
+   "region": "Legendary Animals",
+   "how": "Catch a Legendary Golden Coelacanth.",
+   "save": {
+    "mission": 1001487
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1002197",
+   "name": "Clockwork Fish",
+   "region": "Legendary Animals",
+   "how": "Catch the legendary clockwork fish.",
+   "save": {
+    "mission": 1002197
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001502",
+   "name": "Phoenix",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary phoenix.",
+   "save": {
+    "mission": 1001502
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001492",
+   "name": "White Bison",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary white bison.",
+   "save": {
+    "mission": 1001492
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001496",
+   "name": "Snowwhite Deer",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary snowwhite deer.",
+   "save": {
+    "mission": 1001496
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001468",
+   "name": "Camora",
+   "region": "Legendary Animals",
+   "how": "Tame the legendary Camora.",
+   "save": {
+    "mission": 1001468
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001498",
+   "name": "Red River Hog",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary Red River Hog.",
+   "save": {
+    "mission": 1001498
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001489",
+   "name": "Silver Fang",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary Silver Fang.",
+   "save": {
+    "mission": 1001489
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001501",
+   "name": "White Tiger",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary white tiger.",
+   "save": {
+    "mission": 1001501
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001497",
+   "name": "Vine Deer",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary vine deer.",
+   "save": {
+    "mission": 1001497
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001491",
+   "name": "White-Scaled Crocodile",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary white-scaled crocodile.",
+   "save": {
+    "mission": 1001491
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001490",
+   "name": "White Bear",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary white bear.",
+   "save": {
+    "mission": 1001490
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001214",
+   "name": "Royler",
+   "region": "Legendary Animals",
+   "how": "Tame the legendary Royler.",
+   "save": {
+    "mission": 1001214
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001499",
+   "name": "White Lion",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a white lion.",
+   "save": {
+    "mission": 1001499
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001495",
+   "name": "White Moose",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary white moose.",
+   "save": {
+    "mission": 1001495
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001494",
+   "name": "White Elk",
+   "region": "Legendary Animals",
+   "how": "Hunt and skin a legendary White Elk.",
+   "save": {
+    "mission": 1001494
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000828",
+   "name": "King of Corpses",
+   "region": "New Power bosses",
+   "how": "Acquire the sealed armor. Defeat Skevald, the Carrion King.",
+   "save": {
+    "mission": 1000828
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000829",
+   "name": "Dark Shadow",
+   "region": "New Power bosses",
+   "how": "Acquire the sealed armor. Defeat the Black Fang.",
+   "save": {
+    "mission": 1000829
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000830",
+   "name": "Spirit Shepherd",
+   "region": "New Power bosses",
+   "how": "Acquire the sealed armor. Defeat White Horn, Shepherd of Souls.",
+   "save": {
+    "mission": 1000830
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000831",
+   "name": "Ruler of the Northern Sky",
+   "region": "New Power bosses",
+   "how": "Acquire the sealed armor. Defeat Karanda.",
+   "save": {
+    "mission": 1000831
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000832",
+   "name": "Entangled Crisis",
+   "region": "New Power bosses",
+   "how": "Acquire the sealed armor. Defeat the queen spider.",
+   "save": {
+    "mission": 1000832
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1000982",
+   "name": "Immense beauty",
+   "region": "New Power bosses",
+   "how": "Acquire the sealed armor. Defeat the queen stoneback crab.",
+   "save": {
+    "mission": 1000982
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
+    }
+   ],
+   "verified": "sourced"
+  },
+  {
+   "id": "cd-col-1001016",
+   "name": "Dangerous Sparkle",
+   "region": "New Power bosses",
+   "how": "Acquire the sealed armor. Defeat the queen bismuth oreback crab.",
+   "save": {
+    "mission": 1001016
+   },
+   "sources": [
+    {
+     "t": "Game data: mission table via the NattKh save editor (MPL-2.0)",
+     "u": "https://github.com/NattKh/CRIMSON-DESERT-SAVE-EDITOR-AND-GAME-MODS"
     }
    ],
    "verified": "sourced"
