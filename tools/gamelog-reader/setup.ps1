@@ -14,30 +14,29 @@ try {
   # The Microsoft Store 'python' shortcut exists even when Python isn't installed,
   # so only accept a Python that actually runs.
   $py = $null; $pyArgs = @()
-  foreach ($c in @(@('py', '-3'), @('python'))) {
-    if (-not (Get-Command $c[0] -ErrorAction SilentlyContinue)) { continue }
-    $a = @($c | Select-Object -Skip 1)
-    # Windows PowerShell turns a native program's error text into a fatal error
-    # under 'Stop', so probe with errors relaxed.
+  # Ask a candidate for its version; judge only by what it prints (exit codes are
+  # unreliable here), and log every attempt to setup.log.
+  function Probe($exe, $extra) {
     $ErrorActionPreference = 'Continue'
-    $v = $null
-    try { $v = (& $c[0] @a -c "import sys;print(sys.version_info[0]*100+sys.version_info[1])" 2>$null | Select-Object -First 1) } catch { $v = $null }
-    $code = $LASTEXITCODE
+    $out = ''
+    try { $out = (& $exe @extra -c "import sys;print('PYVER', sys.version_info[0]*100+sys.version_info[1])" 2>&1 | Out-String) } catch { $out = $_.Exception.Message }
     $ErrorActionPreference = 'Stop'
-    if ($code -eq 0 -and "$v" -match '^\d+$' -and [int]$v -ge 309) { $py = $c[0]; $pyArgs = $a; break }
+    Write-Host "  tried $exe $($extra -join ' '): $($out.Trim())"
+    if ($out -match 'PYVER (\d+)' -and [int]$Matches[1] -ge 309) { return $true }
+    return $false
   }
-  if (-not $py) {
-    # Installed but not on PATH yet (common right after a winget install): look in the install folders
-    $dirs = @("$env:LOCALAPPDATA\Programs\Python", "$env:ProgramFiles", "${env:ProgramFiles(x86)}")
-    $cands = foreach ($d in $dirs) { if ($d -and (Test-Path $d)) { Get-ChildItem -Path $d -Filter 'Python3*' -Directory -ErrorAction SilentlyContinue | ForEach-Object { Join-Path $_.FullName 'python.exe' } } }
-    foreach ($exe in ($cands | Where-Object { Test-Path $_ } | Sort-Object -Descending)) {
-      $ErrorActionPreference = 'Continue'
-      $v = $null
-      try { $v = (& $exe -c "import sys;print(sys.version_info[0]*100+sys.version_info[1])" 2>$null | Select-Object -First 1) } catch { $v = $null }
-      $code = $LASTEXITCODE
-      $ErrorActionPreference = 'Stop'
-      if ($code -eq 0 -and "$v" -match '^\d+$' -and [int]$v -ge 309) { $py = $exe; $pyArgs = @(); break }
-    }
+  $cands = @()
+  foreach ($d in @("$env:LOCALAPPDATA\Programs\Python", "$env:ProgramFiles", "${env:ProgramFiles(x86)}")) {
+    if ($d -and (Test-Path $d)) { Get-ChildItem -Path $d -Filter 'Python3*' -Directory -ErrorAction SilentlyContinue | Sort-Object Name -Descending | ForEach-Object { $cands += ,@((Join-Path $_.FullName 'python.exe')) } }
+  }
+  $cands += ,@('py', '-3')
+  foreach ($launcher in @("$env:LOCALAPPDATA\Programs\Python\Launcher\py.exe", "$env:WINDIR\py.exe")) { $cands += ,@($launcher, '-3') }
+  $cands += ,@('python')
+  foreach ($c in $cands) {
+    $exe = $c[0]; $extra = @($c | Select-Object -Skip 1)
+    if ($exe -like '*\*') { if (-not (Test-Path $exe)) { continue } }
+    elseif (-not (Get-Command $exe -ErrorAction SilentlyContinue)) { continue }
+    if (Probe $exe $extra) { $py = $exe; $pyArgs = $extra; break }
   }
   if (-not $py) {
     Write-Host "Python isn't installed (or is older than 3.9). Installing Python 3.12 with winget..."
