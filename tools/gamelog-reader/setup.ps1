@@ -17,19 +17,35 @@ try {
   foreach ($c in @(@('py', '-3'), @('python'))) {
     if (-not (Get-Command $c[0] -ErrorAction SilentlyContinue)) { continue }
     $a = @($c | Select-Object -Skip 1)
-    $v = & $c[0] @a -c "import sys;print(sys.version_info[0]*100+sys.version_info[1])" 2>$null
-    if ($LASTEXITCODE -eq 0 -and [int]"0$v" -ge 309) { $py = $c[0]; $pyArgs = $a; break }
+    # Windows PowerShell turns a native program's error text into a fatal error
+    # under 'Stop', so probe with errors relaxed.
+    $ErrorActionPreference = 'Continue'
+    $v = $null
+    try { $v = (& $c[0] @a -c "import sys;print(sys.version_info[0]*100+sys.version_info[1])" 2>$null | Select-Object -First 1) } catch { $v = $null }
+    $code = $LASTEXITCODE
+    $ErrorActionPreference = 'Stop'
+    if ($code -eq 0 -and "$v" -match '^\d+$' -and [int]$v -ge 309) { $py = $c[0]; $pyArgs = $a; break }
   }
   if (-not $py) {
     Write-Host "Python isn't installed (or is older than 3.9). Installing Python 3.12 with winget..."
+    if (-not (Get-Command winget -ErrorAction SilentlyContinue)) { Fail "Python isn't installed and winget isn't available. Install Python 3.12 from python.org (tick 'Add python.exe to PATH'), then run setup.bat again." }
+    $ErrorActionPreference = 'Continue'
     winget install -e --id Python.Python.3.12 --accept-source-agreements --accept-package-agreements
-    Fail "Python was just installed. Close this window and run setup.bat again so Windows picks it up."
+    $code = $LASTEXITCODE
+    $ErrorActionPreference = 'Stop'
+    if ($code -ne 0) { Fail "winget couldn't install Python (code $code). Install Python 3.12 from python.org (tick 'Add python.exe to PATH'), then run setup.bat again." }
+    Write-Host ""
+    Write-Host "Python is installed. Close this window and run setup.bat again so Windows picks it up." -ForegroundColor Yellow
+    Stop-Transcript | Out-Null
+    exit 0
   }
   Write-Host "Using: $(& $py @pyArgs -c 'import sys;print(sys.executable)')"
 
   Step "Installing the two libraries it needs (lz4, cryptography)"
+  $ErrorActionPreference = 'Continue'
   & $py @pyArgs -m pip install --user --quiet --disable-pip-version-check lz4 cryptography
-  if ($LASTEXITCODE -ne 0) { Fail "pip couldn't install lz4 and cryptography." }
+  $code = $LASTEXITCODE; $ErrorActionPreference = 'Stop'
+  if ($code -ne 0) { Fail "pip couldn't install lz4 and cryptography." }
 
   Step "Worker URL and sync secret"
   if (-not (Test-Path 'gamelog-reader.json')) {
@@ -41,8 +57,10 @@ try {
   if (-not $cfg.url -or $cfg.url -like '*YOUR-SUBDOMAIN*') { Fail "gamelog-reader.json still has the example Worker URL. Open it, fill it in, and run setup.bat again." }
 
   Step "First read of your save"
+  $ErrorActionPreference = 'Continue'
   & $py @pyArgs gamelog_reader.py --once
-  if ($LASTEXITCODE -ne 0) { Fail "the first read failed (see the message above)." }
+  $code = $LASTEXITCODE; $ErrorActionPreference = 'Stop'
+  if ($code -ne 0) { Fail "the first read failed (see the message above)." }
 
   Step "Starting it in the background, and with Windows"
   $pyw = (& $py @pyArgs -c "import sys,os;print(os.path.join(os.path.dirname(sys.executable),'pythonw.exe'))").Trim()
