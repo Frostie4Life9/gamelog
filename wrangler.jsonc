@@ -1,0 +1,15 @@
+// Deploy config for the gamelog-sync Worker (Workers Builds deploys on every push to main).
+// Secrets (SECRET, STEAM_KEY, ANTHROPIC_KEY) stay in the dashboard; never put them here.
+{
+  "name": "gamelog-sync",
+  "main": "worker/gamelog-sync.js",
+  "compatibility_date": "2026-10-21",
+  "kv_namespaces": [
+    { "binding": "STATE", "id": "9654fe9fecb94f24b8d6a144ea7372fc" }
+  ],
+  // Keeps STEAM_ID and STEAM_BUDGET (plain-text vars set in the dashboard) across deploys.
+  "keep_vars": true,
+  "triggers": {
+    "crons": ["0,30 * * * *", "* * * * *"]
+  }
+}
