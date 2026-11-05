@@ -1187,6 +1187,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.05-a', note:'SIDE QUESTS FROM YOUR SAVE: the save reader now tracks 241 faction quests across 63 of the 69 factions in Side Quests. Each faction shows how many of its quests your save has finished (\u201c3 of 8 quests\u201d), and it ticks itself once every one is done. The save panel adds a side-quest total. St. Halssius, Knytlingar Clan, Church of Solumen, Marnirail, Varnia and Abyss list no separate quests, so they stay by hand. To get it, copy the new gamelog_reader.py and cd_goals.json from tools/gamelog-reader into your reader folder.'},
   {v:'2026.11.03-e', note:'FIX: ticks from your save showed up only if you reopened a game a minute later. They now land as soon as the game\u2019s goals finish loading.'},
   {v:'2026.11.03-d', note:'YOUR SAVE FILLS MORE TABS: Challenges now lists every challenge (156, by category, with the exact task) instead of one goal per category, and Collectibles lists each Abyss, Secret Place, Ancient Ruin, Sanctum, Spire, Constellation, Maze, Legendary Animal and New Power boss by name. Names and tasks come from the game\u2019s own data. The save reader ticks all of these, plus Kliff\u2019s Observe skills in Power. Side Quests, Pets, Armor and Charting the Unknown are still by hand for now.'},
   {v:'2026.11.03-c', note:'FULL MAIN STORY: the Main Story tab now lists all 39 main quests by chapter, and the save reader ticks every one your save shows finished. Re-run setup.bat in your reader folder once to get the new reader.'},
@@ -2319,10 +2320,19 @@ function saveReadPanel(g){
   const r = s.rep, m = r.summary || {}, mins = Math.round((Date.now() - r.savedAt) / 60000);
   const when = mins < 1 ? 'just now' : mins < 60 ? `${mins} min ago` : mins < 2880 ? `${Math.round(mins / 60)} h ago` : fmtDate(localDate(new Date(r.savedAt)));
   const prog = Array.isArray(m.inProgress) ? m.inProgress.slice(0, 10) : [];
+  const L = m.questLines && typeof m.questLines === 'object' ? Object.values(m.questLines).filter(v => Array.isArray(v) && v.length === 2) : [];
+  const side = L.length ? `<p>Side quests: ${L.reduce((a, v) => a + (+v[0] || 0), 0)} of ${L.reduce((a, v) => a + (+v[1] || 0), 0)} faction quests finished, ${L.filter(v => v[1] > 0 && v[0] === v[1]).length} of ${L.length} factions complete.</p>` : '';
   return `<section class="panel gcover saveread"><p><b>From your save</b> · saved ${esc(when)}${r.slot ? ` · ${esc(r.slot)}` : ''}</p>
     ${m.next ? `<p>Next main quest: <b>${esc(m.next)}</b>${m.chapter ? ` (${esc(m.chapter)})` : ''}${m.chaptersLeft != null ? `, ${m.chaptersLeft} chapter${m.chaptersLeft === 1 ? '' : 's'} left` : ''}.</p>` : ''}
     ${m.questsDone != null ? `<p>${m.questsDone} quests finished in your journal${prog.length ? `. In progress: ${prog.map(esc).join(', ')}` : ''}.</p>` : ''}
+    ${side}
     ${m.note ? `<p class="dim">${esc(m.note)}</p>` : ''}</section>`;
+}
+/* A quest line's progress from the last save report: [quests done, quests in the line] */
+function saveLine(g, id){
+  const s = g.content && SAVEREAD[g.content], L = s && s.rep && s.rep.summary && s.rep.summary.questLines;
+  const v = L && L[id];
+  return Array.isArray(v) && v.length === 2 && v.every(n => Number.isInteger(n) && n >= 0) && v[1] > 0 ? v : null;
 }
 const countsTab = (g, tier) => g.finish !== 'shelved' && FINISH[g.finish || 'beat'].includes(tier);
 
@@ -2991,10 +3001,12 @@ function goalRow(g, e, o){
   const V = goalView(), s = goalSt(g, e.tab, e.id), open = V.open.has(e.tab + '\u0001' + e.id);
   const ver = s === 'd' && e.verified === 'sourced' ? 'confirmed' : e.verified;
   const flag = g.goals.flag[e.id];
+  const line = saveLine(g, e.id);
   const chips = [
     o.next ? '<span class="gchip next">Next up</span>' : '',
     o.showTab ? `<span class="gchip">${esc(o.tabName)}</span>` : '',
     e.region ? `<span class="gchip">${esc(e.region)}</span>` : '',
+    line && s !== 'd' ? `<span class="gchip${line[0] ? ' ok' : ''}" title="From your save">${line[0]} of ${line[1]} quests</span>` : '',
     e.mins ? `<span class="gchip">~${e.mins < 60 ? e.mins + ' min' : (Math.round(e.mins / 6) / 10) + ' h'}</span>` : '',
     e.missable ? '<span class="gchip warn">Missable</span>' : '',
     s === 'a' ? '<span class="gchip as">Assumed, tap to confirm</span>' : '',

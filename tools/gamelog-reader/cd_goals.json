@@ -1,1516 +1,442 @@
 {
-"game": "crimson-desert",
-"note": "Built from content/crimson-desert/*.json 'save' fields. Regenerate when those change.",
-"mission": {
-"1000209": [
-"challenges",
-"cd-ch-1000209"
-],
-"1000214": [
-"challenges",
-"cd-ch-1000214"
-],
-"1000217": [
-"challenges",
-"cd-ch-1000217"
-],
-"1000642": [
-"challenges",
-"cd-ch-1000642"
-],
-"1000653": [
-"challenges",
-"cd-ch-1000653"
-],
-"1000672": [
-"challenges",
-"cd-ch-1000672"
-],
-"1000599": [
-"challenges",
-"cd-ch-1000599"
-],
-"1000600": [
-"challenges",
-"cd-ch-1000600"
-],
-"1000601": [
-"challenges",
-"cd-ch-1000601"
-],
-"1000234": [
-"challenges",
-"cd-ch-1000234"
-],
-"1000238": [
-"challenges",
-"cd-ch-1000238"
-],
-"1000239": [
-"challenges",
-"cd-ch-1000239"
-],
-"1000602": [
-"challenges",
-"cd-ch-1000602"
-],
-"1000603": [
-"challenges",
-"cd-ch-1000603"
-],
-"1000604": [
-"challenges",
-"cd-ch-1000604"
-],
-"1000677": [
-"challenges",
-"cd-ch-1000677"
-],
-"1000689": [
-"challenges",
-"cd-ch-1000689"
-],
-"1000690": [
-"challenges",
-"cd-ch-1000690"
-],
-"1000593": [
-"challenges",
-"cd-ch-1000593"
-],
-"1000594": [
-"challenges",
-"cd-ch-1000594"
-],
-"1000192": [
-"challenges",
-"cd-ch-1000192"
-],
-"1000691": [
-"challenges",
-"cd-ch-1000691"
-],
-"1000692": [
-"challenges",
-"cd-ch-1000692"
-],
-"1000765": [
-"challenges",
-"cd-ch-1000765"
-],
-"1000924": [
-"challenges",
-"cd-ch-1000924"
-],
-"1000925": [
-"challenges",
-"cd-ch-1000925"
-],
-"1000926": [
-"challenges",
-"cd-ch-1000926"
-],
-"1000927": [
-"challenges",
-"cd-ch-1000927"
-],
-"1000928": [
-"challenges",
-"cd-ch-1000928"
-],
-"1000698": [
-"challenges",
-"cd-ch-1000698"
-],
-"1000699": [
-"challenges",
-"cd-ch-1000699"
-],
-"1000700": [
-"challenges",
-"cd-ch-1000700"
-],
-"1000701": [
-"challenges",
-"cd-ch-1000701"
-],
-"1000702": [
-"challenges",
-"cd-ch-1000702"
-],
-"1000704": [
-"challenges",
-"cd-ch-1000704"
-],
-"1000705": [
-"challenges",
-"cd-ch-1000705"
-],
-"1000706": [
-"challenges",
-"cd-ch-1000706"
-],
-"1000707": [
-"challenges",
-"cd-ch-1000707"
-],
-"1000708": [
-"challenges",
-"cd-ch-1000708"
-],
-"1000710": [
-"challenges",
-"cd-ch-1000710"
-],
-"1000711": [
-"challenges",
-"cd-ch-1000711"
-],
-"1000712": [
-"challenges",
-"cd-ch-1000712"
-],
-"1000713": [
-"challenges",
-"cd-ch-1000713"
-],
-"1000714": [
-"challenges",
-"cd-ch-1000714"
-],
-"1000655": [
-"challenges",
-"cd-ch-1000655"
-],
-"1000715": [
-"challenges",
-"cd-ch-1000715"
-],
-"1000716": [
-"challenges",
-"cd-ch-1000716"
-],
-"1000717": [
-"challenges",
-"cd-ch-1000717"
-],
-"1000718": [
-"challenges",
-"cd-ch-1000718"
-],
-"1000719": [
-"challenges",
-"cd-ch-1000719"
-],
-"1000720": [
-"challenges",
-"cd-ch-1000720"
-],
-"1000721": [
-"challenges",
-"cd-ch-1000721"
-],
-"1000722": [
-"challenges",
-"cd-ch-1000722"
-],
-"1000723": [
-"challenges",
-"cd-ch-1000723"
-],
-"1000897": [
-"challenges",
-"cd-ch-1000897"
-],
-"1000898": [
-"challenges",
-"cd-ch-1000898"
-],
-"1000899": [
-"challenges",
-"cd-ch-1000899"
-],
-"1000900": [
-"challenges",
-"cd-ch-1000900"
-],
-"1000901": [
-"challenges",
-"cd-ch-1000901"
-],
-"1000902": [
-"challenges",
-"cd-ch-1000902"
-],
-"1000903": [
-"challenges",
-"cd-ch-1000903"
-],
-"1000904": [
-"challenges",
-"cd-ch-1000904"
-],
-"1000905": [
-"challenges",
-"cd-ch-1000905"
-],
-"1000906": [
-"challenges",
-"cd-ch-1000906"
-],
-"1000725": [
-"challenges",
-"cd-ch-1000725"
-],
-"1000726": [
-"challenges",
-"cd-ch-1000726"
-],
-"1000727": [
-"challenges",
-"cd-ch-1000727"
-],
-"1000728": [
-"challenges",
-"cd-ch-1000728"
-],
-"1000729": [
-"challenges",
-"cd-ch-1000729"
-],
-"1000730": [
-"challenges",
-"cd-ch-1000730"
-],
-"1000731": [
-"challenges",
-"cd-ch-1000731"
-],
-"1000732": [
-"challenges",
-"cd-ch-1000732"
-],
-"1000733": [
-"challenges",
-"cd-ch-1000733"
-],
-"1000734": [
-"challenges",
-"cd-ch-1000734"
-],
-"1000605": [
-"challenges",
-"cd-ch-1000605"
-],
-"1000606": [
-"challenges",
-"cd-ch-1000606"
-],
-"1000607": [
-"challenges",
-"cd-ch-1000607"
-],
-"1000608": [
-"challenges",
-"cd-ch-1000608"
-],
-"1000609": [
-"challenges",
-"cd-ch-1000609"
-],
-"1000610": [
-"challenges",
-"cd-ch-1000610"
-],
-"1000611": [
-"challenges",
-"cd-ch-1000611"
-],
-"1000612": [
-"challenges",
-"cd-ch-1000612"
-],
-"1000613": [
-"challenges",
-"cd-ch-1000613"
-],
-"1000143": [
-"challenges",
-"cd-ch-1000143"
-],
-"1000736": [
-"challenges",
-"cd-ch-1000736"
-],
-"1000737": [
-"challenges",
-"cd-ch-1000737"
-],
-"1000738": [
-"challenges",
-"cd-ch-1000738"
-],
-"1000739": [
-"challenges",
-"cd-ch-1000739"
-],
-"1000740": [
-"challenges",
-"cd-ch-1000740"
-],
-"1000790": [
-"challenges",
-"cd-ch-1000790"
-],
-"1000791": [
-"challenges",
-"cd-ch-1000791"
-],
-"1000792": [
-"challenges",
-"cd-ch-1000792"
-],
-"1000793": [
-"challenges",
-"cd-ch-1000793"
-],
-"1000794": [
-"challenges",
-"cd-ch-1000794"
-],
-"1000886": [
-"challenges",
-"cd-ch-1000886"
-],
-"1000887": [
-"challenges",
-"cd-ch-1000887"
-],
-"1000888": [
-"challenges",
-"cd-ch-1000888"
-],
-"1000889": [
-"challenges",
-"cd-ch-1000889"
-],
-"1000890": [
-"challenges",
-"cd-ch-1000890"
-],
-"1000891": [
-"challenges",
-"cd-ch-1000891"
-],
-"1000892": [
-"challenges",
-"cd-ch-1000892"
-],
-"1000893": [
-"challenges",
-"cd-ch-1000893"
-],
-"1000894": [
-"challenges",
-"cd-ch-1000894"
-],
-"1000895": [
-"challenges",
-"cd-ch-1000895"
-],
-"1000138": [
-"challenges",
-"cd-ch-1000138"
-],
-"1000907": [
-"challenges",
-"cd-ch-1000907"
-],
-"1000908": [
-"challenges",
-"cd-ch-1000908"
-],
-"1000909": [
-"challenges",
-"cd-ch-1000909"
-],
-"1000910": [
-"challenges",
-"cd-ch-1000910"
-],
-"1000911": [
-"challenges",
-"cd-ch-1000911"
-],
-"1000912": [
-"challenges",
-"cd-ch-1000912"
-],
-"1000913": [
-"challenges",
-"cd-ch-1000913"
-],
-"1000914": [
-"challenges",
-"cd-ch-1000914"
-],
-"1000915": [
-"challenges",
-"cd-ch-1000915"
-],
-"1000916": [
-"challenges",
-"cd-ch-1000916"
-],
-"1001399": [
-"challenges",
-"cd-ch-1001399"
-],
-"1001400": [
-"challenges",
-"cd-ch-1001400"
-],
-"1001026": [
-"challenges",
-"cd-ch-1001026"
-],
-"1001027": [
-"challenges",
-"cd-ch-1001027"
-],
-"1001028": [
-"challenges",
-"cd-ch-1001028"
-],
-"1001029": [
-"challenges",
-"cd-ch-1001029"
-],
-"1001030": [
-"challenges",
-"cd-ch-1001030"
-],
-"1001032": [
-"challenges",
-"cd-ch-1001032"
-],
-"1001033": [
-"challenges",
-"cd-ch-1001033"
-],
-"1001034": [
-"challenges",
-"cd-ch-1001034"
-],
-"1001035": [
-"challenges",
-"cd-ch-1001035"
-],
-"1001036": [
-"challenges",
-"cd-ch-1001036"
-],
-"1001037": [
-"challenges",
-"cd-ch-1001037"
-],
-"1001038": [
-"challenges",
-"cd-ch-1001038"
-],
-"1001039": [
-"challenges",
-"cd-ch-1001039"
-],
-"1001040": [
-"challenges",
-"cd-ch-1001040"
-],
-"1001041": [
-"challenges",
-"cd-ch-1001041"
-],
-"1001043": [
-"challenges",
-"cd-ch-1001043"
-],
-"1001044": [
-"challenges",
-"cd-ch-1001044"
-],
-"1001045": [
-"challenges",
-"cd-ch-1001045"
-],
-"1001046": [
-"challenges",
-"cd-ch-1001046"
-],
-"1001047": [
-"challenges",
-"cd-ch-1001047"
-],
-"1001048": [
-"challenges",
-"cd-ch-1001048"
-],
-"1000144": [
-"challenges",
-"cd-ch-1000144"
-],
-"1001202": [
-"challenges",
-"cd-ch-1001202"
-],
-"1001203": [
-"challenges",
-"cd-ch-1001203"
-],
-"1000196": [
-"challenges",
-"cd-ch-1000196"
-],
-"1000304": [
-"challenges",
-"cd-ch-1000304"
-],
-"1003192": [
-"challenges",
-"cd-ch-1003192"
-],
-"1003193": [
-"challenges",
-"cd-ch-1003193"
-],
-"1003194": [
-"challenges",
-"cd-ch-1003194"
-],
-"1002159": [
-"challenges",
-"cd-ch-1002159"
-],
-"1002160": [
-"challenges",
-"cd-ch-1002160"
-],
-"1000396": [
-"challenges",
-"cd-ch-1000396"
-],
-"1002161": [
-"challenges",
-"cd-ch-1002161"
-],
-"1002162": [
-"challenges",
-"cd-ch-1002162"
-],
-"1002163": [
-"challenges",
-"cd-ch-1002163"
-],
-"1000423": [
-"challenges",
-"cd-ch-1000423"
-],
-"1002158": [
-"challenges",
-"cd-ch-1002158"
-],
-"1000625": [
-"challenges",
-"cd-ch-1000625"
-],
-"1002164": [
-"challenges",
-"cd-ch-1002164"
-],
-"1000082": [
-"collect",
-"cd-col-1000082"
-],
-"1000066": [
-"collect",
-"cd-col-1000066"
-],
-"1000695": [
-"collect",
-"cd-col-1000695"
-],
-"1000696": [
-"collect",
-"cd-col-1000696"
-],
-"1000786": [
-"collect",
-"cd-col-1000786"
-],
-"1000929": [
-"collect",
-"cd-col-1000929"
-],
-"1000084": [
-"collect",
-"cd-col-1000084"
-],
-"1000930": [
-"collect",
-"cd-col-1000930"
-],
-"1000169": [
-"collect",
-"cd-col-1000169"
-],
-"1000931": [
-"collect",
-"cd-col-1000931"
-],
-"1000932": [
-"collect",
-"cd-col-1000932"
-],
-"1000933": [
-"collect",
-"cd-col-1000933"
-],
-"1000934": [
-"collect",
-"cd-col-1000934"
-],
-"1000935": [
-"collect",
-"cd-col-1000935"
-],
-"1000936": [
-"collect",
-"cd-col-1000936"
-],
-"1000937": [
-"collect",
-"cd-col-1000937"
-],
-"1000938": [
-"collect",
-"cd-col-1000938"
-],
-"1000939": [
-"collect",
-"cd-col-1000939"
-],
-"1000940": [
-"collect",
-"cd-col-1000940"
-],
-"1000941": [
-"collect",
-"cd-col-1000941"
-],
-"1000942": [
-"collect",
-"cd-col-1000942"
-],
-"1000943": [
-"collect",
-"cd-col-1000943"
-],
-"1000944": [
-"collect",
-"cd-col-1000944"
-],
-"1000945": [
-"collect",
-"cd-col-1000945"
-],
-"1000946": [
-"collect",
-"cd-col-1000946"
-],
-"1000947": [
-"collect",
-"cd-col-1000947"
-],
-"1000948": [
-"collect",
-"cd-col-1000948"
-],
-"1000949": [
-"collect",
-"cd-col-1000949"
-],
-"1000950": [
-"collect",
-"cd-col-1000950"
-],
-"1000951": [
-"collect",
-"cd-col-1000951"
-],
-"1000952": [
-"collect",
-"cd-col-1000952"
-],
-"1000953": [
-"collect",
-"cd-col-1000953"
-],
-"1000954": [
-"collect",
-"cd-col-1000954"
-],
-"1000955": [
-"collect",
-"cd-col-1000955"
-],
-"1000956": [
-"collect",
-"cd-col-1000956"
-],
-"1000957": [
-"collect",
-"cd-col-1000957"
-],
-"1000959": [
-"collect",
-"cd-col-1000959"
-],
-"1000960": [
-"collect",
-"cd-col-1000960"
-],
-"1000961": [
-"collect",
-"cd-col-1000961"
-],
-"1001500": [
-"collect",
-"cd-col-1001500"
-],
-"1000094": [
-"collect",
-"cd-col-1000094"
-],
-"1000303": [
-"collect",
-"cd-col-1000303"
-],
-"1000120": [
-"collect",
-"cd-col-1000120"
-],
-"1000577": [
-"collect",
-"cd-col-1000577"
-],
-"1000145": [
-"collect",
-"cd-col-1000145"
-],
-"1000437": [
-"collect",
-"cd-col-1000437"
-],
-"1000448": [
-"collect",
-"cd-col-1000448"
-],
-"1000450": [
-"collect",
-"cd-col-1000450"
-],
-"1000451": [
-"collect",
-"cd-col-1000451"
-],
-"1000465": [
-"collect",
-"cd-col-1000465"
-],
-"1000656": [
-"collect",
-"cd-col-1000656"
-],
-"1000657": [
-"collect",
-"cd-col-1000657"
-],
-"1000658": [
-"collect",
-"cd-col-1000658"
-],
-"1000288": [
-"collect",
-"cd-col-1000288"
-],
-"1000871": [
-"collect",
-"cd-col-1000871"
-],
-"1000872": [
-"collect",
-"cd-col-1000872"
-],
-"1000873": [
-"collect",
-"cd-col-1000873"
-],
-"1000874": [
-"collect",
-"cd-col-1000874"
-],
-"1000875": [
-"collect",
-"cd-col-1000875"
-],
-"1000876": [
-"collect",
-"cd-col-1000876"
-],
-"1000331": [
-"collect",
-"cd-col-1000331"
-],
-"1002843": [
-"collect",
-"cd-col-1002843"
-],
-"1003204": [
-"collect",
-"cd-col-1003204"
-],
-"1003205": [
-"collect",
-"cd-col-1003205"
-],
-"1003206": [
-"collect",
-"cd-col-1003206"
-],
-"1003207": [
-"collect",
-"cd-col-1003207"
-],
-"1003208": [
-"collect",
-"cd-col-1003208"
-],
-"1003209": [
-"collect",
-"cd-col-1003209"
-],
-"1003210": [
-"collect",
-"cd-col-1003210"
-],
-"1003211": [
-"collect",
-"cd-col-1003211"
-],
-"1003212": [
-"collect",
-"cd-col-1003212"
-],
-"1003213": [
-"collect",
-"cd-col-1003213"
-],
-"1003214": [
-"collect",
-"cd-col-1003214"
-],
-"1003215": [
-"collect",
-"cd-col-1003215"
-],
-"1003216": [
-"collect",
-"cd-col-1003216"
-],
-"1003217": [
-"collect",
-"cd-col-1003217"
-],
-"1003218": [
-"collect",
-"cd-col-1003218"
-],
-"1003219": [
-"collect",
-"cd-col-1003219"
-],
-"1003220": [
-"collect",
-"cd-col-1003220"
-],
-"1003221": [
-"collect",
-"cd-col-1003221"
-],
-"1003222": [
-"collect",
-"cd-col-1003222"
-],
-"1003223": [
-"collect",
-"cd-col-1003223"
-],
-"1003224": [
-"collect",
-"cd-col-1003224"
-],
-"1003225": [
-"collect",
-"cd-col-1003225"
-],
-"1003226": [
-"collect",
-"cd-col-1003226"
-],
-"1003227": [
-"collect",
-"cd-col-1003227"
-],
-"1003228": [
-"collect",
-"cd-col-1003228"
-],
-"1003229": [
-"collect",
-"cd-col-1003229"
-],
-"1003230": [
-"collect",
-"cd-col-1003230"
-],
-"1003231": [
-"collect",
-"cd-col-1003231"
-],
-"1003232": [
-"collect",
-"cd-col-1003232"
-],
-"1003233": [
-"collect",
-"cd-col-1003233"
-],
-"1003234": [
-"collect",
-"cd-col-1003234"
-],
-"1003235": [
-"collect",
-"cd-col-1003235"
-],
-"1003236": [
-"collect",
-"cd-col-1003236"
-],
-"1003237": [
-"collect",
-"cd-col-1003237"
-],
-"1003238": [
-"collect",
-"cd-col-1003238"
-],
-"1003239": [
-"collect",
-"cd-col-1003239"
-],
-"1003240": [
-"collect",
-"cd-col-1003240"
-],
-"1003241": [
-"collect",
-"cd-col-1003241"
-],
-"1000467": [
-"collect",
-"cd-col-1000467"
-],
-"1000468": [
-"collect",
-"cd-col-1000468"
-],
-"1000469": [
-"collect",
-"cd-col-1000469"
-],
-"1000470": [
-"collect",
-"cd-col-1000470"
-],
-"1001894": [
-"collect",
-"cd-col-1001894"
-],
-"1001896": [
-"collect",
-"cd-col-1001896"
-],
-"1001897": [
-"collect",
-"cd-col-1001897"
-],
-"1001898": [
-"collect",
-"cd-col-1001898"
-],
-"1002103": [
-"collect",
-"cd-col-1002103"
-],
-"1002104": [
-"collect",
-"cd-col-1002104"
-],
-"1000471": [
-"collect",
-"cd-col-1000471"
-],
-"1000472": [
-"collect",
-"cd-col-1000472"
-],
-"1000473": [
-"collect",
-"cd-col-1000473"
-],
-"1000474": [
-"collect",
-"cd-col-1000474"
-],
-"1000475": [
-"collect",
-"cd-col-1000475"
-],
-"1000476": [
-"collect",
-"cd-col-1000476"
-],
-"1001425": [
-"collect",
-"cd-col-1001425"
-],
-"1001023": [
-"collect",
-"cd-col-1001023"
-],
-"1001024": [
-"collect",
-"cd-col-1001024"
-],
-"1000477": [
-"collect",
-"cd-col-1000477"
-],
-"1000479": [
-"collect",
-"cd-col-1000479"
-],
-"1000480": [
-"collect",
-"cd-col-1000480"
-],
-"1000481": [
-"collect",
-"cd-col-1000481"
-],
-"1000482": [
-"collect",
-"cd-col-1000482"
-],
-"1000483": [
-"collect",
-"cd-col-1000483"
-],
-"1000484": [
-"collect",
-"cd-col-1000484"
-],
-"1000485": [
-"collect",
-"cd-col-1000485"
-],
-"1000486": [
-"collect",
-"cd-col-1000486"
-],
-"1000857": [
-"collect",
-"cd-col-1000857"
-],
-"1000487": [
-"collect",
-"cd-col-1000487"
-],
-"1000488": [
-"collect",
-"cd-col-1000488"
-],
-"1001022": [
-"collect",
-"cd-col-1001022"
-],
-"1000489": [
-"collect",
-"cd-col-1000489"
-],
-"1000490": [
-"collect",
-"cd-col-1000490"
-],
-"1000491": [
-"collect",
-"cd-col-1000491"
-],
-"1000492": [
-"collect",
-"cd-col-1000492"
-],
-"1000034": [
-"collect",
-"cd-col-1000034"
-],
-"1001442": [
-"collect",
-"cd-col-1001442"
-],
-"1001443": [
-"collect",
-"cd-col-1001443"
-],
-"1001444": [
-"collect",
-"cd-col-1001444"
-],
-"1001445": [
-"collect",
-"cd-col-1001445"
-],
-"1001446": [
-"collect",
-"cd-col-1001446"
-],
-"1001447": [
-"collect",
-"cd-col-1001447"
-],
-"1001448": [
-"collect",
-"cd-col-1001448"
-],
-"1001449": [
-"collect",
-"cd-col-1001449"
-],
-"1001450": [
-"collect",
-"cd-col-1001450"
-],
-"1001451": [
-"collect",
-"cd-col-1001451"
-],
-"1001452": [
-"collect",
-"cd-col-1001452"
-],
-"1001453": [
-"collect",
-"cd-col-1001453"
-],
-"1001454": [
-"collect",
-"cd-col-1001454"
-],
-"1001455": [
-"collect",
-"cd-col-1001455"
-],
-"1001456": [
-"collect",
-"cd-col-1001456"
-],
-"1001457": [
-"collect",
-"cd-col-1001457"
-],
-"1000923": [
-"collect",
-"cd-col-1000923"
-],
-"1000260": [
-"collect",
-"cd-col-1000260"
-],
-"1000325": [
-"collect",
-"cd-col-1000325"
-],
-"1000921": [
-"collect",
-"cd-col-1000921"
-],
-"1000686": [
-"collect",
-"cd-col-1000686"
-],
-"1000431": [
-"collect",
-"cd-col-1000431"
-],
-"1000747": [
-"collect",
-"cd-col-1000747"
-],
-"1000922": [
-"collect",
-"cd-col-1000922"
-],
-"1001385": [
-"collect",
-"cd-col-1001385"
-],
-"1001394": [
-"collect",
-"cd-col-1001394"
-],
-"1001395": [
-"collect",
-"cd-col-1001395"
-],
-"1001396": [
-"collect",
-"cd-col-1001396"
-],
-"1001228": [
-"collect",
-"cd-col-1001228"
-],
-"1001392": [
-"collect",
-"cd-col-1001392"
-],
-"1001391": [
-"collect",
-"cd-col-1001391"
-],
-"1001393": [
-"collect",
-"cd-col-1001393"
-],
-"1001387": [
-"collect",
-"cd-col-1001387"
-],
-"1001223": [
-"collect",
-"cd-col-1001223"
-],
-"1001384": [
-"collect",
-"cd-col-1001384"
-],
-"1001388": [
-"collect",
-"cd-col-1001388"
-],
-"1001386": [
-"collect",
-"cd-col-1001386"
-],
-"1000443": [
-"collect",
-"cd-col-1000443"
-],
-"1000441": [
-"collect",
-"cd-col-1000441"
-],
-"1000401": [
-"collect",
-"cd-col-1000401"
-],
-"1000228": [
-"collect",
-"cd-col-1000228"
-],
-"1001229": [
-"collect",
-"cd-col-1001229"
-],
-"1002243": [
-"collect",
-"cd-col-1002243"
-],
-"1001486": [
-"collect",
-"cd-col-1001486"
-],
-"1001493": [
-"collect",
-"cd-col-1001493"
-],
-"1001480": [
-"collect",
-"cd-col-1001480"
-],
-"1001474": [
-"collect",
-"cd-col-1001474"
-],
-"1001487": [
-"collect",
-"cd-col-1001487"
-],
-"1002197": [
-"collect",
-"cd-col-1002197"
-],
-"1001502": [
-"collect",
-"cd-col-1001502"
-],
-"1001492": [
-"collect",
-"cd-col-1001492"
-],
-"1001496": [
-"collect",
-"cd-col-1001496"
-],
-"1001468": [
-"collect",
-"cd-col-1001468"
-],
-"1001498": [
-"collect",
-"cd-col-1001498"
-],
-"1001489": [
-"collect",
-"cd-col-1001489"
-],
-"1001501": [
-"collect",
-"cd-col-1001501"
-],
-"1001497": [
-"collect",
-"cd-col-1001497"
-],
-"1001491": [
-"collect",
-"cd-col-1001491"
-],
-"1001490": [
-"collect",
-"cd-col-1001490"
-],
-"1001214": [
-"collect",
-"cd-col-1001214"
-],
-"1001499": [
-"collect",
-"cd-col-1001499"
-],
-"1001495": [
-"collect",
-"cd-col-1001495"
-],
-"1001494": [
-"collect",
-"cd-col-1001494"
-],
-"1000828": [
-"collect",
-"cd-col-1000828"
-],
-"1000829": [
-"collect",
-"cd-col-1000829"
-],
-"1000830": [
-"collect",
-"cd-col-1000830"
-],
-"1000831": [
-"collect",
-"cd-col-1000831"
-],
-"1000832": [
-"collect",
-"cd-col-1000832"
-],
-"1000982": [
-"collect",
-"cd-col-1000982"
-],
-"1001016": [
-"collect",
-"cd-col-1001016"
-]
-},
-"knowledge": {
-"1001756": [
-"power",
-"cd-p1"
-],
-"40036": [
-"power",
-"cd-pow-forward-slash"
-],
-"40069": [
-"power",
-"cd-pow-spinning-slash"
-],
-"1001789": [
-"power",
-"cd-pow-unarmed"
-],
-"40065": [
-"power",
-"cd-pow-charged-shot"
-],
-"1003524": [
-"power",
-"cd-pow-counter"
-],
-"1001744": [
-"power",
-"cd-pow-natures-snare"
-],
-"40082": [
-"power",
-"cd-pow-aerial-roll"
-],
-"40028": [
-"power",
-"cd-pow-clothesline"
-],
-"40072": [
-"power",
-"cd-pow-turning-slash"
-],
-"1000001": [
-"power",
-"cd-pow-body-slam"
-],
-"1000908": [
-"power",
-"cd-pow-explosive-evasive"
-],
-"40063": [
-"power",
-"cd-pow-multishot"
-],
-"1001116": [
-"power",
-"cd-pow-double-jump"
-]
-}
-}
+"game":"crimson-desert","note":"Built from content/crimson-desert/*.json 'save' fields by tools/build-cd-goals.mjs. Regenerate when those change.","mission":{
+"1000034":["collect","cd-col-1000034"],
+"1000066":["collect","cd-col-1000066"],
+"1000082":["collect","cd-col-1000082"],
+"1000084":["collect","cd-col-1000084"],
+"1000094":["collect","cd-col-1000094"],
+"1000120":["collect","cd-col-1000120"],
+"1000138":["challenges","cd-ch-1000138"],
+"1000143":["challenges","cd-ch-1000143"],
+"1000144":["challenges","cd-ch-1000144"],
+"1000145":["collect","cd-col-1000145"],
+"1000169":["collect","cd-col-1000169"],
+"1000192":["challenges","cd-ch-1000192"],
+"1000196":["challenges","cd-ch-1000196"],
+"1000209":["challenges","cd-ch-1000209"],
+"1000214":["challenges","cd-ch-1000214"],
+"1000217":["challenges","cd-ch-1000217"],
+"1000228":["collect","cd-col-1000228"],
+"1000234":["challenges","cd-ch-1000234"],
+"1000238":["challenges","cd-ch-1000238"],
+"1000239":["challenges","cd-ch-1000239"],
+"1000260":["collect","cd-col-1000260"],
+"1000288":["collect","cd-col-1000288"],
+"1000303":["collect","cd-col-1000303"],
+"1000304":["challenges","cd-ch-1000304"],
+"1000325":["collect","cd-col-1000325"],
+"1000331":["collect","cd-col-1000331"],
+"1000396":["challenges","cd-ch-1000396"],
+"1000401":["collect","cd-col-1000401"],
+"1000423":["challenges","cd-ch-1000423"],
+"1000431":["collect","cd-col-1000431"],
+"1000437":["collect","cd-col-1000437"],
+"1000441":["collect","cd-col-1000441"],
+"1000443":["collect","cd-col-1000443"],
+"1000448":["collect","cd-col-1000448"],
+"1000450":["collect","cd-col-1000450"],
+"1000451":["collect","cd-col-1000451"],
+"1000465":["collect","cd-col-1000465"],
+"1000467":["collect","cd-col-1000467"],
+"1000468":["collect","cd-col-1000468"],
+"1000469":["collect","cd-col-1000469"],
+"1000470":["collect","cd-col-1000470"],
+"1000471":["collect","cd-col-1000471"],
+"1000472":["collect","cd-col-1000472"],
+"1000473":["collect","cd-col-1000473"],
+"1000474":["collect","cd-col-1000474"],
+"1000475":["collect","cd-col-1000475"],
+"1000476":["collect","cd-col-1000476"],
+"1000477":["collect","cd-col-1000477"],
+"1000479":["collect","cd-col-1000479"],
+"1000480":["collect","cd-col-1000480"],
+"1000481":["collect","cd-col-1000481"],
+"1000482":["collect","cd-col-1000482"],
+"1000483":["collect","cd-col-1000483"],
+"1000484":["collect","cd-col-1000484"],
+"1000485":["collect","cd-col-1000485"],
+"1000486":["collect","cd-col-1000486"],
+"1000487":["collect","cd-col-1000487"],
+"1000488":["collect","cd-col-1000488"],
+"1000489":["collect","cd-col-1000489"],
+"1000490":["collect","cd-col-1000490"],
+"1000491":["collect","cd-col-1000491"],
+"1000492":["collect","cd-col-1000492"],
+"1000577":["collect","cd-col-1000577"],
+"1000593":["challenges","cd-ch-1000593"],
+"1000594":["challenges","cd-ch-1000594"],
+"1000599":["challenges","cd-ch-1000599"],
+"1000600":["challenges","cd-ch-1000600"],
+"1000601":["challenges","cd-ch-1000601"],
+"1000602":["challenges","cd-ch-1000602"],
+"1000603":["challenges","cd-ch-1000603"],
+"1000604":["challenges","cd-ch-1000604"],
+"1000605":["challenges","cd-ch-1000605"],
+"1000606":["challenges","cd-ch-1000606"],
+"1000607":["challenges","cd-ch-1000607"],
+"1000608":["challenges","cd-ch-1000608"],
+"1000609":["challenges","cd-ch-1000609"],
+"1000610":["challenges","cd-ch-1000610"],
+"1000611":["challenges","cd-ch-1000611"],
+"1000612":["challenges","cd-ch-1000612"],
+"1000613":["challenges","cd-ch-1000613"],
+"1000625":["challenges","cd-ch-1000625"],
+"1000642":["challenges","cd-ch-1000642"],
+"1000653":["challenges","cd-ch-1000653"],
+"1000655":["challenges","cd-ch-1000655"],
+"1000656":["collect","cd-col-1000656"],
+"1000657":["collect","cd-col-1000657"],
+"1000658":["collect","cd-col-1000658"],
+"1000672":["challenges","cd-ch-1000672"],
+"1000677":["challenges","cd-ch-1000677"],
+"1000686":["collect","cd-col-1000686"],
+"1000689":["challenges","cd-ch-1000689"],
+"1000690":["challenges","cd-ch-1000690"],
+"1000691":["challenges","cd-ch-1000691"],
+"1000692":["challenges","cd-ch-1000692"],
+"1000695":["collect","cd-col-1000695"],
+"1000696":["collect","cd-col-1000696"],
+"1000698":["challenges","cd-ch-1000698"],
+"1000699":["challenges","cd-ch-1000699"],
+"1000700":["challenges","cd-ch-1000700"],
+"1000701":["challenges","cd-ch-1000701"],
+"1000702":["challenges","cd-ch-1000702"],
+"1000704":["challenges","cd-ch-1000704"],
+"1000705":["challenges","cd-ch-1000705"],
+"1000706":["challenges","cd-ch-1000706"],
+"1000707":["challenges","cd-ch-1000707"],
+"1000708":["challenges","cd-ch-1000708"],
+"1000710":["challenges","cd-ch-1000710"],
+"1000711":["challenges","cd-ch-1000711"],
+"1000712":["challenges","cd-ch-1000712"],
+"1000713":["challenges","cd-ch-1000713"],
+"1000714":["challenges","cd-ch-1000714"],
+"1000715":["challenges","cd-ch-1000715"],
+"1000716":["challenges","cd-ch-1000716"],
+"1000717":["challenges","cd-ch-1000717"],
+"1000718":["challenges","cd-ch-1000718"],
+"1000719":["challenges","cd-ch-1000719"],
+"1000720":["challenges","cd-ch-1000720"],
+"1000721":["challenges","cd-ch-1000721"],
+"1000722":["challenges","cd-ch-1000722"],
+"1000723":["challenges","cd-ch-1000723"],
+"1000725":["challenges","cd-ch-1000725"],
+"1000726":["challenges","cd-ch-1000726"],
+"1000727":["challenges","cd-ch-1000727"],
+"1000728":["challenges","cd-ch-1000728"],
+"1000729":["challenges","cd-ch-1000729"],
+"1000730":["challenges","cd-ch-1000730"],
+"1000731":["challenges","cd-ch-1000731"],
+"1000732":["challenges","cd-ch-1000732"],
+"1000733":["challenges","cd-ch-1000733"],
+"1000734":["challenges","cd-ch-1000734"],
+"1000736":["challenges","cd-ch-1000736"],
+"1000737":["challenges","cd-ch-1000737"],
+"1000738":["challenges","cd-ch-1000738"],
+"1000739":["challenges","cd-ch-1000739"],
+"1000740":["challenges","cd-ch-1000740"],
+"1000747":["collect","cd-col-1000747"],
+"1000765":["challenges","cd-ch-1000765"],
+"1000786":["collect","cd-col-1000786"],
+"1000790":["challenges","cd-ch-1000790"],
+"1000791":["challenges","cd-ch-1000791"],
+"1000792":["challenges","cd-ch-1000792"],
+"1000793":["challenges","cd-ch-1000793"],
+"1000794":["challenges","cd-ch-1000794"],
+"1000828":["collect","cd-col-1000828"],
+"1000829":["collect","cd-col-1000829"],
+"1000830":["collect","cd-col-1000830"],
+"1000831":["collect","cd-col-1000831"],
+"1000832":["collect","cd-col-1000832"],
+"1000857":["collect","cd-col-1000857"],
+"1000871":["collect","cd-col-1000871"],
+"1000872":["collect","cd-col-1000872"],
+"1000873":["collect","cd-col-1000873"],
+"1000874":["collect","cd-col-1000874"],
+"1000875":["collect","cd-col-1000875"],
+"1000876":["collect","cd-col-1000876"],
+"1000886":["challenges","cd-ch-1000886"],
+"1000887":["challenges","cd-ch-1000887"],
+"1000888":["challenges","cd-ch-1000888"],
+"1000889":["challenges","cd-ch-1000889"],
+"1000890":["challenges","cd-ch-1000890"],
+"1000891":["challenges","cd-ch-1000891"],
+"1000892":["challenges","cd-ch-1000892"],
+"1000893":["challenges","cd-ch-1000893"],
+"1000894":["challenges","cd-ch-1000894"],
+"1000895":["challenges","cd-ch-1000895"],
+"1000897":["challenges","cd-ch-1000897"],
+"1000898":["challenges","cd-ch-1000898"],
+"1000899":["challenges","cd-ch-1000899"],
+"1000900":["challenges","cd-ch-1000900"],
+"1000901":["challenges","cd-ch-1000901"],
+"1000902":["challenges","cd-ch-1000902"],
+"1000903":["challenges","cd-ch-1000903"],
+"1000904":["challenges","cd-ch-1000904"],
+"1000905":["challenges","cd-ch-1000905"],
+"1000906":["challenges","cd-ch-1000906"],
+"1000907":["challenges","cd-ch-1000907"],
+"1000908":["challenges","cd-ch-1000908"],
+"1000909":["challenges","cd-ch-1000909"],
+"1000910":["challenges","cd-ch-1000910"],
+"1000911":["challenges","cd-ch-1000911"],
+"1000912":["challenges","cd-ch-1000912"],
+"1000913":["challenges","cd-ch-1000913"],
+"1000914":["challenges","cd-ch-1000914"],
+"1000915":["challenges","cd-ch-1000915"],
+"1000916":["challenges","cd-ch-1000916"],
+"1000921":["collect","cd-col-1000921"],
+"1000922":["collect","cd-col-1000922"],
+"1000923":["collect","cd-col-1000923"],
+"1000924":["challenges","cd-ch-1000924"],
+"1000925":["challenges","cd-ch-1000925"],
+"1000926":["challenges","cd-ch-1000926"],
+"1000927":["challenges","cd-ch-1000927"],
+"1000928":["challenges","cd-ch-1000928"],
+"1000929":["collect","cd-col-1000929"],
+"1000930":["collect","cd-col-1000930"],
+"1000931":["collect","cd-col-1000931"],
+"1000932":["collect","cd-col-1000932"],
+"1000933":["collect","cd-col-1000933"],
+"1000934":["collect","cd-col-1000934"],
+"1000935":["collect","cd-col-1000935"],
+"1000936":["collect","cd-col-1000936"],
+"1000937":["collect","cd-col-1000937"],
+"1000938":["collect","cd-col-1000938"],
+"1000939":["collect","cd-col-1000939"],
+"1000940":["collect","cd-col-1000940"],
+"1000941":["collect","cd-col-1000941"],
+"1000942":["collect","cd-col-1000942"],
+"1000943":["collect","cd-col-1000943"],
+"1000944":["collect","cd-col-1000944"],
+"1000945":["collect","cd-col-1000945"],
+"1000946":["collect","cd-col-1000946"],
+"1000947":["collect","cd-col-1000947"],
+"1000948":["collect","cd-col-1000948"],
+"1000949":["collect","cd-col-1000949"],
+"1000950":["collect","cd-col-1000950"],
+"1000951":["collect","cd-col-1000951"],
+"1000952":["collect","cd-col-1000952"],
+"1000953":["collect","cd-col-1000953"],
+"1000954":["collect","cd-col-1000954"],
+"1000955":["collect","cd-col-1000955"],
+"1000956":["collect","cd-col-1000956"],
+"1000957":["collect","cd-col-1000957"],
+"1000959":["collect","cd-col-1000959"],
+"1000960":["collect","cd-col-1000960"],
+"1000961":["collect","cd-col-1000961"],
+"1000982":["collect","cd-col-1000982"],
+"1001016":["collect","cd-col-1001016"],
+"1001022":["collect","cd-col-1001022"],
+"1001023":["collect","cd-col-1001023"],
+"1001024":["collect","cd-col-1001024"],
+"1001026":["challenges","cd-ch-1001026"],
+"1001027":["challenges","cd-ch-1001027"],
+"1001028":["challenges","cd-ch-1001028"],
+"1001029":["challenges","cd-ch-1001029"],
+"1001030":["challenges","cd-ch-1001030"],
+"1001032":["challenges","cd-ch-1001032"],
+"1001033":["challenges","cd-ch-1001033"],
+"1001034":["challenges","cd-ch-1001034"],
+"1001035":["challenges","cd-ch-1001035"],
+"1001036":["challenges","cd-ch-1001036"],
+"1001037":["challenges","cd-ch-1001037"],
+"1001038":["challenges","cd-ch-1001038"],
+"1001039":["challenges","cd-ch-1001039"],
+"1001040":["challenges","cd-ch-1001040"],
+"1001041":["challenges","cd-ch-1001041"],
+"1001043":["challenges","cd-ch-1001043"],
+"1001044":["challenges","cd-ch-1001044"],
+"1001045":["challenges","cd-ch-1001045"],
+"1001046":["challenges","cd-ch-1001046"],
+"1001047":["challenges","cd-ch-1001047"],
+"1001048":["challenges","cd-ch-1001048"],
+"1001202":["challenges","cd-ch-1001202"],
+"1001203":["challenges","cd-ch-1001203"],
+"1001214":["collect","cd-col-1001214"],
+"1001223":["collect","cd-col-1001223"],
+"1001228":["collect","cd-col-1001228"],
+"1001229":["collect","cd-col-1001229"],
+"1001384":["collect","cd-col-1001384"],
+"1001385":["collect","cd-col-1001385"],
+"1001386":["collect","cd-col-1001386"],
+"1001387":["collect","cd-col-1001387"],
+"1001388":["collect","cd-col-1001388"],
+"1001391":["collect","cd-col-1001391"],
+"1001392":["collect","cd-col-1001392"],
+"1001393":["collect","cd-col-1001393"],
+"1001394":["collect","cd-col-1001394"],
+"1001395":["collect","cd-col-1001395"],
+"1001396":["collect","cd-col-1001396"],
+"1001399":["challenges","cd-ch-1001399"],
+"1001400":["challenges","cd-ch-1001400"],
+"1001425":["collect","cd-col-1001425"],
+"1001442":["collect","cd-col-1001442"],
+"1001443":["collect","cd-col-1001443"],
+"1001444":["collect","cd-col-1001444"],
+"1001445":["collect","cd-col-1001445"],
+"1001446":["collect","cd-col-1001446"],
+"1001447":["collect","cd-col-1001447"],
+"1001448":["collect","cd-col-1001448"],
+"1001449":["collect","cd-col-1001449"],
+"1001450":["collect","cd-col-1001450"],
+"1001451":["collect","cd-col-1001451"],
+"1001452":["collect","cd-col-1001452"],
+"1001453":["collect","cd-col-1001453"],
+"1001454":["collect","cd-col-1001454"],
+"1001455":["collect","cd-col-1001455"],
+"1001456":["collect","cd-col-1001456"],
+"1001457":["collect","cd-col-1001457"],
+"1001468":["collect","cd-col-1001468"],
+"1001474":["collect","cd-col-1001474"],
+"1001480":["collect","cd-col-1001480"],
+"1001486":["collect","cd-col-1001486"],
+"1001487":["collect","cd-col-1001487"],
+"1001489":["collect","cd-col-1001489"],
+"1001490":["collect","cd-col-1001490"],
+"1001491":["collect","cd-col-1001491"],
+"1001492":["collect","cd-col-1001492"],
+"1001493":["collect","cd-col-1001493"],
+"1001494":["collect","cd-col-1001494"],
+"1001495":["collect","cd-col-1001495"],
+"1001496":["collect","cd-col-1001496"],
+"1001497":["collect","cd-col-1001497"],
+"1001498":["collect","cd-col-1001498"],
+"1001499":["collect","cd-col-1001499"],
+"1001500":["collect","cd-col-1001500"],
+"1001501":["collect","cd-col-1001501"],
+"1001502":["collect","cd-col-1001502"],
+"1001894":["collect","cd-col-1001894"],
+"1001896":["collect","cd-col-1001896"],
+"1001897":["collect","cd-col-1001897"],
+"1001898":["collect","cd-col-1001898"],
+"1002103":["collect","cd-col-1002103"],
+"1002104":["collect","cd-col-1002104"],
+"1002158":["challenges","cd-ch-1002158"],
+"1002159":["challenges","cd-ch-1002159"],
+"1002160":["challenges","cd-ch-1002160"],
+"1002161":["challenges","cd-ch-1002161"],
+"1002162":["challenges","cd-ch-1002162"],
+"1002163":["challenges","cd-ch-1002163"],
+"1002164":["challenges","cd-ch-1002164"],
+"1002197":["collect","cd-col-1002197"],
+"1002243":["collect","cd-col-1002243"],
+"1002843":["collect","cd-col-1002843"],
+"1003192":["challenges","cd-ch-1003192"],
+"1003193":["challenges","cd-ch-1003193"],
+"1003194":["challenges","cd-ch-1003194"],
+"1003204":["collect","cd-col-1003204"],
+"1003205":["collect","cd-col-1003205"],
+"1003206":["collect","cd-col-1003206"],
+"1003207":["collect","cd-col-1003207"],
+"1003208":["collect","cd-col-1003208"],
+"1003209":["collect","cd-col-1003209"],
+"1003210":["collect","cd-col-1003210"],
+"1003211":["collect","cd-col-1003211"],
+"1003212":["collect","cd-col-1003212"],
+"1003213":["collect","cd-col-1003213"],
+"1003214":["collect","cd-col-1003214"],
+"1003215":["collect","cd-col-1003215"],
+"1003216":["collect","cd-col-1003216"],
+"1003217":["collect","cd-col-1003217"],
+"1003218":["collect","cd-col-1003218"],
+"1003219":["collect","cd-col-1003219"],
+"1003220":["collect","cd-col-1003220"],
+"1003221":["collect","cd-col-1003221"],
+"1003222":["collect","cd-col-1003222"],
+"1003223":["collect","cd-col-1003223"],
+"1003224":["collect","cd-col-1003224"],
+"1003225":["collect","cd-col-1003225"],
+"1003226":["collect","cd-col-1003226"],
+"1003227":["collect","cd-col-1003227"],
+"1003228":["collect","cd-col-1003228"],
+"1003229":["collect","cd-col-1003229"],
+"1003230":["collect","cd-col-1003230"],
+"1003231":["collect","cd-col-1003231"],
+"1003232":["collect","cd-col-1003232"],
+"1003233":["collect","cd-col-1003233"],
+"1003234":["collect","cd-col-1003234"],
+"1003235":["collect","cd-col-1003235"],
+"1003236":["collect","cd-col-1003236"],
+"1003237":["collect","cd-col-1003237"],
+"1003238":["collect","cd-col-1003238"],
+"1003239":["collect","cd-col-1003239"],
+"1003240":["collect","cd-col-1003240"],
+"1003241":["collect","cd-col-1003241"]},"knowledge":{
+"40028":["power","cd-pow-clothesline"],
+"40036":["power","cd-pow-forward-slash"],
+"40063":["power","cd-pow-multishot"],
+"40065":["power","cd-pow-charged-shot"],
+"40069":["power","cd-pow-spinning-slash"],
+"40072":["power","cd-pow-turning-slash"],
+"40082":["power","cd-pow-aerial-roll"],
+"1000001":["power","cd-pow-body-slam"],
+"1000908":["power","cd-pow-explosive-evasive"],
+"1001116":["power","cd-pow-double-jump"],
+"1001744":["power","cd-pow-natures-snare"],
+"1001756":["power","cd-p1"],
+"1001789":["power","cd-pow-unarmed"],
+"1003524":["power","cd-pow-counter"]},"questGroups":{
+"cd-side-house-alfonso":["side",[1000279,1000876,1000874]],
+"cd-side-house-celeste":["side",[1000059,1000564,1000322,1001189,1000069,1000470,1000656,1000291]],
+"cd-side-house-felix":["side",[1000105,1000718]],
+"cd-side-goldleaf-merchant-guild":["side",[1000210]],
+"cd-side-house-grace":["side",[1000642,1000026,1000735,1000273]],
+"cd-side-kharonso-troll-alliance":["side",[1000994]],
+"cd-side-pororin-forest-guardians":["side",[1000073,1000159,1000065,1000094,1000067,1000083]],
+"cd-side-house-roberts":["side",[1000016,1000397,1000630]],
+"cd-side-scholastone-institute":["side",[1000649,1000329,1000122,1000111,1000356]],
+"cd-side-house-serkis":["side",[1000092,1000903,1000906,1000894,1000284,1000672]],
+"cd-side-house-lanford":["side",[1000340,1000015]],
+"cd-side-beggars-alliance":["side",[1000343,1001139]],
+"cd-side-hernandian-parish-of-solumen":["side",[1000001,1000081,1000014]],
+"cd-side-vellua-fishermen-s-guild":["side",[1001066,1000146]],
+"cd-side-witches":["side",[1000858,1000854,1000859,1000853,1000338,1000370,1000337,1000346,1000335,1000336,1000339]],
+"cd-side-hernand-requests":["side",[1000211,1000949,1001061,1000163,1000178]],
+"cd-side-hernand-commissions":["side",[1000300,1000341,1000332,1000299,1000592,1000512,1000290]],
+"cd-side-hernand-s-politics":["side",[1001002,1000274,1000710,1000050,1000566,1000153,1000114,1000950,1000053]],
+"cd-side-greymanes":["side",[1001026,1000864,1000826,1000824,1000967,1000195,1000867,1000315,1000881,1000313,1000937,1000350,1000270,1000352,1000314,1000722,1000331,1000330,1000194,1000304,1000398,1000400,1000404,1000312,1000157,1000351,1000852]],
+"cd-side-antumbra-order":["side",[1000411,1000021]],
+"cd-side-pailune-militia":["side",[1001020,1000616,1000282,1000093,1001135,1000990]],
+"cd-side-beighen-tribe":["side",[1000861]],
+"cd-side-longleaf-tribe":["side",[1000667,1000041,1000316,1000317,1000324]],
+"cd-side-stjar-clan":["side",[1000342,1000946]],
+"cd-side-odeck-tribe":["side",[1001050,1001039]],
+"cd-side-skoghorn-tribe":["side",[1000617,1000052]],
+"cd-side-pailune-requests":["side",[1000952,1001062]],
+"cd-side-pailune-commissions":["side",[1000602,1000736]],
+"cd-side-pailune-s-politics":["side",[1000727,1000751,1001054,1001051,1000678,1001057,1001043]],
+"cd-side-house-azerian":["side",[1000986]],
+"cd-side-house-byron":["side",[1000117,1000686]],
+"cd-side-house-elemore":["side",[1000044]],
+"cd-side-house-marshell":["side",[1000394,1000711]],
+"cd-side-silvermoon-trade-group":["side",[1000248,1000836]],
+"cd-side-tariv-sorcerers":["side",[1000878,1000402]],
+"cd-side-house-thorel":["side",[1000002,1000062]],
+"cd-side-house-wells":["side",[1000278]],
+"cd-side-demeniss-requests":["side",[1000948,1001060,1000032]],
+"cd-side-demeniss-commissions":["side",[1000196,1000643,1000677,1000615,1000205]],
+"cd-side-demeniss-s-politics":["side",[1000569,1000568,1000028,1000620,1000020]],
+"cd-side-aeserion-the-great-serpent":["side",[1000694,1000759,1000761,1000756]],
+"cd-side-gearmelt-confectionery":["side",[1000023,1001019]],
+"cd-side-marni":["side",[1000703,1000055]],
+"cd-side-national-delesyian-institute":["side",[1000250,1000385,1000143,1000090]],
+"cd-side-ironwheel-of-dewhaven":["side",[1000181,1000155,1000386,1000902]],
+"cd-side-ironflame-orcs":["side",[1000204,1000201,1000193,1000110]],
+"cd-side-delesyian-aerial-force":["side",[1000777,1001249,1000915]],
+"cd-side-society-of-progress":["side",[1000652,1000008]],
+"cd-side-blackwater-oil-merchant-guild":["side",[1000088,1000363,1000040]],
+"cd-side-cogknights":["side",[1000510]],
+"cd-side-redfox-trading-company":["side",[1001229]],
+"cd-side-delesyia-requests":["side",[1000947,1000721,1000188]],
+"cd-side-delesyia-commissions":["side",[1000184,1000152,1000276,1000036]],
+"cd-side-delesyia-s-politics":["side",[1000389,1000563]],
+"cd-side-lords-of-unclaimed-lands":["side",[1000249,1000388,1000321,1000208,1000766,1000590,1000613,1000884,1000855,1000848]],
+"cd-side-muiquun-outlaws":["side",[1000755]],
+"cd-side-redwind-merchant-guild":["side",[1000333]],
+"cd-side-sage-of-the-desert":["side",[1000191,1000043,1000582]],
+"cd-side-tommaso":["side",[1000589,1001086]],
+"cd-side-urdavah":["side",[1000384,1000031,1000011]],
+"cd-side-crimson-desert-requests":["side",[1000941,1000134,1000012]],
+"cd-side-crimson-desert-commissions":["side",[1000669,1000097,1000075,1000127,1000594,1000214,1000294]],
+"cd-side-crimson-desert-s-politics":["side",[1000742,1001059,1001056,1000371,1000399,1000347,1000687,1000272]]}}

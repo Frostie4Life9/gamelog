@@ -2,7 +2,7 @@
   "slug": "crimson-desert",
   "title": "Crimson Desert",
   "steamId": 3321460,
-  "note": "Your save reader ticks Main Story, every Challenge, the Collectibles categories (Abyss, Secret Places, Ancient Ruins, Sanctums, Spires, Constellations, Mazes, Legendary Animals, New Power bosses) and Kliff's Observe skills. Side Quests, Pets, Armor and Charting the Unknown are still ticked by hand. Most challenges only count after you pick up their Sealed Abyss Artifact.",
+  "note": "Your save reader ticks Main Story, every Challenge, the Collectibles categories (Abyss, Secret Places, Ancient Ruins, Sanctums, Spires, Constellations, Mazes, Legendary Animals, New Power bosses), Kliff's Observe skills, and Side Quests (63 of 69 factions, each once all its quests are done). Pets, Armor, Charting the Unknown and six factions with no separate quests are still ticked by hand. Most challenges only count after you pick up their Sealed Abyss Artifact.",
   "refresher": "refresher.json",
   "tabs": [
     {

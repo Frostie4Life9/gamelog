@@ -4,11 +4,22 @@
    "id": "cd-side-house-alfonso",
    "name": "House Alfonso",
    "region": "Hernand",
-   "how": "The game lists 7 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 7 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: On the Speartip Once Again, Transcendent Structure, House of Spears.",
+   "save": {
+    "quests": [
+     1000279,
+     1000876,
+     1000874
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: House Alfonso quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/alfonso"
     }
    ],
    "verified": "sourced"
@@ -19,6 +30,18 @@
    "region": "Hernand",
    "how": "Bounty board: Hellhounds, Masked Hunter, Legendary Animals, Outlaws in Hernand, Legendary Wolf, Frozen Eldertree, Queen of the Silkspun Citadel, Abandoned Factory. The game lists 35 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
    "unlocks": "Silver bounties.",
+   "save": {
+    "quests": [
+     1000059,
+     1000564,
+     1000322,
+     1001189,
+     1000069,
+     1000470,
+     1000656,
+     1000291
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
@@ -27,6 +50,10 @@
     {
      "t": "Console Pulse: all faction quests",
      "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools: House Celeste quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/celeste_hernand"
     }
    ],
    "verified": "sourced"
@@ -35,11 +62,21 @@
    "id": "cd-side-house-felix",
    "name": "House Felix",
    "region": "Hernand",
-   "how": "The game lists 7 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 7 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Family Concerns, Shackle-Breaking Hammer.",
+   "save": {
+    "quests": [
+     1000105,
+     1000718
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: House Felix quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/felix"
     }
    ],
    "verified": "sourced"
@@ -50,6 +87,11 @@
    "region": "Hernand",
    "how": "Extinguishing the Last Flames: seven objectives around the Guildhouse. The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
    "unlocks": "Hernandian Banquet Cloak, Kinetic Counterweight.",
+   "save": {
+    "quests": [
+     1000210
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
@@ -58,6 +100,10 @@
     {
      "t": "Console Pulse: all faction quests",
      "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools: Goldleaf Merchant Guild quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/goldleafguildhouse"
     }
    ],
    "verified": "sourced"
@@ -66,11 +112,23 @@
    "id": "cd-side-house-grace",
    "name": "House Grace",
    "region": "Hernand",
-   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Pollengarth Apiary, The Owner of Glenbright Manor, Drifton, Wagon in the Skies.",
+   "save": {
+    "quests": [
+     1000642,
+     1000026,
+     1000735,
+     1000273
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: House Grace quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/grace"
     }
    ],
    "verified": "sourced"
@@ -92,11 +150,20 @@
    "id": "cd-side-kharonso-troll-alliance",
    "name": "Kharonso Troll Alliance",
    "region": "Hernand",
-   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: The Sleeping Heart.",
+   "save": {
+    "quests": [
+     1000994
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: Kharonso Troll Alliance quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/kharonsovillage"
     }
    ],
    "verified": "sourced"
@@ -107,6 +174,16 @@
    "region": "Hernand",
    "how": "Children of the Woods (search several regions for the missing Shai), Trembling Woods, Toll of Pywel, Pororin Research Institute, Halted Research. The game lists 25 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
    "unlocks": "Trembling Woods opens Pororin Village; its Authorized Access part gives the Sotdae of Bond perch, which you need for every bird pet.",
+   "save": {
+    "quests": [
+     1000073,
+     1000159,
+     1000065,
+     1000094,
+     1000067,
+     1000083
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
@@ -115,6 +192,10 @@
     {
      "t": "Console Pulse: all faction quests",
      "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools: Pororin Forest Guardians quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/pororinvillage"
     }
    ],
    "verified": "sourced"
@@ -125,6 +206,13 @@
    "region": "Hernand",
    "how": "Estate in Dismay (five parts: First Trial of Trust, Stolen Quarry, Troubled Count, Sealed in Stone, The Count's Honor), then Continuing Concern and Boulder from the Sky. The game lists 11 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
    "unlocks": "Gold Vein Map, Mining Knuckledrill, Azurite, Bloodstones, Engraved Gold Earring.",
+   "save": {
+    "quests": [
+     1000016,
+     1000397,
+     1000630
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
@@ -133,6 +221,10 @@
     {
      "t": "Console Pulse: all faction quests",
      "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools: House Roberts quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/roberts"
     }
    ],
    "verified": "sourced"
@@ -141,11 +233,24 @@
    "id": "cd-side-scholastone-institute",
    "name": "Scholastone Institute",
    "region": "Hernand",
-   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: What the Stars left Behind, Where Starlight Converges, Halted Research, Halted Research, Scholastone Research Institute.",
+   "save": {
+    "quests": [
+     1000649,
+     1000329,
+     1000122,
+     1000111,
+     1000356
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: Scholastone Institute quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/scholarstoneinstitute"
     }
    ],
    "verified": "sourced"
@@ -154,8 +259,18 @@
    "id": "cd-side-house-serkis",
    "name": "House Serkis",
    "region": "Hernand",
-   "how": "Fort Anvil, the manor and its liberation. The game lists 17 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "Fort Anvil, the manor and its liberation. The game lists 17 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Hooves Through the Wind, Silent Anvil, Flame Melting the Chains, Lord Amidst the Ruins, Secret of the Lost Seal, The Nemesis' Demise.",
    "unlocks": "Staglord's Shield, Abyss Artifact.",
+   "save": {
+    "quests": [
+     1000092,
+     1000903,
+     1000906,
+     1000894,
+     1000284,
+     1000672
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
@@ -164,6 +279,10 @@
     {
      "t": "Console Pulse: all faction quests",
      "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools: House Serkis quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/serkis"
     }
    ],
    "verified": "sourced"
@@ -172,11 +291,21 @@
    "id": "cd-side-house-lanford",
    "name": "House Lanford",
    "region": "Hernand",
-   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: For a Stronger Shield, White Blizzard.",
+   "save": {
+    "quests": [
+     1000340,
+     1000015
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: House Lanford quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/shieldlanford"
     }
    ],
    "verified": "sourced"
@@ -185,11 +314,21 @@
    "id": "cd-side-beggars-alliance",
    "name": "Beggars' Alliance",
    "region": "Hernand",
-   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Plague Over the Wall, Beggars' Alliance.",
+   "save": {
+    "quests": [
+     1000343,
+     1001139
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: Beggars' Alliance quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/slum"
     }
    ],
    "verified": "sourced"
@@ -198,11 +337,22 @@
    "id": "cd-side-hernandian-parish-of-solumen",
    "name": "Hernandian Parish of Solumen",
    "region": "Hernand",
-   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Ruined Chapel, Where Land Meets Sky, Missing Relic.",
+   "save": {
+    "quests": [
+     1000001,
+     1000081,
+     1000014
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: Hernandian Parish of Solumen quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/solumen_church_hernand"
     }
    ],
    "verified": "sourced"
@@ -211,11 +361,21 @@
    "id": "cd-side-vellua-fishermen-s-guild",
    "name": "Vellua Fishermen's Guild",
    "region": "Hernand",
-   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Beyond the Silent Waves, The Girl Lost in the Mists.",
+   "save": {
+    "quests": [
+     1001066,
+     1000146
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: Vellua Fishermen's Guild quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/vellua"
     }
    ],
    "verified": "sourced"
@@ -224,8 +384,23 @@
    "id": "cd-side-witches",
    "name": "Witches",
    "region": "Hernand",
-   "how": "Witch of Strength, Humility, Wisdom and Kindness, plus smaller entries like Flight, Refined Power and Wayward Woods Witch. The game lists 23 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "Witch of Strength, Humility, Wisdom and Kindness, plus smaller entries like Flight, Refined Power and Wayward Woods Witch. The game lists 23 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Courage to Be Vulnerable, Beyond the Words, Missing Final Page, Brave Steps, The Witch of Strength, Flight, The Witch of Humility, Refined Power, The Witch of Wisdom, The Witch of Kindness, Wayward Woods Witch.",
    "unlocks": "Witch services: Abyss Gear, recipes, blueprints, sockets, extraction and synthesis.",
+   "save": {
+    "quests": [
+     1000858,
+     1000854,
+     1000859,
+     1000853,
+     1000338,
+     1000370,
+     1000337,
+     1000346,
+     1000335,
+     1000336,
+     1000339
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
@@ -234,6 +409,10 @@
     {
      "t": "Console Pulse: all faction quests",
      "u": "https://consolepulse.com/multiplatform/crimson-desert/guides/crimson-desert-all-faction-quests-best-order-rewards"
+    },
+    {
+     "t": "gaming.tools: Witches quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/witch"
     }
    ],
    "verified": "sourced"
@@ -242,11 +421,24 @@
    "id": "cd-side-hernand-requests",
    "name": "Hernand Requests",
    "region": "Hernand",
-   "how": "The game lists 35 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 35 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Invention of the Workshop, Tales from the Corners of Hernand, Tales after Hernand, A Favor for Hernand, A Friendly Encounter.",
+   "save": {
+    "quests": [
+     1000211,
+     1000949,
+     1001061,
+     1000163,
+     1000178
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: Hernand Requests quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/hernand_daily"
     }
    ],
    "verified": "sourced"
@@ -255,11 +447,26 @@
    "id": "cd-side-hernand-commissions",
    "name": "Hernand Commissions",
    "region": "Hernand",
-   "how": "The game lists 63 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 63 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Ambition in the Ruins, Tales of the Calphadean Residents, Tales of the Calphadean Merchants, Seed of Truth, Tales of the Hernandian Residents, Tales of the Hernandian Merchants, The Weight of Knowledge.",
+   "save": {
+    "quests": [
+     1000300,
+     1000341,
+     1000332,
+     1000299,
+     1000592,
+     1000512,
+     1000290
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: Hernand Commissions quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/hernand_request"
     }
    ],
    "verified": "sourced"
@@ -268,11 +475,28 @@
    "id": "cd-side-hernand-s-politics",
    "name": "Hernand's Politics",
    "region": "Hernand",
-   "how": "The game lists 14 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 14 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Shadow Over the Mine, Blade on an Anvil, Traces on the Hunting Ground, Blindfolded Threat, Gunshots Heard Throughout the Mountains, Bleed Bandits Threatening the Fishing Village, Collapsed Stone Tower, Fangs Caught at the Outpost, Spire of Insight.",
+   "save": {
+    "quests": [
+     1001002,
+     1000274,
+     1000710,
+     1000050,
+     1000566,
+     1000153,
+     1000114,
+     1000950,
+     1000053
+    ]
+   },
    "sources": [
     {
      "t": "gaming.tools database: Hernand faction quests (v2.0.0)",
      "u": "https://crimsondesert.gaming.tools/faction-quests/akapen"
+    },
+    {
+     "t": "gaming.tools: Hernand's Politics quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/akapen/hernand_situation"
     }
    ],
    "verified": "sourced"
@@ -281,8 +505,39 @@
    "id": "cd-side-greymanes",
    "name": "Greymanes",
    "region": "Pailune (Howling Hill)",
-   "how": "Your own faction: camp recovery, comrades and commissions, starting at Howling Hill. Lines include Scattered Embers, Grounds of the Sunrise and Greymane Commissions. Commissions pay out Medium Bags. If progress stalls, switch back to Kliff. The game lists 100 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "Your own faction: camp recovery, comrades and commissions, starting at Howling Hill. Lines include Scattered Embers, Grounds of the Sunrise and Greymane Commissions. Commissions pay out Medium Bags. If progress stalls, switch back to Kliff. The game lists 100 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Garden of Trials, Homeward, Shield of Hernand, A Memory Beyond Ashes, Renewed Vitality, Reuniting with Comrades, Hope from Ashes, Strength Held in the Fingertips, Record of the Greymanes, A Taste of Home, For a Better Tomorrow, Brightening the Spirits, The First Steps of Little Marksmen, The Price of a Hangover, Words Left by the Riverside, Tales of the Greymanes, Riding with Pride, The Greymanes' New Fangs, Favorable Trade, Embers of Return, Gathered Will, Solid Foundation, Chance to Make a Fortune, Golden News from Yann, Strongbox with Wheels, Sweet Taste of Bounties, A Wider World.",
    "unlocks": "Grounds of the Sunrise (Luke's Request) gates the upgraded housing in Charting the Unknown.",
+   "save": {
+    "quests": [
+     1001026,
+     1000864,
+     1000826,
+     1000824,
+     1000967,
+     1000195,
+     1000867,
+     1000315,
+     1000881,
+     1000313,
+     1000937,
+     1000350,
+     1000270,
+     1000352,
+     1000314,
+     1000722,
+     1000331,
+     1000330,
+     1000194,
+     1000304,
+     1000398,
+     1000400,
+     1000404,
+     1000312,
+     1000157,
+     1000351,
+     1000852
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -291,6 +546,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Greymanes quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/graymane/graymane"
     }
    ],
    "verified": "sourced"
@@ -301,6 +560,12 @@
    "region": "Pailune",
    "how": "Darkness over the Sanctum runs across twelve Sanctums; then Cloister of Ruination. The game lists 18 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
    "unlocks": "Abyss Artifact, Vessel of Dark Pursuit.",
+   "save": {
+    "quests": [
+     1000411,
+     1000021
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -309,6 +574,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Antumbra Order quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/antumbra"
     }
    ],
    "verified": "sourced"
@@ -318,6 +587,16 @@
    "name": "Pailune Militia",
    "region": "Pailune",
    "how": "Crossroads of Succession, Outlaws in Pailune, Bloodied Path, Dark Shadow Engulfing the Fort. The game lists 39 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "save": {
+    "quests": [
+     1001020,
+     1000616,
+     1000282,
+     1000093,
+     1001135,
+     1000990
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -326,6 +605,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Pailune Militia quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/pailune"
     }
    ],
    "verified": "sourced"
@@ -334,7 +617,12 @@
    "id": "cd-side-beighen-tribe",
    "name": "Beighen Tribe",
    "region": "Pailune",
-   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Lantern-lit Frost.",
+   "save": {
+    "quests": [
+     1000861
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -343,6 +631,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Beighen Tribe quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/beighen"
     }
    ],
    "verified": "sourced"
@@ -351,7 +643,16 @@
    "id": "cd-side-longleaf-tribe",
    "name": "Longleaf Tribe",
    "region": "Pailune",
-   "how": "The game lists 11 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 11 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Woodland Spirit's Treasure, Fog over the Forest, Longleaf Forest Lost to Darkness, Bright Longleaf Forest, Forest Drowned in Mud.",
+   "save": {
+    "quests": [
+     1000667,
+     1000041,
+     1000316,
+     1000317,
+     1000324
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -360,6 +661,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Longleaf Tribe quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/longleaftree"
     }
    ],
    "verified": "sourced"
@@ -385,7 +690,13 @@
    "id": "cd-side-stjar-clan",
    "name": "Stjar Clan",
    "region": "Pailune",
-   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Where Lightning Strikes, Master of Thunder.",
+   "save": {
+    "quests": [
+     1000342,
+     1000946
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -394,6 +705,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Stjar Clan quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/nobility2stjar"
     }
    ],
    "verified": "sourced"
@@ -402,7 +717,13 @@
    "id": "cd-side-odeck-tribe",
    "name": "Odeck Tribe",
    "region": "Pailune",
-   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Slumbering Soul, Executioner of Justice.",
+   "save": {
+    "quests": [
+     1001050,
+     1001039
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -411,6 +732,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Odeck Tribe quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/odeck"
     }
    ],
    "verified": "sourced"
@@ -419,7 +744,13 @@
    "id": "cd-side-skoghorn-tribe",
    "name": "Skoghorn Tribe",
    "region": "Pailune",
-   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Soul Shepherd, Snowhaven Hearth.",
+   "save": {
+    "quests": [
+     1000617,
+     1000052
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -428,6 +759,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Skoghorn Tribe quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/skoghorn"
     }
    ],
    "verified": "sourced"
@@ -436,7 +771,13 @@
    "id": "cd-side-pailune-requests",
    "name": "Pailune Requests",
    "region": "Pailune",
-   "how": "The game lists 9 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 9 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Tales from the Corners of Pailune, Tales After Pailune.",
+   "save": {
+    "quests": [
+     1000952,
+     1001062
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -445,6 +786,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Pailune Requests quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/pailune_daily"
     }
    ],
    "verified": "sourced"
@@ -453,7 +798,13 @@
    "id": "cd-side-pailune-commissions",
    "name": "Pailune Commissions",
    "region": "Pailune",
-   "how": "The game lists 30 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 30 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Tales of the Pailunese Residents, Tales of the Pailunese Merchants.",
+   "save": {
+    "quests": [
+     1000602,
+     1000736
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -462,6 +813,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Pailune Commissions quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/pailune_request"
     }
    ],
    "verified": "sourced"
@@ -470,7 +825,18 @@
    "id": "cd-side-pailune-s-politics",
    "name": "Pailune's Politics",
    "region": "Pailune",
-   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Frozen Iris, Hidden Space, Claws Hidden in the Forest, Border with Two Edges, Fog-swallowed Tannery, Black Breath on a Ridge, Trace Trackers.",
+   "save": {
+    "quests": [
+     1000727,
+     1000751,
+     1001054,
+     1001051,
+     1000678,
+     1001057,
+     1001043
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -479,6 +845,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Pailune's Politics quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/kweiden/pailune_situation"
     }
    ],
    "verified": "sourced"
@@ -487,8 +857,13 @@
    "id": "cd-side-house-azerian",
    "name": "House Azerian",
    "region": "Demeniss",
-   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Flame Knights.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000986
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -497,6 +872,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: House Azerian quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/azerian"
     }
    ],
    "verified": "sourced"
@@ -505,8 +884,14 @@
    "id": "cd-side-house-byron",
    "name": "House Byron",
    "region": "Demeniss",
-   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: The Dark Justiciar, Where the Wind Blows.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000117,
+     1000686
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -515,6 +900,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: House Byron quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/byron"
     }
    ],
    "verified": "sourced"
@@ -523,8 +912,13 @@
    "id": "cd-side-house-elemore",
    "name": "House Elemore",
    "region": "Demeniss",
-   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Lunar Judgment.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000044
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -533,6 +927,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: House Elemore quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/elimoor"
     }
    ],
    "verified": "sourced"
@@ -541,8 +939,14 @@
    "id": "cd-side-house-marshell",
    "name": "House Marshell",
    "region": "Demeniss",
-   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Trembles from Below, Midnight Circus.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000394,
+     1000711
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -551,6 +955,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: House Marshell quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/marchell"
     }
    ],
    "verified": "sourced"
@@ -559,8 +967,14 @@
    "id": "cd-side-silvermoon-trade-group",
    "name": "Silvermoon Trade Group",
    "region": "Demeniss",
-   "how": "The game lists 7 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 7 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Hunter's Cabin, The Day the Moonlight Waned.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000248,
+     1000836
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -569,6 +983,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Silvermoon Trade Group quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/silvermoontroll"
     }
    ],
    "verified": "sourced"
@@ -595,8 +1013,14 @@
    "id": "cd-side-tariv-sorcerers",
    "name": "Tariv Sorcerers",
    "region": "Demeniss",
-   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Guardian of the Ancient Ruins, The Light of Tariv.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000878,
+     1000402
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -605,6 +1029,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Tariv Sorcerers quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/tariv"
     }
    ],
    "verified": "sourced"
@@ -613,8 +1041,14 @@
    "id": "cd-side-house-thorel",
    "name": "House Thorel",
    "region": "Demeniss",
-   "how": "The game lists 24 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 24 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: The Crimson Warden, Outlaws in Demeniss.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000002,
+     1000062
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -623,6 +1057,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: House Thorel quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/thorel_demeniss"
     }
    ],
    "verified": "sourced"
@@ -631,8 +1069,13 @@
    "id": "cd-side-house-wells",
    "name": "House Wells",
    "region": "Demeniss",
-   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Deathchime.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000278
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -641,6 +1084,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: House Wells quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/wells"
     }
    ],
    "verified": "sourced"
@@ -649,8 +1096,15 @@
    "id": "cd-side-demeniss-requests",
    "name": "Demeniss Requests",
    "region": "Demeniss",
-   "how": "The game lists 27 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 27 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Tales from the Corners of Demeniss, Tales After Demeniss, A Favor for Demeniss.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000948,
+     1001060,
+     1000032
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -659,6 +1113,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Demeniss Requests quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/demeniss_daily"
     }
    ],
    "verified": "sourced"
@@ -667,8 +1125,17 @@
    "id": "cd-side-demeniss-commissions",
    "name": "Demeniss Commissions",
    "region": "Demeniss",
-   "how": "The game lists 54 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 54 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Suspicious Farm, Tales of the Demenissian Residents, Tales of the Demenissian Merchants, Mushrooms Growing Among Poison, Someone's Letter.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000196,
+     1000643,
+     1000677,
+     1000615,
+     1000205
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -677,6 +1144,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Demeniss Commissions quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/demeniss_request"
     }
    ],
    "verified": "sourced"
@@ -685,8 +1156,17 @@
    "id": "cd-side-demeniss-s-politics",
    "name": "Demeniss's Politics",
    "region": "Demeniss",
-   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Gunshot Throughout the Rocks, Gunshots Blocking the Flow of Water, Blade at the Precipice, Hunter's Outpost, Castle Sealed by Fire.",
    "prereq": "Easier after the capital settles down: guides suggest coming back after your first story visit.",
+   "save": {
+    "quests": [
+     1000569,
+     1000568,
+     1000028,
+     1000620,
+     1000020
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -695,6 +1175,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Demeniss's Politics quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/delpheon/demeniss_situation"
     }
    ],
    "verified": "sourced"
@@ -703,7 +1187,15 @@
    "id": "cd-side-aeserion-the-great-serpent",
    "name": "Aeserion, the Great Serpent",
    "region": "Delesyia",
-   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Aeserion, the Great Serpent, Praevus the Ancient, Primus the Ancient, Priscus the Ancient.",
+   "save": {
+    "quests": [
+     1000694,
+     1000759,
+     1000761,
+     1000756
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -712,6 +1204,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Aeserion, the Great Serpent quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/ancientgodaeserion"
     }
    ],
    "verified": "sourced"
@@ -720,7 +1216,13 @@
    "id": "cd-side-gearmelt-confectionery",
    "name": "Gearmelt Confectionery",
    "region": "Delesyia",
-   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Sweet Factory, Helms Stopping the Oven.",
+   "save": {
+    "quests": [
+     1000023,
+     1001019
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -729,6 +1231,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Gearmelt Confectionery quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/chocolatefactory"
     }
    ],
    "verified": "sourced"
@@ -737,7 +1243,13 @@
    "id": "cd-side-marni",
    "name": "Marni",
    "region": "Delesyia",
-   "how": "The game lists 27 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 27 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Outlaws in Delesyia, Eternal Corridor.",
+   "save": {
+    "quests": [
+     1000703,
+     1000055
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -746,6 +1258,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Marni quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/delesyia"
     }
    ],
    "verified": "sourced"
@@ -754,7 +1270,15 @@
    "id": "cd-side-national-delesyian-institute",
    "name": "National Delesyian Institute",
    "region": "Delesyia",
-   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Shadows of Knowledge, Institute of Delesyia, Halted Research, Halted Research.",
+   "save": {
+    "quests": [
+     1000250,
+     1000385,
+     1000143,
+     1000090
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -763,6 +1287,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: National Delesyian Institute quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/delesyiainstitute"
     }
    ],
    "verified": "sourced"
@@ -771,7 +1299,15 @@
    "id": "cd-side-ironwheel-of-dewhaven",
    "name": "Ironwheel of Dewhaven",
    "region": "Delesyia",
-   "how": "The game lists 12 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 12 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Halted Research, Halted Research, Dewhaven Research Institute, The Wyvernflames.",
+   "save": {
+    "quests": [
+     1000181,
+     1000155,
+     1000386,
+     1000902
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -780,6 +1316,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Ironwheel of Dewhaven quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/dewhaven"
     }
    ],
    "verified": "sourced"
@@ -788,7 +1328,15 @@
    "id": "cd-side-ironflame-orcs",
    "name": "Ironflame Orcs",
    "region": "Delesyia",
-   "how": "The game lists 12 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 12 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Pot and Weapons, Halted Research, Halted Research, Gorthak Ironworks Research Institute.",
+   "save": {
+    "quests": [
+     1000204,
+     1000201,
+     1000193,
+     1000110
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -797,6 +1345,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Ironflame Orcs quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/gorthakiron"
     }
    ],
    "verified": "sourced"
@@ -805,7 +1357,14 @@
    "id": "cd-side-delesyian-aerial-force",
    "name": "Delesyian Aerial Force",
    "region": "Delesyia",
-   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Locked Barrier, Wings across the Sky, Aerial Border.",
+   "save": {
+    "quests": [
+     1000777,
+     1001249,
+     1000915
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -814,6 +1373,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Delesyian Aerial Force quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/marniairlab"
     }
    ],
    "verified": "sourced"
@@ -822,7 +1385,13 @@
    "id": "cd-side-society-of-progress",
    "name": "Society of Progress",
    "region": "Delesyia",
-   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 10 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Forbidden Transplant, Plating Debris.",
+   "save": {
+    "quests": [
+     1000652,
+     1000008
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -831,6 +1400,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Society of Progress quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/marnilab"
     }
    ],
    "verified": "sourced"
@@ -839,7 +1412,14 @@
    "id": "cd-side-blackwater-oil-merchant-guild",
    "name": "Blackwater Oil Merchant Guild",
    "region": "Delesyia",
-   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 5 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Closed Power, Abandoned Drilling Rig, Flickering Starlight.",
+   "save": {
+    "quests": [
+     1000088,
+     1000363,
+     1000040
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -848,6 +1428,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Blackwater Oil Merchant Guild quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/marnioilrig"
     }
    ],
    "verified": "sourced"
@@ -856,7 +1440,12 @@
    "id": "cd-side-cogknights",
    "name": "Cogknights",
    "region": "Delesyia",
-   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Abandoned Trade Route.",
+   "save": {
+    "quests": [
+     1000510
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -865,6 +1454,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Cogknights quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/marnisoutpost"
     }
    ],
    "verified": "sourced"
@@ -890,7 +1483,12 @@
    "id": "cd-side-redfox-trading-company",
    "name": "Redfox Trading Company",
    "region": "Delesyia",
-   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 3 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Lake Stoneback Crab.",
+   "save": {
+    "quests": [
+     1001229
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -899,6 +1497,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Redfox Trading Company quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/redfoxtrade"
     }
    ],
    "verified": "sourced"
@@ -907,7 +1509,14 @@
    "id": "cd-side-delesyia-requests",
    "name": "Delesyia Requests",
    "region": "Delesyia",
-   "how": "The game lists 18 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 18 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Tales from the Corners of Delesyia, Tales After Delesyia, A Favor for Delesyia.",
+   "save": {
+    "quests": [
+     1000947,
+     1000721,
+     1000188
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -916,6 +1525,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Delesyia Requests quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/delesyia_daily"
     }
    ],
    "verified": "sourced"
@@ -924,7 +1537,15 @@
    "id": "cd-side-delesyia-commissions",
    "name": "Delesyia Commissions",
    "region": "Delesyia",
-   "how": "The game lists 36 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 36 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Tales of the Delesyian Residents, Tales of the Delesyian Merchants, Dark Shadow Within the Village, Broken Silence.",
+   "save": {
+    "quests": [
+     1000184,
+     1000152,
+     1000276,
+     1000036
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -933,6 +1554,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Delesyia Commissions quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/delesyia_request"
     }
    ],
    "verified": "sourced"
@@ -941,7 +1566,13 @@
    "id": "cd-side-delesyia-s-politics",
    "name": "Delesyia's Politics",
    "region": "Delesyia",
-   "how": "The game lists 2 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 2 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: The Fort of the Mountain Pass, The Cairn's Castle Wall.",
+   "save": {
+    "quests": [
+     1000389,
+     1000563
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -950,6 +1581,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Delesyia's Politics quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/brondell/delesyia_situation"
     }
    ],
    "verified": "sourced"
@@ -958,7 +1593,21 @@
    "id": "cd-side-lords-of-unclaimed-lands",
    "name": "Lords of Unclaimed Lands",
    "region": "Crimson Desert",
-   "how": "The game lists 17 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 17 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Marauder of the Desert, Workshop Forged in Revenge, Overlord of the Desolate Monoliths, The Faceless, When the Trembling Stops, Sovereign Wastes, Bullets Piercing the Sandstorm, Where Greed Takes Root, Savage Fang, Vestiges of the Void.",
+   "save": {
+    "quests": [
+     1000249,
+     1000388,
+     1000321,
+     1000208,
+     1000766,
+     1000590,
+     1000613,
+     1000884,
+     1000855,
+     1000848
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -967,6 +1616,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Lords of Unclaimed Lands quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/crimson_desert/desert_villain"
     }
    ],
    "verified": "sourced"
@@ -975,7 +1628,12 @@
    "id": "cd-side-muiquun-outlaws",
    "name": "Muiquun Outlaws",
    "region": "Crimson Desert",
-   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Raiders in Muiquun.",
+   "save": {
+    "quests": [
+     1000755
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -984,6 +1642,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Muiquun Outlaws quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/crimson_desert/muiquun"
     }
    ],
    "verified": "sourced"
@@ -992,7 +1654,12 @@
    "id": "cd-side-redwind-merchant-guild",
    "name": "Redwind Merchant Guild",
    "region": "Crimson Desert",
-   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 4 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Outlaws of the Desert.",
+   "save": {
+    "quests": [
+     1000333
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -1001,6 +1668,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Redwind Merchant Guild quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/crimson_desert/redwindtradingassociation"
     }
    ],
    "verified": "sourced"
@@ -1009,7 +1680,14 @@
    "id": "cd-side-sage-of-the-desert",
    "name": "Sage of the Desert",
    "region": "Crimson Desert",
-   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 6 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: War Song of the Dusk, Dying Well, The Oreback Crab in the Desert.",
+   "save": {
+    "quests": [
+     1000191,
+     1000043,
+     1000582
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -1018,6 +1696,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Sage of the Desert quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/crimson_desert/sandsages"
     }
    ],
    "verified": "sourced"
@@ -1026,7 +1708,13 @@
    "id": "cd-side-tommaso",
    "name": "Tommaso",
    "region": "Crimson Desert",
-   "how": "The game lists 14 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 14 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Emperor of the Bonepit, Outlaws in Tommaso.",
+   "save": {
+    "quests": [
+     1000589,
+     1001086
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -1035,6 +1723,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Tommaso quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/crimson_desert/tashkalp"
     }
    ],
    "verified": "sourced"
@@ -1043,7 +1735,14 @@
    "id": "cd-side-urdavah",
    "name": "Urdavah",
    "region": "Crimson Desert",
-   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 8 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Urdavah Research Institute, Halted Research, Halted Research.",
+   "save": {
+    "quests": [
+     1000384,
+     1000031,
+     1000011
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -1052,6 +1751,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Urdavah quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/crimson_desert/urdavah"
     }
    ],
    "verified": "sourced"
@@ -1094,7 +1797,14 @@
    "id": "cd-side-crimson-desert-requests",
    "name": "Crimson Desert Requests",
    "region": "Crimson Desert",
-   "how": "The game lists 11 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 11 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Tales from the Corners of Crimson Desert, Tales After Crimson Desert, A Favor for Crimson Desert.",
+   "save": {
+    "quests": [
+     1000941,
+     1000134,
+     1000012
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -1103,6 +1813,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Crimson Desert Requests quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/crimson_desert/crimson_desert_daily"
     }
    ],
    "verified": "sourced"
@@ -1111,7 +1825,18 @@
    "id": "cd-side-crimson-desert-commissions",
    "name": "Crimson Desert Commissions",
    "region": "Crimson Desert",
-   "how": "The game lists 45 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 45 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Father's Love, Muiquun's Black Market, Town of Outlaws, The Truth on the Sand, Harvest of Greed, Tales of the Crimson Desert Residents, Tales of the Crimson Desert Merchants.",
+   "save": {
+    "quests": [
+     1000669,
+     1000097,
+     1000075,
+     1000127,
+     1000594,
+     1000214,
+     1000294
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -1120,6 +1845,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Crimson Desert Commissions quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/crimson_desert/crimson_desert_request"
     }
    ],
    "verified": "sourced"
@@ -1128,7 +1857,19 @@
    "id": "cd-side-crimson-desert-s-politics",
    "name": "Crimson Desert's Politics",
    "region": "Crimson Desert",
-   "how": "The game lists 12 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests.",
+   "how": "The game lists 12 journal entries for it (these include objective steps, not just separate quests). Check progress in Knowledge > Quests > Faction Quests. Quests: Goldenscales of the Desert, Hunters of the Abandoned Castle Ruins, Trap of the Shifting Sand, Giant's Yard, Those Who Constrict the Research Expedition, The Fangs Beneath the Rock, Goldenscales on the Saltroad, Eyes in the Gloomy Forest.",
+   "save": {
+    "quests": [
+     1000742,
+     1001059,
+     1001056,
+     1000371,
+     1000399,
+     1000347,
+     1000687,
+     1000272
+    ]
+   },
    "sources": [
     {
      "t": "Console Pulse: all faction quests",
@@ -1137,6 +1878,10 @@
     {
      "t": "gaming.tools database: faction quests by region",
      "u": "https://crimsondesert.gaming.tools/faction-quests"
+    },
+    {
+     "t": "gaming.tools: Crimson Desert's Politics quests",
+     "u": "https://crimsondesert.gaming.tools/faction-quests/crimson_desert/crimson_desert_situation"
     }
    ],
    "verified": "sourced"
