@@ -15,8 +15,13 @@ Usage:
     python gamelog_reader.py --once     read the newest save now, send, exit
     python gamelog_reader.py            keep running; send whenever a save changes
     python gamelog_reader.py --dry-run  print the report instead of sending it
+    python gamelog_reader.py --shot FILE [slug]   read one screenshot now (default the-finals)
+
+Screenshots: while running, it also watches your Steam screenshot folder for the games
+in SHOT_GAMES. Press F12 on the battle pass, League or contracts screen and the new
+picture is sent to the Worker, where a vision model reads it. Needs ANTHROPIC_KEY on the Worker.
 """
-import glob, hashlib, hmac, json, os, struct, sys, time, urllib.request
+import base64, glob, hashlib, hmac, json, os, struct, sys, time, urllib.error, urllib.request
 
 import lz4.block
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
@@ -243,6 +248,124 @@ def crimson_desert():
 READERS = {"crimson-desert": crimson_desert}
 
 
+# ---------------------------------------------------------------- screenshots
+# Game Log reads menu screenshots for games whose progress isn't in a save file.
+# Steam's F12 screenshots land in <Steam>/userdata/<id>/760/remote/<appid>/screenshots.
+SHOT_GAMES = {"the-finals": 2073850}
+SHOT_STATE = os.path.join(HERE, "gamelog-reader.shots.json")
+SHOT_MAX_BYTES = 5_000_000       # the vision API's per-image limit
+SHOT_SETTLE = 3                  # seconds a file must sit untouched before we read it
+SHOT_EXT = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}
+
+
+def steam_root():
+    try:
+        import winreg
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Valve\Steam") as k:
+            return winreg.QueryValueEx(k, "SteamPath")[0]
+    except Exception:
+        pass
+    for d in (r"C:\Program Files (x86)\Steam", r"C:\Program Files\Steam"):
+        if os.path.isdir(d):
+            return d
+    return None
+
+
+def shot_dirs(cfg, slug):
+    """Folders to watch. 'shotsDirs' in gamelog-reader.json overrides the Steam default."""
+    over = (cfg.get("shotsDirs") or {}).get(slug)
+    if over:
+        return [over] if isinstance(over, str) else list(over)
+    root = steam_root()
+    if not root:
+        return []
+    return glob.glob(os.path.join(root, "userdata", "*", "760", "remote", str(SHOT_GAMES[slug]), "screenshots"))
+
+
+def shot_files(dirs):
+    out = {}
+    for d in dirs:
+        for name in os.listdir(d) if os.path.isdir(d) else []:
+            path = os.path.join(d, name)  # thumbnails live in a subfolder, which isn't a file
+            if os.path.isfile(path) and os.path.splitext(name)[1].lower() in SHOT_EXT:
+                out[path] = os.path.getmtime(path)
+    return out
+
+
+def load_seen():
+    try:
+        return json.load(open(SHOT_STATE, encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+def save_seen(seen):
+    try:
+        json.dump(seen, open(SHOT_STATE, "w", encoding="utf-8"))
+    except OSError:
+        pass
+
+
+def send_shot(cfg, slug, path):
+    size = os.path.getsize(path)
+    if size > SHOT_MAX_BYTES:
+        raise ValueError(f"{os.path.basename(path)} is {size / 1_000_000:.1f} MB; the limit is 5 MB (set Steam's screenshot format to JPEG)")
+    media = SHOT_EXT[os.path.splitext(path)[1].lower()]
+    data = base64.b64encode(open(path, "rb").read()).decode()
+    req = urllib.request.Request(
+        cfg["url"].rstrip("/") + "/shot/" + slug,
+        data=json.dumps({"mediaType": media, "data": data}).encode(), method="POST",
+        headers={"x-sync-key": cfg["key"], "content-type": "application/json", "user-agent": "gamelog-reader"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            return json.loads(r.read() or b"{}")
+    except urllib.error.HTTPError as e:  # the Worker explains itself in the body
+        try:
+            msg = json.loads(e.read()).get("error", "")
+        except Exception:
+            msg = ""
+        raise RuntimeError(f"Worker said {e.code}{': ' + msg if msg else ''}") from None
+
+
+def run_shots(cfg, dry, state):
+    """Send each new screenshot once. The first run only records what's already there."""
+    for slug in SHOT_GAMES:
+        try:
+            files = shot_files(shot_dirs(cfg, slug))
+        except OSError as e:
+            log(f"{slug}: couldn't list screenshots: {e}")
+            continue
+        seen = state.setdefault(slug, {})
+        if state.get("_fresh", {}).get(slug, True) and not seen:
+            seen.update(files)
+            state.setdefault("_fresh", {})[slug] = False
+            if files:
+                log(f"{slug}: {len(files)} older screenshots left alone; only new ones get read")
+            save_seen(state)
+            continue
+        state.setdefault("_fresh", {})[slug] = False
+        for path, mtime in sorted(files.items(), key=lambda kv: kv[1]):
+            if seen.get(path) == mtime:
+                continue
+            if time.time() - mtime < SHOT_SETTLE:
+                continue  # Steam is still writing it
+            if dry:
+                print(f"would read {path}")
+                seen[path] = mtime
+                continue
+            try:
+                res = send_shot(cfg, slug, path)
+                seen[path] = mtime
+                log(f"{slug}: read {os.path.basename(path)} -> {res.get('screen', '?')}"
+                    f"{'' if res.get('stored', True) else ' (not a tracked screen)'}"
+                    f"{' [' + res['confidence'] + ' confidence]' if res.get('confidence') else ''}")
+            except Exception as e:
+                seen[path] = mtime  # don't retry a bad file every 20 seconds
+                log(f"{slug}: couldn't read {os.path.basename(path)}: {e}")
+        save_seen(state)
+
+
 # ---------------------------------------------------------------- sending
 
 def load_config():
@@ -297,6 +420,18 @@ def run_once(cfg, dry, last, once=False):
 
 
 def main():
+    if "--shot" in sys.argv:
+        args = sys.argv[sys.argv.index("--shot") + 1:]
+        if not args:
+            sys.exit("usage: gamelog_reader.py --shot FILE [slug]")
+        slug = args[1] if len(args) > 1 else "the-finals"
+        if slug not in SHOT_GAMES:
+            sys.exit(f"no screenshot reader for {slug}")
+        try:
+            print(json.dumps(send_shot(load_config(), slug, args[0]), indent=2))
+        except Exception as e:
+            sys.exit(f"couldn't read that screenshot: {e}")
+        return
     dry = "--dry-run" in sys.argv
     cfg = {} if dry else load_config()
     last = {}
@@ -306,9 +441,14 @@ def main():
             log("no Crimson Desert save found on this PC")
             ok = False
         sys.exit(0 if ok else 1)
-    log("watching saves")
+    log("watching saves and screenshots")
+    shots = load_seen() or {}
     while True:
         run_once(cfg, dry, last)
+        try:
+            run_shots(cfg, dry, shots)
+        except Exception as e:  # screenshots must never stop the save reader
+            log(f"screenshots: {e}")
         time.sleep(POLL_SECONDS)
 
 
