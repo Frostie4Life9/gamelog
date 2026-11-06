@@ -414,7 +414,7 @@ a.scorecard:hover{border-color:var(--line)}
 .gmissbtn.on{background:var(--rose);border-color:var(--rose);color:var(--night)}
 .gcover{color:var(--mist);font-size:14px;margin:0 0 14px}
 .saveread{padding:14px 18px}.saveread p{margin:3px 0}
-.shotrow{margin:10px 0 0}.shotrow ul{margin:4px 0 0;padding-left:18px}.shotrow li{margin:2px 0}.shotact{margin-top:12px!important}.shots label.btn{cursor:pointer}.shots label.btn[aria-busy=true]{opacity:.6;pointer-events:none}
+.shotrow{margin:10px 0 0}.shotrow ul{margin:4px 0 0;padding-left:18px}.shotrow li{margin:2px 0}.shotrow details{margin-top:4px;font-size:13px}.shotrow summary{cursor:pointer}.shotrow pre{white-space:pre-wrap;margin:6px 0 0;color:var(--mist);font:inherit}
 .gcover b{color:var(--paper)}
 .gcatch{margin-bottom:16px}
 .gcatch h3{margin:0 0 6px;font-size:17px}
@@ -1188,6 +1188,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.06-a', note:'FREE SCREENSHOT READING: the screenshot reader for THE FINALS no longer uses a paid AI. The reader on your PC now reads the screenshot itself with free OCR (it copies the text on screen, so it can\u2019t invent a number) and sends the Worker only the numbers it found, never the picture. No API key and no cost. The panel shows what it read, how old it is and how sure it was, and a What it read list so a wrong number is easy to trace. Re-run setup.bat in your reader folder once to install it.'},
   {v:'2026.11.05-b', note:'READS YOUR SCREENSHOTS: for THE FINALS, press F12 on the battle pass, Ranked or Contracts screen and Game Log reads it: your battle pass tier and XP, your rank and score, and each contract\u2019s progress show under From your screenshots on the Save point page. You can also read a screenshot from there by hand. A vision model does the reading, so each read shows how old it is and how sure it was, and it never ticks goals for you. Needs an Anthropic key on the Worker (ANTHROPIC_KEY) and the updated reader on your PC.'},
   {v:'2026.11.05-a', note:'SIDE QUESTS FROM YOUR SAVE: the save reader now tracks 241 faction quests across 63 of the 69 factions in Side Quests. Each faction shows how many of its quests your save has finished (\u201c3 of 8 quests\u201d), and it ticks itself once every one is done. The save panel adds a side-quest total. St. Halssius, Knytlingar Clan, Church of Solumen, Marnirail, Varnia and Abyss list no separate quests, so they stay by hand. To get it, copy the new gamelog_reader.py and cd_goals.json from tools/gamelog-reader into your reader folder.'},
   {v:'2026.11.03-e', note:'FIX: ticks from your save showed up only if you reopened a game a minute later. They now land as soon as the game\u2019s goals finish loading.'},
@@ -2281,11 +2282,11 @@ function refreshSum(g){
 }
 /* ---------- Screenshot reader ----------
    For games whose progress isn't in a save file (live-service games). A menu
-   screenshot (Steam F12, picked up by the PC reader, or "Read a screenshot" here)
-   goes to the Worker at /shot/<slug>, a vision model reads it, and the latest
-   read of each screen lives at /shots/<slug>. Nothing is ticked automatically:
-   it's a read-out you can trust at a glance, and it can be wrong, so the
-   confidence shows and each read says how old it is. */
+   screenshot (Steam F12) is read with free OCR by the reader on your PC, which
+   sends only the numbers it found to the Worker at /shot/<slug>; the latest read
+   of each screen lives at /shots/<slug>. Nothing is ticked automatically: it's a
+   read-out, and OCR can be wrong, so each read shows its age and confidence and
+   what the OCR actually saw. */
 const SHOT_GAMES = {2073850:'the-finals'};
 const SHOT_SCREENS = [['battle_pass','Battle pass'],['league','Ranked'],['contracts','Contracts']];
 const SHOTREAD = {};   // slug -> {rep, err, at, busy, up}
@@ -2303,28 +2304,6 @@ async function pullShots(g, force){
   } catch(e) { s.err = e.message; }
   s.busy = false; s.at = Date.now();
   refresh();
-}
-/* Downscale in the browser: 4K screenshots are several MB, and the vision model resizes them anyway */
-async function shrinkShot(file){
-  const bmp = await createImageBitmap(file), k = Math.min(1, 2200 / Math.max(bmp.width, bmp.height));
-  const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
-  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
-  const blob = await new Promise(res => c.toBlob(res, 'image/jpeg', 0.9));
-  return await new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(',')[1]); fr.onerror = () => rej(fr.error); fr.readAsDataURL(blob); });
-}
-async function uploadShot(g, file){
-  const slug = shotSlug(g); if (!slug || !file) return;
-  const s = SHOTREAD[slug] = SHOTREAD[slug] || {};
-  s.up = 'Reading your screenshot…'; refresh();
-  try {
-    const data = await shrinkShot(file);
-    const r = await api('/shot/' + slug, {method:'POST', body:JSON.stringify({mediaType:'image/jpeg', data})});
-    const j = await r.json().catch(() => ({}));
-    if (!r.ok) throw new Error(j.error || `the Worker returned ${r.status}`);
-    s.up = '';
-    toast(j.stored ? `Read: ${(SHOT_SCREENS.find(x => x[0] === j.screen) || [0, j.screen])[1]}${j.confidence === 'low' ? ' (low confidence)' : ''}` : 'That isn’t a screen Game Log tracks');
-    await pullShots(g, true);
-  } catch(e) { s.up = ''; s.err = e.message; toast('Couldn’t read it: ' + e.message); refresh(); }
 }
 function shotAgo(at){
   const m = Math.round((Date.now() - at) / 60000);
@@ -2349,16 +2328,18 @@ function shotLines(kind, d){
 }
 function shotPanel(g){
   const slug = shotSlug(g); if (!slug || !syncOn()) return '';
+  if (!SHOTREAD[slug]) pullShots(g);   // first look at this game: fetch, then redraw
   const s = SHOTREAD[slug] || {}, scr = (s.rep && s.rep.screens) || {};
   const rows = SHOT_SCREENS.filter(([k]) => scr[k]).map(([k, label]) => {
-    const e = scr[k], d = e.data || {}, lines = shotLines(k, d);
+    const e = scr[k], d = e.data || {}, lines = shotLines(k, d), raw = Array.isArray(d.raw) ? d.raw : [];
     return `<div class="shotrow"><p><b>${label}</b> <span class="dim">· ${esc(shotAgo(e.at))}${d.season ? ` · ${esc(d.season)}` : ''}${d.confidence && d.confidence !== 'high' ? ` · ${esc(d.confidence)} confidence, check it` : ''}</span></p>
-      ${lines.length ? (k === 'contracts' ? `<ul>${lines.map(l => `<li>${l}</li>`).join('')}</ul>` : `<p>${lines[0]}</p>`) : '<p class="dim">Nothing readable on that screen.</p>'}</div>`;
+      ${lines.length ? (k === 'contracts' ? `<ul>${lines.map(l => `<li>${l}</li>`).join('')}</ul>` : `<p>${lines[0]}</p>`) : `<p class="dim">${esc(d.notes || 'Nothing readable on that screen.')}</p>`}
+      ${raw.length ? `<details><summary>What it read</summary><pre>${raw.map(esc).join('\n')}</pre></details>` : ''}</div>`;
   }).join('');
   return `<section class="panel gcover saveread shots">
     <p><b>From your screenshots</b></p>
-    ${rows || '<p class="dim">Nothing read yet. Press F12 on the battle pass, Ranked or Contracts screen in game, or read one here.</p>'}
-    <p class="shotact"><label class="btn quiet sm" ${s.up ? 'aria-busy="true"' : ''}>${s.up ? esc(s.up) : 'Read a screenshot'}<input type="file" accept="image/*" data-shot="1" hidden ${s.up ? 'disabled' : ''}></label>${s.err ? ` <span class="dim">${esc(s.err)}</span>` : ''}</p>
+    ${rows || '<p class="dim">Nothing read yet. In game, press F12 on the battle pass, Ranked or Contracts screen; it shows up here within about 20 seconds.</p>'}
+    ${s.err ? `<p class="dim">${esc(s.err)}</p>` : ''}
   </section>`;
 }
 
@@ -3775,7 +3756,6 @@ document.addEventListener('change', e => {
   if (el.id === 'gsw-region') { goalView().swRegion = el.value; return; }
   if (el.id === 'gsw-scope') { goalView().swScope = el.value; return; }
   const g = current(el); if (!g) return;
-  if (el.dataset.shot) { const f = el.files && el.files[0]; el.value = ''; if (f) uploadShot(g, f); return; }
   if (el.dataset.goalnote) {
     const G = ensureGoals(g), v = el.value.trim().slice(0, 600);
     if (v) G.flag[el.dataset.goalnote] = v; else delete G.flag[el.dataset.goalnote];

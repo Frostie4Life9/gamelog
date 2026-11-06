@@ -61,6 +61,12 @@ try {
   $code = $LASTEXITCODE; $ErrorActionPreference = 'Stop'
   if ($code -ne 0) { Fail "pip couldn't install lz4 and cryptography." }
 
+  Step "Installing the free screenshot reader (RapidOCR, about 100 MB, optional)"
+  $ErrorActionPreference = 'Continue'
+  & $py @pyArgs -m pip install --user --quiet --disable-pip-version-check rapidocr-onnxruntime
+  $code = $LASTEXITCODE; $ErrorActionPreference = 'Stop'
+  if ($code -ne 0) { Write-Host "Couldn't install it. Save reading still works; screenshot reading (THE FINALS) waits until you run setup.bat again." -ForegroundColor Yellow }
+
   Step "Worker URL and sync secret"
   if (-not (Test-Path 'gamelog-reader.json')) {
     Copy-Item 'gamelog-reader.example.json' 'gamelog-reader.json'

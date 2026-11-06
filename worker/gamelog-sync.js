@@ -15,8 +15,6 @@
                                         (steamcommunity.com/dev/apikey)
         Type: Text     Name: STEAM_ID   Value: your SteamID64 (7656119...)
                                         or your custom profile name
-        Type: Secret   Name: ANTHROPIC_KEY  Value: an Anthropic API key (optional; only
-                                        needed to read screenshots, see /shot/<game>)
    5. Settings > Trigger Events > Add > Cron Triggers
         Schedule: 0,30 * * * *     (every 30 minutes, on :00 and :30)
       This is the background refresher. Without it, Steam data still
@@ -944,69 +942,34 @@ async function wishlist(env, fresh) {
 }
 
 /* ---------- Screenshot reader ----------
-   POST /shot/<slug>   {mediaType, data(base64)}  -> a vision model reads the screen and the
-                       result is kept per screen type (battle pass, league, contracts).
-   GET  /shots/<slug>  -> what was last read, per screen type.
-   Needs a Worker secret ANTHROPIC_KEY (console.anthropic.com). Each read is one API call,
-   so a daily cap (SHOT_DAILY) keeps a runaway watcher from running up a bill. */
-const SHOT_MODEL = 'claude-sonnet-5-5';
-const SHOT_MAX_B64 = 7000000;            // ~5 MB of image, the API's per-image limit
-const SHOT_DAILY = 60;
-const SHOT_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+   The PC reader OCRs a menu screenshot on your own PC (free, local) and POSTs only what it
+   found. This Worker never sees the picture and calls no paid service.
+   POST /shot/<slug>   {screen, season, battlePass, league, challenges, confidence, raw}
+                       -> validated, then kept per screen type (battle pass, league, contracts)
+   GET  /shots/<slug>  -> what was last read, per screen type. */
+const SHOT_MAX_BODY = 100000;
 const shotInt = (v, lo, hi) => { const n = typeof v === 'string' ? parseInt(v.replace(/[,\s]/g, ''), 10) : v; return Number.isInteger(n) && n >= lo && n <= hi ? n : null; };
 const shotStr = (v, n) => (typeof v === 'string' && v.trim() ? v.trim().slice(0, n) : null);
 
 const SHOT_GAMES = {
   'the-finals': {
-    title: 'THE FINALS',
     screens: ['battle_pass', 'league', 'contracts'],
-    prompt: `This is a screenshot from the video game THE FINALS. Work out which menu screen it shows and read only what is actually visible.
-Reply with ONE JSON object and nothing else:
-{"screen":"battle_pass"|"league"|"contracts"|"other",
- "season":string|null,
- "battlePass":{"tier":int|null,"tierMax":int|null,"xp":int|null,"xpNeeded":int|null,"track":"free"|"premium"|"ultimate"|null},
- "league":{"name":string|null,"rankScore":int|null,"position":int|null},
- "challenges":[{"name":string,"progress":int|null,"target":int|null,"done":boolean|null}],
- "confidence":"high"|"medium"|"low",
- "notes":string|null}
-Rules: use null for anything you cannot read clearly; never guess or infer a number that is not on screen. "battle_pass" is the seasonal reward track. "league" is the ranked League / Rank Score screen. "contracts" is the list of contracts or challenges with progress bars. Use "other" if it is none of these (gameplay, lobby, loadout, store). Leave a section's fields null when the screen is a different type. List at most 12 challenges.`,
     clean(o) {
       const screen = this.screens.includes(o && o.screen) ? o.screen : 'other';
       const bp = (o && o.battlePass) || {}, lg = (o && o.league) || {};
-      const out = {
+      return {
         screen,
         season: shotStr(o && o.season, 60),
         battlePass: { tier: shotInt(bp.tier, 0, 500), tierMax: shotInt(bp.tierMax, 1, 500), xp: shotInt(bp.xp, 0, 1e7), xpNeeded: shotInt(bp.xpNeeded, 1, 1e7), track: ['free', 'premium', 'ultimate'].includes(bp.track) ? bp.track : null },
         league: { name: shotStr(lg.name, 40), rankScore: shotInt(lg.rankScore, 0, 1e7), position: shotInt(lg.position, 1, 1e7) },
-        challenges: (Array.isArray(o && o.challenges) ? o.challenges : []).slice(0, 12).map(c => c && shotStr(c.name, 120) ? { name: shotStr(c.name, 120), progress: shotInt(c.progress, 0, 1e9), target: shotInt(c.target, 1, 1e9), done: typeof c.done === 'boolean' ? c.done : null } : null).filter(Boolean),
+        challenges: (Array.isArray(o && o.challenges) ? o.challenges : []).slice(0, 60).map(c => c && shotStr(c.name, 120) ? { name: shotStr(c.name, 120), progress: shotInt(c.progress, 0, 1e9), target: shotInt(c.target, 1, 1e9), done: typeof c.done === 'boolean' ? c.done : null } : null).filter(Boolean).slice(0, 12),
         confidence: ['high', 'medium', 'low'].includes(o && o.confidence) ? o.confidence : 'low',
-        notes: shotStr(o && o.notes, 300)
+        notes: shotStr(o && o.notes, 300),
+        raw: (Array.isArray(o && o.raw) ? o.raw : []).slice(0, 120).map(x => shotStr(x, 80)).filter(Boolean).slice(0, 60)
       };
-      return out;
     }
   }
 };
-
-async function readShot(env, game, mediaType, b64) {
-  const r = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'x-api-key': String(env.ANTHROPIC_KEY).trim(), 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-    body: JSON.stringify({
-      model: SHOT_MODEL, max_tokens: 1500,
-      messages: [{ role: 'user', content: [
-        { type: 'image', source: { type: 'base64', media_type: mediaType, data: b64 } },
-        { type: 'text', text: game.prompt }
-      ] }]
-    })
-  });
-  const j = await r.json().catch(() => null);
-  if (!r.ok) throw new StErr('the vision model returned ' + r.status + (j && j.error && j.error.message ? ': ' + String(j.error.message).slice(0, 200) : ''), 502);
-  const text = ((j && j.content) || []).filter(b => b.type === 'text').map(b => b.text).join('');
-  const m = /\{[\s\S]*\}/.exec(text);
-  if (!m) throw new StErr('the vision model did not return JSON', 502);
-  let o; try { o = JSON.parse(m[0]); } catch (e) { throw new StErr('the vision model returned malformed JSON', 502); }
-  return game.clean(o);
-}
 
 async function shotRoute(request, env, url) {
   const pm = /^\/(shot|shots)\/([a-z0-9-]{1,60})$/.exec(url.pathname);
@@ -1019,20 +982,12 @@ async function shotRoute(request, env, url) {
     return new Response((await env.STATE.get(key)) || 'null', { headers: Object.assign({ 'content-type': 'application/json', 'cache-control': 'no-store' }, CORS) });
   }
   if (request.method !== 'POST') return reply({ error: 'use POST' }, 405);
-  if (!env.ANTHROPIC_KEY) return reply({ error: 'server not configured: missing ANTHROPIC_KEY' }, 500);
+  const text = await request.text();
+  if (text.length > SHOT_MAX_BODY) return reply({ error: 'payload too large' }, 413);
   let body;
-  try { body = JSON.parse(await request.text()); } catch (e) { return reply({ error: 'body is not valid JSON' }, 400); }
-  if (!body || !SHOT_TYPES.includes(body.mediaType) || typeof body.data !== 'string' || !/^[A-Za-z0-9+/=]+$/.test(body.data)) return reply({ error: 'send {mediaType, data} with a base64 jpeg, png or webp' }, 400);
-  if (body.data.length > SHOT_MAX_B64) return reply({ error: 'image too large (limit about 5 MB)' }, 413);
-
-  const day = 'shotcount:' + new Date().toISOString().slice(0, 10);
-  const used = parseInt(await env.STATE.get(day), 10) || 0;
-  if (used >= SHOT_DAILY) return reply({ error: `daily screenshot limit reached (${SHOT_DAILY})` }, 429);
-  await env.STATE.put(day, String(used + 1), { expirationTtl: 172800 });
-
-  let data;
-  try { data = await readShot(env, game, body.mediaType, body.data); }
-  catch (e) { return reply({ error: e instanceof StErr ? e.message : 'screenshot read failed: ' + e.message }, e.status || 502); }
+  try { body = JSON.parse(text); } catch (e) { return reply({ error: 'body is not valid JSON' }, 400); }
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return reply({ error: 'not a screenshot report' }, 400);
+  const data = game.clean(body);
   if (data.screen === 'other') return reply({ ok: true, screen: 'other', stored: false, note: 'that screen is not one Game Log tracks' });
 
   let cur = {};

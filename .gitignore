@@ -1,3 +1,4 @@
 tools/gamelog-reader/gamelog-reader.json
 tools/gamelog-reader/gamelog-reader.log
 __pycache__/
+tools/gamelog-reader/gamelog-reader.shots.json

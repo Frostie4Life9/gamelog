@@ -15,16 +15,23 @@ Usage:
     python gamelog_reader.py --once     read the newest save now, send, exit
     python gamelog_reader.py            keep running; send whenever a save changes
     python gamelog_reader.py --dry-run  print the report instead of sending it
-    python gamelog_reader.py --shot FILE [slug]   read one screenshot now (default the-finals)
+    python gamelog_reader.py --shot FILE [slug] [--send]
+                                        read one screenshot with OCR and print what it found
+                                        (add --send to also send it to Game Log)
 
 Screenshots: while running, it also watches your Steam screenshot folder for the games
-in SHOT_GAMES. Press F12 on the battle pass, League or contracts screen and the new
-picture is sent to the Worker, where a vision model reads it. Needs ANTHROPIC_KEY on the Worker.
+in SHOT_GAMES. Press F12 on the battle pass, League or contracts screen; the new picture is
+read on this PC with free OCR (shot_ocr.py) and only the numbers it found are sent to the Worker.
 """
-import base64, glob, hashlib, hmac, json, os, struct, sys, time, urllib.error, urllib.request
+import glob, hashlib, hmac, json, os, struct, sys, time, urllib.error, urllib.request
 
 import lz4.block
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
+
+# pythonw.exe has no console, and libraries that print would crash on a missing stdout
+for _name in ("stdout", "stderr"):
+    if getattr(sys, _name) is None:
+        setattr(sys, _name, open(os.devnull, "w"))
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG = os.path.join(HERE, "gamelog-reader.json")
@@ -253,9 +260,8 @@ READERS = {"crimson-desert": crimson_desert}
 # Steam's F12 screenshots land in <Steam>/userdata/<id>/760/remote/<appid>/screenshots.
 SHOT_GAMES = {"the-finals": 2073850}
 SHOT_STATE = os.path.join(HERE, "gamelog-reader.shots.json")
-SHOT_MAX_BYTES = 5_000_000       # the vision API's per-image limit
 SHOT_SETTLE = 3                  # seconds a file must sit untouched before we read it
-SHOT_EXT = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}
+SHOT_EXT = {".jpg", ".jpeg", ".png", ".webp"}
 
 
 def steam_root():
@@ -306,19 +312,20 @@ def save_seen(seen):
         pass
 
 
-def send_shot(cfg, slug, path):
-    size = os.path.getsize(path)
-    if size > SHOT_MAX_BYTES:
-        raise ValueError(f"{os.path.basename(path)} is {size / 1_000_000:.1f} MB; the limit is 5 MB (set Steam's screenshot format to JPEG)")
-    media = SHOT_EXT[os.path.splitext(path)[1].lower()]
-    data = base64.b64encode(open(path, "rb").read()).decode()
+def read_shot(slug, path):
+    """OCR one screenshot on this PC -> the report Game Log stores (see shot_ocr.py)."""
+    import shot_ocr  # lazy: a missing OCR library must never stop the save reader
+    return shot_ocr.read(path, slug)
+
+
+def send_shot(cfg, slug, report):
     req = urllib.request.Request(
         cfg["url"].rstrip("/") + "/shot/" + slug,
-        data=json.dumps({"mediaType": media, "data": data}).encode(), method="POST",
+        data=json.dumps(report).encode(), method="POST",
         headers={"x-sync-key": cfg["key"], "content-type": "application/json", "user-agent": "gamelog-reader"},
     )
     try:
-        with urllib.request.urlopen(req, timeout=90) as r:
+        with urllib.request.urlopen(req, timeout=30) as r:
             return json.loads(r.read() or b"{}")
     except urllib.error.HTTPError as e:  # the Worker explains itself in the body
         try:
@@ -326,6 +333,15 @@ def send_shot(cfg, slug, path):
         except Exception:
             msg = ""
         raise RuntimeError(f"Worker said {e.code}{': ' + msg if msg else ''}") from None
+
+
+_warned = set()
+
+
+def warn_once(msg):
+    if msg not in _warned:
+        _warned.add(msg)
+        log(msg)
 
 
 def run_shots(cfg, dry, state):
@@ -355,12 +371,22 @@ def run_shots(cfg, dry, state):
                 seen[path] = mtime
                 continue
             try:
-                res = send_shot(cfg, slug, path)
+                report = read_shot(slug, path)
+                if report["screen"] == "other":
+                    seen[path] = mtime
+                    log(f"{slug}: {os.path.basename(path)} isn't a screen Game Log tracks")
+                    continue
+                res = send_shot(cfg, slug, report)
                 seen[path] = mtime
-                log(f"{slug}: read {os.path.basename(path)} -> {res.get('screen', '?')}"
-                    f"{'' if res.get('stored', True) else ' (not a tracked screen)'}"
-                    f"{' [' + res['confidence'] + ' confidence]' if res.get('confidence') else ''}")
+                log(f"{slug}: read {os.path.basename(path)} -> {report['screen']} [{report['confidence']} confidence]"
+                    f"{': ' + report['notes'] if report.get('notes') else ''}")
+            except ModuleNotFoundError as e:   # shot_ocr.py itself isn't there
+                warn_once(f"{slug}: shot_ocr.py is missing next to gamelog_reader.py ({e}); copy the whole reader folder. Screenshots wait until it's there.")
+                return
             except Exception as e:
+                if e.__class__.__name__ == "OcrMissing":   # RapidOCR isn't installed
+                    warn_once(f"{slug}: OCR isn't installed ({e}); run setup.bat again. Screenshots wait until it is.")
+                    return  # leave the file unseen so it's read once OCR works
                 seen[path] = mtime  # don't retry a bad file every 20 seconds
                 log(f"{slug}: couldn't read {os.path.basename(path)}: {e}")
         save_seen(state)
@@ -421,14 +447,17 @@ def run_once(cfg, dry, last, once=False):
 
 def main():
     if "--shot" in sys.argv:
-        args = sys.argv[sys.argv.index("--shot") + 1:]
+        args = [a for a in sys.argv[sys.argv.index("--shot") + 1:] if not a.startswith("--")]
         if not args:
-            sys.exit("usage: gamelog_reader.py --shot FILE [slug]")
+            sys.exit("usage: gamelog_reader.py --shot FILE [slug] [--send]")
         slug = args[1] if len(args) > 1 else "the-finals"
         if slug not in SHOT_GAMES:
             sys.exit(f"no screenshot reader for {slug}")
         try:
-            print(json.dumps(send_shot(load_config(), slug, args[0]), indent=2))
+            report = read_shot(slug, args[0])
+            print(json.dumps(report, indent=2))
+            if "--send" in sys.argv:
+                print("sent:", json.dumps(send_shot(load_config(), slug, report)))
         except Exception as e:
             sys.exit(f"couldn't read that screenshot: {e}")
         return
