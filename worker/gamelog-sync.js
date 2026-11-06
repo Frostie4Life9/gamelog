@@ -688,20 +688,32 @@ function bgTTL(kind, g, entry) {
     if (age < 14 * DAY) return 6 * HOUR;
     return g.lastPlayed ? 3 * DAY : 14 * DAY;       // achievements only change when you play
   }
-  if (age < 90 * DAY) return 6 * HOUR;               // news
-  return g.lastPlayed ? DAY : 3 * DAY;
+  if (age < 14 * DAY) return 6 * HOUR;               // news: games you're playing
+  if (age < 90 * DAY) return DAY;
+  return g.lastPlayed ? 3 * DAY : 7 * DAY;           // dormant or never played
 }
 
+// Same payload (and same error state) as the saved copy: nothing worth a KV write
+const sameRec = (a, b) => !!a && !!b && JSON.stringify(a.d) === JSON.stringify(b.d) && (a.e || '') === (b.e || '');
+
+/* Fetches one kind and updates rec[kind] only when something actually changed.
+   The returned record always carries the new fetch time t (the idx entry stores
+   it for scheduling) and same:true when rec was left alone, so callers can skip
+   the g:<id> write. */
 async function refreshKind(env, net, appid, kind, rec) {
+  const prev = rec[kind];
+  let next;
   try {
-    rec[kind] = { t: Date.now(), d: await FETCHERS[kind](env, net, appid) };
+    next = { t: Date.now(), d: await FETCHERS[kind](env, net, appid) };
   } catch (e) {
     if (e.status === 429 || e.status === 500) throw e;
     // keep the last good copy; try again in a couple of hours (store 404s wait the full week)
-    const prev = rec[kind] || {};
-    rec[kind] = { t: Date.now(), d: prev.d || null, e: e.message, retry: e.status === 404 ? 0 : RETRY_AFTER_ERROR };
+    const p = prev || {};
+    next = { t: Date.now(), d: p.d || null, e: e.message, retry: e.status === 404 ? 0 : RETRY_AFTER_ERROR };
   }
-  return rec[kind];
+  const same = sameRec(prev, next);
+  if (!same) rec[kind] = next;
+  return Object.assign({}, next, { same });
 }
 
 // Serve one kind for one game, from the cache when it's fresh
@@ -709,14 +721,16 @@ async function cached(env, appid, kind, fresh) {
   if (!/^\d+$/.test(appid)) throw new StErr('appid must be a number', 400);
   const key = 'g:' + appid;
   const rec = (await kvJSON(env, key)) || {};
+  const idx = (await kvJSON(env, 'idx')) || {};
+  const entry = idx[appid] = idx[appid] || {};
   const c = rec[kind];
-  if (!fresh && c && c.d && Date.now() - c.t < DEMAND_TTL[kind]) return c.d;
+  // a refresh that found nothing new only bumps idx, so the newer of the two times counts
+  const seen = Math.max(c ? c.t || 0 : 0, entry[kind] || 0);
+  if (!fresh && c && c.d && Date.now() - seen < DEMAND_TTL[kind]) return c.d;
   const net = makeNet();
   const r = await refreshKind(env, net, appid, kind, rec);
   if (!r.d) throw new StErr(r.e || 'Steam request failed', /no store page/.test(r.e || '') ? 404 : 502);
-  await kvPut(env, key, rec);
-  const idx = (await kvJSON(env, 'idx')) || {};
-  const entry = idx[appid] = idx[appid] || {};
+  if (!r.same) await kvPut(env, key, rec);
   entry[kind] = r.t; summarize(entry, kind, r);
   await kvPut(env, 'idx', idx);
   return r.d;
@@ -762,7 +776,8 @@ async function runBatch(env, why) {
         entry[kind] = r.t;
         if (r.retry) entry[kind + 'Retry'] = r.retry; else delete entry[kind + 'Retry'];
         summarize(entry, kind, r);
-        changed = true; done++;
+        if (!r.same) changed = true;
+        done++;
       }
       if (changed) await kvPut(env, key, rec);
     }
@@ -1173,6 +1188,15 @@ export default {
       }
       const out = toSave === parsed ? body : JSON.stringify(toSave);
       if (out.length > MAX_BYTES) return reply({ error: 'payload too large' }, 413);
+      // A merge always stamps a fresh mtime, so an unchanged library never matched the
+      // stored copy and cost three KV writes per save. Compare with the old mtime put back.
+      if (stored && cur && toSave !== parsed) {
+        const stamped = toSave.mtime;
+        toSave.mtime = cur.mtime;
+        const unchanged = JSON.stringify(toSave) === stored;
+        if (unchanged) return reply({ ok: true, bytes: stored.length, mtime: cur.mtime || null, state: gaveBack ? toSave : undefined });
+        toSave.mtime = stamped;
+      }
       if (stored) {
         if (stored === out) return reply({ ok: true, bytes: out.length, mtime: toSave.mtime || null, state: gaveBack ? toSave : undefined });
         await env.STATE.put(PREV, stored);
