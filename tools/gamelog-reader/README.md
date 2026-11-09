@@ -38,6 +38,9 @@ with free OCR, and Game Log shows what it found under **From your screenshots** 
 - Each read shows how old it is and how sure it was. **What it read** lists the raw text it saw, so a wrong number is easy to trace.
 - Nothing is ticked for you. It's a read-out.
 - It only reads *new* screenshots. Older ones already in the folder are left alone the first time it runs.
+- **Cleanup:** once a screenshot has been read and sent, the reader deletes it (and Steam's thumbnail of it), so F12 shots of menus
+  don't pile up. It never deletes a screenshot that wasn't a screen Game Log tracks, couldn't be read, or failed to send, and never touches
+  the older ones from before it started. To keep them all, add `"keepShots": true` to `gamelog-reader.json`.
 - Try one by hand: `python gamelog_reader.py --shot C:\path\to\screenshot.jpg` prints what it read and sends nothing.
   Add `--send` to also send it to Game Log.
 - If a screen reads wrong, run `--shot` on it and send the output; the matching rules are in `shot_ocr.py` and are easy to adjust.

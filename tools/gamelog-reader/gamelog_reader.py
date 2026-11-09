@@ -344,6 +344,24 @@ def warn_once(msg):
         log(msg)
 
 
+def cleanup_shot(cfg, path):
+    """Delete a screenshot Game Log has finished with (and Steam's thumbnail of it).
+    Only called after a tracked screen was read AND sent. Turn it off with "keepShots": true."""
+    if cfg.get("keepShots"):
+        return False
+    gone = False
+    d, name = os.path.split(path)
+    for victim in (path, os.path.join(d, "thumbnails", name)):
+        try:
+            os.remove(victim)
+            gone = gone or victim == path
+        except FileNotFoundError:
+            pass
+        except OSError as e:
+            log(f"couldn't delete {os.path.basename(victim)}: {e}")
+    return gone
+
+
 def run_shots(cfg, dry, state):
     """Send each new screenshot once. The first run only records what's already there."""
     for slug in SHOT_GAMES:
@@ -380,6 +398,9 @@ def run_shots(cfg, dry, state):
                 seen[path] = mtime
                 log(f"{slug}: read {os.path.basename(path)} -> {report['screen']} [{report['confidence']} confidence]"
                     f"{': ' + report['notes'] if report.get('notes') else ''}")
+                if cleanup_shot(cfg, path):
+                    seen.pop(path, None)
+                    log(f"{slug}: deleted {os.path.basename(path)} (read and sent; set \"keepShots\": true to keep them)")
             except ModuleNotFoundError as e:   # shot_ocr.py itself isn't there
                 warn_once(f"{slug}: shot_ocr.py is missing next to gamelog_reader.py ({e}); copy the whole reader folder. Screenshots wait until it's there.")
                 return
