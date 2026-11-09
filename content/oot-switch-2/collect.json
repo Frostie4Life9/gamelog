@@ -1,0 +1,863 @@
+{
+ "entries": [
+  {
+   "id": "oot-hp-01",
+   "name": "Heart Piece 1",
+   "region": "Pieces 1-12",
+   "how": "Four pieces make a Heart Container.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-02",
+   "name": "Heart Piece 2",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-03",
+   "name": "Heart Piece 3",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-04",
+   "name": "Heart Piece 4",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-05",
+   "name": "Heart Piece 5",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-06",
+   "name": "Heart Piece 6",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-07",
+   "name": "Heart Piece 7",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-08",
+   "name": "Heart Piece 8",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-09",
+   "name": "Heart Piece 9",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-10",
+   "name": "Heart Piece 10",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-11",
+   "name": "Heart Piece 11",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-12",
+   "name": "Heart Piece 12",
+   "region": "Pieces 1-12",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-13",
+   "name": "Heart Piece 13",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-14",
+   "name": "Heart Piece 14",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-15",
+   "name": "Heart Piece 15",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-16",
+   "name": "Heart Piece 16",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-17",
+   "name": "Heart Piece 17",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-18",
+   "name": "Heart Piece 18",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-19",
+   "name": "Heart Piece 19",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-20",
+   "name": "Heart Piece 20",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-21",
+   "name": "Heart Piece 21",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-22",
+   "name": "Heart Piece 22",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-23",
+   "name": "Heart Piece 23",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-24",
+   "name": "Heart Piece 24",
+   "region": "Pieces 13-24",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-25",
+   "name": "Heart Piece 25",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-26",
+   "name": "Heart Piece 26",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-27",
+   "name": "Heart Piece 27",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-28",
+   "name": "Heart Piece 28",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-29",
+   "name": "Heart Piece 29",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-30",
+   "name": "Heart Piece 30",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-31",
+   "name": "Heart Piece 31",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-32",
+   "name": "Heart Piece 32",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-33",
+   "name": "Heart Piece 33",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-34",
+   "name": "Heart Piece 34",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-35",
+   "name": "Heart Piece 35",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-hp-36",
+   "name": "Heart Piece 36",
+   "region": "Pieces 25-36",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-001",
+   "name": "Gold Skulltula 1",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-002",
+   "name": "Gold Skulltula 2",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-003",
+   "name": "Gold Skulltula 3",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-004",
+   "name": "Gold Skulltula 4",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-005",
+   "name": "Gold Skulltula 5",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-006",
+   "name": "Gold Skulltula 6",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-007",
+   "name": "Gold Skulltula 7",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-008",
+   "name": "Gold Skulltula 8",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-009",
+   "name": "Gold Skulltula 9",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-010",
+   "name": "Gold Skulltula 10",
+   "region": "Tokens 1-10",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-011",
+   "name": "Gold Skulltula 11",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-012",
+   "name": "Gold Skulltula 12",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-013",
+   "name": "Gold Skulltula 13",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-014",
+   "name": "Gold Skulltula 14",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-015",
+   "name": "Gold Skulltula 15",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-016",
+   "name": "Gold Skulltula 16",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-017",
+   "name": "Gold Skulltula 17",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-018",
+   "name": "Gold Skulltula 18",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-019",
+   "name": "Gold Skulltula 19",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-020",
+   "name": "Gold Skulltula 20",
+   "region": "Tokens 11-20",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-021",
+   "name": "Gold Skulltula 21",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-022",
+   "name": "Gold Skulltula 22",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-023",
+   "name": "Gold Skulltula 23",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-024",
+   "name": "Gold Skulltula 24",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-025",
+   "name": "Gold Skulltula 25",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-026",
+   "name": "Gold Skulltula 26",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-027",
+   "name": "Gold Skulltula 27",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-028",
+   "name": "Gold Skulltula 28",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-029",
+   "name": "Gold Skulltula 29",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-030",
+   "name": "Gold Skulltula 30",
+   "region": "Tokens 21-30",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-031",
+   "name": "Gold Skulltula 31",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-032",
+   "name": "Gold Skulltula 32",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-033",
+   "name": "Gold Skulltula 33",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-034",
+   "name": "Gold Skulltula 34",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-035",
+   "name": "Gold Skulltula 35",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-036",
+   "name": "Gold Skulltula 36",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-037",
+   "name": "Gold Skulltula 37",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-038",
+   "name": "Gold Skulltula 38",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-039",
+   "name": "Gold Skulltula 39",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-040",
+   "name": "Gold Skulltula 40",
+   "region": "Tokens 31-40",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-041",
+   "name": "Gold Skulltula 41",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-042",
+   "name": "Gold Skulltula 42",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-043",
+   "name": "Gold Skulltula 43",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-044",
+   "name": "Gold Skulltula 44",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-045",
+   "name": "Gold Skulltula 45",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-046",
+   "name": "Gold Skulltula 46",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-047",
+   "name": "Gold Skulltula 47",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-048",
+   "name": "Gold Skulltula 48",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-049",
+   "name": "Gold Skulltula 49",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-050",
+   "name": "Gold Skulltula 50",
+   "region": "Tokens 41-50",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-051",
+   "name": "Gold Skulltula 51",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-052",
+   "name": "Gold Skulltula 52",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-053",
+   "name": "Gold Skulltula 53",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-054",
+   "name": "Gold Skulltula 54",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-055",
+   "name": "Gold Skulltula 55",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-056",
+   "name": "Gold Skulltula 56",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-057",
+   "name": "Gold Skulltula 57",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-058",
+   "name": "Gold Skulltula 58",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-059",
+   "name": "Gold Skulltula 59",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-060",
+   "name": "Gold Skulltula 60",
+   "region": "Tokens 51-60",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-061",
+   "name": "Gold Skulltula 61",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-062",
+   "name": "Gold Skulltula 62",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-063",
+   "name": "Gold Skulltula 63",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-064",
+   "name": "Gold Skulltula 64",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-065",
+   "name": "Gold Skulltula 65",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-066",
+   "name": "Gold Skulltula 66",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-067",
+   "name": "Gold Skulltula 67",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-068",
+   "name": "Gold Skulltula 68",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-069",
+   "name": "Gold Skulltula 69",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-070",
+   "name": "Gold Skulltula 70",
+   "region": "Tokens 61-70",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-071",
+   "name": "Gold Skulltula 71",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-072",
+   "name": "Gold Skulltula 72",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-073",
+   "name": "Gold Skulltula 73",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-074",
+   "name": "Gold Skulltula 74",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-075",
+   "name": "Gold Skulltula 75",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-076",
+   "name": "Gold Skulltula 76",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-077",
+   "name": "Gold Skulltula 77",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-078",
+   "name": "Gold Skulltula 78",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-079",
+   "name": "Gold Skulltula 79",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-080",
+   "name": "Gold Skulltula 80",
+   "region": "Tokens 71-80",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-081",
+   "name": "Gold Skulltula 81",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-082",
+   "name": "Gold Skulltula 82",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-083",
+   "name": "Gold Skulltula 83",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-084",
+   "name": "Gold Skulltula 84",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-085",
+   "name": "Gold Skulltula 85",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-086",
+   "name": "Gold Skulltula 86",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-087",
+   "name": "Gold Skulltula 87",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-088",
+   "name": "Gold Skulltula 88",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-089",
+   "name": "Gold Skulltula 89",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-090",
+   "name": "Gold Skulltula 90",
+   "region": "Tokens 81-90",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-091",
+   "name": "Gold Skulltula 91",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-092",
+   "name": "Gold Skulltula 92",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-093",
+   "name": "Gold Skulltula 93",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-094",
+   "name": "Gold Skulltula 94",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-095",
+   "name": "Gold Skulltula 95",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-096",
+   "name": "Gold Skulltula 96",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-097",
+   "name": "Gold Skulltula 97",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-098",
+   "name": "Gold Skulltula 98",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-099",
+   "name": "Gold Skulltula 99",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gs-100",
+   "name": "Gold Skulltula 100",
+   "region": "Tokens 91-100",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gsr-10",
+   "name": "House of Skulltula: 10 tokens",
+   "region": "Skulltula rewards",
+   "how": "Reward: the Adult's Wallet.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gsr-20",
+   "name": "House of Skulltula: 20 tokens",
+   "region": "Skulltula rewards",
+   "how": "Reward: the Stone of Agony.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gsr-30",
+   "name": "House of Skulltula: 30 tokens",
+   "region": "Skulltula rewards",
+   "how": "Reward: the Giant's Wallet.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gsr-40",
+   "name": "House of Skulltula: 40 tokens",
+   "region": "Skulltula rewards",
+   "how": "Reward: ten Bombchus.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gsr-50",
+   "name": "House of Skulltula: 50 tokens",
+   "region": "Skulltula rewards",
+   "how": "Reward: a Heart Piece.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-gsr-100",
+   "name": "House of Skulltula: 100 tokens",
+   "region": "Skulltula rewards",
+   "how": "Reward: 200 Rupees.",
+   "verified": "unsourced"
+  }
+ ]
+}

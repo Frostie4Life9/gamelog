@@ -1,5 +1,11 @@
 {
   "games": [
-    { "slug": "crimson-desert", "title": "Crimson Desert", "steamId": 3321460 }
+    { "slug": "crimson-desert", "title": "Crimson Desert", "steamId": 3321460 },
+    {
+      "slug": "oot-switch-2",
+      "title": "The Legend of Zelda: Ocarina of Time",
+      "platform": "Switch 2",
+      "aliases": ["Ocarina of Time", "Zelda: Ocarina of Time", "Legend of Zelda Ocarina of Time"]
+    }
   ]
 }

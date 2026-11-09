@@ -452,6 +452,13 @@ a.scorecard:hover{border-color:var(--line)}
 .cksheet{position:relative;width:min(560px,100%);max-height:92vh;overflow-y:auto;background:var(--deep);border:1px solid var(--line);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:22px clamp(18px,4vw,28px) calc(22px + env(safe-area-inset-bottom));box-shadow:0 -12px 40px rgba(0,0,0,.5)}
 @media (min-width:700px){.ckwrap{place-items:center}.cksheet{border-radius:var(--r-lg)}}
 .cksheet h2{margin:0 0 4px;font-size:22px}
+/* console game search */
+.cglist{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
+.cgrow{display:flex;gap:12px;align-items:flex-start;padding:10px;border:1px solid var(--line-soft);border-radius:12px}
+.cgrow img,.cgnoimg{width:56px;aspect-ratio:3/4;object-fit:cover;border-radius:8px;flex:none;background:var(--line-soft);display:block}
+.cgmeta{min-width:0;flex:1}
+.cgmeta b{font-size:15px}
+.cgplat{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 /* welcome back (re-entry kit) */
 .wbsheet{width:min(680px,100%)}
 .wbsheet .kick{margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-weight:700}
@@ -1171,6 +1178,7 @@ a.tl{text-decoration:none}
 <nav class="tabbar" id="tabbar"></nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div id="ck"></div>
+<div id="cg"></div>
 <div id="wb"></div>
 <div id="rd"></div>
 <div id="gm" class="gm" hidden role="dialog" aria-modal="true" aria-label="Game Mode"></div>
@@ -1188,6 +1196,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.09-b', note:'CONSOLE GAMES: Library has a new Add console game button. It searches IGDB through your Worker, you tap the platform you own the game on, and it arrives with its cover and art. Console games get an About tab with the summary, release date, developer, genres, rating, trailer and screenshots. The Legend of Zelda: Ocarina of Time on Switch 2 comes with a Goals checklist ticked by hand: the main story, side content and optional dungeons, songs, 36 Heart Pieces, 100 Gold Skulltulas with the House of Skulltula rewards, and equipment. Those lists follow the original game, and the remake\u2019s own totals and locations are not confirmed yet, so every entry is marked unsourced. Goals packs can now attach by platform and title as well as by Steam id. For the server side, add IGDB_CLIENT_ID and IGDB_CLIENT_SECRET as secrets on the Worker; the updated gamelog-sync.js deploys from GitHub.'},
   {v:'2026.11.09-a', note:'SCREENSHOTS CLEAN UP AFTER THEMSELVES: once the reader on your PC has read a menu screenshot and sent the numbers to Game Log, it deletes the picture (and Steam\u2019s thumbnail of it), so F12 shots don\u2019t pile up. It only deletes ones it read successfully. Pictures it couldn\u2019t read, that weren\u2019t a screen Game Log tracks, or that failed to send are kept, and so are all your older screenshots. To keep everything, add \"keepShots\": true to gamelog-reader.json. Copy the new gamelog_reader.py into your reader folder to get it.'},
   {v:'2026.11.06-a', note:'FREE SCREENSHOT READING: the screenshot reader for THE FINALS no longer uses a paid AI. The reader on your PC now reads the screenshot itself with free OCR (it copies the text on screen, so it can\u2019t invent a number) and sends the Worker only the numbers it found, never the picture. No API key and no cost. The panel shows what it read, how old it is and how sure it was, and a What it read list so a wrong number is easy to trace. Re-run setup.bat in your reader folder once to install it.'},
   {v:'2026.11.05-b', note:'READS YOUR SCREENSHOTS: for THE FINALS, press F12 on the battle pass, Ranked or Contracts screen and Game Log reads it: your battle pass tier and XP, your rank and score, and each contract\u2019s progress show under From your screenshots on the Save point page. You can also read a screenshot from there by hand. A vision model does the reading, so each read shows how old it is and how sure it was, and it never ticks goals for you. Needs an Anthropic key on the Worker (ANTHROPIC_KEY) and the updated reader on your PC.'},
@@ -1342,7 +1351,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d ? new Date(d + 'T00:00').toLocaleDateString(undefined, opts) : '';
 
 function blankGame(title){
-  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', steamId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
+  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', steamId:0, igdbId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
     content:'', finish:'', goals:null,
     note:{where:'', next:'', recap:'', setup:''}, review:'', wbSeen:'',
     wrap:{enough:false, why:'', best:'', back:'', keep:''},
@@ -1366,6 +1375,7 @@ function normalize(g){
   g.lastPlayedAt = +g.lastPlayedAt || 0;
   g.sessions = Array.isArray(g.sessions) ? g.sessions.filter(x => x && x.s && x.e) : [];
   g.content = /^[a-z0-9-]+$/.test(g.content || '') ? g.content : '';
+  g.igdbId = Math.max(0, Math.floor(+g.igdbId || 0));
   if (!['', 'beat', 'main', 'full', 'shelved'].includes(g.finish)) g.finish = '';
   if (g.goals && typeof g.goals === 'object') ensureGoals(g); else g.goals = null;
   if (!STATUSES.includes(g.status)) g.status = 'backlog';
@@ -1795,6 +1805,94 @@ function saveStoreCache(){
     try { localStorage.setItem(STORE_KEY, JSON.stringify(storeCache)); } catch(e2) {}
   }
 }
+/* ---------- Console games (IGDB) ----------
+   Steam only knows PC games. For a Switch, PlayStation or Xbox game, search IGDB through
+   the Worker, tap the platform you own it on, and the game arrives with its cover and art.
+   Its About tab is filled from IGDB and cached on this device for a week. */
+const IGDB_KEY = 'gamelog_igdb', IGDB_TTL_MS = 7 * 86400000;
+let igdbCache = (() => { try { return JSON.parse(localStorage.getItem(IGDB_KEY)) || {}; } catch(e) { return {}; } })();
+const igdbLoading = new Set();
+let cgOpen = null;   // {q, results, busy, err, focused}
+function saveIgdbCache(){ try { localStorage.setItem(IGDB_KEY, JSON.stringify(igdbCache)); } catch(e) {} }
+async function igdbSearch(q){
+  const r = await api('/igdb/search?q=' + encodeURIComponent(q));
+  if (!r.ok) throw new Error(await readErr(r));
+  return r.json();
+}
+async function fetchAbout(g, opts = {}){
+  if (!g || !g.igdbId || !syncOn() || igdbLoading.has(g.igdbId)) return;
+  const c = igdbCache[g.igdbId];
+  if (!opts.force && c && c.data && Date.now() - c.fetched < IGDB_TTL_MS) return;
+  igdbLoading.add(g.igdbId); if (!opts.quiet) refresh(false);
+  try {
+    const r = await api('/igdb/game?id=' + g.igdbId + (opts.force ? '&fresh=1' : ''));
+    if (!r.ok) throw new Error(await readErr(r));
+    const d = await r.json();
+    igdbCache[g.igdbId] = {fetched:Date.now(), data:d, err:''};
+    let changed = false;
+    if (!g.hero && /^https:\/\//.test(d.hero || '')) { g.hero = d.hero; changed = true; }
+    if (!g.cover && /^https:\/\//.test(d.cover || '')) { g.cover = d.cover; changed = true; }
+    if (changed) save();
+  } catch(e) {
+    igdbCache[g.igdbId] = Object.assign({}, c, {fetched:(c && c.fetched) || 0, err: e.message === 'Failed to fetch' ? 'couldn’t reach the Worker' : e.message});
+  }
+  igdbLoading.delete(g.igdbId); saveIgdbCache(); refresh(false);
+}
+function openConsole(){
+  if (!syncOn()) { toast('Connect sync first. Console search runs through your Worker'); go(() => { view.tab = 'sync'; view.gameId = null; }); return; }
+  cgOpen = {q:'', results:null, busy:false, err:'', focused:false}; renderConsole();
+}
+function closeConsole(){ cgOpen = null; renderConsole(); }
+async function runConsoleSearch(){
+  const mine = cgOpen; if (!mine) return;
+  const inp = document.getElementById('cg-q'), q = (inp ? inp.value : mine.q).trim();
+  mine.q = q; if (!q) { if (inp) inp.focus(); return; }
+  mine.busy = true; mine.err = ''; renderConsole();
+  try { mine.results = await igdbSearch(q); }
+  catch(e) { mine.results = null; mine.err = e.message === 'Failed to fetch' ? 'Couldn’t reach the Worker' : e.message; }
+  mine.busy = false; if (cgOpen === mine) renderConsole();
+}
+function renderConsole(){
+  const host = document.getElementById('cg'); if (!host) return;
+  if (!cgOpen) { host.innerHTML = ''; return; }
+  const c = cgOpen, cur = document.getElementById('cg-q'); if (cur) c.q = cur.value;
+  const ORDER = ['Switch 2', 'Switch', 'PS5', 'PS4', 'Xbox Series', 'Xbox One', 'PC'], rank = p => { const i = ORDER.indexOf(p); return i < 0 ? 99 : i; };
+  const safe = u => /^https:\/\//.test(u || '') ? u : '';
+  const row = r => {
+    const plats = (r.platforms || []).slice().sort((a, b) => rank(a) - rank(b) || a.localeCompare(b)).slice(0, 8);
+    return `<li class="cgrow">${safe(r.thumb) ? `<img src="${esc(r.thumb)}" alt="" loading="lazy">` : '<span class="cgnoimg"></span>'}
+      <div class="cgmeta"><b>${esc(r.name)}</b>${r.year ? ` <span class="dim">${r.year}</span>` : ''}
+        <div class="cgplat">${plats.length ? plats.map(pl => `<button class="btn quiet sm" data-act="console-pick" data-id="${r.id}" data-plat="${esc(pl)}">${esc(pl)}</button>`).join('') : `<button class="btn quiet sm" data-act="console-pick" data-id="${r.id}" data-plat="">Add</button>`}</div></div></li>`;
+  };
+  host.innerHTML = `<div class="ckwrap"><div class="ckback" data-act="console-close"></div>
+    <section class="cksheet" role="dialog" aria-modal="true" aria-labelledby="cg-h">
+      <h2 id="cg-h">Add a console game</h2>
+      <p class="sub">Search by title, then tap the platform you own it on.</p>
+      <div class="addgame" style="margin-top:12px"><input type="text" id="cg-q" placeholder="Game title" aria-label="Search IGDB" value="${esc(c.q)}"><button class="btn" data-act="console-search" ${c.busy ? 'disabled' : ''}>${c.busy ? 'Searching…' : 'Search'}</button></div>
+      ${c.err ? `<p class="err" style="margin:12px 0 0">${esc(c.err)}</p>` : ''}
+      ${c.results ? (c.results.length ? `<ul class="cglist">${c.results.map(row).join('')}</ul>` : '<p class="sub" style="margin-top:14px">No matches. Try fewer words.</p>') : ''}
+      <div class="actions"><button class="btn quiet" data-act="console-close">Close</button></div>
+      <p class="dim" style="font-size:12px;margin:14px 0 0">Game data from <a href="https://www.igdb.com" target="_blank" rel="noopener noreferrer" style="color:inherit">IGDB</a>.</p>
+    </section></div>`;
+  if (!c.focused) { c.focused = true; setTimeout(() => { const t = document.getElementById('cg-q'); if (t) t.focus(); }, 0); }
+}
+function pickConsole(id, plat){
+  const r = cgOpen && cgOpen.results && cgOpen.results.find(x => x.id === id); if (!r) return;
+  const platform = plat || 'Console';
+  let g = state.games.find(x => x.igdbId === id && x.platform === platform), added = false;
+  if (!g) {
+    g = blankGame(r.name); added = true;
+    Object.assign(g, {igdbId:id, platform, status:'playing', artTried:true});
+    if (/^https:\/\//.test(r.cover || '')) g.cover = r.cover;
+    const hit = packFor(g); if (hit) g.content = hit.slug;
+    state.games.push(g); save();
+    fetchAbout(g, {quiet:true});   // fills the hero art in the background
+  }
+  closeConsole();
+  go(() => { view.gameId = g.id; view.section = g.content ? 'goals' : 'about'; view.goals = null; }, 'open');
+  toast(added ? `Added ${r.name} on ${platform}` : `${r.name} is already on your ${platform} shelf`);
+}
+
 async function fetchStore(g, opts = {}){
   if (!g || !g.steamId || !syncOn() || storeLoading.has(g.steamId)) return;
   const c = storeCache[g.steamId];
@@ -2172,6 +2270,16 @@ const FINISH_LABEL = {beat:'Beat it', main:'Main + side', full:'100%', shelved:'
 const GOAL_PAGE = 60;
 const PACKS = {};   // slug -> {state:'loading'|'ready'|'err', man, tabs:{id:[entry]}, err}
 let contentIndex = null;
+/* A game attaches to its goals pack by Steam id, by IGDB id, or (for console games) by
+   platform plus title. The title match also accepts the aliases listed in content/index.json. */
+const normTitle = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+function packFor(g){
+  if (!contentIndex) return null;
+  if (g.steamId) { const h = contentIndex.find(x => x.steamId === g.steamId); if (h) return h; }
+  if (g.igdbId) { const h = contentIndex.find(x => x.igdbId === g.igdbId && (!x.platform || x.platform === g.platform)); if (h) return h; }
+  const t = normTitle(g.title);
+  return contentIndex.find(x => x.platform && x.platform === g.platform && [x.title].concat(Array.isArray(x.aliases) ? x.aliases : []).some(n => normTitle(n) === t)) || null;
+}
 
 function ensureGoals(g){
   if (!g.goals || typeof g.goals !== 'object') g.goals = {};
@@ -2210,8 +2318,8 @@ async function loadIndex(){
     contentIndex = Array.isArray(d.games) ? d.games.filter(x => x && /^[a-z0-9-]+$/.test(x.slug || '')) : [];
     let changed = false;
     for (const g of state.games) {
-      if (g.content || !g.steamId) continue;
-      const hit = contentIndex.find(x => x.steamId === g.steamId);
+      if (g.content) continue;
+      const hit = packFor(g);
       if (hit) { g.content = hit.slug; changed = true; }
     }
     if (changed) { save(); refresh(); }
@@ -2704,7 +2812,7 @@ function renderLibrary(){
   return `<div class="page">
     <div class="libhead">
       <div><h1 class="h1">Library</h1><p class="lede" style="margin:0">${state.games.length} game${state.games.length === 1 ? '' : 's'}, scored out of 10.${wrapped ? ` ${wrapped} wrapped up your way.` : ''}</p>${libSwitch()}</div>
-      <div class="addgame"><input type="text" id="newTitle" placeholder="Add a game by title" aria-label="Game title"><button class="btn" data-act="add-game">Add game</button><button class="btn quiet" data-act="steam-import" ${importing ? 'disabled' : ''}>${importing ? 'Importing…' : 'Import from Steam'}</button></div>
+      <div class="addgame"><input type="text" id="newTitle" placeholder="Add a game by title" aria-label="Game title"><button class="btn" data-act="add-game">Add game</button><button class="btn quiet" data-act="console-open">Add console game</button><button class="btn quiet" data-act="steam-import" ${importing ? 'disabled' : ''}>${importing ? 'Importing…' : 'Import from Steam'}</button></div>
     </div>
     <div class="libtools">
       <div class="seg" role="tablist" aria-label="Filter by status">${['all', ...STATUSES].map(s => `<button class="${view.filter === s ? 'on' : ''}" data-act="filter" data-f="${s}">${s === 'all' ? 'All' : LABEL[s]}<span class="n">${count(s)}</span></button>`).join('')}</div>
@@ -2856,12 +2964,14 @@ function playBtn(g){
   if (!CAN_LAUNCH || !(id > 0)) return '';
   return `<a class="btn play" href="steam://run/${id}" data-act="launch" aria-label="Play ${esc(g.title)} in Steam"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>Play</a>`;
 }
-const SECTIONS = [['save','Save point'],['quests','Quests'],['goals','Goals'],['achievements','Achievements'],['news','What\u2019s new'],['store','Store page'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
+const SECTIONS = [['save','Save point'],['quests','Quests'],['goals','Goals'],['achievements','Achievements'],['news','What\u2019s new'],['store','Store page'],['about','About'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
 
 function renderGame(g){
   const st = stats(g), miss = openMissables(g), ups = upcoming(g).length;
   const hasPack = !!g.content;
-  const sec = hasPack && (view.section === 'quests' || view.section === 'missables') ? 'goals' : !hasPack && view.section === 'goals' ? 'quests' : view.section;
+  const hasAbout = !!g.igdbId && !g.steamId;   // console games: info comes from IGDB instead of Steam
+  const sec0 = hasPack && (view.section === 'quests' || view.section === 'missables') ? 'goals' : !hasPack && view.section === 'goals' ? 'quests' : view.section;
+  const sec = sec0 === 'about' && !hasAbout ? 'save' : sec0;
   const badge = {quests: st.total - st.done, goals: st.total - st.done, missables: miss, releases: ups, achievements: g.ach && g.ach.total ? g.ach.total - g.ach.done : 0, news: newCount(g)};
   const tint = paletteFor(g);
   return `
@@ -2885,9 +2995,9 @@ function renderGame(g){
     </div>
   </header>
   <nav class="sections" aria-label="Game sections"><div class="sections-in">
-    ${SECTIONS.filter(([k]) => k === 'goals' ? hasPack : (k === 'quests' || k === 'missables') ? !hasPack : (!['achievements','news','store'].includes(k) || g.steamId)).map(([k, l]) => `<button class="sec ${sec === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${sec === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : k === 'news' ? 'new' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
+    ${SECTIONS.filter(([k]) => k === 'about' ? hasAbout : k === 'goals' ? hasPack : (k === 'quests' || k === 'missables') ? !hasPack : (!['achievements','news','store'].includes(k) || g.steamId)).map(([k, l]) => `<button class="sec ${sec === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${sec === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : k === 'news' ? 'new' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
   </div></nav>
-  <div class="page">${({save:secSave, quests:secQuests, goals:secGoals, achievements:secAch, news:secNews, store:secStore, missables:secMissables, releases:secReleases, review:secReview})[sec](g)}</div>`;
+  <div class="page">${({save:secSave, quests:secQuests, goals:secGoals, achievements:secAch, news:secNews, store:secStore, about:secAbout, missables:secMissables, releases:secReleases, review:secReview})[sec](g)}</div>`;
 }
 
 function sessLine(g){
@@ -3335,6 +3445,51 @@ function renderReader(scrollTop){
   if (f && (!keep || hadFocus)) f.focus({preventScroll:true});
 }
 
+function secAbout(g){
+  if (!syncOn()) return `<div class="empty"><b>Connect sync to load game info</b>Info for console games comes from IGDB through your Worker.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="sync">Go to Sync</button></div></div>`;
+  const c = igdbCache[g.igdbId], loading = igdbLoading.has(g.igdbId);
+  if (!c || !c.data) {
+    if (!loading && !(c && c.err)) setTimeout(() => fetchAbout(g), 0);
+    return c && c.err && !loading
+      ? `<div class="empty"><b>Couldn’t load game info</b>${esc(c.err)}<div class="actions" style="justify-content:center"><button class="btn" data-act="about-refresh">Try again</button></div></div>`
+      : `<div class="empty"><b>Loading game info</b>Asking IGDB for ${esc(g.title)}.</div>`;
+  }
+  if (Date.now() - c.fetched > IGDB_TTL_MS && !loading && !c.err) setTimeout(() => fetchAbout(g), 0);
+  const d = c.data, safe = u => /^https:\/\//.test(u || '') ? u : '';
+  const fact = (k, v) => v ? `<div><dt>${k}</dt><dd>${v}</dd></div>` : '';
+  const tone = n => n >= 80 ? 'good' : n >= 60 ? 'mid' : 'bad';
+  const mins = Math.round((Date.now() - c.fetched) / 60000);
+  const ago = mins < 1 ? 'just now' : mins < 60 ? `${mins} min ago` : mins < 1440 ? `${Math.round(mins / 60)} h ago` : fmtDate(localDate(new Date(c.fetched)));
+  const media = [
+    ...(d.videos || []).slice(0, 2).map(v => `<a href="https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${esc(v.name)} on YouTube"><img src="https://img.youtube.com/vi/${encodeURIComponent(v.id)}/hqdefault.jpg" alt="" loading="lazy"><span class="play">▶ ${esc(v.name)}</span></a>`),
+    ...(d.shots || []).filter(x => safe(x.thumb)).map((x, i) => `<a href="${esc(safe(x.full) || x.thumb)}" target="_blank" rel="noopener noreferrer" aria-label="Screenshot ${i + 1}"><img src="${esc(x.thumb)}" alt="" loading="lazy"></a>`)
+  ];
+  return `<div class="store">
+    <section class="panel">
+      <div class="store-top">
+        <div>
+          ${d.summary ? `<p class="store-lead">${esc(d.summary)}</p>` : ''}
+          <dl class="facts">
+            ${fact('Platform you own it on', esc(g.platform))}
+            ${fact('Released', d.release ? esc(fmtDate(d.release)) : '')}
+            ${fact('Developer', esc((d.developers || []).join(', ')))}
+            ${fact('Publisher', esc((d.publishers || []).join(', ')))}
+            ${fact('Also on', esc((d.platforms || []).filter(x => x !== g.platform).join(', ')))}
+          </dl>
+          ${(d.genres || []).length ? `<div class="chips genre" style="margin-top:18px">${d.genres.map(x => `<span>${esc(x)}</span>`).join('')}</div>` : ''}
+        </div>
+        <div class="scores">
+          ${d.rating ? `<div class="scorecard"><div class="v ${tone(d.rating)}">${d.rating}</div><div class="l"><b>IGDB rating</b><span>${d.ratingCount ? d.ratingCount.toLocaleString() + ' ratings' : 'Critics and players'}</span></div></div>` : ''}
+          <div class="store-links">${safe(d.url) ? `<a class="btn" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">Open on IGDB</a>` : ''}</div>
+          <span class="dim" style="font-size:13px">${loading ? 'Refreshing…' : c.err ? `<span class="err">Last refresh failed: ${esc(c.err)}</span>` : `Updated ${ago}`} · <button class="reveal" style="border:0;background:none;color:var(--gold);padding:0;font-size:13px;cursor:pointer" data-act="about-refresh" ${loading ? 'disabled' : ''}>Refresh</button></span>
+        </div>
+      </div>
+    </section>
+    ${media.length ? `<section class="panel"><h2 class="h2">Trailers & screenshots</h2><div class="media">${media.join('')}</div></section>` : ''}
+    <p class="dim" style="font-size:12px;margin:4px 0 0">Game data from <a href="https://www.igdb.com" target="_blank" rel="noopener noreferrer" style="color:inherit">IGDB</a>.</p>
+  </div>`;
+}
+
 function secStore(g){
   if (!syncOn()) return `<div class="empty"><b>Connect sync to load the store page</b>Store info comes from Steam through your Worker.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="sync">Go to Sync</button></div></div>`;
   const c = storeCache[g.steamId], loading = storeLoading.has(g.steamId);
@@ -3468,7 +3623,7 @@ function secReview(g){
     <section class="panel details">
       <h2 class="h2" style="margin:0">Details</h2>
       <div class="field"><label for="f-title">Title</label><input type="text" id="f-title" data-f="title" value="${esc(g.title)}"></div>
-      <div class="field"><label for="f-plat">Platform</label><input type="text" id="f-plat" data-f="platform" value="${esc(g.platform)}"></div>
+      <div class="field"><label for="f-plat">Platform</label><input type="text" id="f-plat" data-f="platform" list="plat-list" value="${esc(g.platform)}"><datalist id="plat-list">${['PC', 'Switch 2', 'Switch', 'PS5', 'PS4', 'Xbox Series', 'Xbox One', 'Steam Deck'].map(x => `<option value="${x}">`).join('')}</datalist></div>
       <div class="stats">
         <div class="field"><label for="f-start">Started</label><input type="date" id="f-start" data-f="started" value="${g.started}"></div>
         <div class="field"><label for="f-fin">Finished</label><input type="date" id="f-fin" data-f="finished" value="${g.finished}"></div>
@@ -3675,6 +3830,11 @@ document.addEventListener('click', e => {
     case 'wb-done': closeWelcome(true); break;
     case 'wb-later': closeWelcome(false); break;
     case 'wb-news': { const wg = wbOpen && game(wbOpen); closeWelcome(true); if (wg) { go(() => { view.gameId = wg.id; view.section = 'news'; }, 'open'); enterNews(wg); } } break;
+    case 'console-open': openConsole(); break;
+    case 'console-close': closeConsole(); break;
+    case 'console-search': runConsoleSearch(); break;
+    case 'console-pick': pickConsole(Number(el.dataset.id), el.dataset.plat); break;
+    case 'about-refresh': fetchAbout(g, {force:true}); break;
     case 'add-game': addGame(); break;
     case 'game-mode': gmOpen(); break;
     case 'launch': toast('Opening in Steam\u2026'); watchLaunch(g); if (el.dataset.wb) closeWelcome(true); break; // the link itself does the launch
@@ -3808,11 +3968,13 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeReader(); return; }
     if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) { stepReader(e.key === 'ArrowLeft' ? -1 : 1); return; }
   }
+  if (e.key === 'Escape' && cgOpen) { closeConsole(); return; }
   if (e.key === 'Escape' && ckOpen) { closeCheckin(); return; }
   if (e.key === 'Escape' && wbOpen) { closeWelcome(false); return; }
   if (e.key !== 'Enter') return;
   const el = e.target;
   if (el.id === 'newTitle') addGame();
+  else if (el.id === 'cg-q') runConsoleSearch();
   else if (el.dataset.enter === 'add') addItem(el.dataset.kind, el.dataset.layer);
   else if (el.id === 'artQ') document.querySelector('[data-act="art-search"]').click();
   else if (el.id === 'relName' || el.id === 'relDate') document.querySelector('[data-act="add-rel"]').click();

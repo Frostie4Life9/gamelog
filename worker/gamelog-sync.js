@@ -30,6 +30,12 @@
    7. Steam > Profile > Edit Profile > Privacy Settings:
         Game details = Public  (the Web API can't read playtime otherwise)
 
+   Console and other non-Steam games (IGDB)
+        Type: Secret   Name: IGDB_CLIENT_ID      Value: Client ID of a free
+        Type: Secret   Name: IGDB_CLIENT_SECRET  Value: Client Secret   app at dev.twitch.tv/console
+                                        (Confidential client; IGDB is run by Twitch)
+      The Worker trades them for a short-lived token on its own and keeps it in KV.
+
    Optional: Type: Text  Name: STEAM_BUDGET  Value: 40
       How many Steam calls one background run may make. The free plan
       allows 50 per run, so 40 leaves headroom. On the paid plan you can
@@ -89,6 +95,12 @@
                              refresher last ran
    POST /steam/refresh    -> run one background batch now (at most once
                              a minute)
+   GET  /igdb/search?q=   -> up to 12 IGDB matches for console games:
+                             { id, name, year, cover, thumb, platforms }
+   GET  /igdb/game?id=[&fresh=1]
+                          -> one game's summary, release date, genres,
+                             companies, rating, art, screenshots and trailer
+                             ids. Cached in KV for a week.
    ========================================================= */
 
 const KEYNAME = 'state';
@@ -1053,6 +1065,103 @@ async function steamRoute(request, env, url) {
   return undefined;
 }
 
+/* ---------- IGDB (console games and anything Steam doesn't sell) ----------
+   IGDB is Twitch's game database. The app-wide Client ID and Secret turn into a
+   short-lived token (client credentials), which is cached in KV so most calls
+   cost one request. Game details are cached for a week. */
+const IGDB_PLAT = {
+  'Nintendo Switch 2': 'Switch 2', 'Nintendo Switch': 'Switch', 'PC (Microsoft Windows)': 'PC',
+  'PlayStation 5': 'PS5', 'PlayStation 4': 'PS4', 'Xbox Series X|S': 'Xbox Series', 'Xbox One': 'Xbox One',
+  'Nintendo 64': 'N64', 'Nintendo 3DS': '3DS', 'Wii U': 'Wii U', 'Wii': 'Wii', 'Mac': 'Mac', 'Linux': 'Linux'
+};
+const platShort = n => IGDB_PLAT[n] || n;
+const igdbImg = (id, size) => id ? `https://images.igdb.com/igdb/image/upload/t_${size}/${id}.jpg` : '';
+const IGDB_TTL = 7 * 86400;
+
+async function igdbToken(env, force) {
+  if (!env.IGDB_CLIENT_ID || !env.IGDB_CLIENT_SECRET) {
+    throw new StErr('IGDB is not set up yet: add IGDB_CLIENT_ID and IGDB_CLIENT_SECRET as secrets on the Worker', 503);
+  }
+  if (!force) {
+    const c = await kvJSON(env, 'igdb:token');
+    if (c && c.t && c.exp > Date.now() + 5 * 60000) return c.t;
+  }
+  const r = await fetch('https://id.twitch.tv/oauth2/token?client_id=' + encodeURIComponent(env.IGDB_CLIENT_ID) +
+    '&client_secret=' + encodeURIComponent(env.IGDB_CLIENT_SECRET) + '&grant_type=client_credentials', { method: 'POST' });
+  let j = null; try { j = await r.json(); } catch (e) {}
+  if (!r.ok || !j || !j.access_token) throw new StErr('Twitch rejected the IGDB credentials. Check IGDB_CLIENT_ID and IGDB_CLIENT_SECRET', 502);
+  const life = Math.max(120, (j.expires_in || 3600) - 60);
+  await env.STATE.put('igdb:token', JSON.stringify({ t: j.access_token, exp: Date.now() + life * 1000 }), { expirationTtl: life });
+  return j.access_token;
+}
+
+async function igdbPost(env, endpoint, body) {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const token = await igdbToken(env, attempt > 0);
+    const r = await fetch('https://api.igdb.com/v4/' + endpoint, {
+      method: 'POST',
+      headers: { 'Client-ID': String(env.IGDB_CLIENT_ID).trim(), Authorization: 'Bearer ' + token, Accept: 'application/json' },
+      body
+    });
+    if (r.status === 401 && attempt === 0) continue;   // token went stale: get a new one once
+    if (r.status === 429) throw new StErr('IGDB is rate-limiting requests right now', 429);
+    if (!r.ok) throw new StErr('IGDB returned ' + r.status, 502);
+    return r.json();
+  }
+  throw new StErr('IGDB sign-in failed', 502);
+}
+
+const igdbDay = ts => ts ? new Date(ts * 1000).toISOString().slice(0, 10) : '';
+
+async function igdbRoute(request, env, url) {
+  const p = url.pathname, q = k => (url.searchParams.get(k) || '').trim();
+
+  if (p === '/igdb/search') {
+    const term = q('q').replace(/["\;]/g, ' ').replace(/\s+/g, ' ').slice(0, 80).trim();
+    if (!term) return [];
+    const rows = await igdbPost(env, 'games', `search "${term}"; fields name,slug,first_release_date,cover.image_id,platforms.name; limit 12;`);
+    return rows.map(g => ({
+      id: g.id, name: g.name,
+      year: g.first_release_date ? new Date(g.first_release_date * 1000).getUTCFullYear() : 0,
+      cover: igdbImg(g.cover && g.cover.image_id, 'cover_big_2x'),
+      thumb: igdbImg(g.cover && g.cover.image_id, 'cover_small'),
+      hero: '',
+      platforms: [...new Set((g.platforms || []).map(x => platShort(x.name)))]
+    }));
+  }
+
+  if (p === '/igdb/game') {
+    const id = parseInt(q('id'), 10);
+    if (!(id > 0)) throw new StErr('missing id', 400);
+    const key = 'igdb:g:' + id;
+    if (q('fresh') !== '1') { const c = await kvJSON(env, key); if (c) return c; }
+    const rows = await igdbPost(env, 'games',
+      'fields name,summary,first_release_date,url,total_rating,total_rating_count,genres.name,platforms.name,' +
+      'involved_companies.developer,involved_companies.publisher,involved_companies.company.name,' +
+      `cover.image_id,artworks.image_id,screenshots.image_id,videos.video_id,videos.name; where id = ${id};`);
+    const g = rows && rows[0];
+    if (!g) throw new StErr('IGDB has no game with that id', 404);
+    const comp = flag => (g.involved_companies || []).filter(c => c[flag] && c.company && c.company.name).map(c => c.company.name);
+    const art = (g.artworks && g.artworks[0]) || (g.screenshots && g.screenshots[0]);
+    const out = {
+      id: g.id, name: g.name, summary: g.summary || '', url: g.url || '',
+      release: igdbDay(g.first_release_date),
+      rating: g.total_rating ? Math.round(g.total_rating) : 0, ratingCount: g.total_rating_count || 0,
+      genres: (g.genres || []).map(x => x.name),
+      platforms: [...new Set((g.platforms || []).map(x => platShort(x.name)))],
+      developers: comp('developer'), publishers: comp('publisher'),
+      cover: igdbImg(g.cover && g.cover.image_id, 'cover_big_2x'),
+      hero: igdbImg(art && art.image_id, '1080p'),
+      shots: (g.screenshots || []).slice(0, 8).map(s => ({ thumb: igdbImg(s.image_id, 'screenshot_big'), full: igdbImg(s.image_id, '1080p') })),
+      videos: (g.videos || []).filter(v => /^[\w-]{6,20}$/.test(v.video_id || '')).slice(0, 3).map(v => ({ id: v.video_id, name: v.name || 'Trailer' })),
+      at: Date.now()
+    };
+    await env.STATE.put(key, JSON.stringify(out), { expirationTtl: IGDB_TTL });
+    return out;
+  }
+  return undefined;
+}
+
 export default {
   async fetch(request, env) {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
@@ -1062,6 +1171,15 @@ export default {
     const url = new URL(request.url);
     const given = (request.headers.get('x-sync-key') || url.searchParams.get('k') || '').trim();
     if (!keyMatches(given, String(env.SECRET).trim())) return reply({ error: 'unauthorized' }, 401);
+
+    if (url.pathname.startsWith('/igdb/')) {
+      try {
+        const out = await igdbRoute(request, env, url);
+        return out === undefined ? reply({ error: 'not found' }, 404) : reply(out);
+      } catch (e) {
+        return reply({ error: e instanceof StErr ? e.message : 'IGDB request failed: ' + e.message }, e.status || 502);
+      }
+    }
 
     if (url.pathname.startsWith('/steam/')) {
       try {

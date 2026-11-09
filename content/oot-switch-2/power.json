@@ -1,0 +1,268 @@
+{
+ "entries": [
+  {
+   "id": "oot-p-sw-kokiri",
+   "name": "Kokiri Sword",
+   "region": "Swords",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-sw-master",
+   "name": "Master Sword",
+   "region": "Swords",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-sw-biggoron",
+   "name": "Biggoron's Sword",
+   "region": "Swords",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-sh-deku",
+   "name": "Deku Shield",
+   "region": "Shields",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-sh-hylian",
+   "name": "Hylian Shield",
+   "region": "Shields",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-sh-mirror",
+   "name": "Mirror Shield",
+   "region": "Shields",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-tu-goron",
+   "name": "Goron Tunic",
+   "region": "Tunics and boots",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-tu-zora",
+   "name": "Zora Tunic",
+   "region": "Tunics and boots",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-bt-iron",
+   "name": "Iron Boots",
+   "region": "Tunics and boots",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-bt-hover",
+   "name": "Hover Boots",
+   "region": "Tunics and boots",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-sc-silver",
+   "name": "Silver Scale",
+   "region": "Strength and scales",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-sc-golden",
+   "name": "Golden Scale",
+   "region": "Strength and scales",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-st-goron",
+   "name": "Goron's Bracelet",
+   "region": "Strength and scales",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-st-ilver",
+   "name": "Silver Gauntlets",
+   "region": "Strength and scales",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-st-golden",
+   "name": "Golden Gauntlets",
+   "region": "Strength and scales",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-ar-fire",
+   "name": "Fire Arrow",
+   "region": "Arrows",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-ar-ice",
+   "name": "Ice Arrow",
+   "region": "Arrows",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-ar-light",
+   "name": "Light Arrow",
+   "region": "Arrows",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-sling",
+   "name": "Fairy Slingshot",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-boom",
+   "name": "Boomerang",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-bombbag",
+   "name": "Bomb Bag",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-bombchu",
+   "name": "Bombchus",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-bow",
+   "name": "Fairy Bow",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-hammer",
+   "name": "Megaton Hammer",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-hook",
+   "name": "Hookshot",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-long",
+   "name": "Longshot",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-lens",
+   "name": "Lens of Truth",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-fairyoc",
+   "name": "Fairy Ocarina",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-it-oot",
+   "name": "Ocarina of Time",
+   "region": "Tools",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-bottle-1",
+   "name": "Bottle 1",
+   "region": "Bottles",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-bottle-2",
+   "name": "Bottle 2",
+   "region": "Bottles",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-bottle-3",
+   "name": "Bottle 3",
+   "region": "Bottles",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-bottle-4",
+   "name": "Bottle 4",
+   "region": "Bottles",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-bottle-5",
+   "name": "Bottle 5",
+   "region": "Bottles",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-q40",
+   "name": "Quiver: 40 arrows",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-q50",
+   "name": "Quiver: 50 arrows",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-b30",
+   "name": "Bomb Bag: 30 bombs",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-b40",
+   "name": "Bomb Bag: 40 bombs",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-s40",
+   "name": "Bullet Bag: 40 seeds",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-s50",
+   "name": "Bullet Bag: 50 seeds",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-d30",
+   "name": "Deku Sticks: 30",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-n40",
+   "name": "Deku Nuts: 40",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-w200",
+   "name": "Adult's Wallet",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-p-up-w500",
+   "name": "Giant's Wallet",
+   "region": "Capacity upgrades",
+   "verified": "unsourced"
+  }
+ ]
+}

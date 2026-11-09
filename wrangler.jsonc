@@ -1,5 +1,5 @@
 // Deploy config for the gamelog-sync Worker (Workers Builds deploys on every push to main).
-// Secrets (SECRET, STEAM_KEY) stay in the dashboard; never put them here.
+// Secrets (SECRET, STEAM_KEY, IGDB_CLIENT_ID, IGDB_CLIENT_SECRET) stay in the dashboard; never put them here.
 {
   "name": "gamelog-sync",
   "main": "worker/gamelog-sync.js",

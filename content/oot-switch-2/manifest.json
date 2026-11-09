@@ -1,0 +1,38 @@
+{
+  "slug": "oot-switch-2",
+  "title": "The Legend of Zelda: Ocarina of Time",
+  "platform": "Switch 2",
+  "note": "Ticked by hand: Switch 2 saves can't be read by Game Log. The lists follow the original game's structure. The remake's final Heart Piece and Gold Skulltula counts and placements were unconfirmed at launch, so those two lists are numbered slots to tick as you go, not locations.",
+  "tabs": [
+    {
+      "id": "story",
+      "name": "Main Story",
+      "tier": "story",
+      "file": "story.json"
+    },
+    {
+      "id": "side",
+      "name": "Side Content",
+      "tier": "side",
+      "file": "side.json"
+    },
+    {
+      "id": "songs",
+      "name": "Songs",
+      "tier": "collect",
+      "file": "songs.json"
+    },
+    {
+      "id": "collect",
+      "name": "Collectibles",
+      "tier": "collect",
+      "file": "collect.json"
+    },
+    {
+      "id": "power",
+      "name": "Equipment",
+      "tier": "extra",
+      "file": "power.json"
+    }
+  ]
+}

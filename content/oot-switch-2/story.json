@@ -1,0 +1,107 @@
+{
+ "entries": [
+  {
+   "id": "oot-s-deku",
+   "name": "Great Deku Tree: defeat Gohma",
+   "region": "Child",
+   "how": "Gives Kokiri's Emerald and a Heart Container.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-dodongo",
+   "name": "Dodongo's Cavern: defeat King Dodongo",
+   "region": "Child",
+   "how": "Gives Goron's Ruby and a Heart Container.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-jabu",
+   "name": "Jabu-Jabu's Belly: defeat Barinade",
+   "region": "Child",
+   "how": "Gives Zora's Sapphire and a Heart Container.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-master-sword",
+   "name": "Pull the Master Sword in the Temple of Time",
+   "region": "Child",
+   "how": "Needs all three Spiritual Stones and the Ocarina of Time. You wake up seven years later as Adult Link.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-light-medallion",
+   "name": "Receive the Light Medallion from Rauru",
+   "region": "Adult",
+   "how": "Comes right after you wake up as Adult Link.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-forest",
+   "name": "Forest Temple: defeat Phantom Ganon",
+   "region": "Adult",
+   "how": "Gives the Forest Medallion and a Heart Container.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-fire",
+   "name": "Fire Temple: defeat Volvagia",
+   "region": "Adult",
+   "how": "Gives the Fire Medallion and a Heart Container.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-water",
+   "name": "Water Temple: defeat Morpha",
+   "region": "Adult",
+   "how": "Gives the Water Medallion and a Heart Container.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-shadow",
+   "name": "Shadow Temple: defeat Bongo Bongo",
+   "region": "Adult",
+   "how": "Gives the Shadow Medallion and a Heart Container.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-spirit",
+   "name": "Spirit Temple: defeat Twinrova",
+   "region": "Adult",
+   "how": "Gives the Spirit Medallion and a Heart Container.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-light-arrows",
+   "name": "Receive the Light Arrows from Zelda",
+   "region": "Adult",
+   "how": "Given before the final dungeon.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-trials",
+   "name": "Break the barrier around Ganon's Tower: clear the six trials",
+   "region": "Adult",
+   "how": "In Ganon's Castle: Forest, Fire, Water, Shadow, Spirit and Light.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-ganondorf",
+   "name": "Defeat Ganondorf",
+   "region": "Adult",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-escape",
+   "name": "Escape the collapsing Ganon's Tower",
+   "region": "Adult",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-s-ganon",
+   "name": "Defeat Ganon",
+   "region": "Adult",
+   "how": "The final boss.",
+   "verified": "unsourced"
+  }
+ ]
+}

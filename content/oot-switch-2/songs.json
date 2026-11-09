@@ -1,0 +1,85 @@
+{
+ "entries": [
+  {
+   "id": "oot-song-zelda",
+   "name": "Zelda's Lullaby",
+   "region": "General",
+   "how": "Taught by Impa at Hyrule Castle.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-epona",
+   "name": "Epona's Song",
+   "region": "General",
+   "how": "Taught by Malon at Lon Lon Ranch.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-saria",
+   "name": "Saria's Song",
+   "region": "General",
+   "how": "Taught by Saria in the Sacred Forest Meadow.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-sun",
+   "name": "Sun's Song",
+   "region": "General",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-time",
+   "name": "Song of Time",
+   "region": "General",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-storms",
+   "name": "Song of Storms",
+   "region": "General",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-minuet",
+   "name": "Minuet of Forest",
+   "region": "Warp",
+   "how": "Sheik teaches it in the Sacred Forest Meadow.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-bolero",
+   "name": "Bolero of Fire",
+   "region": "Warp",
+   "how": "Sheik teaches it in Death Mountain Crater.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-serenade",
+   "name": "Serenade of Water",
+   "region": "Warp",
+   "how": "Sheik teaches it at the end of the Ice Cavern.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-requiem",
+   "name": "Requiem of Spirit",
+   "region": "Warp",
+   "how": "Sheik teaches it in the Desert Colossus.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-nocturne",
+   "name": "Nocturne of Shadow",
+   "region": "Warp",
+   "how": "Sheik teaches it in Kakariko Village.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-song-prelude",
+   "name": "Prelude of Light",
+   "region": "Warp",
+   "how": "Sheik teaches it in the Temple of Time.",
+   "verified": "unsourced"
+  }
+ ]
+}

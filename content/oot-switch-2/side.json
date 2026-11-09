@@ -1,0 +1,161 @@
+{
+ "entries": [
+  {
+   "id": "oot-d-ice",
+   "name": "Ice Cavern",
+   "region": "Optional dungeons",
+   "how": "Optional dungeon. Has the Iron Boots, and Sheik teaches Serenade of Water at the end.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-d-well",
+   "name": "Bottom of the Well",
+   "region": "Optional dungeons",
+   "how": "Optional dungeon. Has the Lens of Truth.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-d-gtg",
+   "name": "Gerudo Training Ground",
+   "region": "Optional dungeons",
+   "how": "Optional dungeon. Has the Ice Arrows. Needs the Gerudo Membership Card.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-q-carpenters",
+   "name": "Free all four carpenters in Gerudo's Fortress",
+   "region": "Quests",
+   "how": "Earns the Gerudo Membership Card.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-q-epona",
+   "name": "Win Epona at Lon Lon Ranch",
+   "region": "Quests",
+   "how": "Learn Epona's Song from Malon as a child, then race Ingo as an adult.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-q-masks",
+   "name": "Happy Mask Shop: finish the mask loans and earn the Mask of Truth",
+   "region": "Quests",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-q-trade",
+   "name": "Trading quest: end with Biggoron's Sword",
+   "region": "Quests",
+   "how": "Pocket Egg, Cojiro, Odd Mushroom, Odd Potion, Poacher's Saw, Broken Goron's Sword, Prescription, Eyeball Frog, Eye Drops, Claim Check, then the sword.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-q-poes",
+   "name": "Collect ten Big Poes for the Poe Collector",
+   "region": "Quests",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-q-frogs",
+   "name": "Zora River frogs: finish the frog concert",
+   "region": "Quests",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-q-beans",
+   "name": "Buy and plant the Magic Beans",
+   "region": "Quests",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-q-scarecrow",
+   "name": "Teach Pierre your Scarecrow's Song",
+   "region": "Quests",
+   "how": "Lets you Hookshot to Scarecrow spots as an adult.",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-m-fishing-child",
+   "name": "Fishing Pond as a child: earn the prize",
+   "region": "Minigames",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-m-fishing-adult",
+   "name": "Fishing Pond as an adult: earn the prize",
+   "region": "Minigames",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-m-gallery-child",
+   "name": "Shooting Gallery as a child: win the prize",
+   "region": "Minigames",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-m-gallery-adult",
+   "name": "Shooting Gallery as an adult: win the prize",
+   "region": "Minigames",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-m-horse",
+   "name": "Horseback Archery in Gerudo's Fortress: earn both prizes",
+   "region": "Minigames",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-m-bowling",
+   "name": "Bombchu Bowling Alley: win the prizes",
+   "region": "Minigames",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-m-chest",
+   "name": "Treasure Chest Game: win the prizes",
+   "region": "Minigames",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-m-dampe",
+   "name": "Dampe's games: finish the gravedigging tour and the race",
+   "region": "Minigames",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-f-magic",
+   "name": "Great Fairy: Magic Meter",
+   "region": "Great Fairies",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-f-dins",
+   "name": "Great Fairy: Din's Fire",
+   "region": "Great Fairies",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-f-farores",
+   "name": "Great Fairy: Farore's Wind",
+   "region": "Great Fairies",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-f-nayrus",
+   "name": "Great Fairy: Nayru's Love",
+   "region": "Great Fairies",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-f-double-magic",
+   "name": "Great Fairy: Double Magic",
+   "region": "Great Fairies",
+   "verified": "unsourced"
+  },
+  {
+   "id": "oot-f-double-defense",
+   "name": "Great Fairy: Double Defense",
+   "region": "Great Fairies",
+   "verified": "unsourced"
+  }
+ ]
+}
