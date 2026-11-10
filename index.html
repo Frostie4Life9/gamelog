@@ -573,6 +573,8 @@ a.scorecard:hover{border-color:var(--line)}
 @media (hover:hover){.cplay{opacity:0}.slotw:hover .cplay,.cplay:focus-visible{opacity:1}}
 .srv{position:absolute;bottom:12px;left:10px;z-index:3;height:26px;padding:0 8px;border-radius:999px;display:inline-flex;align-items:center;gap:4px;background:rgba(22,26,51,.88);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--mist)}
 .srv svg{width:12px;height:12px}
+.smc{position:absolute;top:10px;right:10px;z-index:3;min-width:30px;height:26px;padding:0 7px;border-radius:7px;display:grid;place-items:center;background:rgba(22,26,51,.88);font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+.smc.hi{color:var(--mint)} .smc.mid{color:var(--gold)} .smc.lo{color:var(--rose)}
 .srv.hi,.steamrv.hi b{color:var(--mint)} .srv.mid,.steamrv.mid b{color:var(--gold)} .srv.lo,.steamrv.lo b{color:var(--rose)}
 .steamrv{display:flex;flex-direction:column;line-height:1.15}
 .steamrv b{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
@@ -1215,6 +1217,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.10-b', note:'METACRITIC SCORES: Steam games now show their Metacritic critic score on the Library cover (top right, green 75 and up, yellow 50 to 74, red below), next to your score and Steam\u2019s review score. It also appears on the game page and in Game Mode, and the Library has a new Metacritic sort. Only games Steam links to Metacritic have one, and console games don\u2019t get a Metacritic score. Your Worker needs the updated gamelog-sync.js; scores fill in on their own within a few minutes of deploying.'},
   {v:'2026.11.10-a', note:'WHAT TO PLAY NEXT: Continue has a new picker under your current game. Tell it how long you have (quick hour, evening, weekend) and what you feel like (finish something, something new, a comfort pick) and it gives you one game with the reasons it picked it, plus two runners-up. Not tonight skips to the next one. It weighs how close each game is to your finish line, minutes left when a Goals pack has estimates, your own score, Steam reviews for untouched backlog games, open missables, DLC coming soon and how long you\u2019ve been away. Ongoing live-service games stay in their own section and are not picked. Everything is worked out on your device, so it needs no Worker change and costs nothing. Your time and mood choices are remembered on each device.'},
   {v:'2026.11.09-c', note:'TRAILERS PLAY IN THE APP: on a console game\u2019s About tab, tapping a trailer now plays it right there with YouTube\u2019s own player instead of opening YouTube in a new tab. YouTube chooses the quality (bigger player, better picture) and decides about ads, and neither can be forced from here; a signed-in YouTube Premium account is recognised. If a publisher has turned embedding off, the player says so and the Open on YouTube link under it takes you there.'},
   {v:'2026.11.09-b', note:'CONSOLE GAMES: Library has a new Add console game button. It searches IGDB through your Worker, you tap the platform you own the game on, and it arrives with its cover and art. Console games get an About tab with the summary, release date, developer, genres, rating, trailer and screenshots. The Legend of Zelda: Ocarina of Time on Switch 2 comes with a Goals checklist ticked by hand: the main story, side content and optional dungeons, songs, 36 Heart Pieces, 100 Gold Skulltulas with the House of Skulltula rewards, and equipment. Those lists follow the original game, and the remake\u2019s own totals and locations are not confirmed yet, so every entry is marked unsourced. Goals packs can now attach by platform and title as well as by Steam id. For the server side, add IGDB_CLIENT_ID and IGDB_CLIENT_SECRET as secrets on the Worker; the updated gamelog-sync.js deploys from GitHub.'},
@@ -1993,7 +1996,7 @@ document.addEventListener('visibilitychange', () => { if (document.visibilitySta
 save({keepTime:true, noPush:true});
 
 const SORT_KEY = 'gamelog_sort';
-const SORTS = ['title','score','steam','recent','progress'];
+const SORTS = ['title','score','steam','meta','recent','progress'];
 /* The Library sort lives in the synced library (state.prefs), so every device
    opens on the same order. The per-device copy is only a fallback. */
 const view = {tab:'continue', gameId:null, section:'save', filter:'all', q:'', lib:'games', sort:(() => {
@@ -2642,10 +2645,22 @@ function revOf(g){
   return r && r.total ? [r.pct, r.label, r.total] : null;
 }
 const rvTier = p => p >= 80 ? 'hi' : p >= 50 ? 'mid' : 'lo';
+/* Metacritic critic score for a Steam game, from the library summary or a store page this device
+   already loaded: [score, Metacritic URL]. Only games Steam links to Metacritic have one, and
+   consoles don't (Metacritic has no free API). Metacritic's own colours: green 75+, yellow 50-74. */
+function mcOf(g){
+  if (!(g.steamId > 0)) return null;
+  const s = steamSum.games && steamSum.games[g.steamId];
+  if (s && Array.isArray(s.mc)) return s.mc;
+  const c = storeCache[g.steamId], m = c && c.data && c.data.metacritic;
+  return m && m.score ? [m.score, m.url || ''] : null;
+}
+const mcTier = n => n >= 75 ? 'hi' : n >= 50 ? 'mid' : 'lo';
+const mcTitle = mc => `Metacritic critic score: ${mc[0]} out of 100`;
 const THUMB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2 2 0 0 1 3 2l-1 4h6a2 2 0 0 1 2 2.3l-1.4 7A2 2 0 0 1 17.6 20H7"/></svg>';
 const rvTitle = rv => `Steam: ${rv[1] || 'reviews'}, ${rv[0]}% of ${Number(rv[2]).toLocaleString()} reviews positive`;
 function coverHTML(g, opts = {}){
-  const st = stats(g), rv = opts.score ? revOf(g) : null;
+  const st = stats(g), rv = opts.score ? revOf(g) : null, mc = opts.score ? mcOf(g) : null;
   const vt = '';
   const url = /^https:\/\/[^\s"'<>]+$/.test(g.cover) ? g.cover : '';
   const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
@@ -2657,6 +2672,7 @@ function coverHTML(g, opts = {}){
     <div class="ct">${esc(g.title)}</div>
     ${opts.score && g.rating ? `<div class="score" aria-label="Score ${g.rating} out of 10">${g.rating}</div>` : ''}
     ${rv ? `<div class="srv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}" aria-label="${esc(rvTitle(rv))}">${THUMB}${rv[0]}%</div>` : ''}
+    ${mc ? `<div class="smc ${mcTier(mc[0])}" title="${esc(mcTitle(mc))}" aria-label="${esc(mcTitle(mc))}">${mc[0]}</div>` : ''}
     ${opts.bar !== false && st.total && !isLive(g) ? `<div class="bar"><i style="width:${st.pct}%"></i></div>` : ''}
   </div>`;
 }
@@ -2928,6 +2944,7 @@ function renderLibrary(){
     title:(a,b) => a.title.localeCompare(b.title),
     score:(a,b) => b.rating - a.rating || a.title.localeCompare(b.title),
     steam:(a,b) => ((revOf(b) || [-1])[0] - (revOf(a) || [-1])[0]) || a.title.localeCompare(b.title),
+    meta:(a,b) => ((mcOf(b) || [-1])[0] - (mcOf(a) || [-1])[0]) || a.title.localeCompare(b.title),
     recent:(a,b) => playedKey(b) - playedKey(a) || a.title.localeCompare(b.title),
     progress:(a,b) => stats(b).pct - stats(a).pct
   };
@@ -2942,7 +2959,7 @@ function renderLibrary(){
     <div class="libtools">
       <div class="seg" role="tablist" aria-label="Filter by status">${['all', ...STATUSES].map(s => `<button class="${view.filter === s ? 'on' : ''}" data-act="filter" data-f="${s}">${s === 'all' ? 'All' : LABEL[s]}<span class="n">${count(s)}</span></button>`).join('')}</div>
       <input type="search" class="search" id="search" placeholder="Search titles" value="${esc(view.q)}" aria-label="Search titles">
-      <select id="sort" aria-label="Sort">${[['title','Title A–Z'],['score','Highest score'],['steam','Steam score'],['recent','Recently played'],['progress','Most progress']].map(([v,l]) => `<option value="${v}" ${view.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+      <select id="sort" aria-label="Sort">${[['title','Title A–Z'],['score','Highest score'],['steam','Steam score'],['meta','Metacritic'],['recent','Recently played'],['progress','Most progress']].map(([v,l]) => `<option value="${v}" ${view.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
     </div>
     ${list.length ? `<div class="shelf">${list.map(slot).join('')}</div>`
       : `<div class="empty"><b>${state.games.length ? 'No matches' : 'Your shelf is empty'}</b>${state.games.length ? 'Try another filter or search.' : 'Add your first game with the field above.'}</div>`}
@@ -3114,6 +3131,7 @@ function renderGame(g){
           ${achPct(g) !== null ? `<button data-act="section" data-s="achievements" aria-label="Open achievements" style="border:0;background:none;padding:0;color:inherit;text-align:left;cursor:pointer">${ring({total:g.ach.total, done:g.ach.done, pct:achPct(g)}, 'achievements')}</button>` : ''}
           ${pips(g)}
           ${(rv => rv ? `<div class="steamrv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}"><b>${rv[0]}%</b><span>Steam \u00b7 ${esc(rv[1] || 'reviews')}</span></div>` : '')(revOf(g))}
+          ${(mc => mc ? `<div class="steamrv ${mcTier(mc[0])}" title="${esc(mcTitle(mc))}"><b>${mc[0]}</b><span>Metacritic \u00b7 critics</span></div>` : '')(mcOf(g))}
           ${newTag(g, 'button')}
         </div>
       </div>
@@ -4191,12 +4209,13 @@ const gmHours = h => h >= 10 ? `${Math.round(h)}h` : `${Math.round(h * 10) / 10}
 
 function gmInfoHTML(g){
   const now = !!(playNow && g.steamId && playNow.a === g.steamId);
-  const st = stats(g), rv = revOf(g), ap = achPct(g);
+  const st = stats(g), rv = revOf(g), mc = mcOf(g), ap = achPct(g);
   const c = g.steamId && storeCache[g.steamId], d = c && c.data;
   const meta = [
     `<span class="st">${esc(statusLabel(g))}</span>`,
     g.rating ? `<span class="sc"><b class="sc">${g.rating}</b>/10 · ${SCORE_WORD[g.rating]}</span>` : '',
     rv ? `<span class="rv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}">Steam ${rv[0]}%</span>` : '',
+    mc ? `<span class="rv ${mcTier(mc[0])}" title="${esc(mcTitle(mc))}">Metacritic ${mc[0]}</span>` : '',
     g.hours ? `<span><b>${gmHours(g.hours)}</b> played</span>` : '',
     g.lastPlayed ? `<span>${esc(since(g.lastPlayed))}</span>` : '',
     ap !== null ? `<span>${ap}% achievements</span>` : ''

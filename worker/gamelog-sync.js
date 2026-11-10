@@ -684,10 +684,12 @@ function summarize(entry, kind, rec) {
     entry.al = last ? { name: last.name, time: last.time } : null;
   }
   if (kind === 'news' && rec.d) entry.nd = rec.d.items.slice(0, 8).map(i => i.date);
-  if (kind === 'store') { entry.se = rec.e && !rec.d ? 1 : 0; if (rec.d) { entry.rv = revSum(rec.d); entry.rvv = 2; } }
+  if (kind === 'store') { entry.se = rec.e && !rec.d ? 1 : 0; if (rec.d) { entry.rv = revSum(rec.d); entry.mc = mcSum(rec.d); entry.rvv = 2; } }
 }
 // [percent positive, Steam's label, review count], or 0 when the game has no reviews
 const revSum = d => d && d.reviews && d.reviews.total ? [d.reviews.pct, d.reviews.label, d.reviews.total] : 0;
+// [Metacritic critic score, its Metacritic page URL], or 0 when Steam lists no Metacritic score for the game
+const mcSum = d => d && d.metacritic && d.metacritic.score ? [d.metacritic.score, d.metacritic.url || ''] : 0;
 
 // Background TTLs: busier games refresh more often
 function bgTTL(kind, g, entry) {
@@ -796,9 +798,10 @@ async function runBatch(env, why) {
     for (const g of games) {
       if (backfilled >= 60) break;
       const e = idx[g.id];
-      if (!e || !e.store || e.rv !== undefined) continue;
+      if (!e || !e.store || (e.rv !== undefined && e.mc !== undefined)) continue;
       const rec = await kvJSON(env, 'g:' + g.id);
-      e.rv = revSum(rec && rec.store && rec.store.d);
+      const sd = rec && rec.store && rec.store.d;
+      e.rv = revSum(sd); e.mc = mcSum(sd);
       backfilled++;
     }
   } catch (e) {
@@ -826,7 +829,7 @@ async function summary(env) {
     const e = I[g.id];
     if (!e) continue;
     if (KINDS.every(k => e[k])) ready++;
-    out[g.id] = { ach: e.at === undefined ? null : { total: e.at, done: e.ad, last: e.al || null }, news: e.nd || [], noStore: !!e.se, rv: e.rv || null };
+    out[g.id] = { ach: e.at === undefined ? null : { total: e.at, done: e.ad, last: e.al || null }, news: e.nd || [], noStore: !!e.se, rv: e.rv || null, mc: e.mc || null };
   }
   const M = meta || {};
   return {
