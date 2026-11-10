@@ -245,6 +245,10 @@ a.scorecard:hover{border-color:var(--line)}
 .media a{display:block;width:min(320px,70vw);aspect-ratio:16/9;position:relative}
 .media a img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
 .media a:hover img{transform:scale(1.03)}
+.media .ytwrap{width:min(560px,82vw);flex:none}
+.media .ytframe{width:100%;aspect-ratio:16/9;background:#000;position:relative}
+.media .ytframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.media a.ytopen{width:auto;aspect-ratio:auto;margin-top:6px;font-size:13px;color:var(--gold);text-decoration:none}
 .media a .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(transparent 50%,rgba(0,0,0,.55));color:#fff;font-weight:700;font-size:14px}
 .about{white-space:pre-line;color:var(--mist);font-size:15px;line-height:1.6;margin:0}
 .about-wrap{position:relative;max-height:230px;overflow:hidden}
@@ -1196,6 +1200,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.09-c', note:'TRAILERS PLAY IN THE APP: on a console game\u2019s About tab, tapping a trailer now plays it right there with YouTube\u2019s own player instead of opening YouTube in a new tab. YouTube chooses the quality (bigger player, better picture) and decides about ads, and neither can be forced from here; a signed-in YouTube Premium account is recognised. If a publisher has turned embedding off, the player says so and the Open on YouTube link under it takes you there.'},
   {v:'2026.11.09-b', note:'CONSOLE GAMES: Library has a new Add console game button. It searches IGDB through your Worker, you tap the platform you own the game on, and it arrives with its cover and art. Console games get an About tab with the summary, release date, developer, genres, rating, trailer and screenshots. The Legend of Zelda: Ocarina of Time on Switch 2 comes with a Goals checklist ticked by hand: the main story, side content and optional dungeons, songs, 36 Heart Pieces, 100 Gold Skulltulas with the House of Skulltula rewards, and equipment. Those lists follow the original game, and the remake\u2019s own totals and locations are not confirmed yet, so every entry is marked unsourced. Goals packs can now attach by platform and title as well as by Steam id. For the server side, add IGDB_CLIENT_ID and IGDB_CLIENT_SECRET as secrets on the Worker; the updated gamelog-sync.js deploys from GitHub.'},
   {v:'2026.11.09-a', note:'SCREENSHOTS CLEAN UP AFTER THEMSELVES: once the reader on your PC has read a menu screenshot and sent the numbers to Game Log, it deletes the picture (and Steam\u2019s thumbnail of it), so F12 shots don\u2019t pile up. It only deletes ones it read successfully. Pictures it couldn\u2019t read, that weren\u2019t a screen Game Log tracks, or that failed to send are kept, and so are all your older screenshots. To keep everything, add \"keepShots\": true to gamelog-reader.json. Copy the new gamelog_reader.py into your reader folder to get it.'},
   {v:'2026.11.06-a', note:'FREE SCREENSHOT READING: the screenshot reader for THE FINALS no longer uses a paid AI. The reader on your PC now reads the screenshot itself with free OCR (it copies the text on screen, so it can\u2019t invent a number) and sends the Worker only the numbers it found, never the picture. No API key and no cost. The panel shows what it read, how old it is and how sure it was, and a What it read list so a wrong number is easy to trace. Re-run setup.bat in your reader folder once to install it.'},
@@ -3445,6 +3450,33 @@ function renderReader(scrollTop){
   if (f && (!keep || hadFocus)) f.focus({preventScroll:true});
 }
 
+/* In-app YouTube trailer. IGDB only knows YouTube ids, so this uses YouTube's own embedded
+   player (www.youtube.com, not the no-cookie domain, so a signed-in Premium account is
+   recognised). YouTube picks the quality and decides about ads; neither can be forced from
+   here. If the publisher has switched embedding off, YouTube reports it and the link under
+   the player is the way out. */
+function playYouTube(btn){
+  const id = btn.dataset.v; if (!/^[\w-]{6,20}$/.test(id || '')) return;
+  const wrap = document.createElement('div'); wrap.className = 'ytwrap';
+  const frame = document.createElement('div'); frame.className = 'ytframe';
+  const f = document.createElement('iframe');
+  f.src = `https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0&playsinline=1&enablejsapi=1`;
+  f.title = btn.getAttribute('aria-label') || 'Trailer';
+  f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+  f.allowFullscreen = true; f.referrerPolicy = 'strict-origin-when-cross-origin';
+  const open = document.createElement('a'); open.className = 'ytopen'; open.target = '_blank'; open.rel = 'noopener noreferrer';
+  open.href = `https://www.youtube.com/watch?v=${encodeURIComponent(id)}`; open.textContent = 'Open on YouTube';
+  frame.appendChild(f); wrap.append(frame, open); btn.replaceWith(wrap);
+  f.addEventListener('load', () => { try { f.contentWindow.postMessage(JSON.stringify({event:'listening', id:1, channel:'widget'}), 'https://www.youtube.com'); } catch(e) {} });
+  const onMsg = e => {
+    if (!f.isConnected) { window.removeEventListener('message', onMsg); return; }
+    if (e.source !== f.contentWindow || e.origin !== 'https://www.youtube.com') return;
+    let d = e.data; try { d = typeof d === 'string' ? JSON.parse(d) : d; } catch(x) { return; }
+    if (d && d.event === 'onError') { open.textContent = 'This trailer can’t play here. Open it on YouTube'; open.style.fontWeight = '700'; toast('That trailer can’t be embedded. Use the YouTube link'); }
+  };
+  window.addEventListener('message', onMsg);
+}
+
 function secAbout(g){
   if (!syncOn()) return `<div class="empty"><b>Connect sync to load game info</b>Info for console games comes from IGDB through your Worker.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="sync">Go to Sync</button></div></div>`;
   const c = igdbCache[g.igdbId], loading = igdbLoading.has(g.igdbId);
@@ -3461,7 +3493,7 @@ function secAbout(g){
   const mins = Math.round((Date.now() - c.fetched) / 60000);
   const ago = mins < 1 ? 'just now' : mins < 60 ? `${mins} min ago` : mins < 1440 ? `${Math.round(mins / 60)} h ago` : fmtDate(localDate(new Date(c.fetched)));
   const media = [
-    ...(d.videos || []).slice(0, 2).map(v => `<a href="https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}" target="_blank" rel="noopener noreferrer" aria-label="Watch ${esc(v.name)} on YouTube"><img src="https://img.youtube.com/vi/${encodeURIComponent(v.id)}/hqdefault.jpg" alt="" loading="lazy"><span class="play">▶ ${esc(v.name)}</span></a>`),
+    ...(d.videos || []).slice(0, 2).map(v => `<button class="vid" data-act="about-play" data-v="${esc(v.id)}" aria-label="Play ${esc(v.name)}"><img src="https://img.youtube.com/vi/${encodeURIComponent(v.id)}/hqdefault.jpg" alt="" loading="lazy"><span class="play">▶ ${esc(v.name)}</span></button>`),
     ...(d.shots || []).filter(x => safe(x.thumb)).map((x, i) => `<a href="${esc(safe(x.full) || x.thumb)}" target="_blank" rel="noopener noreferrer" aria-label="Screenshot ${i + 1}"><img src="${esc(x.thumb)}" alt="" loading="lazy"></a>`)
   ];
   return `<div class="store">
@@ -3834,6 +3866,7 @@ document.addEventListener('click', e => {
     case 'console-close': closeConsole(); break;
     case 'console-search': runConsoleSearch(); break;
     case 'console-pick': pickConsole(Number(el.dataset.id), el.dataset.plat); break;
+    case 'about-play': playYouTube(el); break;
     case 'about-refresh': fetchAbout(g, {force:true}); break;
     case 'add-game': addGame(); break;
     case 'game-mode': gmOpen(); break;
