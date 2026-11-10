@@ -216,6 +216,34 @@ async function kvJSON(env, key) {
 }
 const kvPut = (env, key, val) => env.STATE.put(key, JSON.stringify(val));
 
+/* ---------- Tags ----------
+   Steam's user tags (Open World, Story Rich, Cozy...). GetItems returns tag
+   ids with the art lookup; the names come from one tag list cached for 30
+   days. TAG_V marks games whose tags have been asked for: bump it to ask
+   again. Used for the app's mood filter. */
+const TAG_V = 1;
+const tagIdsOf = it => (Array.isArray(it.tagids) ? it.tagids : Array.isArray(it.tags) ? it.tags.map(t => t && t.tagid) : [])
+  .filter(n => Number.isInteger(n)).slice(0, 12);
+
+async function tagNames(env, net) {
+  const DAY = 86400000, c = await kvJSON(env, 'tagnames');
+  if (c && c.m && Date.now() - c.t < 30 * DAY) return c.m;
+  if (net.left() < 1) return (c && c.m) || {};
+  try {
+    const r = await net.get(`https://api.steampowered.com/IStoreService/GetTagList/v1/?language=english&key=${env.STEAM_KEY}`);
+    const arr = (r.j && r.j.response && r.j.response.tags) || [];
+    if (r.ok && arr.length) {
+      const m = {};
+      for (const t of arr) if (t && t.tagid && t.name) m[t.tagid] = t.name;
+      await kvPut(env, 'tagnames', { t: Date.now(), m });
+      return m;
+    }
+  } catch (e) { if (e.status === 429) throw e; }
+  // Couldn't get the list: keep what we had and try again in an hour
+  await kvPut(env, 'tagnames', { t: Date.now() - 30 * DAY + 3600000, m: (c && c.m) || {} });
+  return (c && c.m) || {};
+}
+
 /* ---------- Art ----------
    Steam's newer art lives at hashed paths, so the filename has to be
    looked up rather than guessed. GetItems returns it in batches. */
@@ -225,14 +253,14 @@ async function steamArt(net, ids) {
     const chunk = ids.slice(i, i + 50);
     if (net.left() < 1) break;
     try {
-      const input = { ids: chunk.map(appid => ({ appid })), context: { language: 'english', country_code: 'US' }, data_request: { include_assets: true, include_basic_info: true } };
+      const input = { ids: chunk.map(appid => ({ appid })), context: { language: 'english', country_code: 'US' }, data_request: { include_assets: true, include_basic_info: true, include_tag_count: 12 } };
       const { j } = await net.get('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input)));
-      for (const id of chunk) out[id] = { cover: '', hero: '', header: '' }; // asked, even if Steam has nothing
+      for (const id of chunk) out[id] = { cover: '', hero: '', header: '', asked: true, tagids: [] }; // asked, even if Steam has nothing
       for (const it of (j && j.response && j.response.store_items) || []) {
         const a = it.assets;
         const u = f => f && a && a.asset_url_format ? ASSET_BASE + a.asset_url_format.replace('${FILENAME}', f) : '';
         out[it.appid] = {
-          type: it.type, name: it.name,
+          type: it.type, name: it.name, asked: true, tagids: tagIdsOf(it),
           cover: u(a && (a.library_capsule_2x || a.library_capsule)),
           hero: u(a && (a.library_hero_2x || a.library_hero)),
           header: u(a && a.header)
@@ -293,9 +321,9 @@ async function getLib(env, net, maxAge) {
 
   const prev = {};
   for (const g of (lib && lib.games) || []) prev[g.id] = g;
-  const newIds = owned.map(g => g.appid).filter(id => !prev[id] || !prev[id].artDone);
+  const newIds = owned.map(g => g.appid).filter(id => !prev[id] || !prev[id].artDone || prev[id].tagV !== TAG_V);
   const art = newIds.length ? await steamArt(net, newIds) : {};
-  const noArt = newIds.filter(id => !(art[id] && (art[id].cover || art[id].header)));
+  const noArt = newIds.filter(id => !(prev[id] && prev[id].artDone) && !(art[id] && (art[id].cover || art[id].header)));
   const hdr = noArt.length ? await headerFallback(net, noArt, 8) : {};
 
   const games = owned.map(o => {
@@ -312,11 +340,14 @@ async function getLib(env, net, maxAge) {
       header: (a && a.header) || hdr[o.appid] || p.header || '',
       artDone: !!(p.artDone || (a && (a.cover || a.header)) || o.appid in hdr)
     };
+    if (a && a.asked) { g.tagids = a.tagids || []; g.tagV = TAG_V; }
+    else if (p.tagV === TAG_V) { g.tagids = p.tagids || []; g.tagV = TAG_V; }
     return g;
   });
+  if (games.some(g => g.tagids && g.tagids.length)) await tagNames(env, net);
   const next = { t: Date.now(), games };
   // Only write when something changed, to save KV writes
-  const sig = x => (x.games || []).map(g => [g.id, g.minutes, g.lastPlayed, g.artDone ? 1 : 0].join(':')).join('|');
+  const sig = x => (x.games || []).map(g => [g.id, g.minutes, g.lastPlayed, g.artDone ? 1 : 0, g.tagV === TAG_V ? 1 : 0].join(':')).join('|');
   if (!lib || sig(lib) !== sig(next) || Date.now() - lib.t > 6 * HOUR) await kvPut(env, 'lib', next);
   return next;
 }
@@ -820,7 +851,7 @@ async function runBatch(env, why) {
 }
 
 async function summary(env) {
-  const [idx, meta, lib] = await Promise.all([kvJSON(env, 'idx'), kvJSON(env, 'meta'), kvJSON(env, 'lib')]);
+  const [idx, meta, lib, tn] = await Promise.all([kvJSON(env, 'idx'), kvJSON(env, 'meta'), kvJSON(env, 'lib'), kvJSON(env, 'tagnames')]);
   const games = ((lib && lib.games) || []).filter(g => !isDemo(g));
   const I = idx || {};
   const out = {};
@@ -831,12 +862,14 @@ async function summary(env) {
     if (KINDS.every(k => e[k])) ready++;
     out[g.id] = { ach: e.at === undefined ? null : { total: e.at, done: e.ad, last: e.al || null }, news: e.nd || [], noStore: !!e.se, rv: e.rv || null, mc: e.mc || null };
   }
+  const names = (tn && tn.m) || {}, tags = {};
+  for (const g of games) { const t = (g.tagids || []).map(id => names[id]).filter(Boolean).slice(0, 10); if (t.length) tags[g.id] = t; }
   const M = meta || {};
   return {
     owned: games.length, ready, left: M.left === undefined ? null : M.left,
     lastRun: M.lastRun || 0, lastCron: M.lastCron || 0, lastErr: M.lastErr || '',
     paused: M.pauseUntil && M.pauseUntil > Date.now() ? M.pauseUntil : 0,
-    games: out
+    games: out, tags
   };
 }
 

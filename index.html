@@ -1217,6 +1217,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.10-c', note:'VIBES FOR WHAT TO PLAY NEXT: Steam\u2019s own tags (Open World, Story Rich, Cozy, Co-op...) now reach the app. What to play next gets a third row of vibes: Chill, Story, Action, Big world and With friends. The picked game shows its top tags, and the reason list says which tag matched. This needs the updated Worker (it asks Steam for tags with the cover lookup it already does, plus one tag list kept for 30 days). Until the Worker has run, the vibe row stays hidden. Games you already own are filled in over the next few library refreshes. Console games have no tags yet.'},
   {v:'2026.11.10-b', note:'METACRITIC SCORES: Steam games now show their Metacritic critic score on the Library cover (top right, green 75 and up, yellow 50 to 74, red below), next to your score and Steam\u2019s review score. It also appears on the game page and in Game Mode, and the Library has a new Metacritic sort. Only games Steam links to Metacritic have one, and console games don\u2019t get a Metacritic score. Your Worker needs the updated gamelog-sync.js; scores fill in on their own within a few minutes of deploying.'},
   {v:'2026.11.10-a', note:'WHAT TO PLAY NEXT: Continue has a new picker under your current game. Tell it how long you have (quick hour, evening, weekend) and what you feel like (finish something, something new, a comfort pick) and it gives you one game with the reasons it picked it, plus two runners-up. Not tonight skips to the next one. It weighs how close each game is to your finish line, minutes left when a Goals pack has estimates, your own score, Steam reviews for untouched backlog games, open missables, DLC coming soon and how long you\u2019ve been away. Ongoing live-service games stay in their own section and are not picked. Everything is worked out on your device, so it needs no Worker change and costs nothing. Your time and mood choices are remembered on each device.'},
   {v:'2026.11.09-c', note:'TRAILERS PLAY IN THE APP: on a console game\u2019s About tab, tapping a trailer now plays it right there with YouTube\u2019s own player instead of opening YouTube in a new tab. YouTube chooses the quality (bigger player, better picture) and decides about ads, and neither can be forced from here; a signed-in YouTube Premium account is recognised. If a publisher has turned embedding off, the player says so and the Open on YouTube link under it takes you there.'},
@@ -2825,12 +2826,20 @@ function renderContinue(){
 const NU_KEY = 'gamelog_nu';
 const NU_TIMES = [[0, 'Any'], [60, 'Quick · 1 hr'], [150, 'Evening · 2–3 hrs'], [360, 'Weekend · 5+ hrs']];
 const NU_MOODS = [['any', 'Anything'], ['finish', 'Finish something'], ['fresh', 'Something new'], ['comfort', 'Comfort pick']];
+/* Vibes come from Steam's own user tags, so they only show once the Worker has sent tags */
+const NU_VIBES = [['any', 'Any vibe', []],
+  ['chill', 'Chill', ['relaxing', 'cozy', 'casual', 'wholesome', 'farming sim', 'life sim', 'puzzle', 'cute', 'city builder']],
+  ['story', 'Story', ['story rich', 'narrative', 'choices matter', 'cinematic', 'visual novel', 'interactive fiction', 'detective', 'mystery']],
+  ['action', 'Action', ['action', 'fast-paced', 'hack and slash', 'shooter', 'souls-like', 'difficult', 'action rpg', 'character action game', 'fps']],
+  ['world', 'Big world', ['open world', 'exploration', 'sandbox', 'open world survival craft']],
+  ['social', 'With friends', ['multiplayer', 'co-op', 'online co-op', 'local co-op', 'pvp', 'team-based']]];
+const tagsOf = g => (g.steamId && steamSum.tags && steamSum.tags[g.steamId]) || [];
 const nu = (() => {
-  const d = {mins: 0, mood: 'any', skip: [], ids: []};
-  try { const o = JSON.parse(localStorage.getItem(NU_KEY)) || {}; if (NU_TIMES.some(t => t[0] === o.mins)) d.mins = o.mins; if (NU_MOODS.some(m => m[0] === o.mood)) d.mood = o.mood; } catch(e) {}
+  const d = {mins: 0, mood: 'any', vibe: 'any', skip: [], ids: []};
+  try { const o = JSON.parse(localStorage.getItem(NU_KEY)) || {}; if (NU_TIMES.some(t => t[0] === o.mins)) d.mins = o.mins; if (NU_MOODS.some(m => m[0] === o.mood)) d.mood = o.mood; if (NU_VIBES.some(v => v[0] === o.vibe)) d.vibe = o.vibe; } catch(e) {}
   return d;
 })();
-const nuSave = () => { try { localStorage.setItem(NU_KEY, JSON.stringify({mins: nu.mins, mood: nu.mood})); } catch(e) {} };
+const nuSave = () => { try { localStorage.setItem(NU_KEY, JSON.stringify({mins: nu.mins, mood: nu.mood, vibe: nu.vibe})); } catch(e) {} };
 
 /* Minutes left to the finish line, only when every counted goal has an estimate */
 function leftMins(g){
@@ -2842,11 +2851,17 @@ function leftMins(g){
 const fmtLeft = m => m < 90 ? `${Math.max(5, Math.round(m / 5) * 5)} min` : `${(m / 60).toFixed(1).replace(/\.0$/, '')} hrs`;
 
 /* Score one game for the chosen time and mood. Returns null if it doesn't belong. */
-function nuScore(g, mins, mood){
+function nuScore(g, mins, mood, vibe){
   const st = stats(g), left = leftMins(g), away = g.lastPlayed ? awayDays(g) : 0, rv = revOf(g);
   const started = !!g.lastPlayed || g.hours > 0 || st.done > 0;
   const pc = st.pct, why = [];
   const add = (w, t) => why.push([w, t]);
+  const vib = vibe && vibe !== 'any' ? NU_VIBES.find(v => v[0] === vibe) : null;
+  if (vib) {
+    const hit = tagsOf(g).find(t => vib[2].includes(t.toLowerCase()));
+    if (!hit) return null;
+    add(3, `Tagged ${hit} on Steam`);
+  }
   let s;
   if (mood === 'comfort') {
     if (g.rating < 8 || ['dropped', 'shelved', 'ongoing'].includes(g.status)) return null;
@@ -2884,7 +2899,7 @@ function nuWhy(why){
   return top.length ? top : ['It fits what you asked for'];
 }
 function nuRank(featured){
-  return state.games.filter(g => g !== featured).map(g => nuScore(g, nu.mins, nu.mood)).filter(Boolean)
+  return state.games.filter(g => g !== featured).map(g => nuScore(g, nu.mins, nu.mood, nu.vibe)).filter(Boolean)
     .sort((a, b) => b.s - a.s || a.g.title.localeCompare(b.g.title));
 }
 
@@ -2894,9 +2909,10 @@ function nextUpHTML(featured){
   const live = ranked.filter(r => !nu.skip.includes(r.g.id));
   const top = live[0], also = live.slice(1, 3);
   const seg = (items, cur, act, key) => `<div class="seg" role="group">${items.map(([v, l]) => `<button class="${cur === v ? 'on' : ''}" data-act="${act}" data-${key}="${v}" aria-pressed="${cur === v}">${esc(l)}</button>`).join('')}</div>`;
-  const tools = `<div class="nutools">${seg(NU_TIMES, nu.mins, 'nu-time', 'm')}${seg(NU_MOODS, nu.mood, 'nu-mood', 'v')}</div>`;
+  const hasTags = !!(steamSum.tags && Object.keys(steamSum.tags).length);
+  const tools = `<div class="nutools">${seg(NU_TIMES, nu.mins, 'nu-time', 'm')}${seg(NU_MOODS, nu.mood, 'nu-mood', 'v')}${hasTags ? seg(NU_VIBES, nu.vibe, 'nu-vibe', 'v') : ''}</div>`;
   if (!top) return `<section class="nu" aria-label="What to play next"><h2 class="h2">What to play next</h2>${tools}
-    <div class="empty"><b>Nothing fits that mood</b>${nu.mood === 'comfort' ? 'Comfort picks come from games you scored 8 or higher.' : nu.mood === 'fresh' ? 'No untouched backlog games left.' : 'Try another mood.'}</div></section>`;
+    <div class="empty"><b>Nothing fits that mood</b>${nu.vibe !== 'any' ? 'No game with that vibe fits the rest of what you picked. Try Any vibe.' : nu.mood === 'comfort' ? 'Comfort picks come from games you scored 8 or higher.' : nu.mood === 'fresh' ? 'No untouched backlog games left.' : 'Try another mood.'}</div></section>`;
   const g = top.g, st = stats(g);
   const play = playBtn(g).replace('data-act="launch"', `data-act="launch" data-game="${g.id}"`);
   return `<section class="nu" aria-label="What to play next">
@@ -2906,7 +2922,7 @@ function nextUpHTML(featured){
       <button class="slot" data-act="open" data-id="${g.id}" aria-label="Open ${esc(g.title)}">${coverHTML(g, {score: true})}</button>
       <div>
         <h3>${esc(g.title)}</h3>
-        <div class="nsub"><span>${statusLabel(g)}</span>${g.lastPlayed ? `<span>${esc(since(g.lastPlayed))}</span>` : ''}${st.total && g.status !== 'done' ? `<span>${st.pct}% to finish</span>` : ''}</div>
+        <div class="nsub"><span>${statusLabel(g)}</span>${g.lastPlayed ? `<span>${esc(since(g.lastPlayed))}</span>` : ''}${st.total && g.status !== 'done' ? `<span>${st.pct}% to finish</span>` : ''}${tagsOf(g).slice(0, 3).map(t => `<span>${esc(t)}</span>`).join('')}</div>
         <ul class="nuwhy">${top.why.map(w => `<li>${esc(w)}</li>`).join('')}</ul>
         <div class="actions" data-game="${g.id}" style="margin-top:0">
           ${play}
@@ -3965,6 +3981,7 @@ document.addEventListener('click', e => {
     case 'filter': view.filter = el.dataset.f; render(); break;
     case 'lib-view': view.lib = el.dataset.v === 'wish' ? 'wish' : 'games'; render(); if (view.lib === 'wish') fetchWish(); break;
     case 'nu-time': nu.mins = +el.dataset.m || 0; nu.skip = []; nuSave(); render(); break;
+    case 'nu-vibe': nu.vibe = el.dataset.v; nu.skip = []; nuSave(); render(); break;
     case 'nu-mood': nu.mood = el.dataset.v; nu.skip = []; nuSave(); render(); break;
     case 'nu-skip': nu.skip.push(el.dataset.id); if (nu.ids.every(i => nu.skip.includes(i))) { nu.skip = []; toast('That was the whole list, starting over'); } render(); break;
     case 'wish-refresh': fetchWish(true); break;
