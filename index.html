@@ -146,6 +146,21 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .seg button.on{background:var(--paper);color:var(--night);font-weight:700}
 .seg button .n{opacity:.6;margin-left:4px;font-variant-numeric:tabular-nums}
 
+/* Next Up */
+.nu{margin:0 0 44px}
+.nutools{display:flex;flex-wrap:wrap;gap:10px 16px;margin:0 0 16px}
+.nucard{display:grid;grid-template-columns:minmax(110px,160px) 1fr;gap:clamp(16px,2.4vw,28px);background:var(--deep);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:clamp(14px,2vw,22px)}
+.nucard h3{margin:0 0 6px;font-size:22px;font-weight:700;letter-spacing:-.005em}
+.nsub{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--mist);font-size:14px;margin:0 0 14px}
+.nuwhy{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:7px}
+.nuwhy li{position:relative;padding-left:20px;line-height:1.4}
+.nuwhy li::before{content:'';position:absolute;left:2px;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.nualso{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:12px}
+.nualso button{display:flex;flex-direction:column;gap:3px;text-align:left;background:var(--deep);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:12px 14px;color:var(--paper)}
+.nualso button:hover{background:var(--raise)}
+.nualso button span{color:var(--mist);font-size:13px}
+@media (max-width:640px){.nucard{grid-template-columns:minmax(90px,120px) 1fr}.nucard h3{font-size:19px}}
+
 /* Checklist */
 .checks{list-style:none;margin:0;padding:0}
 .checks li{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line-soft)}
@@ -1200,6 +1215,7 @@ a.tl{text-decoration:none}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.10-a', note:'WHAT TO PLAY NEXT: Continue has a new picker under your current game. Tell it how long you have (quick hour, evening, weekend) and what you feel like (finish something, something new, a comfort pick) and it gives you one game with the reasons it picked it, plus two runners-up. Not tonight skips to the next one. It weighs how close each game is to your finish line, minutes left when a Goals pack has estimates, your own score, Steam reviews for untouched backlog games, open missables, DLC coming soon and how long you\u2019ve been away. Ongoing live-service games stay in their own section and are not picked. Everything is worked out on your device, so it needs no Worker change and costs nothing. Your time and mood choices are remembered on each device.'},
   {v:'2026.11.09-c', note:'TRAILERS PLAY IN THE APP: on a console game\u2019s About tab, tapping a trailer now plays it right there with YouTube\u2019s own player instead of opening YouTube in a new tab. YouTube chooses the quality (bigger player, better picture) and decides about ads, and neither can be forced from here; a signed-in YouTube Premium account is recognised. If a publisher has turned embedding off, the player says so and the Open on YouTube link under it takes you there.'},
   {v:'2026.11.09-b', note:'CONSOLE GAMES: Library has a new Add console game button. It searches IGDB through your Worker, you tap the platform you own the game on, and it arrives with its cover and art. Console games get an About tab with the summary, release date, developer, genres, rating, trailer and screenshots. The Legend of Zelda: Ocarina of Time on Switch 2 comes with a Goals checklist ticked by hand: the main story, side content and optional dungeons, songs, 36 Heart Pieces, 100 Gold Skulltulas with the House of Skulltula rewards, and equipment. Those lists follow the original game, and the remake\u2019s own totals and locations are not confirmed yet, so every entry is marked unsourced. Goals packs can now attach by platform and title as well as by Steam id. For the server side, add IGDB_CLIENT_ID and IGDB_CLIENT_SECRET as secrets on the Worker; the updated gamelog-sync.js deploys from GitHub.'},
   {v:'2026.11.09-a', note:'SCREENSHOTS CLEAN UP AFTER THEMSELVES: once the reader on your PC has read a menu screenshot and sent the numbers to Game Log, it deletes the picture (and Steam\u2019s thumbnail of it), so F12 shots don\u2019t pile up. It only deletes ones it read successfully. Pictures it couldn\u2019t read, that weren\u2019t a screen Game Log tracks, or that failed to send are kept, and so are all your older screenshots. To keep everything, add \"keepShots\": true to gamelog-reader.json. Copy the new gamelog_reader.py into your reader folder to get it.'},
@@ -2711,7 +2727,7 @@ function renderContinue(){
   const pool = state.games.filter(g => inProgress(g) || liveShown(g) || g === nowG).sort((a, b) => playedKey(b) - playedKey(a));
   if (!pool.length) return `<div class="page">
     <h1 class="h1">Continue</h1><p class="lede">Games you're playing or have paused show up here with your save point, so coming back is easy. Live service games go here too once they are set to Ongoing.</p>
-    <div class="empty"><b>Nothing in progress</b>Open a game in your library and set it to Playing, Paused or Ongoing.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="library">Go to library</button></div></div></div>`;
+    <div class="empty"><b>Nothing in progress</b>Open a game in your library and set it to Playing, Paused or Ongoing.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="library">Go to library</button></div></div>${nextUpHTML(null)}</div>`;
   const today = localDate();
   const wishUp = ((wish && wish.items) || []).map(x => ({x, date:wishDay(x)})).filter(o => o.date && o.date >= today && daysBetween(today, o.date) <= 60);
   const allUp = [...state.games.flatMap(g => upcoming(g).map(r => ({g, r, date:r.date}))), ...wishUp].sort((a,b) => a.date.localeCompare(b.date));
@@ -2775,12 +2791,116 @@ function renderContinue(){
       </div>
     </section>
 
+    ${nextUpHTML(f)}
+
     ${restPlay.length ? `<h2 class="h2">Also in progress</h2><div class="shelf" style="margin-bottom:44px">${restPlay.map(slot).join('')}</div>` : ''}
 
     ${liveSection}
 
     ${upSection}
   </div>`;
+}
+
+/* ---------- Next Up ----------
+   Ranks what to play next from what the app already knows: status, how close a
+   game is to your finish line, minutes left (packs only), your own score, Steam
+   reviews, open missables, DLC on the way and how long you've been away.
+   Worked out on this device. Your time and mood choices are kept per device. */
+const NU_KEY = 'gamelog_nu';
+const NU_TIMES = [[0, 'Any'], [60, 'Quick · 1 hr'], [150, 'Evening · 2–3 hrs'], [360, 'Weekend · 5+ hrs']];
+const NU_MOODS = [['any', 'Anything'], ['finish', 'Finish something'], ['fresh', 'Something new'], ['comfort', 'Comfort pick']];
+const nu = (() => {
+  const d = {mins: 0, mood: 'any', skip: [], ids: []};
+  try { const o = JSON.parse(localStorage.getItem(NU_KEY)) || {}; if (NU_TIMES.some(t => t[0] === o.mins)) d.mins = o.mins; if (NU_MOODS.some(m => m[0] === o.mood)) d.mood = o.mood; } catch(e) {}
+  return d;
+})();
+const nuSave = () => { try { localStorage.setItem(NU_KEY, JSON.stringify({mins: nu.mins, mood: nu.mood})); } catch(e) {} };
+
+/* Minutes left to the finish line, only when every counted goal has an estimate */
+function leftMins(g){
+  const S = g.goals && g.goals.sum; if (!S || g.finish === 'shelved') return null;
+  const tabs = S.order.map(id => S.tabs[id]).filter(t => t && t.n && countsTab(g, t.tier));
+  if (!tabs.length || !tabs.every(t => t.timed)) return null;
+  return Math.max(0, tabs.reduce((a, t) => a + t.w - t.wd - t.wa, 0));
+}
+const fmtLeft = m => m < 90 ? `${Math.max(5, Math.round(m / 5) * 5)} min` : `${(m / 60).toFixed(1).replace(/\.0$/, '')} hrs`;
+
+/* Score one game for the chosen time and mood. Returns null if it doesn't belong. */
+function nuScore(g, mins, mood){
+  const st = stats(g), left = leftMins(g), away = g.lastPlayed ? awayDays(g) : 0, rv = revOf(g);
+  const started = !!g.lastPlayed || g.hours > 0 || st.done > 0;
+  const pc = st.pct, why = [];
+  const add = (w, t) => why.push([w, t]);
+  let s;
+  if (mood === 'comfort') {
+    if (g.rating < 8 || ['dropped', 'shelved', 'ongoing'].includes(g.status)) return null;
+    s = g.rating * 5 + (g.status === 'done' ? 6 : 0);
+    add(g.rating, `You rated it ${g.rating}/10`);
+    if (g.lastPlayed && away >= 30) { s += 8; add(8, `It's been ${awayText(away)} since you played it`); }
+    if (g.status === 'done') add(1, 'Already finished, so no loose ends');
+    return {g, s, why: nuWhy(why)};
+  }
+  if (!['playing', 'paused', 'backlog'].includes(g.status)) return null;
+  if (mood === 'finish' && !(inProgress(g) && started)) return null;
+  if (mood === 'fresh' && !(g.status === 'backlog' && !started)) return null;
+  s = {playing: 30, paused: 22, backlog: 10}[g.status];
+  if (st.total && pc >= 50) { const w = Math.round((pc - 40) * .5); s += w; add(w, `${pc}% of the way to your finish line`); }
+  if (left != null && left > 0) {
+    const cap = mins || 180;
+    if (left <= cap) { s += 22; add(22, `About ${fmtLeft(left)} left to finish`); }
+    else if (mins >= 360 && left >= 240) { s += 8; add(8, `${fmtLeft(left)} left, a real stretch to sink into`); }
+  }
+  if (mood === 'finish') s += Math.round(pc * .3);
+  if (inProgress(g) && g.lastPlayed && away <= 14) { s += 8; add(8, 'Played recently, so it\'s still fresh'); }
+  else if (onBreak(g)) { if (mins && mins <= 60) s -= 10; add(0, `${awayText(away)} away, a Welcome back kit is ready`); }
+  if (g.rating >= 7) { const w = (g.rating - 6) * 2; s += w; add(w, `You rated it ${g.rating}/10`); }
+  if (rv && rv[0] >= 80 && g.status === 'backlog' && !started) { const w = Math.round((rv[0] - 70) * .5); s += w; add(w, `${rv[0]}% positive on Steam`); }
+  const rel = inProgress(g) ? upcoming(g)[0] : null;
+  if (rel && daysBetween(localDate(), rel.date) <= 45) { s += 14; add(14, `${rel.name} ${countdown(rel.date).toLowerCase()}`); }
+  const miss = inProgress(g) ? openMissables(g) : 0;
+  if (miss > 0) { const w = Math.min(3, miss) * 3; s += w; add(w, `${miss} missable${miss > 1 ? 's' : ''} still open`); }
+  if (g.status === 'backlog' && !started) add(0, 'Untouched in your backlog');
+  return {g, s, why: nuWhy(why)};
+}
+/* The two or three reasons that counted most, then plain filler if there are none */
+function nuWhy(why){
+  const top = why.slice().sort((a, b) => b[0] - a[0]).slice(0, 3).map(x => x[1]);
+  return top.length ? top : ['It fits what you asked for'];
+}
+function nuRank(featured){
+  return state.games.filter(g => g !== featured).map(g => nuScore(g, nu.mins, nu.mood)).filter(Boolean)
+    .sort((a, b) => b.s - a.s || a.g.title.localeCompare(b.g.title));
+}
+
+function nextUpHTML(featured){
+  const ranked = nuRank(featured);
+  nu.ids = ranked.map(r => r.g.id);
+  const live = ranked.filter(r => !nu.skip.includes(r.g.id));
+  const top = live[0], also = live.slice(1, 3);
+  const seg = (items, cur, act, key) => `<div class="seg" role="group">${items.map(([v, l]) => `<button class="${cur === v ? 'on' : ''}" data-act="${act}" data-${key}="${v}" aria-pressed="${cur === v}">${esc(l)}</button>`).join('')}</div>`;
+  const tools = `<div class="nutools">${seg(NU_TIMES, nu.mins, 'nu-time', 'm')}${seg(NU_MOODS, nu.mood, 'nu-mood', 'v')}</div>`;
+  if (!top) return `<section class="nu" aria-label="What to play next"><h2 class="h2">What to play next</h2>${tools}
+    <div class="empty"><b>Nothing fits that mood</b>${nu.mood === 'comfort' ? 'Comfort picks come from games you scored 8 or higher.' : nu.mood === 'fresh' ? 'No untouched backlog games left.' : 'Try another mood.'}</div></section>`;
+  const g = top.g, st = stats(g);
+  const play = playBtn(g).replace('data-act="launch"', `data-act="launch" data-game="${g.id}"`);
+  return `<section class="nu" aria-label="What to play next">
+    <h2 class="h2">What to play next</h2>
+    ${tools}
+    <div class="nucard">
+      <button class="slot" data-act="open" data-id="${g.id}" aria-label="Open ${esc(g.title)}">${coverHTML(g, {score: true})}</button>
+      <div>
+        <h3>${esc(g.title)}</h3>
+        <div class="nsub"><span>${statusLabel(g)}</span>${g.lastPlayed ? `<span>${esc(since(g.lastPlayed))}</span>` : ''}${st.total && g.status !== 'done' ? `<span>${st.pct}% to finish</span>` : ''}</div>
+        <ul class="nuwhy">${top.why.map(w => `<li>${esc(w)}</li>`).join('')}</ul>
+        <div class="actions" data-game="${g.id}" style="margin-top:0">
+          ${play}
+          <button class="btn ${play ? 'quiet' : ''}" data-act="open" data-id="${g.id}">Open game</button>
+          <button class="btn quiet" data-act="nu-skip" data-id="${g.id}">Not tonight</button>
+        </div>
+      </div>
+    </div>
+    ${also.length ? `<div class="nualso">${also.map(r => `<button data-act="open" data-id="${r.g.id}"><b>${esc(r.g.title)}</b><span>${esc(r.why[0])}</span></button>`).join('')}</div>` : ''}
+  </section>`;
 }
 
 function cardPlay(g){
@@ -3826,6 +3946,9 @@ document.addEventListener('click', e => {
     case 'section': view.section = el.dataset.s; view.art = null; render(); if (el.dataset.s === 'achievements' && g) fetchAch(g); if (el.dataset.s === 'news' && g) enterNews(g); if (el.dataset.s === 'store' && g) { view.storeMore = false; fetchStore(g); } break;
     case 'filter': view.filter = el.dataset.f; render(); break;
     case 'lib-view': view.lib = el.dataset.v === 'wish' ? 'wish' : 'games'; render(); if (view.lib === 'wish') fetchWish(); break;
+    case 'nu-time': nu.mins = +el.dataset.m || 0; nu.skip = []; nuSave(); render(); break;
+    case 'nu-mood': nu.mood = el.dataset.v; nu.skip = []; nuSave(); render(); break;
+    case 'nu-skip': nu.skip.push(el.dataset.id); if (nu.ids.every(i => nu.skip.includes(i))) { nu.skip = []; toast('That was the whole list, starting over'); } render(); break;
     case 'wish-refresh': fetchWish(true); break;
     case 'goal': {
       const cur = goalSt(g, el.dataset.tab, el.dataset.id), before = stats(g).pct;
