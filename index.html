@@ -1366,6 +1366,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.11-g', note:'CURRENT STEAM LOGOS: the Worker now also fetches the logo Steam\u2019s own library uses for each game, and Game Log tries that one first before its older guesses. Games pick it up the next time Steam syncs, so a game that still showed an outdated logo (like Hades II\u2019s Early Access one) can be switched to Always the logo under Title style once it has refreshed.'},
   {v:'2026.11.11-f', note:'TITLE FIXES: the logo on a game’s page no longer flickers in three or four times when you open it. It fades in once, and the screen redrawing as Steam data arrives leaves it alone. A logo that is only a symbol with no name (Deadlock’s wheel) now shows the game’s name as text instead, and Hades II shows its text title because Steam’s old logo still says Early Access. A new Title style setting under a game’s Details (Review tab) lets you pick the logo or plain text for any Steam game.'},
   {v:'2026.11.11-e', note:'TIDIER GAME PAGE: the top of a game now lines up on one left edge. The title, Steam score and controller badges sit above, then the cover sits beside the Play button and status, with three even cards under them: Completion, Achievements and Your rating. A game with no finish line shows its status and a Set finish line link instead of an empty 0% ring, and only Achievements keeps a ring. The section tabs now start under the content, and the ones you use least (Missables, What’s new, Store page, Releases) tuck behind a More tab, with the one you have open always shown.'},
   {v:'2026.11.11-d', note:'CONTROLLER BADGES EVERYWHERE: the Controller recommended, Full or Partial controller and DualSense badges now also show at the top of a game once you open it from the Library, on the big Continue game, and in Game Mode. Game Log remembers each game\u2019s controller details after its Steam page has loaded once, and quietly loads it for a game it hasn\u2019t seen yet, so the badges fill in by themselves.'},
@@ -1532,7 +1533,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d ? new Date(d + 'T00:00').toLocaleDateString(undefined, opts) : '';
 
 function blankGame(title){
-  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', titleArt:'', steamId:0, igdbId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
+  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', steamLogo:'', titleArt:'', steamId:0, igdbId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
     content:'', finish:'', goals:null,
     note:{where:'', next:'', recap:'', setup:''}, review:'', wbSeen:'',
     wrap:{enough:false, why:'', best:'', back:'', keep:''},
@@ -1819,6 +1820,7 @@ async function importSteam(all = false){
         if (last > (g.lastPlayed || '')) { g.lastPlayed = last; g.lastPlayedAt = lastAt; }
         else if (last && last === g.lastPlayed && lastAt > (g.lastPlayedAt || 0)) g.lastPlayedAt = lastAt;
         if (!g.cover && (s.cover || s.header)) applyArt(g, s);
+        if (/^https:\/\//.test(s.logo || '') && g.steamLogo !== s.logo) g.steamLogo = s.logo;
         updated++;
       } else {
         g = blankGame(s.name);
@@ -1846,7 +1848,7 @@ async function importSteam(all = false){
   importing = false; render();
 }
 function applyArt(g, res){
-  g.cover = res.cover || res.header || ''; g.hero = res.hero || ''; g.steamId = res.id; g.artTried = true;
+  g.cover = res.cover || res.header || ''; g.hero = res.hero || ''; g.steamLogo = /^https:\/\//.test(res.logo || '') ? res.logo : g.steamLogo || ''; g.steamId = res.id; g.artTried = true;
 }
 /* ---------- Achievements ----------
    The full list is cached on this device only (it's re-fetchable from Steam
@@ -4116,7 +4118,7 @@ function pane(k){
    Newer games keep it in a hashed folder, so try the hero's folder first,
    then the plain one; whichever loads is remembered on this device so the
    next visit shows it straight away. No logo anywhere → the text title. */
-const LOGO_KEY = 'gamelog_logos_v1';
+const LOGO_KEY = 'gamelog_logos_v2';   // v2: searched again once the Worker started sending Steam\'s current logo
 const logoMemo = (() => { try { return JSON.parse(localStorage.getItem(LOGO_KEY)) || {}; } catch(e) { return {}; } })();
 /* Logo guesses that 404'd (or were a symbol) this session. The page redraws a few times while Steam
    data arrives, and each redraw used to start the search again from the first guess. */
@@ -4129,10 +4131,11 @@ function logoCandidates(g){
   if (!g.steamId) return [];
   const base = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${g.steamId}/`;
   const dirs = [];
+  const cur = /^https:\/\//.test(g.steamLogo || '') ? [g.steamLogo] : [];   // the logo Steam's library uses now
   const m = String(g.hero || '').match(/^(https:\/\/[^?#]*\/steam\/apps\/\d+\/(?:[^/?#]+\/)?)[^/?#]+$/);
   if (m && m[1] !== base) dirs.push(m[1]);
   dirs.push(base);
-  return dirs.flatMap(d => [d + 'logo_2x.png', d + 'logo.png']);
+  return cur.concat(dirs.flatMap(d => [d + 'logo_2x.png', d + 'logo.png']));
 }
 function titleArt(g, tag = 'h1', cls = ''){
   const text = `<span class="cf-tt">${esc(g.title)}</span>`;

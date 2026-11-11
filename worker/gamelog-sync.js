@@ -222,6 +222,7 @@ const kvPut = (env, key, val) => env.STATE.put(key, JSON.stringify(val));
    days. TAG_V marks games whose tags have been asked for: bump it to ask
    again. Used for the app's mood filter. */
 const TAG_V = 1;
+const LOGO_V = 1;   // bump to make every cached game fetch its title logo again (one-time, like TAG_V for tags)
 const tagIdsOf = it => (Array.isArray(it.tagids) ? it.tagids : Array.isArray(it.tags) ? it.tags.map(t => t && t.tagid) : [])
   .filter(n => Number.isInteger(n)).slice(0, 12);
 
@@ -255,7 +256,7 @@ async function steamArt(net, ids) {
     try {
       const input = { ids: chunk.map(appid => ({ appid })), context: { language: 'english', country_code: 'US' }, data_request: { include_assets: true, include_basic_info: true, include_tag_count: 12 } };
       const { j } = await net.get('https://api.steampowered.com/IStoreBrowseService/GetItems/v1?input_json=' + encodeURIComponent(JSON.stringify(input)));
-      for (const id of chunk) out[id] = { cover: '', hero: '', header: '', asked: true, tagids: [] }; // asked, even if Steam has nothing
+      for (const id of chunk) out[id] = { cover: '', hero: '', header: '', logo: '', asked: true, tagids: [] }; // asked, even if Steam has nothing
       for (const it of (j && j.response && j.response.store_items) || []) {
         const a = it.assets;
         const u = f => f && a && a.asset_url_format ? ASSET_BASE + a.asset_url_format.replace('${FILENAME}', f) : '';
@@ -263,6 +264,8 @@ async function steamArt(net, ids) {
           type: it.type, name: it.name, asked: true, tagids: tagIdsOf(it),
           cover: u(a && (a.library_capsule_2x || a.library_capsule)),
           hero: u(a && (a.library_hero_2x || a.library_hero)),
+          // the transparent title logo Steam's own library shows; current, unlike the old plain-path logo.png
+          logo: u(a && (a.library_logo_2x || a.library_logo)),
           header: u(a && a.header)
         };
       }
@@ -321,7 +324,7 @@ async function getLib(env, net, maxAge) {
 
   const prev = {};
   for (const g of (lib && lib.games) || []) prev[g.id] = g;
-  const newIds = owned.map(g => g.appid).filter(id => !prev[id] || !prev[id].artDone || prev[id].tagV !== TAG_V);
+  const newIds = owned.map(g => g.appid).filter(id => !prev[id] || !prev[id].artDone || prev[id].tagV !== TAG_V || prev[id].logoV !== LOGO_V);
   const art = newIds.length ? await steamArt(net, newIds) : {};
   const noArt = newIds.filter(id => !(prev[id] && prev[id].artDone) && !(art[id] && (art[id].cover || art[id].header)));
   const hdr = noArt.length ? await headerFallback(net, noArt, 8) : {};
@@ -338,8 +341,10 @@ async function getLib(env, net, maxAge) {
       cover: (a && a.cover) || p.cover || '',
       hero: (a && a.hero) || p.hero || '',
       header: (a && a.header) || hdr[o.appid] || p.header || '',
+      logo: (a && a.logo) || p.logo || '',
       artDone: !!(p.artDone || (a && (a.cover || a.header)) || o.appid in hdr)
     };
+    if ((a && a.asked) || p.logoV === LOGO_V) g.logoV = LOGO_V;
     if (a && a.asked) { g.tagids = a.tagids || []; g.tagV = TAG_V; }
     else if (p.tagV === TAG_V) { g.tagids = p.tagids || []; g.tagV = TAG_V; }
     return g;
@@ -347,12 +352,12 @@ async function getLib(env, net, maxAge) {
   if (games.some(g => g.tagids && g.tagids.length)) await tagNames(env, net);
   const next = { t: Date.now(), games };
   // Only write when something changed, to save KV writes
-  const sig = x => (x.games || []).map(g => [g.id, g.minutes, g.lastPlayed, g.artDone ? 1 : 0, g.tagV === TAG_V ? 1 : 0].join(':')).join('|');
+  const sig = x => (x.games || []).map(g => [g.id, g.minutes, g.lastPlayed, g.artDone ? 1 : 0, g.tagV === TAG_V ? 1 : 0, g.logoV === LOGO_V ? 1 : 0].join(':')).join('|');
   if (!lib || sig(lib) !== sig(next) || Date.now() - lib.t > 6 * HOUR) await kvPut(env, 'lib', next);
   return next;
 }
 
-const libOut = g => ({ id: g.id, name: g.name, minutes: g.minutes, recentMinutes: g.recentMinutes, lastPlayed: g.lastPlayed, cover: g.cover, hero: g.hero, header: g.header });
+const libOut = g => ({ id: g.id, name: g.name, minutes: g.minutes, recentMinutes: g.recentMinutes, lastPlayed: g.lastPlayed, cover: g.cover, hero: g.hero, logo: g.logo || '', header: g.header });
 
 async function steamLibrary(env, opts) {
   const net = makeNet();
