@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="Game Log">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter+Tight:wght@500..800&display=swap" rel="stylesheet">
 <style>
 :root{
   /* A5: near-black neutrals so the game art carries the color. --gold is the
@@ -24,6 +24,7 @@
   --gold:#F2F2F3; --gold-ink:#0A0A0B; --amber:#F2B24A; --mint:#5FD6B4; --rose:#FF7A7A; --sky:#8FB8FF;
   --r-lg:22px; --r-md:14px; --r-sm:9px;
   --font:'Archivo',ui-sans-serif,system-ui,sans-serif;
+  --display:'Inter Tight','Archivo',ui-sans-serif,system-ui,sans-serif;
   --rail:248px;
 }
 *{box-sizing:border-box}
@@ -831,6 +832,22 @@ select option{background:var(--deep)}
   .score{min-width:26px;height:26px;font-size:12px;bottom:6px;right:6px;padding:0 6px}
   .srv{height:22px;bottom:6px;left:6px;font-size:11px;padding:0 6px}
 }
+/* Headings: clean and sleek. Inter Tight at normal width, sentence case, tight tracking.
+   Replaces the heavy ultra-condensed all-caps Archivo titles. Body text stays Archivo. */
+.h1,.hero h1,.h2,.feature h2,.nucard h3,.layer h3,.cover .ct,.gm-title,.cf-title,.brand b,.gm-brand,
+.sx-bar[data-app=gamelog] .sx-name,
+.achsum .big,.gsum .big,.tl .day,.scorecard .v,.hs-big,.ring b,.pips .val b,.rail-up .d{
+  font-family:var(--display);font-variation-settings:normal;text-transform:none}
+.h1,.hero h1,.gm-title,.cf-title{font-weight:700;letter-spacing:-.035em;line-height:1}
+.h1{font-size:clamp(30px,4vw,42px)}
+.hero h1{font-size:clamp(34px,5vw,62px)}
+.gm-title{font-size:clamp(38px,6vw,88px)}
+.cf-title{font-size:clamp(44px,6.5vw,88px)}
+.h2,.feature h2,.nucard h3,.layer h3{font-weight:600;letter-spacing:-.02em}
+.cover .ct{font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.brand b,.gm-brand,.sx-bar[data-app=gamelog] .sx-name{font-weight:700;letter-spacing:-.01em}
+.sx-bar[data-app=gamelog] .sx-name{letter-spacing:0}
+.achsum .big,.gsum .big,.tl .day,.scorecard .v,.hs-big,.ring b,.pips .val b,.rail-up .d{font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 </style>
 <!-- suite:css v10 · shared by Kitchen, Grocery, Lift, DishLog, Protocol, Rail, Game Log, Playback — edit tools/suite.py in the kitchen repo, not here -->
 <style id="suite-css">
@@ -1366,6 +1383,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.11-i', note:'SLEEKER HEADINGS: titles like Library, Continue and the big game name used a heavy, ultra-condensed all-caps font that looked rough. Headings now use Inter Tight in normal sentence case with tight spacing, so they look cleaner and calmer. Big numbers (scores, counts, rings) use the same font. Body text is unchanged, and so are your data, layout and animations.'},
   {v:'2026.11.11-h', note:'COVER FLIGHT FIX: when you opened a game, the cover art sometimes slid to the wrong spot and then jumped into place. The game’s logo changes the title’s height once it loads, which moves the cover after the animation had already picked where to land. The flying cover now follows the real one while it travels, so it lands where the cover really is. Same for going back to the Library. Animations are unchanged.'},
   {v:'2026.11.11-g', note:'CURRENT STEAM LOGOS: the Worker now also fetches the logo Steam\u2019s own library uses for each game, and Game Log tries that one first before its older guesses. Games pick it up the next time Steam syncs, so a game that still showed an outdated logo (like Hades II\u2019s Early Access one) can be switched to Always the logo under Title style once it has refreshed.'},
   {v:'2026.11.11-f', note:'TITLE FIXES: the logo on a game’s page no longer flickers in three or four times when you open it. It fades in once, and the screen redrawing as Steam data arrives leaves it alone. A logo that is only a symbol with no name (Deadlock’s wheel) now shows the game’s name as text instead, and Hades II shows its text title because Steam’s old logo still says Early Access. A new Title style setting under a game’s Details (Review tab) lets you pick the logo or plain text for any Steam game.'},
