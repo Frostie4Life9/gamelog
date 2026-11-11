@@ -304,13 +304,38 @@ a.scorecard:hover{border-color:var(--line)}
 .hero-img{position:absolute;inset:0;z-index:-1;background-size:cover;background-position:center 30%;opacity:.5}
 .hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--night) 0%,rgba(10,10,11,.55) 45%,rgba(10,10,11,.2) 100%),linear-gradient(180deg,transparent 40%,var(--night) 96%)}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,var(--night) 92%)}
-.hero-in{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;gap:clamp(20px,3vw,40px);align-items:end;padding-bottom:28px}
+.hero-in{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;align-items:flex-start;padding-bottom:28px}
+.hero-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;margin:0 0 28px}
+.hero-meta:empty{display:none}
+.hero-meta .steamrv{flex-direction:row;align-items:baseline;gap:6px;white-space:nowrap}
+.hero-meta .steamrv b{font-size:16px}
+.hero-meta .steamrv span{font-size:14px;color:var(--mist)}
+.hero-main{align-self:stretch;display:grid;grid-template-columns:200px 1fr;gap:clamp(20px,3vw,40px);align-items:start}
+.hero-main>div{min-width:0}
+.hero-col{display:flex;flex-direction:column;gap:24px}
+.hero-col .hero-row{gap:12px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:14px;align-items:stretch}
+.hs-card{flex:1 1 210px;min-width:0;box-sizing:border-box;padding:18px;border-radius:16px;border:1px solid var(--line-soft);background:rgba(255,255,255,.05);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);display:flex;flex-direction:column;gap:10px}
+.hs-l{margin:0;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mist)}
+.hs-val{min-height:56px;display:flex;align-items:center;gap:10px}
+.hs-big{font-size:28px;font-weight:800;line-height:1;font-variation-settings:'wdth' 80;font-variant-numeric:tabular-nums}
+.hs-sub{font-size:13px;color:var(--mist)}
+.hs-bar{height:6px;border-radius:999px;background:var(--raise);overflow:hidden}
+.hs-bar i{display:block;height:100%;border-radius:999px;background:var(--gold)}
+.hs-link{border:0;background:none;padding:0;color:var(--mint);font-weight:600;font-size:13px;text-align:left;cursor:pointer;align-self:flex-start}
+.hs-link:hover{text-decoration:underline}
+.hs-ach{border:0;background:none;padding:0;color:inherit;text-align:left;cursor:pointer;min-height:56px;display:flex;align-items:center}
+.hs-card .pips{flex-direction:column-reverse;align-items:stretch;gap:10px}
+.hs-card .pip-row{width:100%}
+.hs-card .pip{flex:1 1 0;width:auto;min-width:0}
+.hs-card .pips .val{min-width:0;min-height:56px;display:flex;align-items:center;gap:10px}
+.hs-card .pips .val span{display:inline}
 .hero-in>div{min-width:0}
 .hero h1{overflow-wrap:anywhere}
 .hero .cover .ct{font-size:34px}
 .back{border:0;background:transparent;color:var(--mist);padding:4px 0;margin-bottom:18px;font-size:14px;display:inline-flex;gap:6px;align-items:center}
 .back:hover{color:var(--paper)}
-.hero h1{font-size:clamp(38px,6vw,76px);line-height:.92;font-weight:800;font-variation-settings:'wdth' 75,'opsz' 96;letter-spacing:-.025em;margin:0 0 18px;text-wrap:balance}
+.hero h1{font-size:clamp(38px,6vw,76px);line-height:.92;font-weight:800;font-variation-settings:'wdth' 75,'opsz' 96;letter-spacing:-.025em;margin:0 0 14px;text-wrap:balance}
 .hero-row{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center}
 .status-pick{appearance:none;width:auto;border-radius:999px;padding:8px 36px 8px 16px;font-weight:600;background:var(--deep) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23A1A8D0' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 14px center;border:1px solid var(--line)}
 .ring{display:flex;align-items:center;gap:12px}
@@ -335,6 +360,15 @@ a.scorecard:hover{border-color:var(--line)}
 .sections{position:sticky;top:0;z-index:4;background:rgba(10,10,11,.97);border-bottom:1px solid var(--line-soft);margin:0 calc(-1 * clamp(18px,4vw,56px)) 32px;padding:0 clamp(18px,4vw,56px)}
 .sections-in{max-width:1080px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 .sections-in::-webkit-scrollbar{display:none}
+@media (min-width:861px){.sections-in{padding-left:calc(200px + clamp(20px,3vw,40px))}}
+.more-chk{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.sec-morebtn{cursor:pointer}
+.sec-morebtn svg{transition:transform .15s}
+.more-chk:checked ~ .sections-in .sec-morebtn{color:var(--paper)}
+.more-chk:checked ~ .sections-in .sec-morebtn svg{transform:rotate(180deg)}
+.more-chk:focus-visible ~ .sections-in .sec-morebtn{outline:2px solid var(--gold);outline-offset:-3px;border-radius:8px}
+.sections-more{display:none;border-top:1px solid var(--line-soft)}
+.more-chk:checked ~ .sections-more{display:flex}
 .sec{border:0;background:transparent;color:var(--mist);padding:16px 14px 14px;font-weight:600;font-size:15px;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:8px}
 .sec:hover{color:var(--paper)}
 .sec.on{color:var(--paper);border-bottom-color:var(--gold)}
@@ -404,7 +438,8 @@ a.scorecard:hover{border-color:var(--line)}
   .feature .cover{max-width:180px}
   .save,.journal{grid-template-columns:1fr}
   .hero{margin:-24px -16px 0;padding:24px 16px 0}
-  .hero-in{grid-template-columns:1fr;gap:16px;align-items:start}
+  .hero-main{grid-template-columns:104px 1fr;gap:16px}
+  .hero-meta{margin-bottom:18px}
   .hero .cover{width:104px}
   .hero .cover .ct{font-size:17px;inset:auto 9px 10px 9px}
   .hero-row{gap:18px 24px}
@@ -1329,6 +1364,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.11-e', note:'TIDIER GAME PAGE: the top of a game now lines up on one left edge. The title, Steam score and controller badges sit above, then the cover sits beside the Play button and status, with three even cards under them: Completion, Achievements and Your rating. A game with no finish line shows its status and a Set finish line link instead of an empty 0% ring, and only Achievements keeps a ring. The section tabs now start under the content, and the ones you use least (Missables, What’s new, Store page, Releases) tuck behind a More tab, with the one you have open always shown.'},
   {v:'2026.11.11-d', note:'CONTROLLER BADGES EVERYWHERE: the Controller recommended, Full or Partial controller and DualSense badges now also show at the top of a game once you open it from the Library, on the big Continue game, and in Game Mode. Game Log remembers each game\u2019s controller details after its Steam page has loaded once, and quietly loads it for a game it hasn\u2019t seen yet, so the badges fill in by themselves.'},
   {v:'2026.11.11-d', note:'TITLE ART EVERYWHERE: a game\u2019s own logo art now replaces the plain text title on its game page (the one you open from the Library) and in Game Mode, not just on Continue. Games without a Steam logo keep the text title, and renaming a game still works. The small names under Library covers stay as text.'},
   {v:'2026.11.11-c', note:'CONTROLLER BADGES: a game\u2019s Steam page in Game Log now shows what Steam says about controllers. A gold Controller recommended badge appears when the developers recommend playing with a controller (the star line on the store page), plus Full or Partial controller support, and a DualSense support badge for your PlayStation pad. The Controller line in the facts summarises it. Open a game\u2019s Steam page once and it\u2019s there; it comes from the store data Game Log already pulls, so nothing needs redeploying on the Worker.'},
@@ -3319,6 +3355,17 @@ function playBtn(g){
 }
 const SECTIONS = [['save','Save point'],['quests','Quests'],['goals','Goals'],['achievements','Achievements'],['news','What\u2019s new'],['store','Store page'],['about','About'],['missables','Missables'],['releases','Releases'],['review','Review & details']];
 
+/* Completion card in the game header: one line of truth about where the game stands.
+   A game with no finish line yet shows its status and a nudge, not an empty 0% ring. */
+function completionCard(g, st){
+  if (isLive(g)) return `<div class="hs-card"><p class="hs-l">Activity</p><div class="hs-val">${liveStat(g)}</div></div>`;
+  const goal = g.content ? 'goals' : 'quests';
+  const tick = '<svg aria-hidden="true" width="24" height="24" viewBox="0 0 26 26" fill="none" stroke="var(--mint)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="13" r="11"/><path d="m8 13.5 3.5 3.5L18 10"/></svg>';
+  if (st.shelved) return `<div class="hs-card"><p class="hs-l">Completion</p><div class="hs-val"><b class="hs-big">Shelved</b></div><span class="hs-sub">Not counting progress</span></div>`;
+  if (st.total) return `<div class="hs-card"><p class="hs-l">Completion</p><div class="hs-val"><b class="hs-big">${st.pct}%</b></div><div class="hs-bar" role="img" aria-label="${st.pct}% of your finish line"><i style="width:${st.pct}%"></i></div><span class="hs-sub">${st.done} of ${st.total} goals to your finish line</span></div>`;
+  return `<div class="hs-card"><p class="hs-l">Completion</p><div class="hs-val">${g.status === 'done' ? tick : ''}<b class="hs-big">${esc(statusLabel(g))}</b></div><span class="hs-sub">No finish line set</span><button class="hs-link" data-act="section" data-s="${goal}">Set finish line</button></div>`;
+}
+
 function renderGame(g){
   const st = stats(g), miss = openMissables(g), ups = upcoming(g).length;
   const hasPack = !!g.content;
@@ -3327,31 +3374,49 @@ function renderGame(g){
   const sec = sec0 === 'about' && !hasAbout ? 'save' : sec0;
   const badge = {quests: st.total - st.done, goals: st.total - st.done, missables: miss, releases: ups, achievements: g.ach && g.ach.total ? g.ach.total - g.ach.done : 0, news: newCount(g)};
   const tint = paletteFor(g);
+  /* Tabs: the ones you reach for most stay in the bar (the open one always does); the rest sit behind More */
+  const avail = SECTIONS.filter(([k]) => k === 'about' ? hasAbout : k === 'goals' ? hasPack : (k === 'quests' || k === 'missables') ? !hasPack : (!['achievements','news','store'].includes(k) || g.steamId));
+  const mainKeys = ['save', hasPack ? 'goals' : 'quests', 'achievements', 'review'];
+  const mainTabs = avail.filter(([k]) => mainKeys.includes(k) || k === sec);
+  const moreTabs = avail.filter(([k]) => !mainTabs.some(t => t[0] === k));
+  const moreN = moreTabs.reduce((n, [k]) => n + (k === 'missables' || k === 'news' ? (badge[k] || 0) : 0), 0);
+  const secBtn = ([k, l]) => `<button class="sec ${sec === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${sec === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : k === 'news' ? 'new' : ''}">${badge[k]}</span>` : ''}</button>`;
   return `
   <header class="hero">
     ${/^https:\/\//.test(g.hero) ? `<div class="hero-img" style="background-image:url('${esc(g.hero)}')"></div>` : `<div class="hero-bg" style="background:radial-gradient(60% 80% at 20% 30%,${tint[1]}66,transparent 70%),radial-gradient(50% 70% at 70% 20%,${tint[0]},transparent 70%)"></div>`}
     <div class="hero-in">
-      ${coverHTML(g, {bar:false, hero:true})}
-      <div>
-        <button class="back" data-act="back">${ICON.back}${view.tab === 'library' ? 'Library' : 'Continue'}</button>
-        ${titleArt(g, 'h1', 't-hero')}
+      <button class="back" data-act="back">${ICON.back}${view.tab === 'library' ? 'Library' : 'Continue'}</button>
+      ${titleArt(g, 'h1', 't-hero')}
+      <div class="hero-meta">
+        ${(rv => rv ? `<div class="steamrv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}"><b>${rv[0]}%</b><span>Steam · ${esc(rv[1] || 'reviews')}</span></div>` : '')(revOf(g))}
+        ${(mc => mc ? `<div class="steamrv ${mcTier(mc[0])}" title="${esc(mcTitle(mc))}"><b>${mc[0]}</b><span>Metacritic · critics</span></div>` : '')(mcOf(g))}
+        ${ctrlBadges(g)}
+        ${newTag(g, 'button')}
+      </div>
+      <div class="hero-main">
+        ${coverHTML(g, {bar:false, hero:true})}
+        <div class="hero-col">
         <div class="hero-row">
           ${playBtn(g)}
           <select class="status-pick" data-f="status" data-rerender="1" aria-label="Status">${STATUSES.map(s => `<option value="${s}" ${g.status === s ? 'selected' : ''}>${s === g.status ? statusLabel(g) : LABEL[s]}</option>`).join('')}</select>
-          ${isLive(g) ? liveStat(g) : ring(st)}
-          ${achPct(g) !== null ? `<button data-act="section" data-s="achievements" aria-label="Open achievements" style="border:0;background:none;padding:0;color:inherit;text-align:left;cursor:pointer">${ring({total:g.ach.total, done:g.ach.done, pct:achPct(g)}, 'achievements')}</button>` : ''}
-          ${pips(g)}
-          ${(rv => rv ? `<div class="steamrv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}"><b>${rv[0]}%</b><span>Steam \u00b7 ${esc(rv[1] || 'reviews')}</span></div>` : '')(revOf(g))}
-          ${(mc => mc ? `<div class="steamrv ${mcTier(mc[0])}" title="${esc(mcTitle(mc))}"><b>${mc[0]}</b><span>Metacritic \u00b7 critics</span></div>` : '')(mcOf(g))}
-          ${ctrlBadges(g)}
-          ${newTag(g, 'button')}
+        </div>
+        <div class="hero-stats">
+          ${completionCard(g, st)}
+          ${achPct(g) !== null ? `<div class="hs-card"><p class="hs-l">Achievements</p><button class="hs-ach" data-act="section" data-s="achievements" aria-label="Open achievements">${ring({total:g.ach.total, done:g.ach.done, pct:achPct(g)}, 'achievements')}</button></div>` : ''}
+          <div class="hs-card"><p class="hs-l">Your rating</p>${pips(g)}</div>
+        </div>
         </div>
       </div>
     </div>
   </header>
-  <nav class="sections" aria-label="Game sections"><div class="sections-in">
-    ${SECTIONS.filter(([k]) => k === 'about' ? hasAbout : k === 'goals' ? hasPack : (k === 'quests' || k === 'missables') ? !hasPack : (!['achievements','news','store'].includes(k) || g.steamId)).map(([k, l]) => `<button class="sec ${sec === k ? 'on' : ''}" data-act="section" data-s="${k}" aria-current="${sec === k}">${l}${badge[k] ? `<span class="n ${k === 'missables' ? 'warn' : k === 'news' ? 'new' : ''}">${badge[k]}</span>` : ''}</button>`).join('')}
-  </div></nav>
+  <nav class="sections" aria-label="Game sections">
+    ${moreTabs.length ? `<input type="checkbox" class="more-chk" id="sec-more" aria-label="Show more sections">` : ''}
+    <div class="sections-in">
+      ${mainTabs.map(secBtn).join('')}
+      ${moreTabs.length ? `<label class="sec sec-morebtn" for="sec-more">More${moreN ? `<span class="n">${moreN}</span>` : ''}<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.5 4.5 3.5 3.5 3.5-3.5"/></svg></label>` : ''}
+    </div>
+    ${moreTabs.length ? `<div class="sections-in sections-more">${moreTabs.map(secBtn).join('')}</div>` : ''}
+  </nav>
   <div class="page">${({save:secSave, quests:secQuests, goals:secGoals, achievements:secAch, news:secNews, store:secStore, about:secAbout, missables:secMissables, releases:secReleases, review:secReview})[sec](g)}</div>`;
 }
 
