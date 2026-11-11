@@ -733,6 +733,13 @@ select option{background:var(--deep)}
 .cf-in{max-width:1080px;margin:0 auto}
 .cf-eye{margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C4C4CA}
 .cf-title{margin:0 0 12px;font-size:clamp(52px,8vw,104px);line-height:.88;font-weight:900;font-variation-settings:'wdth' 62;text-transform:uppercase;text-wrap:balance;overflow-wrap:anywhere;text-shadow:0 2px 30px rgba(0,0,0,.3)}
+.cf-title.has-logo{text-shadow:none}
+.cf-title.has-logo .cf-tt{visibility:hidden;display:block;height:0;overflow:hidden}
+.cf-title.has-logo:not(.logo-ok){min-height:clamp(96px,14vw,170px)}
+.cf-title:not(.logo-ok) .cf-logo{position:absolute;opacity:0}
+.cf-logo{display:block;width:auto;height:auto;max-width:min(560px,100%);max-height:clamp(96px,14vw,170px);object-fit:contain;object-position:left bottom;filter:drop-shadow(0 4px 24px rgba(0,0,0,.55));animation:logoIn .5s ease both}
+@keyframes logoIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.cf-logo{animation:none}}
 .cfeat .meta{color:#C4C4CA;margin-bottom:20px}
 .cfeat .meta .on{color:var(--paper);font-weight:600}
 .cf-acts{margin:0 0 16px}
@@ -2885,7 +2892,7 @@ function renderContinue(){
       <div class="cf-art" style="${art ? `background-image:url('${esc(art)}')` : `background:radial-gradient(60% 80% at 20% 30%,${tint[1]}66,transparent 70%),radial-gradient(50% 70% at 70% 20%,${tint[0]},transparent 70%)`}"></div>
       <div class="cf-in">
         <p class="cf-eye">${f === nowG ? `Playing now · since ${fmtClock(playNow.s)}` : `Continue · ${esc(since(f.lastPlayed))}`}</p>
-        <h1 class="cf-title">${esc(f.title)}</h1>
+        ${titleArt(f)}
         <div class="meta"><span class="on">${statusLabel(f)}</span>${f.hours ? `<span>${f.hours} h</span>` : ''}${isLiveF ? `${f.peak ? `<span>${esc(f.peak)}</span>` : ''}${f.seasons ? `<span>${f.seasons} season${f.seasons > 1 ? 's' : ''}</span>` : ''}` : ''}${miss ? `<span class="alert">${miss} missable${miss > 1 ? 's' : ''} open</span>` : ''}${newTag(f)}</div>
         <div class="actions cf-acts" data-game="${f.id}">
           ${f === nowG ? '' : playBtn(f).replace('data-act="launch"', `data-act="launch" data-game="${f.id}"`)}
@@ -3948,6 +3955,51 @@ function pane(k){
   if (!panes[k]) { const d = document.createElement('div'); d.dataset.pane = k; d.className = 'pane off'; document.getElementById('app').appendChild(d); panes[k] = d; }
   return panes[k];
 }
+/* ---------- Title art ----------
+   Steam keeps a transparent logo for most games next to the library art.
+   Newer games keep it in a hashed folder, so try the hero's folder first,
+   then the plain one; whichever loads is remembered on this device so the
+   next visit shows it straight away. No logo anywhere → the text title. */
+const LOGO_KEY = 'gamelog_logos_v1';
+const logoMemo = (() => { try { return JSON.parse(localStorage.getItem(LOGO_KEY)) || {}; } catch(e) { return {}; } })();
+function logoCandidates(g){
+  if (!g.steamId) return [];
+  const base = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${g.steamId}/`;
+  const dirs = [];
+  const m = String(g.hero || '').match(/^(https:\/\/[^?#]*\/steam\/apps\/\d+\/(?:[^/?#]+\/)?)[^/?#]+$/);
+  if (m && m[1] !== base) dirs.push(m[1]);
+  dirs.push(base);
+  return dirs.flatMap(d => [d + 'logo_2x.png', d + 'logo.png']);
+}
+function titleArt(g){
+  const text = `<span class="cf-tt">${esc(g.title)}</span>`;
+  const known = logoMemo[g.steamId];
+  if (known === '' || !g.steamId) return `<h1 class="cf-title">${text}</h1>`;
+  const list = known ? [known] : logoCandidates(g);
+  return `<h1 class="cf-title has-logo${known ? ' logo-ok' : ''}" data-steam="${g.steamId}">
+    <img class="cf-logo" src="${esc(list[0])}" data-alts="${esc(list.slice(1).join(' '))}" alt="${esc(g.title)}" decoding="async" onload="logoOk(this)" onerror="logoMiss(this)">${text}</h1>`;
+}
+function logoRemember(id, url){
+  if (logoMemo[id] === url) return;
+  logoMemo[id] = url;
+  try { localStorage.setItem(LOGO_KEY, JSON.stringify(logoMemo)); } catch(e) {}
+}
+function logoOk(img){
+  const h = img.closest('.cf-title'); if (!h) return;
+  h.classList.add('logo-ok'); logoRemember(h.dataset.steam, img.currentSrc || img.src);
+}
+function logoMiss(img){
+  const h = img.closest('.cf-title'), alts = (img.dataset.alts || '').split(' ').filter(Boolean);
+  if (alts.length) { img.dataset.alts = alts.slice(1).join(' '); img.src = alts[0]; return; }
+  if (h) {
+    // a remembered logo that stopped loading gets one fresh search next time
+    if (h.classList.contains('logo-ok')) delete logoMemo[h.dataset.steam]; else logoRemember(h.dataset.steam, '');
+    try { localStorage.setItem(LOGO_KEY, JSON.stringify(logoMemo)); } catch(e) {}
+    h.classList.remove('has-logo', 'logo-ok');
+  }
+  img.remove();
+}
+
 /* ---------- Ambient light (A5) ----------
    The game in focus lights the whole app: its art sits blurred behind every
    screen, and --gold (the accent) takes a color read from its cover. On a game
