@@ -743,6 +743,11 @@ select option{background:var(--deep)}
 .cf-logo{display:block;width:auto;height:auto;max-width:min(560px,100%);max-height:clamp(96px,14vw,170px);object-fit:contain;object-position:left bottom;filter:drop-shadow(0 4px 24px rgba(0,0,0,.55));animation:logoIn .5s ease both}
 @keyframes logoIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.cf-logo{animation:none}}
+/* title art on the game page and in Game Mode: same logo, sized for each spot */
+.cf-title.t-hero.has-logo:not(.logo-ok){min-height:clamp(64px,9vw,120px)}
+.cf-title.t-hero .cf-logo{max-width:min(460px,100%);max-height:clamp(64px,9vw,120px)}
+.cf-title.t-gm.has-logo:not(.logo-ok){min-height:clamp(80px,12vw,150px)}
+.cf-title.t-gm .cf-logo{max-width:min(640px,100%);max-height:clamp(80px,12vw,150px)}
 .cfeat .meta{color:#C4C4CA;margin-bottom:20px}
 .cfeat .meta .on{color:var(--paper);font-weight:600}
 .cf-acts{margin:0 0 16px}
@@ -1320,6 +1325,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.11-d', note:'TITLE ART EVERYWHERE: a game\u2019s own logo art now replaces the plain text title on its game page (the one you open from the Library) and in Game Mode, not just on Continue. Games without a Steam logo keep the text title, and renaming a game still works. The small names under Library covers stay as text.'},
   {v:'2026.11.11-c', note:'CONTROLLER BADGES: a game\u2019s Steam page in Game Log now shows what Steam says about controllers. A gold Controller recommended badge appears when the developers recommend playing with a controller (the star line on the store page), plus Full or Partial controller support, and a DualSense support badge for your PlayStation pad. The Controller line in the facts summarises it. Open a game\u2019s Steam page once and it\u2019s there; it comes from the store data Game Log already pulls, so nothing needs redeploying on the Worker.'},
   {v:'2026.11.11-b', note:'TITLE ART ON CONTINUE: the big game name on Continue is now the game’s own logo art from Steam instead of plain text. The app looks for the logo next to the game’s other Steam art and remembers which one worked, so it shows straight away next time. Games without a Steam logo (console games, and the odd Steam game) keep the text title.'},
   {v:'2026.11.11-a', note:'NEW LOOK: the whole app has a new coat of paint. The navy background is now near-black so game art carries the color, and the game you’re focused on softly lights every screen from behind. The accent color (progress bars, score dots, the active tab) is taken from that game’s cover, so it changes per game; yellow still means mixed, dormant or coming soon. One typeface now, Archivo, with big titles set tall and condensed. Continue opens on the game’s full-width art with the title over it, a white Play button and a glass panel for finish line, achievements and your score. On a phone: a frosted tab bar, chip rows that scroll sideways instead of wrapping, and three covers per row in the Library. Nothing about your data, layout or animations changed.'},
@@ -3281,7 +3287,7 @@ function renderGame(g){
       ${coverHTML(g, {bar:false, hero:true})}
       <div>
         <button class="back" data-act="back">${ICON.back}${view.tab === 'library' ? 'Library' : 'Continue'}</button>
-        <h1>${esc(g.title)}</h1>
+        ${titleArt(g, 'h1', 't-hero')}
         <div class="hero-row">
           ${playBtn(g)}
           <select class="status-pick" data-f="status" data-rerender="1" aria-label="Status">${STATUSES.map(s => `<option value="${s}" ${g.status === s ? 'selected' : ''}>${s === g.status ? statusLabel(g) : LABEL[s]}</option>`).join('')}</select>
@@ -4003,13 +4009,14 @@ function logoCandidates(g){
   dirs.push(base);
   return dirs.flatMap(d => [d + 'logo_2x.png', d + 'logo.png']);
 }
-function titleArt(g){
+function titleArt(g, tag = 'h1', cls = ''){
   const text = `<span class="cf-tt">${esc(g.title)}</span>`;
   const known = logoMemo[g.steamId];
-  if (known === '' || !g.steamId) return `<h1 class="cf-title">${text}</h1>`;
+  const c = 'cf-title' + (cls ? ' ' + cls : '');
+  if (known === '' || !g.steamId) return `<${tag} class="${c}">${text}</${tag}>`;
   const list = known ? [known] : logoCandidates(g);
-  return `<h1 class="cf-title has-logo${known ? ' logo-ok' : ''}" data-steam="${g.steamId}">
-    <img class="cf-logo" src="${esc(list[0])}" data-alts="${esc(list.slice(1).join(' '))}" alt="${esc(g.title)}" decoding="async" onload="logoOk(this)" onerror="logoMiss(this)">${text}</h1>`;
+  return `<${tag} class="${c} has-logo${known ? ' logo-ok' : ''}" data-steam="${g.steamId}">
+    <img class="cf-logo" src="${esc(list[0])}" data-alts="${esc(list.slice(1).join(' '))}" alt="${esc(g.title)}" decoding="async" onload="logoOk(this)" onerror="logoMiss(this)">${text}</${tag}>`;
 }
 function logoRemember(id, url){
   if (logoMemo[id] === url) return;
@@ -4414,7 +4421,7 @@ document.addEventListener('input', e => {
   if (!g || !el.dataset.f || el.dataset.rerender || el.type === 'date') return;
   const val = el.dataset.num ? (parseFloat(el.value) || 0) : el.value;
   setPath(g, el.dataset.f, val); saveSoon();
-  if (el.dataset.f === 'title') { const h = document.querySelector('.hero h1'); if (h) h.textContent = val; }
+  if (el.dataset.f === 'title') { const h = document.querySelector('.hero h1'); if (h) { const t = h.querySelector('.cf-tt'), im = h.querySelector('.cf-logo'); if (t) t.textContent = val; else h.textContent = val; if (im) im.alt = val; } }
 });
 
 document.addEventListener('keydown', e => {
@@ -4508,7 +4515,7 @@ function gmInfoHTML(g){
   const play = CAN_LAUNCH && id > 0 && !now ? `<a class="btn play" href="steam://run/${id}" data-gm="play">${GM_PLAY}Play</a>` : '';
   const manual = (reduced.matches || gmQuietData()) && gmTrailers(g).length;
   return `${now ? `<div class="gm-now">Playing now · since ${esc(fmtClock(playNow.s))}</div>` : ''}
-    <h2 class="gm-title">${esc(g.title)}</h2>
+    ${titleArt(g, 'h2', 'gm-title t-gm')}
     <div class="gm-meta">${meta}</div>${prog}${line}
     <div class="gm-act">${play}<button class="btn ${play ? 'quiet' : ''}" type="button" data-gm="details">Details</button>${manual ? `<button class="btn quiet" type="button" data-gm="trailer">Watch trailer</button>` : ''}</div>`;
 }
