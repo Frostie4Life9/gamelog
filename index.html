@@ -1383,6 +1383,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.11-k', note:'CLEANER LIBRARY COVERS: Steam and Metacritic scores no longer sit on your Library covers, What to play next or Game Mode, so the art stays clean. You still see them on wishlisted games, and on a game\u2019s own page when you open it. Sorting by Steam score or Metacritic still works.'},
   {v:'2026.11.11-j', note:'MANROPE HEADINGS: headings now use Manrope, a rounder and friendlier font than the last one, still in clean sentence case. Titles, big game names and big numbers all use it. Body text, data, layout and animations are unchanged.'},
   {v:'2026.11.11-i', note:'SLEEKER HEADINGS: titles like Library, Continue and the big game name used a heavy, ultra-condensed all-caps font that looked rough. Headings now use Inter Tight in normal sentence case with tight spacing, so they look cleaner and calmer. Big numbers (scores, counts, rings) use the same font. Body text is unchanged, and so are your data, layout and animations.'},
   {v:'2026.11.11-h', note:'COVER FLIGHT FIX: when you opened a game, the cover art sometimes slid to the wrong spot and then jumped into place. The game’s logo changes the title’s height once it loads, which moves the cover after the animation had already picked where to land. The flying cover now follows the real one while it travels, so it lands where the cover really is. Same for going back to the Library. Animations are unchanged.'},
@@ -2907,7 +2908,7 @@ function ctrlBadges(g, quiet){
 const THUMB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2 2 0 0 1 3 2l-1 4h6a2 2 0 0 1 2 2.3l-1.4 7A2 2 0 0 1 17.6 20H7"/></svg>';
 const rvTitle = rv => `Steam: ${rv[1] || 'reviews'}, ${rv[0]}% of ${Number(rv[2]).toLocaleString()} reviews positive`;
 function coverHTML(g, opts = {}){
-  const st = stats(g), rv = opts.score ? revOf(g) : null, mc = opts.score ? mcOf(g) : null;
+  const st = stats(g), rv = opts.reviews ? revOf(g) : null, mc = opts.reviews ? mcOf(g) : null;
   const vt = '';
   const url = /^https:\/\/[^\s"'<>]+$/.test(g.cover) ? g.cover : '';
   const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
@@ -4674,13 +4675,11 @@ const gmHours = h => h >= 10 ? `${Math.round(h)}h` : `${Math.round(h * 10) / 10}
 
 function gmInfoHTML(g){
   const now = !!(playNow && g.steamId && playNow.a === g.steamId);
-  const st = stats(g), rv = revOf(g), mc = mcOf(g), ap = achPct(g);
+  const st = stats(g), ap = achPct(g);
   const c = g.steamId && storeCache[g.steamId], d = c && c.data;
   const meta = [
     `<span class="st">${esc(statusLabel(g))}</span>`,
     g.rating ? `<span class="sc"><b class="sc">${g.rating}</b>/10 · ${SCORE_WORD[g.rating]}</span>` : '',
-    rv ? `<span class="rv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}">Steam ${rv[0]}%</span>` : '',
-    mc ? `<span class="rv ${mcTier(mc[0])}" title="${esc(mcTitle(mc))}">Metacritic ${mc[0]}</span>` : '',
     ctrlBadges(g, true),
     g.hours ? `<span><b>${gmHours(g.hours)}</b> played</span>` : '',
     g.lastPlayed ? `<span>${esc(since(g.lastPlayed))}</span>` : '',
