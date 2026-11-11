@@ -4310,11 +4310,32 @@ function flyCover(from, fromRect, to, ms){
   if (!seen(a) || !seen(b)) return null;
   const c = from.cloneNode(true);
   c.querySelectorAll('.score,.bar').forEach(x => x.remove());
-  c.style.cssText += `;position:fixed;left:${b.left}px;top:${b.top}px;width:${b.width}px;height:${b.height}px;margin:0;z-index:200;pointer-events:none;transform-origin:0 0;will-change:transform;view-transition-name:none`;
+  const place = r => { c.style.left = r.left + 'px'; c.style.top = r.top + 'px'; c.style.width = r.width + 'px'; c.style.height = r.height + 'px'; };
+  const path = r => [{transform:`translate(${a.left - r.left}px,${a.top - r.top}px) scale(${a.width / r.width},${a.height / r.height})`}, {transform:'none'}];
+  c.style.cssText += `;position:fixed;margin:0;z-index:200;pointer-events:none;transform-origin:0 0;will-change:transform;view-transition-name:none`;
+  place(b);
   document.body.appendChild(c);
   to.style.visibility = 'hidden';
-  const an = c.animate([{transform:`translate(${a.left - b.left}px,${a.top - b.top}px) scale(${a.width / b.width},${a.height / b.height})`}, {transform:'none'}], {duration:ms, easing:EASE});
-  return an.finished.catch(() => {}).then(() => { to.style.visibility = ''; c.remove(); });
+  const an = c.animate(path(b), {duration:ms, easing:EASE});
+  /* Where the cover lands can still move after it was measured: the game's logo sets the title's height,
+     and it only gets its real size once the image has loaded, which pushes the cover down or up.
+     Measuring once made the copy land in the old spot and the real cover pop into place. So keep
+     checking the real cover while the copy is in flight and steer it to wherever it really is.
+     The screen's 8px rise is taken back out, since the cover settles at its un-risen spot. */
+  const pane = to.closest('.pane');
+  const lift = () => { const t = pane && getComputedStyle(pane).transform; return t && t !== 'none' ? new DOMMatrix(t).m42 : 0; };
+  const live = () => { const r = to.getBoundingClientRect(), y = lift(); return {left:r.left, top:r.top - y, width:r.width, height:r.height}; };
+  let last = b, alive = true;
+  const track = () => {
+    if (!alive) return;
+    const r = live();
+    if (r.width > 0 && (Math.abs(r.left - last.left) > .5 || Math.abs(r.top - last.top) > .5 || Math.abs(r.width - last.width) > .5 || Math.abs(r.height - last.height) > .5)) {
+      place(r); an.effect.setKeyframes(path(r)); last = r;
+    }
+    requestAnimationFrame(track);
+  };
+  requestAnimationFrame(track);
+  return an.finished.catch(() => {}).then(() => { alive = false; to.style.visibility = ''; c.remove(); });
 }
 const heroCover = () => panes.game && panes.game.querySelector('.hero .cover');
 function go(fn, how, fromId, fromEl){
