@@ -779,9 +779,11 @@ select option{background:var(--deep)}
 .cf-title.has-logo .cf-tt{visibility:hidden;display:block;height:0;overflow:hidden}
 .cf-title.has-logo:not(.logo-ok){min-height:clamp(96px,14vw,170px)}
 .cf-title:not(.logo-ok) .cf-logo{position:absolute;opacity:0}
-.cf-logo{display:block;width:auto;height:auto;max-width:min(560px,100%);max-height:clamp(96px,14vw,170px);object-fit:contain;object-position:left bottom;filter:drop-shadow(0 4px 24px rgba(0,0,0,.55));animation:logoIn .5s ease both}
+.cf-logo{display:block;width:auto;height:auto;max-width:min(560px,100%);max-height:clamp(96px,14vw,170px);object-fit:contain;object-position:left bottom;filter:drop-shadow(0 4px 24px rgba(0,0,0,.55))}
+/* the fade-in plays once, when a logo is first found. A redraw of the same page must not replay it (that was the pop-in) */
+.cf-title.logo-new.logo-ok .cf-logo{animation:logoIn .5s ease both}
 @keyframes logoIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.cf-logo{animation:none}}
+@media (prefers-reduced-motion:reduce){.cf-title.logo-new.logo-ok .cf-logo{animation:none}}
 /* title art on the game page and in Game Mode: same logo, sized for each spot */
 .cf-title.t-hero.has-logo:not(.logo-ok){min-height:clamp(64px,9vw,120px)}
 .cf-title.t-hero .cf-logo{max-width:min(460px,100%);max-height:clamp(64px,9vw,120px)}
@@ -1364,6 +1366,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.11-f', note:'TITLE FIXES: the logo on a game’s page no longer flickers in three or four times when you open it. It fades in once, and the screen redrawing as Steam data arrives leaves it alone. A logo that is only a symbol with no name (Deadlock’s wheel) now shows the game’s name as text instead, and Hades II shows its text title because Steam’s old logo still says Early Access. A new Title style setting under a game’s Details (Review tab) lets you pick the logo or plain text for any Steam game.'},
   {v:'2026.11.11-e', note:'TIDIER GAME PAGE: the top of a game now lines up on one left edge. The title, Steam score and controller badges sit above, then the cover sits beside the Play button and status, with three even cards under them: Completion, Achievements and Your rating. A game with no finish line shows its status and a Set finish line link instead of an empty 0% ring, and only Achievements keeps a ring. The section tabs now start under the content, and the ones you use least (Missables, What’s new, Store page, Releases) tuck behind a More tab, with the one you have open always shown.'},
   {v:'2026.11.11-d', note:'CONTROLLER BADGES EVERYWHERE: the Controller recommended, Full or Partial controller and DualSense badges now also show at the top of a game once you open it from the Library, on the big Continue game, and in Game Mode. Game Log remembers each game\u2019s controller details after its Steam page has loaded once, and quietly loads it for a game it hasn\u2019t seen yet, so the badges fill in by themselves.'},
   {v:'2026.11.11-d', note:'TITLE ART EVERYWHERE: a game\u2019s own logo art now replaces the plain text title on its game page (the one you open from the Library) and in Game Mode, not just on Continue. Games without a Steam logo keep the text title, and renaming a game still works. The small names under Library covers stay as text.'},
@@ -1529,7 +1532,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const fmtDate = (d, opts = {month:'short', day:'numeric', year:'numeric'}) => d ? new Date(d + 'T00:00').toLocaleDateString(undefined, opts) : '';
 
 function blankGame(title){
-  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', steamId:0, igdbId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
+  return {id:uid(), title, platform:'PC', status:'backlog', rating:0, hours:0, started:'', finished:'', lastPlayed:'', lastPlayedAt:0, sessions:[], cover:'', hero:'', titleArt:'', steamId:0, igdbId:0, artTried:false, tint:-1, ach:null, newsSeen:0, peak:'', seasons:0,
     content:'', finish:'', goals:null,
     note:{where:'', next:'', recap:'', setup:''}, review:'', wbSeen:'',
     wrap:{enough:false, why:'', best:'', back:'', keep:''},
@@ -1555,6 +1558,7 @@ function normalize(g){
   g.content = /^[a-z0-9-]+$/.test(g.content || '') ? g.content : '';
   g.igdbId = Math.max(0, Math.floor(+g.igdbId || 0));
   if (!['', 'beat', 'main', 'full', 'shelved'].includes(g.finish)) g.finish = '';
+  if (!['', 'logo', 'text'].includes(g.titleArt)) g.titleArt = '';
   if (g.goals && typeof g.goals === 'object') ensureGoals(g); else g.goals = null;
   if (!STATUSES.includes(g.status)) g.status = 'backlog';
   return g;
@@ -4071,6 +4075,7 @@ function secReview(g){
     <section class="panel details">
       <h2 class="h2" style="margin:0">Details</h2>
       <div class="field"><label for="f-title">Title</label><input type="text" id="f-title" data-f="title" value="${esc(g.title)}"></div>
+      ${g.steamId ? `<div class="field"><label for="f-tart">Title style</label><select id="f-tart" data-f="titleArt" data-rerender="1"><option value="" ${!g.titleArt ? 'selected' : ''}>Default${TITLE_TEXT_DEFAULT[g.steamId] ? ' (plain text)' : ' (logo when it has a name)'}</option><option value="logo" ${g.titleArt === 'logo' ? 'selected' : ''}>Always the logo</option><option value="text" ${g.titleArt === 'text' ? 'selected' : ''}>Plain text</option></select></div>` : ''}
       <div class="field"><label for="f-plat">Platform</label><input type="text" id="f-plat" data-f="platform" list="plat-list" value="${esc(g.platform)}"><datalist id="plat-list">${['PC', 'Switch 2', 'Switch', 'PS5', 'PS4', 'Xbox Series', 'Xbox One', 'Steam Deck'].map(x => `<option value="${x}">`).join('')}</datalist></div>
       <div class="stats">
         <div class="field"><label for="f-start">Started</label><input type="date" id="f-start" data-f="started" value="${g.started}"></div>
@@ -4113,6 +4118,13 @@ function pane(k){
    next visit shows it straight away. No logo anywhere → the text title. */
 const LOGO_KEY = 'gamelog_logos_v1';
 const logoMemo = (() => { try { return JSON.parse(localStorage.getItem(LOGO_KEY)) || {}; } catch(e) { return {}; } })();
+/* Logo guesses that 404'd (or were a symbol) this session. The page redraws a few times while Steam
+   data arrives, and each redraw used to start the search again from the first guess. */
+const logoDead = new Set();
+/* Steam's logo for these is wrong for a title: Deadlock's is a symbol with no name, and Hades II's old
+   logo still says Early Access. The Title style setting on a game's Details overrides this either way. */
+const TITLE_TEXT_DEFAULT = {1145350: 1, 1422450: 1};
+const titleMode = g => g.titleArt || (TITLE_TEXT_DEFAULT[g.steamId] ? 'text' : 'auto');
 function logoCandidates(g){
   if (!g.steamId) return [];
   const base = `https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${g.steamId}/`;
@@ -4124,12 +4136,15 @@ function logoCandidates(g){
 }
 function titleArt(g, tag = 'h1', cls = ''){
   const text = `<span class="cf-tt">${esc(g.title)}</span>`;
-  const known = logoMemo[g.steamId];
+  const mode = titleMode(g), force = mode === 'logo';
+  const memo = logoMemo[g.steamId];
+  const known = force && memo === '' ? undefined : memo;   // a logo you asked for is searched for again even if it was skipped before
   const c = 'cf-title' + (cls ? ' ' + cls : '');
-  if (known === '' || !g.steamId) return `<${tag} class="${c}">${text}</${tag}>`;
-  const list = known ? [known] : logoCandidates(g);
-  return `<${tag} class="${c} has-logo${known ? ' logo-ok' : ''}" data-steam="${g.steamId}">
-    <img class="cf-logo" src="${esc(list[0])}" data-alts="${esc(list.slice(1).join(' '))}" alt="${esc(g.title)}" decoding="async" onload="logoOk(this)" onerror="logoMiss(this)">${text}</${tag}>`;
+  if (mode === 'text' || known === '' || !g.steamId) return `<${tag} class="${c}">${text}</${tag}>`;
+  const list = known ? [known] : logoCandidates(g).filter(u => force || !logoDead.has(u));
+  if (!list.length) return `<${tag} class="${c}">${text}</${tag}>`;
+  return `<${tag} class="${c} has-logo ${known ? 'logo-ok' : 'logo-new'}" data-steam="${g.steamId}"${force ? ' data-force="1"' : ''}>
+    <img class="cf-logo" src="${esc(list[0])}" data-alts="${esc(list.slice(1).join(' '))}" alt="${esc(g.title)}" decoding="${known ? 'sync' : 'async'}" onload="logoOk(this)" onerror="logoMiss(this)">${text}</${tag}>`;
 }
 function logoRemember(id, url){
   if (logoMemo[id] === url) return;
@@ -4138,16 +4153,22 @@ function logoRemember(id, url){
 }
 function logoOk(img){
   const h = img.closest('.cf-title'); if (!h) return;
+  // a near-square image is a symbol (Deadlock's wheel), not the game's name: keep looking, else use the text title
+  if (h.dataset.force !== '1' && img.naturalHeight && img.naturalWidth / img.naturalHeight < 1.35) { logoMiss(img); return; }
   h.classList.add('logo-ok'); logoRemember(h.dataset.steam, img.currentSrc || img.src);
 }
 function logoMiss(img){
-  const h = img.closest('.cf-title'), alts = (img.dataset.alts || '').split(' ').filter(Boolean);
-  if (alts.length) { img.dataset.alts = alts.slice(1).join(' '); img.src = alts[0]; return; }
+  const h = img.closest('.cf-title'), id = h && h.dataset.steam;
+  if (h && !h.classList.contains('logo-ok')) {
+    logoDead.add(img.getAttribute('src'));
+    const rest = (img.dataset.alts || '').split(' ').filter(u => u && !logoDead.has(u));
+    if (rest.length) { img.dataset.alts = rest.slice(1).join(' '); img.src = rest[0]; return; }
+  }
   if (h) {
     // a remembered logo that stopped loading gets one fresh search next time
-    if (h.classList.contains('logo-ok')) delete logoMemo[h.dataset.steam]; else logoRemember(h.dataset.steam, '');
+    if (h.classList.contains('logo-ok')) delete logoMemo[id]; else logoRemember(id, '');
     try { localStorage.setItem(LOGO_KEY, JSON.stringify(logoMemo)); } catch(e) {}
-    h.classList.remove('has-logo', 'logo-ok');
+    h.classList.remove('has-logo', 'logo-ok', 'logo-new');
   }
   img.remove();
 }
