@@ -1395,6 +1395,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.11-o', note:'FASTER UPDATE CHECK: the new-build bar now looks for an update every 30 seconds while the app is open (it was every two minutes). Each look reads only the file\u2019s header, about half a KB, and the full page is downloaded only when it has actually changed.'},
   {v:'2026.11.11-n', note:'SMALLER SCORE RING: the score ring on Library covers and What to play next was too big, so it is now about a third smaller (50px, and 36px on a phone) while keeping the same look, the ring hanging over the cover’s bottom edge. Titles make less room for it.'},
   {v:'2026.11.11-m', note:'BIGGER SCORE RING: the score on Library covers and What to play next is now a large ring that hangs over the cover’s bottom edge, with your score big in the middle and a gold arc filled to the score out of 10. It sits half on the cover and half on the card below, so it stands out without covering the art. Titles make room for it.'},
   {v:'2026.11.11-l', note:'SCORES WHEN YOU SORT BY THEM: Library covers stay clean, but when you sort by Steam score the Steam percentage shows on each cover, and when you sort by Metacritic the Metacritic score shows, so you can see what the order is based on.'},
@@ -5042,24 +5043,32 @@ setInterval(() => document.querySelectorAll('[data-sync-status]').forEach(el => 
 /* ---------------- is there a newer copy? ---------------- */
 /* 2026.10.21-a -> sortable; a two-letter suffix (after z) still sorts after one */
 function buildKey(v){ const m=/^(\d{4})\.(\d\d)\.(\d\d)-([a-z]+)$/.exec(v||''); return m?m[1]+m[2]+m[3]+String(m[4].length)+m[4]:''; }
-let UPD={last:0,dismissed:null,shown:null};
+let UPD={last:0,dismissed:null,shown:null,tag:null,miss:0,noTag:false};
 async function checkUpdate(force){
   if(!/^https?:$/.test(location.protocol) || !window.fetch) return;
-  if(!force && Date.now()-UPD.last<90e3) return;
+  if(!force && Date.now()-UPD.last<(UPD.tag?20e3:90e3)) return;
   UPD.last=Date.now();
   try{
-    const r=await fetch(location.pathname+'?_='+Date.now(),{cache:'no-store'});
+    /* Checked every 30 seconds while the app is open. A look is a HEAD request (headers only, about half a KB):
+       the page's ETag is remembered from the last full read, and the whole page is downloaded again only when
+       that tag changes. If the server gives no tag, it goes back to a full read every 2 minutes. */
+    const url=location.pathname+'?_='+Date.now(), viaTag=!force && !!UPD.tag;
+    if(viaTag){ try{ const h=await fetch(url,{method:'HEAD',cache:'no-store'}); const t=h.ok&&(h.headers.get('etag')||h.headers.get('last-modified')); if(t&&t===UPD.tag){ UPD.miss=0; return; } }catch(e){} }
+    const r=await fetch(url,{cache:'no-store'});
     if(!r.ok) return;
+    UPD.tag=UPD.noTag?null:(r.headers.get('etag')||r.headers.get('last-modified')||null);
     const html=await r.text();
     /* Compare build numbers, newer only: one update raises the bar once, even
        while GitHub's servers are still handing some requests the old copy. */
     const m=html.match(/v:'(\d{4}\.\d\d\.\d\d-[a-z]+)'/); if(!m) return;
     const live=m[1];
+    /* the tag changed but the build did not: twice running means the tag is not reliable here */
+    if(viaTag && live===BUILD){ if(++UPD.miss>=2){ UPD.noTag=true; UPD.tag=null; } }
     if(!(buildKey(live)>buildKey(BUILD)) || live===UPD.dismissed) return;
     /* Just reloaded for this exact build and still got the old copy: GitHub
        hasn't caught up yet. Try again quietly in a minute instead of asking. */
     let tried=null; try{ tried=sessionStorage.getItem('gamelog_upd_tried'); }catch(e){}
-    if(tried===live && !force){ setTimeout(()=>checkUpdate(true),60e3); return; }
+    if(tried===live && !force){ if(!UPD.retry){ UPD.retry=true; setTimeout(()=>{ UPD.retry=false; checkUpdate(true); },60e3); } return; }
     showUpdate(live);
   }catch(e){}
 }
@@ -5082,8 +5091,8 @@ document.getElementById('updx').addEventListener('click',()=>{
 });
 if(/[?&]v=\d+/.test(location.search)) try{ history.replaceState(null,'',location.pathname+location.hash); }catch(e){}
 setTimeout(()=>checkUpdate(true),2500);
-/* a tab that just stays open and visible never fires visibilitychange, so look again every two minutes */
-setInterval(()=>{ if(document.visibilityState==='visible') checkUpdate(false); },120e3);
+/* a tab that just stays open and visible never fires visibilitychange, so look again every 30 seconds */
+setInterval(()=>{ if(document.visibilityState==='visible') checkUpdate(false); },30e3);
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') checkUpdate(false); });
 </script>
 </body>
