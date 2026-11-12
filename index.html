@@ -120,7 +120,17 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .slot .cover .ct{font-size:clamp(22px,2.3vw,28px)}
 .slot .lbl{font-size:15px;font-weight:600;line-height:1.25}
 .slot .sub{font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:center}
-.score{position:absolute;bottom:12px;right:10px;z-index:3;min-width:34px;height:34px;padding:0 8px;border-radius:999px;display:grid;place-items:center;background:rgba(10,10,11,.92);font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;color:var(--gold)}
+.cw{position:relative}
+.slot .cw{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.slot:hover .cw{transform:translateY(-4px)}
+.slot:hover .cw .cover{transform:none}
+.slot.rated .inf{padding-right:82px}
+.score{position:absolute;right:10px;bottom:-24px;z-index:4;width:72px;height:72px;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.score svg{position:absolute;inset:0;width:100%;height:100%}
+.score .sb{fill:#0A0A0B}
+.score .st{fill:none;stroke:rgba(255,255,255,.16);stroke-width:5}
+.score .sa{fill:none;stroke:var(--amber);stroke-width:5;stroke-linecap:round;transform:rotate(-90deg);transform-box:fill-box;transform-origin:center}
+.score b{position:relative;font-weight:800;font-size:30px;line-height:1;color:color-mix(in srgb,var(--amber) 70%,#fff)}
 
 .timeline{display:flex;flex-direction:column;border-top:1px solid var(--line-soft)}
 .tl{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line-soft);background:transparent;border-left:0;border-right:0;border-top:0;text-align:left;color:inherit;width:100%}
@@ -758,7 +768,6 @@ select option{background:var(--deep)}
 .status-pick{background-color:rgba(255,255,255,.08)}
 .seg button.on{background:var(--paper);color:var(--night)}
 .cover{border-radius:12px;box-shadow:0 0 0 1px rgba(255,255,255,.06) inset,0 14px 26px -14px rgba(0,0,0,.8)}
-.score{background:rgba(10,10,11,.82);color:var(--paper);backdrop-filter:blur(8px)}
 .sections{background:rgba(10,10,11,.72);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);border-bottom-color:rgba(255,255,255,.06)}
 .navbtn:hover,.navbtn.on,.rail-up button:hover,.rail-foot button:hover,.rail-foot .syncbtn.on{background:rgba(255,255,255,.07)}
 .rail{border-right-color:rgba(255,255,255,.06)}
@@ -829,7 +838,10 @@ select option{background:var(--deep)}
   .slot{gap:7px}
   .slot .lbl{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .slot .sub{font-size:11px;gap:6px}
-  .score{min-width:26px;height:26px;font-size:12px;bottom:6px;right:6px;padding:0 6px}
+  .score{width:46px;height:46px;right:6px;bottom:-16px}
+  .score b{font-size:19px}
+  .slot.rated .inf{padding-right:50px}
+  .slot.rated .lbl{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
   .srv{height:22px;bottom:6px;left:6px;font-size:11px;padding:0 6px}
 }
 /* Headings: clean and sleek. Manrope at normal width, sentence case, tight tracking.
@@ -1383,6 +1395,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.11-m', note:'BIGGER SCORE RING: the score on Library covers and What to play next is now a large ring that hangs over the cover’s bottom edge, with your score big in the middle and a gold arc filled to the score out of 10. It sits half on the cover and half on the card below, so it stands out without covering the art. Titles make room for it.'},
   {v:'2026.11.11-l', note:'SCORES WHEN YOU SORT BY THEM: Library covers stay clean, but when you sort by Steam score the Steam percentage shows on each cover, and when you sort by Metacritic the Metacritic score shows, so you can see what the order is based on.'},
   {v:'2026.11.11-k', note:'CLEANER LIBRARY COVERS: Steam and Metacritic scores no longer sit on your Library covers, What to play next or Game Mode, so the art stays clean. You still see them on wishlisted games, and on a game\u2019s own page when you open it. Sorting by Steam score or Metacritic still works.'},
   {v:'2026.11.11-j', note:'MANROPE HEADINGS: headings now use Manrope, a rounder and friendlier font than the last one, still in clean sentence case. Titles, big game names and big numbers all use it. Body text, data, layout and animations are unchanged.'},
@@ -2915,15 +2928,18 @@ function coverHTML(g, opts = {}){
   const h = hash(g.title), [a, b] = paletteFor(g), ang = 20 + (h >> 4) % 140, x = 15 + (h >> 9) % 70;
   const bg = `radial-gradient(110% 70% at ${x}% 8%,${b}cc 0%,transparent 58%),repeating-linear-gradient(${ang}deg,rgba(255,255,255,.045) 0 2px,transparent 2px 16px),linear-gradient(165deg,${a} 10%,#0C0C0E 95%);`;
   const wide = url && !/library_600x900/.test(url);
-  return `<div class="cover ${url ? 'img' : ''} ${wide ? 'wide' : ''}" style="--bg:${bg}${vt}">
+  const cover = `<div class="cover ${url ? 'img' : ''} ${wide ? 'wide' : ''}" style="--bg:${bg}${vt}">
     <div class="spine"></div>
     ${url ? `<img class="art" src="${esc(url)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('img','wide');this.remove()">` : ''}
     <div class="ct">${esc(g.title)}</div>
-    ${opts.score && g.rating ? `<div class="score" aria-label="Score ${g.rating} out of 10">${g.rating}</div>` : ''}
     ${rv ? `<div class="srv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}" aria-label="${esc(rvTitle(rv))}">${THUMB}${rv[0]}%</div>` : ''}
     ${mc ? `<div class="smc ${mcTier(mc[0])}" title="${esc(mcTitle(mc))}" aria-label="${esc(mcTitle(mc))}">${mc[0]}</div>` : ''}
     ${opts.bar !== false && st.total && !isLive(g) ? `<div class="bar"><i style="width:${st.pct}%"></i></div>` : ''}
   </div>`;
+  if (!(opts.score && g.rating)) return cover;
+  /* The score ring hangs over the cover's bottom edge, so it lives beside the cover (which clips) in a wrapper. pathLength=100 makes the arc the score out of 10. */
+  const r = Math.max(1, Math.min(10, g.rating));
+  return `<div class="cw">${cover}<div class="score" role="img" aria-label="Score ${g.rating} out of 10"><svg viewBox="0 0 72 72" aria-hidden="true"><circle class="sb" cx="36" cy="36" r="36"/><circle class="st" cx="36" cy="36" r="28"/><circle class="sa" cx="36" cy="36" r="28" pathLength="100" stroke-dasharray="${r * 10} 100"/></svg><b>${g.rating}</b></div></div>`;
 }
 
 function pips(g, cls = ''){
@@ -3201,9 +3217,9 @@ function cardPlay(g){
 }
 function slot(g){
   const st = stats(g);
-  return `<div class="slotw"><button class="slot" data-act="open" data-id="${g.id}">
+  return `<div class="slotw"><button class="slot ${g.rating ? 'rated' : ''}" data-act="open" data-id="${g.id}">
     ${coverHTML(g, {score:true, steam: view.sort === 'steam', meta: view.sort === 'meta'})}
-    <div><div class="lbl">${esc(g.title)}</div>
+    <div class="inf"><div class="lbl">${esc(g.title)}</div>
     <div class="sub"><span>${statusLabel(g)}</span>${actTag(g)}${isLive(g) ? (g.peak ? `<span>${esc(g.peak)}</span>` : '') : st.total ? `<span>${st.pct}%</span>` : ''}${achPct(g) !== null ? `<span class="achchip" title="${g.ach.done} of ${g.ach.total} achievements">${ICON.trophy}${achPct(g)}%</span>` : ''}${newTag(g)}</div></div>
   </button>${cardPlay(g)}</div>`;
 }
