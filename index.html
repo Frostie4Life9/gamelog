@@ -1395,6 +1395,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.13-a', note:'ART STAYS CURRENT: a Refresh art button under a game\u2019s Details (Review tab) asks Steam again for that one game\u2019s cover, hero and logo, and tells you if anything changed. The Worker also re-checks a game\u2019s art on its own when Steam posts new news for a game you\u2019ve played in the last 90 days, at most once a day per game, and the app takes the new art on the next Steam sync. Art you set yourself is left alone. Needs the updated Worker (it auto-deploys from GitHub).'},
   {v:'2026.11.11-p', note:'EVEN SMALLER SCORE RING: the score ring on Library covers and What to play next is smaller again (42px, and 32px on a phone). Same look and placement, hanging a little over the cover’s bottom edge.'},
   {v:'2026.11.11-o', note:'FASTER UPDATE CHECK: the new-build bar now looks for an update every 30 seconds while the app is open (it was every two minutes). Each look reads only the file\u2019s header, about half a KB, and the full page is downloaded only when it has actually changed.'},
   {v:'2026.11.11-n', note:'SMALLER SCORE RING: the score ring on Library covers and What to play next was too big, so it is now about a third smaller (50px, and 36px on a phone) while keeping the same look, the ring hanging over the cover’s bottom edge. Titles make less room for it.'},
@@ -1858,6 +1859,7 @@ async function importSteam(all = false){
         if (last > (g.lastPlayed || '')) { g.lastPlayed = last; g.lastPlayedAt = lastAt; }
         else if (last && last === g.lastPlayed && lastAt > (g.lastPlayedAt || 0)) g.lastPlayedAt = lastAt;
         if (!g.cover && (s.cover || s.header)) applyArt(g, s);
+        else if (artChanged(g, s)) useNewArt(g, s);
         if (/^https:\/\//.test(s.logo || '') && g.steamLogo !== s.logo) g.steamLogo = s.logo;
         updated++;
       } else {
@@ -1887,6 +1889,37 @@ async function importSteam(all = false){
 }
 function applyArt(g, res){
   g.cover = res.cover || res.header || ''; g.hero = res.hero || ''; g.steamLogo = /^https:\/\//.test(res.logo || '') ? res.logo : g.steamLogo || ''; g.steamId = res.id; g.artTried = true;
+  g.artSrc = artSig(res);
+}
+/* What the Worker last gave us for a game's cover and hero. If a later sync brings different art,
+   Steam changed it, so we take the new one. Art you set yourself is never overwritten: a game with
+   no record yet just has the record filled in. */
+const artSig = res => (res.cover || res.header || '') + '|' + (res.hero || '');
+function artChanged(g, res){
+  const sig = artSig(res);
+  if (!g.artSrc) { g.artSrc = sig; return false; }
+  return g.artSrc !== sig && !!(res.cover || res.header);
+}
+function useNewArt(g, res){
+  applyArt(g, res);
+  try { if (typeof logoMemo !== 'undefined' && g.steamId in logoMemo) { delete logoMemo[g.steamId]; localStorage.setItem(LOGO_KEY, JSON.stringify(logoMemo)); } } catch(e) {}
+  logoDead.clear();
+}
+const artBusy = new Set();
+async function refreshArtNow(g){
+  if (!g || !g.steamId || artBusy.has(g.id)) return;
+  if (!syncOn()) { toast('Connect sync first. Art refresh runs through your Worker'); return; }
+  artBusy.add(g.id); render();
+  try {
+    const r = await api('/steam/art?appid=' + g.steamId, {method:'POST'});
+    if (!r.ok) throw new Error(await readErr(r));
+    const j = await r.json();
+    if (j.changed || artChanged(g, j.game)) { useNewArt(g, j.game); save(); toast(`New art for ${g.title}`); }
+    else toast(`${g.title}'s art is already current on Steam`);
+  } catch(e) {
+    toast(`Couldn\u2019t refresh art: ${e.message === 'Failed to fetch' ? 'couldn\u2019t reach the Worker' : e.message}`);
+  }
+  artBusy.delete(g.id); render(true);
 }
 /* ---------- Achievements ----------
    The full list is cached on this device only (it's re-fetchable from Steam
@@ -4119,6 +4152,7 @@ function secReview(g){
       <h2 class="h2" style="margin:0">Details</h2>
       <div class="field"><label for="f-title">Title</label><input type="text" id="f-title" data-f="title" value="${esc(g.title)}"></div>
       ${g.steamId ? `<div class="field"><label for="f-tart">Title style</label><select id="f-tart" data-f="titleArt" data-rerender="1"><option value="" ${!g.titleArt ? 'selected' : ''}>Default${TITLE_TEXT_DEFAULT[g.steamId] ? ' (plain text)' : ' (logo when it has a name)'}</option><option value="logo" ${g.titleArt === 'logo' ? 'selected' : ''}>Always the logo</option><option value="text" ${g.titleArt === 'text' ? 'selected' : ''}>Plain text</option></select></div>` : ''}
+      ${g.steamId ? `<div class="field"><label>Steam art</label><button class="btn quiet" data-act="art-refresh" ${artBusy.has(g.id) ? 'disabled' : ''}>${artBusy.has(g.id) ? 'Checking Steam\u2026' : 'Refresh art'}</button></div>` : ''}
       <div class="field"><label for="f-plat">Platform</label><input type="text" id="f-plat" data-f="platform" list="plat-list" value="${esc(g.platform)}"><datalist id="plat-list">${['PC', 'Switch 2', 'Switch', 'PS5', 'PS4', 'Xbox Series', 'Xbox One', 'Steam Deck'].map(x => `<option value="${x}">`).join('')}</datalist></div>
       <div class="stats">
         <div class="field"><label for="f-start">Started</label><input type="date" id="f-start" data-f="started" value="${g.started}"></div>
@@ -4502,6 +4536,7 @@ document.addEventListener('click', e => {
     case 'steam-import-all': importSteam(true); break;
     case 'ach-filter': view.achFilter = el.dataset.v; render(); break;
     case 'ach-refresh': fetchAch(g, {force:true}); break;
+    case 'art-refresh': refreshArtNow(g); break;
     case 'news-filter': view.newsFilter = el.dataset.v; render(); break;
     case 'news-read': if (g) openReader(g, el.dataset.id); break;
     case 'wrap': if (g) setWrap(g, el.dataset.v); break;

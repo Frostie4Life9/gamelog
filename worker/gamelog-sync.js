@@ -72,6 +72,7 @@
    GET  /steam/search?q=  -> up to 6 Steam matches with cover art URLs
    GET  /steam/library?limit=10   most recently played games
    GET  /steam/library?all=1      every owned game (demos left out)
+   POST /steam/art?appid=         ask Steam again for one game's art; saves it only if it changed
    GET  /steam/achievements?appid=[&fresh=1]
    GET  /steam/news?appid=&count=15[&fresh=1]
    GET  /steam/store?appid=[&fresh=1]
@@ -286,6 +287,28 @@ async function headerFallback(net, ids, max) {
     } catch (e) { if (e.status === 429) throw e; out[id] = ''; }
   }
   return out;
+}
+
+/* ---------- Art refresh ----------
+   Art is normally fetched once per game and kept. This asks Steam again for ONE
+   game (one GetItems call) and updates the saved library only if its art changed.
+   Used by the app's Refresh art button, and by the background run when a game
+   you've played lately posts new news (a new season or update is when art changes). */
+const ART_RECHECK = DAY;       // the news-triggered check runs at most once a day per game
+const ART_ACTIVE = 90 * DAY;   // ...and only for games played in the last 90 days
+async function refreshArt(env, net, appid) {
+  const lib = await kvJSON(env, 'lib');
+  const g = lib && (lib.games || []).find(x => String(x.id) === String(appid));
+  if (!g) throw new StErr('That game isn\'t in your Steam library yet', 404);
+  const a = (await steamArt(net, [Number(appid)]))[appid];
+  let changed = false;
+  if (a) {
+    for (const k of ['cover', 'hero', 'header', 'logo']) {
+      if (a[k] && a[k] !== g[k]) { g[k] = a[k]; changed = true; }
+    }
+    if (changed) await kvPut(env, 'lib', lib);
+  }
+  return { changed, game: libOut(g) };
 }
 
 /* ---------- Steam library ---------- */
@@ -823,7 +846,14 @@ async function runBatch(env, why) {
         const r = await refreshKind(env, net, job.g.id, kind, rec);
         entry[kind] = r.t;
         if (r.retry) entry[kind + 'Retry'] = r.retry; else delete entry[kind + 'Retry'];
+        const prevNd = kind === 'news' && entry.nd ? entry.nd.join() : '';
         summarize(entry, kind, r);
+        // a new post on a game you've played lately: its art may have changed too (one call, once a day at most)
+        if (prevNd && (entry.nd || []).join() !== prevNd && net.left() >= 1
+            && job.g.lastPlayed && now - job.g.lastPlayed * 1000 < ART_ACTIVE && now - (entry.artAt || 0) > ART_RECHECK) {
+          try { await refreshArt(env, net, job.g.id); entry.artAt = now; }
+          catch (e) { if (e.status === 429) throw e; }
+        }
         if (!r.same) changed = true;
         done++;
       }
@@ -1086,6 +1116,16 @@ async function steamRoute(request, env, url) {
     if (!item || !item.body) { d = await cached(env, q('appid'), 'news', true); item = d.items.find(i => i.id === id); }
     if (!item) throw new StErr('That post is no longer in Steam\'s news feed', 404);
     return item;
+  }
+  if (p === '/steam/art') {
+    if (request.method !== 'POST') throw new StErr('use POST', 405);
+    const id = q('appid');
+    if (!/^\d+$/.test(id)) throw new StErr('appid must be a number', 400);
+    const r = await refreshArt(env, makeNet(), id);
+    const idx = (await kvJSON(env, 'idx')) || {};
+    (idx[id] = idx[id] || {}).artAt = Date.now();
+    await kvPut(env, 'idx', idx);
+    return r;
   }
   if (p === '/steam/wishlist') return wishlist(env, fresh);
   if (p === '/steam/play') return playData(env);
