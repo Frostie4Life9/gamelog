@@ -860,6 +860,27 @@ select option{background:var(--deep)}
 .brand b,.gm-brand,.sx-bar[data-app=gamelog] .sx-name{font-weight:700;letter-spacing:-.01em}
 .sx-bar[data-app=gamelog] .sx-name{letter-spacing:0}
 .achsum .big,.gsum .big,.tl .day,.scorecard .v,.hs-big,.ring b,.pips .val b,.rail-up .d{font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+/* Continue, two columns: the next step leads on the left; progress, missables
+   and what's left sit on the right so the whole width is used. */
+.cf-in{max-width:1280px}
+.cf-grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:20px;align-items:start}
+.cf-main,.cf-card{padding:clamp(18px,2.2vw,30px);border-radius:var(--r-lg);background:var(--glass);border:1px solid var(--glass-line)}
+.cf-main:not(:has(*)){display:none}
+.cf-main>*+*{margin-top:22px;padding-top:22px;border-top:1px solid var(--glass-line)}
+.cf-main h4,.cf-card h4{margin:0 0 8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.cf-main .save{display:flex;flex-direction:column;gap:22px;margin-bottom:0}
+.cf-main .save div{border-left:0;padding:0}
+.cf-main .save .next{order:-1}
+.cf-main .save .next h4{color:var(--gold)}
+.cf-main .save .next p{font:600 clamp(20px,1.9vw,28px)/1.3 var(--display);letter-spacing:-.01em}
+.cf-side{display:flex;flex-direction:column;gap:16px;min-width:0}
+.cf-side .cf-stats{max-width:none;margin:0;border-radius:var(--r-lg);padding:clamp(18px,2.2vw,28px)}
+.cf-side .cf-stat b{font-size:clamp(26px,2.4vw,38px)}
+.cf-miss h4{color:var(--rose)}
+.cf-left button{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:44px;padding:0;border:0;border-top:1px solid var(--glass-line);background:none;color:var(--paper);text-align:left}
+.cf-left button span:last-child{color:var(--mist);font-size:14px;font-variant-numeric:tabular-nums}
+.cf-left button:hover span:first-child{text-decoration:underline}
+@media (max-width:900px){.cf-grid{grid-template-columns:1fr}}
 </style>
 <!-- suite:css v10 · shared by Kitchen, Grocery, Lift, DishLog, Protocol, Rail, Game Log, Playback — edit tools/suite.py in the kitchen repo, not here -->
 <style id="suite-css">
@@ -1395,6 +1416,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.16-a', note:'CONTINUE, REDESIGNED: the Continue screen now uses the full width in two columns. Your next step leads on the left in large type, with where you were and the next few main goals under it. On the right: your finish line and rating, a short Don\u2019t miss list, and a What\u2019s left list with one line per category (tap one to open the game). Missables are no longer listed twice. On a phone it stacks into one column.'},
   {v:'2026.11.13-a', note:'ART STAYS CURRENT: a Refresh art button under a game\u2019s Details (Review tab) asks Steam again for that one game\u2019s cover, hero and logo, and tells you if anything changed. The Worker also re-checks a game\u2019s art on its own when Steam posts new news for a game you\u2019ve played in the last 90 days, at most once a day per game, and the app takes the new art on the next Steam sync. Art you set yourself is left alone. Needs the updated Worker (it auto-deploys from GitHub).'},
   {v:'2026.11.11-p', note:'EVEN SMALLER SCORE RING: the score ring on Library covers and What to play next is smaller again (42px, and 32px on a phone). Same look and placement, hanging a little over the cover’s bottom edge.'},
   {v:'2026.11.11-o', note:'FASTER UPDATE CHECK: the new-build bar now looks for an update every 30 seconds while the app is open (it was every two minutes). Each look reads only the file\u2019s header, about half a KB, and the full page is downloaded only when it has actually changed.'},
@@ -3075,7 +3097,10 @@ function renderContinue(){
     }).filter(x => x.open.length);
   const gm = f.content ? goalMiss(f) : null;
   const openMiss = gm ? gm.items : f.missables.filter(m => !m.done).map(m => ({id:m.id, text:m.text, kind:'miss'}));
-  const missMore = (gm ? gm.n : openMiss.length) - 4;
+  const missMore = (gm ? gm.n : openMiss.length) - 3;
+  // Missables already show under Don't miss, so they are not listed a second time
+  const notMiss = x => !(openMiss.length && /^missables$/i.test(x.label));
+  const leftAll = (packTodo || todo).filter(notMiss), mainTodo = todo.filter(notMiss).slice(0, 1);
 
   // A5 hero: the game's own art full-bleed, title over it, stats on glass
   const art = /^https:\/\//.test(f.hero) ? f.hero : /^https:\/\//.test(f.cover) ? f.cover : '';
@@ -3100,21 +3125,26 @@ function renderContinue(){
           <button class="btn quiet" data-act="played" data-game="${f.id}">I played today</button>
           ${/^https?:\/\//.test(f.note.recap) ? `<a class="btn quiet" href="${esc(f.note.recap)}" target="_blank" rel="noopener">Watch recap</a>` : ''}
         </div>
-        <div class="cf-stats">${cells.join('')}</div>
-        <div class="cf-body">
+        <div class="cf-grid">
+        <div class="cf-main">
         ${wrapAsk(f)}
         ${onBreak(f) ? `<div class="wbcue" data-game="${f.id}"><p><b>It's been ${awayText(awayDays(f))}.</b> Get your bearings before you jump in.</p><button class="btn sm" data-act="wb-open" data-game="${f.id}">Welcome back kit</button></div>` : ''}
         ${f.note.where || f.note.next ? `<div class="save">
           <div><h4>Where you were</h4><p>${esc(f.note.where) || '<span class="dim">Not written yet</span>'}</p></div>
           <div class="next"><h4>Next step</h4><p>${esc(f.note.next) || '<span class="dim">Not written yet</span>'}</p></div>
         </div>` : ''}
-        ${openMiss.length ? `<div class="upnext"><h4>Don't miss</h4><ul class="checks">${openMiss.slice(0, 4).map(m => `<li>
-          <input class="tick" type="checkbox" aria-label="Mark done: ${esc(m.text)}" data-act="toggle" data-kind="${m.kind}" data-tab="${esc(m.tab || '')}" data-id="${esc(m.id)}" data-game="${f.id}">
-          <span class="t">${esc(m.text)}</span><span></span></li>`).join('')}</ul>${missMore > 0 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${missMore} more in ${gm ? 'Goals' : 'Missables'}</p>` : ''}</div>` : ''}
-        ${todo.map(x => `<div class="upnext"><h4>${esc(x.label)} · ${x.done} of ${x.total} done</h4><ul class="checks">${x.open.slice(0, 4).map(i => `<li>
+        ${mainTodo.map(x => `<div class="upnext"><h4>${esc(x.label)} · ${x.done} of ${x.total} done</h4><ul class="checks">${x.open.slice(0, 4).map(i => `<li>
           <input class="tick" type="checkbox" aria-label="Mark done: ${esc(i.text)}" data-act="toggle" data-kind="${i.kind}" data-tab="${esc(i.tab || '')}" data-layer="${x.k}" data-id="${esc(i.id)}" data-game="${f.id}">
           <span class="t">${esc(i.text)}</span><span></span></li>`).join('')}</ul>${x.more > 0 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${x.more} more in ${x.where}</p>` : ''}</div>`).join('')}
+        </div>
+        <aside class="cf-side">
+        <div class="cf-stats">${cells.join('')}</div>
+        ${openMiss.length ? `<div class="upnext cf-card cf-miss"><h4>Don't miss · ${gm ? gm.n : openMiss.length} open</h4><ul class="checks">${openMiss.slice(0, 3).map(m => `<li>
+          <input class="tick" type="checkbox" aria-label="Mark done: ${esc(m.text)}" data-act="toggle" data-kind="${m.kind}" data-tab="${esc(m.tab || '')}" data-id="${esc(m.id)}" data-game="${f.id}">
+          <span class="t">${esc(m.text)}</span><span></span></li>`).join('')}</ul>${missMore > 0 ? `<p class="dim" style="margin:6px 0 0;font-size:13px">+${missMore} more in ${gm ? 'Goals' : 'Missables'}</p>` : ''}</div>` : ''}
+        ${leftAll.length ? `<div class="cf-card cf-left"><h4>What's left</h4>${leftAll.map(x => `<button data-act="open" data-id="${f.id}"><span>${esc(x.label)}</span><span>${x.done} / ${x.total}</span></button>`).join('')}</div>` : ''}
         ${rel ? `<p class="dim" style="margin:14px 0 0;font-size:13px">${esc(rel.name)} ${countdown(rel.date).toLowerCase()}</p>` : ''}
+        </aside>
         </div>
       </div>
     </section>
