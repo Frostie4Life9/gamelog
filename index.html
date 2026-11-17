@@ -33,7 +33,7 @@ body{margin:0;background:var(--night);color:var(--paper);font:400 16px/1.5 var(-
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 a{color:var(--gold)}
-:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:var(--r-sm)}
 ::selection{background:var(--gold);color:var(--gold-ink)}
 
 /* Shell */
@@ -47,13 +47,13 @@ a{color:var(--gold)}
 .navbtn:hover{background:var(--deep);color:var(--paper)}
 .navbtn.on{background:var(--deep);color:var(--paper)}
 .navbtn.on svg{color:var(--gold)}
-.navbtn .count{margin-left:auto;font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums}
-.rail-sub{font-size:13px;color:var(--dim);padding:0 12px;margin:0 0 8px}
+.navbtn .count{margin-left:auto;font-size:14px;color:var(--dim);font-variant-numeric:tabular-nums}
+.rail-sub{font-size:14px;color:var(--dim);padding:0 12px;margin:0 0 8px}
 .rail-up{display:flex;flex-direction:column;gap:2px}
 .rail-up button{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;border:0;background:transparent;padding:8px 12px;border-radius:var(--r-sm);text-align:left;color:var(--paper)}
 .rail-up button:hover{background:var(--deep)}
 .rail-up .d{font-weight:800;font-size:20px;line-height:1;font-variation-settings:'wdth' 75;color:var(--gold);text-align:center}
-.rail-up .d small{display:block;font-size:11px;font-weight:500;color:var(--dim);margin-top:2px}
+.rail-up .d small{display:block;font-size:12px;font-weight:500;color:var(--dim);margin-top:2px}
 .rail-up .n{font-size:14px;line-height:1.3}
 .rail-up .n span{display:block;color:var(--dim);font-size:12px}
 .rail-foot{margin-top:auto;display:flex;flex-direction:column;gap:2px}
@@ -108,9 +108,9 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .save{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
 .save div{border-left:3px solid var(--line);padding:2px 0 2px 14px}
 .save div.next{border-left-color:var(--gold)}
-.save h4{margin:0 0 4px;font-size:13px;font-weight:600;color:var(--dim)}
-.save p{margin:0;font-size:15px;line-height:1.5;white-space:pre-wrap}
-.upnext h4{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--dim)}
+.save h4{margin:0 0 4px;font-size:14px;font-weight:600;color:var(--dim)}
+.save p{margin:0;font-size:16px;line-height:1.5;white-space:pre-wrap}
+.upnext h4{margin:0 0 6px;font-size:14px;font-weight:600;color:var(--dim)}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 
 .shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 18px}
@@ -118,8 +118,8 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .slot .cover{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .slot:hover .cover{transform:translateY(-4px)}
 .slot .cover .ct{font-size:clamp(22px,2.3vw,28px)}
-.slot .lbl{font-size:15px;font-weight:600;line-height:1.25}
-.slot .sub{font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:center}
+.slot .lbl{font-size:16px;font-weight:600;line-height:1.25}
+.slot .sub{font-size:14px;color:var(--dim);display:flex;gap:10px;align-items:center}
 .cw{position:relative}
 .slot .cw{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .slot:hover .cw{transform:translateY(-4px)}
@@ -130,7 +130,7 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .score .sb{fill:#0A0A0B}
 .score .st{fill:none;stroke:rgba(255,255,255,.16);stroke-width:5}
 .score .sa{fill:none;stroke:var(--amber);stroke-width:5;stroke-linecap:round;transform:rotate(-90deg);transform-box:fill-box;transform-origin:center}
-.score b{position:relative;font-weight:800;font-size:18px;line-height:1;color:color-mix(in srgb,var(--amber) 70%,#fff)}
+.score b{position:relative;font-weight:800;font-size:20px;line-height:1;color:color-mix(in srgb,var(--amber) 70%,#fff)}
 
 .timeline{display:flex;flex-direction:column;border-top:1px solid var(--line-soft)}
 .tl{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line-soft);background:transparent;border-left:0;border-right:0;border-top:0;text-align:left;color:inherit;width:100%}
@@ -151,8 +151,8 @@ main{min-width:0;padding:40px clamp(18px,4vw,56px) 80px}
 .btn.play{text-decoration:none}
 .btn.play svg{width:14px;height:14px;fill:currentColor}
 .field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:13px;color:var(--dim);font-weight:500}
-input[type=text],input[type=number],input[type=date],input[type=url],input[type=search],input[type=password],select,textarea{width:100%;background:var(--night);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;font-size:15px}
+.field label{font-size:14px;color:var(--dim);font-weight:500}
+input[type=text],input[type=number],input[type=date],input[type=url],input[type=search],input[type=password],select,textarea{width:100%;background:var(--night);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;font-size:16px}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 18%,transparent)}
 textarea{resize:vertical;min-height:110px;line-height:1.55}
 ::placeholder{color:var(--dim)}
@@ -165,7 +165,7 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .nu{margin:0 0 44px}
 .nutools{display:flex;flex-wrap:wrap;gap:10px 16px;margin:0 0 16px}
 .nucard{display:grid;grid-template-columns:minmax(110px,160px) 1fr;gap:clamp(16px,2.4vw,28px);background:var(--deep);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:clamp(14px,2vw,22px)}
-.nucard h3{margin:0 0 6px;font-size:22px;font-weight:700;letter-spacing:-.005em}
+.nucard h3{margin:0 0 6px;font-size:20px;font-weight:700;letter-spacing:-.005em}
 .nsub{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--mist);font-size:14px;margin:0 0 14px}
 .nuwhy{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:7px}
 .nuwhy li{position:relative;padding-left:20px;line-height:1.4}
@@ -173,14 +173,14 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .nualso{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:12px}
 .nualso button{display:flex;flex-direction:column;gap:3px;text-align:left;background:var(--deep);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:12px 14px;color:var(--paper)}
 .nualso button:hover{background:var(--raise)}
-.nualso button span{color:var(--mist);font-size:13px}
+.nualso button span{color:var(--mist);font-size:14px}
 @media (max-width:640px){.nucard{grid-template-columns:minmax(90px,120px) 1fr}.nucard h3{font-size:19px}}
 
 /* Checklist */
 .checks{list-style:none;margin:0;padding:0}
 .checks li{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line-soft)}
 .checks li:last-child{border-bottom:0}
-.tick{appearance:none;width:22px;height:22px;margin:1px 0 0;border:2px solid var(--line);border-radius:7px;background:transparent;display:grid;place-items:center;cursor:pointer;transition:background .15s,border-color .15s}
+.tick{appearance:none;width:22px;height:22px;margin:1px 0 0;border:2px solid var(--line);border-radius:var(--r-sm);background:transparent;display:grid;place-items:center;cursor:pointer;transition:background .15s,border-color .15s}
 .tick:hover{border-color:var(--mist)}
 .tick:checked{background:var(--mint);border-color:var(--mint)}
 .tick:checked::after{content:'';width:10px;height:6px;border-left:2.5px solid var(--night);border-bottom:2.5px solid var(--night);transform:translateY(-1px) rotate(-45deg)}
@@ -218,18 +218,18 @@ textarea{resize:vertical;min-height:110px;line-height:1.55}
 .achlist li.locked img{filter:grayscale(1) brightness(.6)}
 .achlist b{display:block;font-weight:600}
 .achlist .d{color:var(--mist);font-size:14px}
-.achlist .r{text-align:right;font-size:13px;color:var(--dim);white-space:nowrap}
-.achlist .r b{font-size:15px;color:var(--paper);font-variant-numeric:tabular-nums}
+.achlist .r{text-align:right;font-size:14px;color:var(--dim);white-space:nowrap}
+.achlist .r b{font-size:16px;color:var(--paper);font-variant-numeric:tabular-nums}
 .achlist .r .rare{color:var(--gold)}
 .achlist .reveal{border:0;background:none;color:var(--gold);padding:0;font-size:14px;cursor:pointer}
 .achlast{margin:0 0 24px;color:var(--mist);font-size:14px}
 .achlast b{color:var(--paper)}
 .achchip{display:inline-flex;align-items:center;gap:4px}
 .slot .sub{flex-wrap:wrap}
-.acttag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1;padding:4px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.acttag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1;padding:4px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
 .acttag::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
 .acttag.active,.actc.active{color:var(--mint)} .acttag.dormant,.actc.dormant{color:var(--amber)} .acttag.lapsed,.actc.lapsed{color:var(--dim)}
-.newtag{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1;color:var(--gold-ink);background:var(--gold);padding:4px 8px;border-radius:999px;border:0;white-space:nowrap}
+.newtag{display:inline-flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1;color:var(--gold-ink);background:var(--gold);padding:4px 8px;border-radius:999px;border:0;white-space:nowrap}
 button.newtag{cursor:pointer}
 .sec .n.new{background:var(--gold);color:var(--gold-ink)}
 .newshead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:18px}
@@ -239,37 +239,37 @@ button.newtag{cursor:pointer}
 .posts{display:flex;flex-direction:column;gap:12px}
 .post{border:1px solid var(--line-soft);border-radius:var(--r-md);padding:16px 18px;background:var(--night)}
 .post.fresh{border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold)}
-.post .ph{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--dim);margin-bottom:6px}
-.post .kind{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--raise);color:var(--mist)}
+.post .ph{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--dim);margin-bottom:6px}
+.post .kind{font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--raise);color:var(--mist)}
 .post .kind.patch{background:rgba(143,184,255,.16);color:var(--sky)}
-.post h3{margin:0 0 6px;font-size:17px;font-weight:650;letter-spacing:-.003em}
+.post h3{margin:0 0 6px;font-size:16px;font-weight:650;letter-spacing:-.003em}
 .post h3 a{color:var(--paper);text-decoration:none} .post h3 a:hover{color:var(--gold);text-decoration:underline}
-.post .ex{margin:0 0 8px;color:var(--mist);font-size:14.5px;white-space:pre-line}
+.post .ex{margin:0 0 8px;color:var(--mist);font-size:14px;white-space:pre-line}
 .post .more{font-size:14px}
 /* Store page */
 .store{display:flex;flex-direction:column;gap:20px}
 .store-top{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(18px,3vw,32px)}
-.store-lead{margin:0 0 18px;font-size:17px;line-height:1.55;color:var(--paper)}
+.store-lead{margin:0 0 18px;font-size:16px;line-height:1.55;color:var(--paper)}
 .facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px;margin:0}
 .facts div{min-width:0} .facts dt{font-size:12px;color:var(--dim);font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:2px}
-.facts dd{margin:0;font-size:15px;overflow-wrap:anywhere}
+.facts dd{margin:0;font-size:16px;overflow-wrap:anywhere}
 .scores{display:flex;flex-direction:column;gap:10px}
 .scorecard{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--night);color:inherit;text-decoration:none}
 a.scorecard:hover{border-color:var(--line)}
-.scorecard .v{font-weight:800;font-size:26px;line-height:1;font-variation-settings:'wdth' 80;text-align:center;font-variant-numeric:tabular-nums}
-.scorecard .l b{display:block;font-size:15px} .scorecard .l span{font-size:13px;color:var(--dim)}
+.scorecard .v{font-weight:800;font-size:28px;line-height:1;font-variation-settings:'wdth' 80;text-align:center;font-variant-numeric:tabular-nums}
+.scorecard .l b{display:block;font-size:16px} .scorecard .l span{font-size:14px;color:var(--dim)}
 .scorecard .v.good{color:var(--mint)} .scorecard .v.mid{color:var(--amber)} .scorecard .v.bad{color:var(--rose)}
 .scorecard .v s{display:block;font-size:12px;color:var(--dim);font-weight:500;margin-top:3px}
 .store-links .btn{text-decoration:none}
 .store-links{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:4px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chips span{font-size:13px;padding:4px 10px;border-radius:999px;background:var(--raise);color:var(--mist)}
+.chips span{font-size:14px;padding:4px 10px;border-radius:999px;background:var(--raise);color:var(--mist)}
 .chips.genre span{background:color-mix(in srgb,var(--gold) 14%,transparent);color:var(--gold)}
 .chips.ctrl span{background:color-mix(in srgb,var(--gold) 14%,transparent);color:var(--gold);display:inline-flex;align-items:center;gap:6px}
 .chips.ctrl span.rec{background:var(--gold);color:#0C0C0E;font-weight:600}
 .chips.ctrl svg{width:14px;height:14px;flex:none}
 .ctl{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px}
-.ctl>span{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;line-height:1;padding:5px 10px;border-radius:999px;background:color-mix(in srgb,var(--gold) 16%,transparent);color:var(--gold);white-space:nowrap}
+.ctl>span{display:inline-flex;align-items:center;gap:5px;font-size:12px;line-height:1;padding:5px 10px;border-radius:999px;background:color-mix(in srgb,var(--gold) 16%,transparent);color:var(--gold);white-space:nowrap}
 .ctl>span.rec{background:var(--gold);color:#0C0C0E;font-weight:600}
 .ctl svg{width:13px;height:13px;flex:none}
 .media{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin:0 -4px;padding-left:4px}
@@ -277,7 +277,7 @@ a.scorecard:hover{border-color:var(--line)}
 .media video{width:min(560px,82vw);aspect-ratio:16/9;display:block;background:#000}
 .media .vid{display:block;width:min(560px,82vw);aspect-ratio:16/9;position:relative;padding:0;cursor:pointer;color:inherit;font:inherit}
 .media .vid img{width:100%;height:100%;object-fit:cover;display:block}
-.media .vid .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(transparent 50%,rgba(0,0,0,.6));color:#fff;font-weight:700;font-size:15px;padding:0 12px;text-align:center}
+.media .vid .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(transparent 50%,rgba(0,0,0,.6));color:#fff;font-weight:700;font-size:16px;padding:0 12px;text-align:center}
 .media .vid:hover .play{background:linear-gradient(transparent 30%,rgba(0,0,0,.7))}
 .media a{display:block;width:min(320px,70vw);aspect-ratio:16/9;position:relative}
 .media a img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
@@ -285,18 +285,18 @@ a.scorecard:hover{border-color:var(--line)}
 .media .ytwrap{width:min(560px,82vw);flex:none}
 .media .ytframe{width:100%;aspect-ratio:16/9;background:#000;position:relative}
 .media .ytframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.media a.ytopen{width:auto;aspect-ratio:auto;margin-top:6px;font-size:13px;color:var(--gold);text-decoration:none}
+.media a.ytopen{width:auto;aspect-ratio:auto;margin-top:6px;font-size:14px;color:var(--gold);text-decoration:none}
 .media a .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(transparent 50%,rgba(0,0,0,.55));color:#fff;font-weight:700;font-size:14px}
-.about{white-space:pre-line;color:var(--mist);font-size:15px;line-height:1.6;margin:0}
+.about{white-space:pre-line;color:var(--mist);font-size:16px;line-height:1.6;margin:0}
 .about-wrap{position:relative;max-height:230px;overflow:hidden}
 .about-wrap::after{content:'';position:absolute;left:0;right:0;bottom:0;height:80px;background:linear-gradient(transparent,var(--deep))}
 .about-wrap.open{max-height:none} .about-wrap.open::after{display:none}
 .dlc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-soft)}
 .dlc li{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-soft)}
-.dlc .nm{font-weight:600;min-width:0} .dlc .nm small{display:block;font-weight:400;font-size:13px;color:var(--dim)}
+.dlc .nm{font-weight:600;min-width:0} .dlc .nm small{display:block;font-weight:400;font-size:14px;color:var(--dim)}
 .dlc .nm small.soon{color:var(--amber)}
 .dlc .pr{font-size:14px;color:var(--mist);white-space:nowrap;font-variant-numeric:tabular-nums}
-.dlc .trk{font-size:13px;color:var(--mint);white-space:nowrap}
+.dlc .trk{font-size:14px;color:var(--mint);white-space:nowrap}
 .reqs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .reqs h3{margin:0 0 8px;font-size:14px;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
 .reqs dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
@@ -307,7 +307,7 @@ a.scorecard:hover{border-color:var(--line)}
 @media (max-width:520px){.facts{grid-template-columns:1fr}.dlc li{grid-template-columns:1fr auto}.dlc .trkcell{grid-column:1/-1}}
 .pane.off{content-visibility:hidden;contain-intrinsic-size:0;height:0;overflow:hidden}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r-lg);padding:48px 24px;text-align:center;color:var(--mist)}
-.empty b{display:block;color:var(--paper);font-size:18px;margin-bottom:6px}
+.empty b{display:block;color:var(--paper);font-size:20px;margin-bottom:6px}
 
 /* Game page */
 .hero{position:relative;isolation:isolate;margin:-40px calc(-1 * clamp(18px,4vw,56px)) 0;padding:40px clamp(18px,4vw,56px) 0;overflow:hidden}
@@ -326,14 +326,14 @@ a.scorecard:hover{border-color:var(--line)}
 .hero-col{display:flex;flex-direction:column;gap:24px}
 .hero-col .hero-row{gap:12px}
 .hero-stats{display:flex;flex-wrap:wrap;gap:14px;align-items:stretch}
-.hs-card{flex:1 1 210px;min-width:0;box-sizing:border-box;padding:18px;border-radius:16px;border:1px solid var(--line-soft);background:rgba(255,255,255,.05);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);display:flex;flex-direction:column;gap:10px}
+.hs-card{flex:1 1 210px;min-width:0;box-sizing:border-box;padding:18px;border-radius:var(--r-lg);border:1px solid var(--line-soft);background:rgba(255,255,255,.05);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);display:flex;flex-direction:column;gap:10px}
 .hs-l{margin:0;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mist)}
 .hs-val{min-height:56px;display:flex;align-items:center;gap:10px}
 .hs-big{font-size:28px;font-weight:800;line-height:1;font-variation-settings:'wdth' 80;font-variant-numeric:tabular-nums}
-.hs-sub{font-size:13px;color:var(--mist)}
+.hs-sub{font-size:14px;color:var(--mist)}
 .hs-bar{height:6px;border-radius:999px;background:var(--raise);overflow:hidden}
 .hs-bar i{display:block;height:100%;border-radius:999px;background:var(--gold)}
-.hs-link{border:0;background:none;padding:0;color:var(--mint);font-weight:600;font-size:13px;text-align:left;cursor:pointer;align-self:flex-start}
+.hs-link{border:0;background:none;padding:0;color:var(--mint);font-weight:600;font-size:14px;text-align:left;cursor:pointer;align-self:flex-start}
 .hs-link:hover{text-decoration:underline}
 .hs-ach{border:0;background:none;padding:0;color:inherit;text-align:left;cursor:pointer;min-height:56px;display:flex;align-items:center}
 .hs-card .pips{flex-direction:column-reverse;align-items:stretch;gap:10px}
@@ -351,8 +351,8 @@ a.scorecard:hover{border-color:var(--line)}
 .status-pick{appearance:none;width:auto;border-radius:999px;padding:8px 36px 8px 16px;font-weight:600;background:var(--deep) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23A1A8D0' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 14px center;border:1px solid var(--line)}
 .ring{display:flex;align-items:center;gap:12px}
 .ring svg{flex:none}
-.ring b{display:block;font-size:22px;font-weight:800;line-height:1;font-variation-settings:'wdth' 80;font-variant-numeric:tabular-nums}
-.ring span{font-size:13px;color:var(--mist)}
+.ring b{display:block;font-size:20px;font-weight:800;line-height:1;font-variation-settings:'wdth' 80;font-variant-numeric:tabular-nums}
+.ring span{font-size:14px;color:var(--mist)}
 
 .pips{display:flex;align-items:center;gap:14px}
 .pip-row{display:flex;gap:4px}
@@ -363,10 +363,10 @@ a.scorecard:hover{border-color:var(--line)}
 .pip-row .pip.hov{background:color-mix(in srgb,var(--gold) 65%,transparent)}
 .pips .val{min-width:84px}
 .pips{flex-wrap:wrap}
-.pips .val b{font-size:22px;font-weight:800;font-variation-settings:'wdth' 80;font-variant-numeric:tabular-nums}
+.pips .val b{font-size:20px;font-weight:800;font-variation-settings:'wdth' 80;font-variant-numeric:tabular-nums}
 .pips .val b small{font-size:14px;color:var(--dim);font-weight:500}
-.pips .val span{display:block;font-size:13px;color:var(--mist)}
-.pips.lg .pip{width:30px;height:44px;border-radius:7px}
+.pips .val span{display:block;font-size:14px;color:var(--mist)}
+.pips.lg .pip{width:30px;height:44px;border-radius:var(--r-sm)}
 
 .sections{position:sticky;top:0;z-index:4;background:rgba(10,10,11,.97);border-bottom:1px solid var(--line-soft);margin:0 calc(-1 * clamp(18px,4vw,56px)) 32px;padding:0 clamp(18px,4vw,56px)}
 .sections-in{max-width:1080px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
@@ -380,7 +380,7 @@ a.scorecard:hover{border-color:var(--line)}
 .more-chk:focus-visible ~ .sections-in .sec-morebtn{outline:2px solid var(--gold);outline-offset:-3px;border-radius:8px}
 .sections-more{display:none;border-top:1px solid var(--line-soft)}
 .more-chk:checked ~ .sections-more{display:flex}
-.sec{border:0;background:transparent;color:var(--mist);padding:16px 14px 14px;font-weight:600;font-size:15px;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.sec{border:0;background:transparent;color:var(--mist);padding:16px 14px 14px;font-weight:600;font-size:16px;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:8px}
 .sec:hover{color:var(--paper)}
 .sec.on{color:var(--paper);border-bottom-color:var(--gold)}
 .sec .n{font-size:12px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--raise);display:grid;place-items:center;font-variant-numeric:tabular-nums}
@@ -390,9 +390,9 @@ a.scorecard:hover{border-color:var(--line)}
 .journal{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
 .journal .panel{display:flex;flex-direction:column;gap:12px}
 .journal .panel.next{border-color:color-mix(in srgb,var(--gold) 35%,transparent)}
-.journal h3{margin:0;font-size:17px;font-weight:700}
+.journal h3{margin:0;font-size:16px;font-weight:700}
 .journal p.hint{margin:-6px 0 0;font-size:14px;color:var(--dim)}
-.journal textarea{background:transparent;border:0;border-top:1px solid var(--line-soft);border-radius:0;padding:12px 0 0;font-size:17px;line-height:1.6;min-height:150px}
+.journal textarea{background:transparent;border:0;border-top:1px solid var(--line-soft);border-radius:0;padding:12px 0 0;font-size:16px;line-height:1.6;min-height:150px}
 .journal textarea:focus{box-shadow:none;border-color:var(--gold)}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
 .played{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:20px}
@@ -403,7 +403,7 @@ a.scorecard:hover{border-color:var(--line)}
 .layer{display:flex;flex-direction:column}
 .layer.opt{background:transparent;border-style:dashed}
 .layer-top{display:flex;align-items:start;justify-content:space-between;gap:10px;margin-bottom:6px}
-.layer h3{margin:0;font-size:19px;font-weight:700;font-variation-settings:'wdth' 88}
+.layer h3{margin:0;font-size:20px;font-weight:700;font-variation-settings:'wdth' 88}
 .layer .desc{margin:0 0 12px;font-size:14px;color:var(--dim)}
 .counts{border:1px solid var(--line);background:transparent;color:var(--mist);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;white-space:nowrap}
 .counts.on{border-color:rgba(98,214,184,.5);color:var(--mint)}
@@ -416,17 +416,17 @@ a.scorecard:hover{border-color:var(--line)}
 .warnpanel .tick:checked{background:var(--rose);border-color:var(--rose)}
 .warnhead{display:flex;gap:14px;align-items:start;margin-bottom:12px}
 .warnhead svg{flex:none;color:var(--rose);margin-top:3px}
-.warnhead h3{margin:0 0 4px;font-size:19px}
+.warnhead h3{margin:0 0 4px;font-size:20px}
 .warnhead p{margin:0;color:var(--mist);max-width:60ch}
 
 .rel-add{display:grid;grid-template-columns:1fr 180px auto;gap:8px;margin-top:20px}
 .reviewgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start}
-.reviewgrid textarea{min-height:240px;font-size:17px}
+.reviewgrid textarea{min-height:240px;font-size:16px}
 .details{display:flex;flex-direction:column;gap:16px}
 .swatches{display:flex;flex-wrap:wrap;gap:8px}
-.sw{width:34px;height:34px;border-radius:10px;border:2px solid transparent;padding:0}
+.sw{width:34px;height:34px;border-radius:var(--r-md);border:2px solid transparent;padding:0}
 .sw.on{border-color:var(--paper);box-shadow:0 0 0 2px var(--night) inset}
-.sw.auto{width:auto;padding:0 12px;background:var(--raise);color:var(--mist);font-size:13px;font-weight:600}
+.sw.auto{width:auto;padding:0 12px;background:var(--raise);color:var(--mist);font-size:14px;font-weight:600}
 .sw.auto.on{color:var(--paper)}
 
 .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;background:var(--paper);color:var(--night);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14px;transition:opacity .2s,transform .2s;pointer-events:none;z-index:320}
@@ -490,10 +490,10 @@ a.scorecard:hover{border-color:var(--line)}
 .gmissbtn.on{background:var(--rose);border-color:var(--rose);color:var(--night)}
 .gcover{color:var(--mist);font-size:14px;margin:0 0 14px}
 .saveread{padding:14px 18px}.saveread p{margin:3px 0}
-.shotrow{margin:10px 0 0}.shotrow ul{margin:4px 0 0;padding-left:18px}.shotrow li{margin:2px 0}.shotrow details{margin-top:4px;font-size:13px}.shotrow summary{cursor:pointer}.shotrow pre{white-space:pre-wrap;margin:6px 0 0;color:var(--mist);font:inherit}
+.shotrow{margin:10px 0 0}.shotrow ul{margin:4px 0 0;padding-left:18px}.shotrow li{margin:2px 0}.shotrow details{margin-top:4px;font-size:14px}.shotrow summary{cursor:pointer}.shotrow pre{white-space:pre-wrap;margin:6px 0 0;color:var(--mist);font:inherit}
 .gcover b{color:var(--paper)}
 .gcatch{margin-bottom:16px}
-.gcatch h3{margin:0 0 6px;font-size:17px}
+.gcatch h3{margin:0 0 6px;font-size:16px}
 .gcatch .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
 .gcatch .row label{color:var(--mist);font-size:14px}
 .gcatch select{width:auto;max-width:220px}
@@ -502,7 +502,7 @@ a.scorecard:hover{border-color:var(--line)}
 .glist li:last-child{border-bottom:0}
 .glist li.d .gname{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--line)}
 .glist li.a .gname{color:var(--mist)}
-.gtick{position:relative;width:24px;height:24px;margin-top:0;padding:0;border:2px solid var(--line);border-radius:7px;background:transparent;display:grid;place-items:center}
+.gtick{position:relative;width:24px;height:24px;margin-top:0;padding:0;border:2px solid var(--line);border-radius:var(--r-sm);background:transparent;display:grid;place-items:center}
 .gtick:hover{border-color:var(--mist)}
 .gtick.d{background:var(--mint);border-color:var(--mint)}
 .gtick.d::after{content:'';width:10px;height:6px;border-left:2.5px solid var(--night);border-bottom:2.5px solid var(--night);transform:translateY(-1px) rotate(-45deg)}
@@ -514,7 +514,7 @@ a.scorecard:hover{border-color:var(--line)}
 .gchip.next{background:var(--gold);color:var(--gold-ink);font-weight:700}
 .gchip.ok{color:var(--mint)}
 .gchip.as{border:1px dashed var(--mint);background:transparent;color:var(--mint)}
-.gdet{margin-top:12px;display:grid;gap:10px;color:var(--mist);font-size:15px;line-height:1.55}
+.gdet{margin-top:12px;display:grid;gap:10px;color:var(--mist);font-size:16px;line-height:1.55}
 .gdet b{color:var(--paper)}
 .gdet .how{white-space:pre-line}
 .gdet a{color:var(--sky)}
@@ -530,10 +530,10 @@ a.scorecard:hover{border-color:var(--line)}
 .cksheet h2{margin:0 0 4px;font-size:22px}
 /* console game search */
 .cglist{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
-.cgrow{display:flex;gap:12px;align-items:flex-start;padding:10px;border:1px solid var(--line-soft);border-radius:12px}
+.cgrow{display:flex;gap:12px;align-items:flex-start;padding:10px;border:1px solid var(--line-soft);border-radius:var(--r-md)}
 .cgrow img,.cgnoimg{width:56px;aspect-ratio:3/4;object-fit:cover;border-radius:8px;flex:none;background:var(--line-soft);display:block}
 .cgmeta{min-width:0;flex:1}
-.cgmeta b{font-size:15px}
+.cgmeta b{font-size:16px}
 .cgplat{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 /* welcome back (re-entry kit) */
 .wbsheet{width:min(680px,100%)}
@@ -607,15 +607,15 @@ a.scorecard:hover{border-color:var(--line)}
 .post .acts button{border:0;background:none;padding:0;color:var(--gold);font-weight:600;cursor:pointer}
 /* wrapping a game up */
 .wrapask{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin:0 0 18px;padding:14px 16px;border-radius:var(--r-md);background:color-mix(in srgb,var(--gold) 10%,transparent);border:1px solid color-mix(in srgb,var(--gold) 35%,transparent)}
-.wrapask p{margin:0;flex:1;min-width:220px;font-size:15px}
+.wrapask p{margin:0;flex:1;min-width:220px;font-size:16px}
 .wrapask p b{color:var(--gold)}
 .wrapask .acts{display:flex;gap:8px;flex-wrap:wrap}
 .wraprow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:22px 0 0;padding-top:16px;border-top:1px solid var(--line-soft);font-size:14px;color:var(--mist)}
 .wraprow span{margin-right:4px}
 .wrapcard{margin:0 0 18px}
-.wrapcard h3{margin:0 0 4px;font-size:19px;display:flex;align-items:center;gap:10px}
+.wrapcard h3{margin:0 0 4px;font-size:20px;display:flex;align-items:center;gap:10px}
 .wrapcard h3 svg{color:var(--gold)}
-.wrapcard .hint{margin:0 0 14px;color:var(--mist);font-size:14.5px}
+.wrapcard .hint{margin:0 0 14px;color:var(--mist);font-size:14px}
 .wrapcard label.l{display:block;margin:14px 0 6px;font-weight:700;font-size:14px}
 .wrapcard textarea{min-height:64px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -630,12 +630,12 @@ a.scorecard:hover{border-color:var(--line)}
 @media (hover:hover){.cplay{opacity:0}.slotw:hover .cplay,.cplay:focus-visible{opacity:1}}
 .srv{position:absolute;bottom:12px;left:10px;z-index:3;height:26px;padding:0 8px;border-radius:999px;display:inline-flex;align-items:center;gap:4px;background:rgba(10,10,11,.88);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--mist)}
 .srv svg{width:12px;height:12px}
-.smc{position:absolute;top:10px;right:10px;z-index:3;min-width:30px;height:26px;padding:0 7px;border-radius:7px;display:grid;place-items:center;background:rgba(10,10,11,.88);font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+.smc{position:absolute;top:10px;right:10px;z-index:3;min-width:30px;height:26px;padding:0 7px;border-radius:var(--r-sm);display:grid;place-items:center;background:rgba(10,10,11,.88);font-size:14px;font-weight:800;font-variant-numeric:tabular-nums}
 .smc.hi{color:var(--mint)} .smc.mid{color:var(--amber)} .smc.lo{color:var(--rose)}
 .srv.hi,.steamrv.hi b{color:var(--mint)} .srv.mid,.steamrv.mid b{color:var(--amber)} .srv.lo,.steamrv.lo b{color:var(--rose)}
 .steamrv{display:flex;flex-direction:column;line-height:1.15}
-.steamrv b{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
-.steamrv span{font-size:12.5px;color:var(--dim)}
+.steamrv b{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.steamrv span{font-size:12px;color:var(--dim)}
 /* wishlist */
 .wishgrp{margin:0 0 40px}
 .wish .lbl a{color:inherit;text-decoration:none}
@@ -650,19 +650,19 @@ a.tl{text-decoration:none}
 .updbar{position:fixed;left:0;right:0;top:0;z-index:130;padding:calc(10px + env(safe-area-inset-top)) 16px 0;pointer-events:none}
 .updbar[hidden]{display:none}
 .updin{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:10px;height:48px;padding:0 6px 0 16px;
-  border-radius:24px;background:rgba(20,20,22,.95);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  border-radius:var(--r-lg);background:rgba(20,20,22,.95);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   border:1px solid color-mix(in srgb,var(--gold) 30%,transparent);box-shadow:0 10px 30px rgba(0,0,0,.45);pointer-events:auto;
   transform:translateY(calc(-100% - 40px));transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .updbar.up .updin{transform:none}
 .upddot{width:8px;height:8px;border-radius:4px;background:var(--gold);flex:0 0 auto;box-shadow:0 0 8px color-mix(in srgb,var(--gold) 60%,transparent)}
 .updtxt{flex:1;min-width:0;font-size:14px;color:var(--paper);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.updgo{height:36px;padding:0 16px;border:0;border-radius:18px;background:var(--gold);color:var(--gold-ink);font-size:14px;font-weight:700}
-.updx{width:36px;height:36px;border:0;border-radius:18px;background:transparent;color:var(--mist);display:grid;place-items:center}
+.updgo{height:36px;padding:0 16px;border:0;border-radius:var(--r-lg);background:var(--gold);color:var(--gold-ink);font-size:14px;font-weight:700}
+.updx{width:36px;height:36px;border:0;border-radius:var(--r-lg);background:transparent;color:var(--mist);display:grid;place-items:center}
 .updx svg{width:14px;height:14px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round}
 /* suite bar sits above the shell; the rail sticks just under it */
 .rail{height:calc(100vh - var(--sx-barh,56px))}
 @media (min-width:900px){.rail{top:var(--sx-barh,56px)}}
-.buildid{font-variant-numeric:tabular-nums;color:var(--dim);font-size:13px}
+.buildid{font-variant-numeric:tabular-nums;color:var(--dim);font-size:14px}
 .hist{margin:8px 0 0;padding-left:18px;color:var(--mist);font-size:14px}
 .hist code{color:var(--gold);margin-right:8px;font-size:12px}
 /* ---- Game Mode: a full-screen, cinematic way to browse the shelf ---- */
@@ -763,11 +763,11 @@ body{background:var(--night)}
 .btn.quiet{background:rgba(255,255,255,.08);color:var(--paper);box-shadow:inset 0 0 0 1px var(--glass-line)}
 .btn.quiet:hover{background:rgba(255,255,255,.13)}
 .btn.danger{background:transparent}
-input[type=text],input[type=number],input[type=date],input[type=url],input[type=search],input[type=password],select,textarea{background:rgba(255,255,255,.045);border-color:var(--glass-line);border-radius:12px}
+input[type=text],input[type=number],input[type=date],input[type=url],input[type=search],input[type=password],select,textarea{background:rgba(255,255,255,.045);border-color:var(--glass-line);border-radius:var(--r-md)}
 select option{background:var(--deep)}
 .status-pick{background-color:rgba(255,255,255,.08)}
 .seg button.on{background:var(--paper);color:var(--night)}
-.cover{border-radius:12px;box-shadow:0 0 0 1px rgba(255,255,255,.06) inset,0 14px 26px -14px rgba(0,0,0,.8)}
+.cover{border-radius:var(--r-md);box-shadow:0 0 0 1px rgba(255,255,255,.06) inset,0 14px 26px -14px rgba(0,0,0,.8)}
 .sections{background:rgba(10,10,11,.72);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);border-bottom-color:rgba(255,255,255,.06)}
 .navbtn:hover,.navbtn.on,.rail-up button:hover,.rail-foot button:hover,.rail-foot .syncbtn.on{background:rgba(255,255,255,.07)}
 .rail{border-right-color:rgba(255,255,255,.06)}
@@ -803,14 +803,14 @@ select option{background:var(--deep)}
 .cfeat .meta .on{color:var(--paper);font-weight:600}
 .cf-acts{margin:0 0 16px}
 .cf-acts .btn{height:52px;padding:0 24px;font-size:16px;justify-content:center}
-.cf-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:14px;max-width:560px;padding:16px;border-radius:20px;background:var(--glass);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);margin-bottom:16px}
+.cf-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:14px;max-width:560px;padding:16px;border-radius:var(--r-lg);background:var(--glass);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);margin-bottom:16px}
 .cf-stat{display:flex;flex-direction:column;gap:6px;min-width:0;border:0;background:none;padding:0;text-align:left;color:inherit}
 .cf-stat span{font-size:12px;color:var(--mist)}
 .cf-stat b{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
 .cf-stat b small{font-size:14px;font-weight:500;color:var(--mist)}
 .cf-bar{display:block;height:3px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
 .cf-bar span{display:block;height:100%;border-radius:inherit;background:var(--gold)}
-.cf-body{max-width:760px;padding:clamp(16px,2.4vw,24px);border-radius:20px;background:var(--glass);border:1px solid var(--glass-line)}
+.cf-body{max-width:760px;padding:clamp(16px,2.4vw,24px);border-radius:var(--r-lg);background:var(--glass);border:1px solid var(--glass-line)}
 .cf-body:not(:has(*)){display:none}
 .cf-body .upnext+.upnext,.cf-body .save+.upnext{margin-top:16px}
 
@@ -881,6 +881,161 @@ select option{background:var(--deep)}
 .cf-left button span:last-child{color:var(--mist);font-size:14px;font-variant-numeric:tabular-nums}
 .cf-left button:hover span:first-child{text-decoration:underline}
 @media (max-width:900px){.cf-grid{grid-template-columns:1fr}}
+
+/* ===== A6: one top bar, wider pages, hero numbers, Goals in two columns, one scale =====
+   Radii: 14 for surfaces and main buttons, 10 for small buttons, 8 for controls and rows.
+   Type: 12 labels, 14 secondary, 16 body, 20 headings, 28/44 numbers. */
+:root{--r-lg:14px;--r-md:10px;--r-sm:8px}
+.shell{grid-template-columns:1fr}
+.page,.hero-in,.sections-in{max-width:1280px}
+@media (min-width:861px){.sections-in{padding-left:0}}
+.btn{border-radius:var(--r-lg);min-height:44px;padding:0 20px}
+.btn.sm{border-radius:var(--r-md);min-height:36px;padding:0 14px}
+.seg,.status-pick,.gmissbtn{border-radius:var(--r-sm)}
+.seg button{border-radius:6px}
+.gchip{border-radius:6px}
+input[type=text],input[type=number],input[type=date],input[type=url],input[type=search],input[type=password],select,textarea{border-radius:var(--r-sm)}
+input[type=text],input[type=number],input[type=date],input[type=url],input[type=search],input[type=password],select{min-height:44px}
+.status-pick{min-height:44px;padding:0 36px 0 16px}
+.hero .btn.play{min-height:48px;padding:0 26px}
+.hero .status-pick{min-height:48px;border-radius:var(--r-lg)}
+
+/* top bar, this app only: sections beside the name, the other apps behind the grid button */
+.topnav,.topsync{display:none}
+.sx-bar[data-app=gamelog] .sx-tabs{display:none}
+.sx-bar[data-app=gamelog] .sx-gbtn{display:grid!important}
+.sx-bar[data-app=gamelog] .sx-menu:not([hidden]){display:block!important}
+@media (min-width:761px){
+  .sx-bar[data-app=gamelog]{position:sticky;top:0;z-index:70}
+  .sx-bar[data-app=gamelog] .sx-in{min-height:var(--sx-barh);gap:8px}
+  .topnav{display:flex;align-self:stretch;gap:28px;margin:-8px 0 -8px 28px}
+  .tn{border:0;border-bottom:2px solid transparent;border-top:2px solid transparent;background:transparent;color:var(--mist);font:500 16px/1 var(--font);padding:0;display:flex;align-items:center;min-height:var(--sx-barh);white-space:nowrap}
+  .tn:hover{color:var(--paper)}
+  .tn.on{color:var(--paper);font-weight:600;border-bottom-color:var(--gold)}
+  .tn:focus-visible{outline-offset:-4px}
+  .topsync{display:flex;align-items:center;margin-left:auto;margin-right:4px;border:0;background:transparent;color:var(--mist);font:400 14px/1 var(--font);min-height:40px;padding:0 12px;border-radius:var(--r-sm);white-space:nowrap}
+  .topsync:hover,.topsync.on{color:var(--paper);background:rgba(255,255,255,.07)}
+  .sx-bar[data-app=gamelog] .sx-ibtn{margin-left:0}
+  .sx-bar[data-app=gamelog] .sx-ibtn,.sx-bar[data-app=gamelog] .sx-gbtn{border-color:transparent;border-radius:var(--r-sm)}
+  .sections{top:var(--sx-barh,56px)}
+}
+
+/* small menus */
+details.pop{position:relative}
+details.pop>summary{list-style:none;cursor:pointer;user-select:none}
+details.pop>summary::-webkit-details-marker{display:none}
+.addmenu[open]>summary svg{transform:rotate(180deg)}
+.addmenu-in{position:absolute;right:0;top:calc(100% + 8px);z-index:20;width:min(340px,calc(100vw - 32px));padding:16px;border-radius:var(--r-lg);background:#19191C;border:1px solid var(--glass-line);box-shadow:0 24px 48px -16px rgba(0,0,0,.85);display:flex;flex-direction:column;gap:4px}
+.addrow{display:flex;gap:8px;margin-bottom:10px}
+.addrow input{flex:1;min-width:0}
+.addrow .btn{min-height:44px}
+.menuitem{border:0;background:transparent;color:var(--paper);text-align:left;padding:10px 12px;margin:0 -4px;border-radius:var(--r-sm);font-weight:600;display:flex;flex-direction:column;gap:2px}
+.menuitem span{font-weight:400;font-size:14px;color:var(--mist)}
+.menuitem:hover:not(:disabled){background:rgba(255,255,255,.07)}
+.menuitem:disabled{opacity:.55;cursor:default}
+
+/* labelled dropdowns: "Status All", "Sort Recently played" */
+.fctl{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding-left:14px;border:1px solid var(--glass-line);border-radius:var(--r-sm);background:rgba(255,255,255,.045);font-size:14px;white-space:nowrap}
+.fctl>span{color:var(--dim)}
+.fctl select{appearance:none;-webkit-appearance:none;width:auto;max-width:210px;min-height:42px;border:0;border-radius:var(--r-sm);padding:0 34px 0 0;font-size:14px;font-weight:500;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23B4B4BB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.500 1.500l4.500 4.500 4.500-4.500'/%3E%3C/svg%3E") no-repeat right 12px center;cursor:pointer}
+.fctl select:focus{box-shadow:none}
+.fctl:focus-within{border-color:var(--gold)}
+
+/* Library: title and one Add button, then lists on the left and one row of controls on the right */
+.libhead{align-items:flex-end;margin-bottom:20px}
+.libhead .h1{margin-bottom:8px}
+.libbar{display:flex;flex-wrap:wrap;align-items:center;gap:0 32px;border-bottom:1px solid var(--line-soft);margin-bottom:32px}
+.libtabs{display:flex;gap:28px;align-self:flex-end}
+.libtabs button{border:0;border-bottom:2px solid transparent;background:transparent;color:var(--mist);font-weight:500;padding:0;min-height:52px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.libtabs button:hover{color:var(--paper)}
+.libtabs button.on{color:var(--paper);font-weight:600;border-bottom-color:var(--paper)}
+.libtabs .n{font-size:14px;font-weight:400;color:var(--mist);font-variant-numeric:tabular-nums}
+.libctl{margin-left:auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:8px 0}
+.libctl .search{width:240px;font-size:14px}
+@media (min-width:761px){
+  .page.wide .shelf{grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:36px 24px}
+  .page.wide .slot{gap:12px;contain-intrinsic-size:auto 190px auto 360px}
+  .page.wide .slot .lbl{font-size:16px}
+}
+
+/* Game page hero: name and Play on the left; finish line, achievements and your score on the right */
+.hero-in{flex-direction:row;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px 48px;min-height:clamp(250px,32vh,360px);padding-bottom:32px}
+.hero-l{display:flex;flex-direction:column;align-items:flex-start;min-width:0;flex:1 1 380px}
+.hero-l .hero-meta{margin-bottom:20px}
+.hero-r{display:flex;flex-wrap:wrap;gap:24px 44px;align-items:flex-start}
+.hx{position:relative;display:flex;flex-direction:column;gap:8px;min-width:132px}
+.hx:first-child{min-width:220px}
+.hx-big{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.hx-big small{font-size:20px;font-weight:600;letter-spacing:0;color:var(--mist)}
+.hx-big.word{font-size:28px;line-height:44px;letter-spacing:-.02em}
+.hx-big.none,.hx-big.none small{color:var(--dim)}
+.hx .hs-bar{background:rgba(255,255,255,.14)}
+.hx-link,.hx-score>summary{border:0;background:none;padding:0;color:var(--mist);font-size:14px;text-align:left;cursor:pointer;align-self:flex-start;min-height:24px}
+.hx-score>summary{color:var(--paper);font-weight:600}
+.hx-link:hover,.hx-score>summary:hover{color:var(--paper);text-decoration:underline}
+.hx-fin{display:flex;align-items:center;gap:4px;white-space:nowrap}
+.hx-fin select{appearance:none;-webkit-appearance:none;width:auto;min-height:0;border:0;border-radius:4px;padding:0 16px 0 0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--paper);cursor:pointer;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' fill='none' stroke='%23F2F2F3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E") no-repeat right center}
+.hx-fin select{field-sizing:content}
+.hx-fin select:focus{box-shadow:none}
+details.hx-score{position:static}
+.hx-score .pip-row{position:absolute;right:0;bottom:calc(100% + 10px);z-index:20;gap:4px;padding:10px;border-radius:var(--r-lg);background:#19191C;border:1px solid var(--glass-line);box-shadow:0 24px 48px -16px rgba(0,0,0,.85)}
+.pip-row.nums .pip{width:34px;height:40px;border-radius:var(--r-sm);font-weight:700;font-size:14px;color:var(--paper);background:rgba(255,255,255,.08)}
+.pip-row.nums .pip.on,.pip-row.nums .pip.hov{color:var(--gold-ink)}
+.pip-row.nums .pip.on{background:var(--gold)}
+.pip-row.nums:hover .pip{background:rgba(255,255,255,.08);color:var(--paper)}
+.pip-row.nums .pip.hov{background:var(--gold)}
+.hero .ring{min-height:44px}
+.sections{margin-bottom:36px}
+.sections-in{gap:28px}
+.sec{padding:0;min-height:56px;font-size:16px;font-weight:500;border-bottom-width:2px;border-top:2px solid transparent}
+.sec.on{font-weight:600}
+@media (max-width:760px){
+  .hero-in{min-height:0;gap:20px;padding-bottom:24px}
+  .hero-r{gap:20px 28px;width:100%}
+  .hx,.hx:first-child{min-width:0}
+  .hx:first-child{flex:1 1 100%}
+  .hx-big{font-size:36px}
+  .hx-score .pip-row{position:static;margin-top:10px;padding:0;border:0;background:none;box-shadow:none}
+  .pip-row.nums .pip{width:auto;flex:1 1 0;min-width:26px}
+  .hx-rate{flex:1 1 100%}
+  .sections-in{gap:20px}
+  .sec{min-height:48px;font-size:14px}
+  .libbar{margin-bottom:20px}
+  .libctl{margin-left:0;width:100%}
+  .libctl .search{flex:1 1 100%;width:auto}
+  .libctl .fctl{flex:1 1 0;min-width:0}
+  .libctl .fctl select{flex:1;min-width:0;max-width:none}
+}
+
+/* Goals: categories down the left, one row of controls, then the list */
+.glay{display:flex;flex-wrap:wrap;gap:28px 48px;align-items:flex-start}
+.gcats{flex:1 1 240px;max-width:300px;min-width:0;position:sticky;top:calc(var(--sx-barh,56px) + 76px);max-height:calc(100vh - var(--sx-barh,56px) - 92px);overflow-y:auto;scrollbar-width:thin}
+.gcats-h{margin:0;padding:0 14px 10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.gcats-list{display:flex;flex-direction:column;gap:2px}
+.gcats-list button{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:0 14px;border:0;border-radius:var(--r-sm);background:transparent;color:var(--mist);text-align:left}
+.gcats-list button:hover{color:var(--paper);background:rgba(255,255,255,.04)}
+.gcats-list button.on{background:rgba(255,255,255,.09);color:var(--paper);font-weight:600}
+.gcats-list .ct{font-size:14px;font-weight:400;color:var(--mist);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cdot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-left:8px;vertical-align:middle}
+.gcats-note{margin:20px 14px 0;padding-top:20px;border-top:1px solid var(--line-soft);font-size:14px;color:var(--mist)}
+.gcats-note p{margin:0 0 12px}
+.gcats-note .cdot{margin:0 6px 2px 0}
+.gcats-note .gmeter{height:6px;margin-bottom:12px}
+.gmain{flex:999 1 560px;min-width:0}
+.gmain .gtools{margin-bottom:20px}
+.gmain .gtools .search{max-width:none;flex:1 1 220px;font-size:14px}
+.gmissbtn{min-height:44px;padding:0 14px}
+.gtoolbtn{border:0;background:transparent;color:var(--mist);font-weight:600;font-size:14px;min-height:44px;padding:0 6px}
+.gtoolbtn:hover,.gtoolbtn[aria-expanded=true]{color:var(--paper)}
+.gwhy{margin-bottom:14px}
+@media (max-width:900px){
+  .gcats{flex-basis:100%;max-width:none;position:static;max-height:none;overflow:visible}
+  .gcats-h{display:none}
+  .gcats-list{flex-direction:row;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+  .gcats-list::-webkit-scrollbar{display:none}
+  .gcats-list button{flex:none;min-height:40px;white-space:nowrap;background:rgba(255,255,255,.05)}
+  .gcats-note{margin:14px 0 0;padding-top:0;border-top:0}
+}
 </style>
 <!-- suite:css v10 · shared by Kitchen, Grocery, Lift, DishLog, Protocol, Rail, Game Log, Playback — edit tools/suite.py in the kitchen repo, not here -->
 <style id="suite-css">
@@ -1392,7 +1547,6 @@ select option{background:var(--deep)}
 
 <div id="ambient" aria-hidden="true"><img alt="" decoding="async"></div>
 <div class="shell">
-  <aside class="rail" id="rail"></aside>
   <main id="app"></main>
 </div>
 <nav class="tabbar" id="tabbar"></nav>
@@ -1416,6 +1570,7 @@ select option{background:var(--deep)}
    bar reads the first v:'...' in the live file, so this list must stay the
    first place that pattern appears. */
 const CHANGELOG=[
+  {v:'2026.11.16-b', note:'THE REST OF THE REDESIGN: one top bar replaces the left rail. Continue, Library and Game Mode sit beside the app name, sync status is on the right, and your other apps are behind the grid button. GAME PAGE: the cover and the ten rating boxes are gone from the top. Your finish line (tap its name to change it), achievements and your score now sit in the hero as large numbers; Score it opens a 1 to 10 picker. What\u2019s new is a tab of its own. GOALS: categories run down the left with done / total for each, and search, Show, Region, Missables only and Catch-up tools share one row. LIBRARY: My games and Wishlist are tabs, search, Status and Sort share one row, the three add buttons are one Add game menu, and covers are larger. Buttons, fields and cards now share one set of corner sizes and text sizes. Phones keep the bottom tab bar.'},
   {v:'2026.11.16-a', note:'CONTINUE, REDESIGNED: the Continue screen now uses the full width in two columns. Your next step leads on the left in large type, with where you were and the next few main goals under it. On the right: your finish line and rating, a short Don\u2019t miss list, and a What\u2019s left list with one line per category (tap one to open the game). Missables are no longer listed twice. On a phone it stacks into one column.'},
   {v:'2026.11.13-a', note:'ART STAYS CURRENT: a Refresh art button under a game\u2019s Details (Review tab) asks Steam again for that one game\u2019s cover, hero and logo, and tells you if anything changed. The Worker also re-checks a game\u2019s art on its own when Steam posts new news for a game you\u2019ve played in the last 90 days, at most once a day per game, and the app takes the new art on the next Steam sync. Art you set yourself is left alone. Needs the updated Worker (it auto-deploys from GitHub).'},
   {v:'2026.11.11-p', note:'EVEN SMALLER SCORE RING: the score ring on Library covers and What to play next is smaller again (42px, and 32px on a phone). Same look and placement, hanging a little over the cover’s bottom edge.'},
@@ -3036,21 +3191,24 @@ function checklist(arr, kind, layer, placeholder){
 
 /* ---------- Chrome ---------- */
 function renderChrome(){
-  const active = state.games.filter(g => inProgress(g) || liveShown(g)).length;
+  /* One bar: the sections live in the suite bar next to the app name, and the
+     other apps sit behind its grid button. Built here, not in the suite markup,
+     so a suite refresh can't drop it. */
+  const at = t => view.tab === t ? 'on' : '';
+  const bar = document.querySelector('.sx-bar .sx-in');
+  let top = document.getElementById('topnav'), sy = document.getElementById('topsync');
+  if (bar && !top) {
+    top = document.createElement('div'); top.id = 'topnav'; top.className = 'topnav'; top.setAttribute('role', 'navigation'); top.setAttribute('aria-label', 'Sections');
+    const id = bar.querySelector('.sx-id'); if (id) id.after(top); else bar.prepend(top);
+    sy = document.createElement('button'); sy.id = 'topsync'; sy.type = 'button'; sy.className = 'topsync'; sy.dataset.act = 'tab'; sy.dataset.tab = 'sync';
+    const ib = bar.querySelector('.sx-ibtn') || bar.querySelector('.sx-gbtn'); if (ib) ib.before(sy); else bar.append(sy);
+  }
+  if (top) top.innerHTML = `
+    <button class="tn ${at('continue')}" data-act="tab" data-tab="continue" aria-current="${view.tab === 'continue' ? 'page' : 'false'}">Continue</button>
+    <button class="tn ${at('library')}" data-act="tab" data-tab="library" aria-current="${view.tab === 'library' ? 'page' : 'false'}">Library</button>
+    <button class="tn" data-act="game-mode" title="Game Mode (G)">Game Mode</button>`;
+  if (sy) { sy.classList.toggle('on', view.tab === 'sync' && !view.gameId); sy.innerHTML = `<span class="dot" data-sync-status data-state="${syncStatus}">${syncText()}</span>`; }
   const navOn = t => view.tab === t && !view.gameId ? 'on' : '';
-  const ups = state.games.flatMap(g => upcoming(g).map(r => ({g, r}))).sort((a,b) => a.r.date.localeCompare(b.r.date)).slice(0, 4);
-  document.getElementById('rail').innerHTML = `
-    <div class="navlist">
-      <button class="navbtn ${navOn('continue')}" data-act="tab" data-tab="continue">${ICON.play}Continue<span class="count">${active || ''}</span></button>
-      <button class="navbtn ${navOn('library')}" data-act="tab" data-tab="library">${ICON.shelf}Library<span class="count">${state.games.length}</span></button>
-      <button class="navbtn gmbtn" data-act="game-mode" title="Game Mode (G)">${GM_ICON}Game Mode</button>
-    </div>
-    ${ups.length ? `<div><p class="rail-sub">Coming up</p><div class="rail-up">${ups.map(({g,r}) => `
-      <button data-act="open" data-id="${g.id}" data-section="releases"><div class="d">${new Date(r.date + 'T00:00').getDate()}<small>${fmtDate(r.date,{month:'short'})}</small></div>
-      <div class="n">${esc(r.name)}<span>${countdown(r.date)}</span></div></button>`).join('')}</div></div>` : ''}
-    <div class="rail-foot">
-      <button class="syncbtn ${navOn('sync')}" data-act="tab" data-tab="sync"><span class="dot" data-sync-status data-state="${syncStatus}">${syncText()}</span></button>
-    </div>`;
   document.getElementById('tabbar').innerHTML = `
     <button class="${navOn('continue')}" data-act="tab" data-tab="continue">${ICON.play}Continue</button>
     <button class="${navOn('library')}" data-act="tab" data-tab="library">${ICON.shelf}Library</button>
@@ -3291,9 +3449,18 @@ function slot(g){
 }
 
 /* ---------- Library ---------- */
-const libSwitch = () => `<div class="seg" role="tablist" aria-label="Library view" style="margin-top:12px">
-  <button class="${view.lib !== 'wish' ? 'on' : ''}" data-act="lib-view" data-v="games" aria-selected="${view.lib !== 'wish'}">My games</button>
-  <button class="${view.lib === 'wish' ? 'on' : ''}" data-act="lib-view" data-v="wish" aria-selected="${view.lib === 'wish'}">Wishlist${wish && wish.items && wish.items.length ? `<span class="n">${wish.items.length}</span>` : ''}</button></div>`;
+const libSwitch = () => `<div class="libtabs" role="tablist" aria-label="Library view">
+  <button class="${view.lib !== 'wish' ? 'on' : ''}" role="tab" data-act="lib-view" data-v="games" aria-selected="${view.lib !== 'wish'}">My games</button>
+  <button class="${view.lib === 'wish' ? 'on' : ''}" role="tab" data-act="lib-view" data-v="wish" aria-selected="${view.lib === 'wish'}">Wishlist${wish && wish.items && wish.items.length ? `<span class="n">${wish.items.length}</span>` : ''}</button></div>`;
+const CHEV = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.5 4.5 3.5 3.5 3.5-3.5"/></svg>';
+/* One "Add game" button; the three ways to add sit in its menu */
+const addMenu = () => `<details class="addmenu pop" data-sx-still><summary class="btn">Add game${CHEV}</summary>
+  <div class="addmenu-in">
+    <label class="l" for="newTitle" style="margin-top:0">By title</label>
+    <div class="addrow"><input type="text" id="newTitle" placeholder="Game title" aria-label="Game title"><button class="btn sm" data-act="add-game">Add</button></div>
+    <button class="menuitem" data-act="console-open">Add a console game<span>Search by name, with cover and info</span></button>
+    <button class="menuitem" data-act="steam-import" ${importing ? 'disabled' : ''}>${importing ? 'Importing…' : 'Import from Steam'}<span>Your recently played games</span></button>
+  </div></details>`;
 function renderLibrary(){
   if (view.lib === 'wish') return renderWishlist();
   const q = view.q.toLowerCase();
@@ -3308,18 +3475,21 @@ function renderLibrary(){
   const list = state.games.filter(g => (view.filter === 'all' || g.status === view.filter) && g.title.toLowerCase().includes(q)).sort(sorters[view.sort]);
   const count = s => s === 'all' ? state.games.length : state.games.filter(g => g.status === s).length;
   const wrapped = count('done') + count('shelved');
-  return `<div class="page">
+  return `<div class="page wide">
     <div class="libhead">
-      <div><h1 class="h1">Library</h1><p class="lede" style="margin:0">${state.games.length} game${state.games.length === 1 ? '' : 's'}, scored out of 10.${wrapped ? ` ${wrapped} wrapped up your way.` : ''}</p>${libSwitch()}</div>
-      <div class="addgame"><input type="text" id="newTitle" placeholder="Add a game by title" aria-label="Game title"><button class="btn" data-act="add-game">Add game</button><button class="btn quiet" data-act="console-open">Add console game</button><button class="btn quiet" data-act="steam-import" ${importing ? 'disabled' : ''}>${importing ? 'Importing…' : 'Import from Steam'}</button></div>
+      <div><h1 class="h1">Library</h1><p class="lede" style="margin:0">${state.games.length} game${state.games.length === 1 ? '' : 's'} · scored out of 10${wrapped ? ` · ${wrapped} wrapped up your way` : ''}</p></div>
+      ${addMenu()}
     </div>
-    <div class="libtools">
-      <div class="seg" role="tablist" aria-label="Filter by status">${['all', ...STATUSES].map(s => `<button class="${view.filter === s ? 'on' : ''}" data-act="filter" data-f="${s}">${s === 'all' ? 'All' : LABEL[s]}<span class="n">${count(s)}</span></button>`).join('')}</div>
-      <input type="search" class="search" id="search" placeholder="Search titles" value="${esc(view.q)}" aria-label="Search titles">
-      <select id="sort" aria-label="Sort">${[['title','Title A–Z'],['score','Highest score'],['steam','Steam score'],['meta','Metacritic'],['recent','Recently played'],['progress','Most progress']].map(([v,l]) => `<option value="${v}" ${view.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+    <div class="libbar">
+      ${libSwitch()}
+      <div class="libctl">
+        <input type="search" class="search" id="search" placeholder="Search titles" value="${esc(view.q)}" aria-label="Search titles">
+        <label class="fctl"><span>Status</span><select id="lfilter" aria-label="Filter by status">${['all', ...STATUSES].map(s => `<option value="${s}" ${view.filter === s ? 'selected' : ''}>${s === 'all' ? 'All' : LABEL[s]} (${count(s)})</option>`).join('')}</select></label>
+        <label class="fctl"><span>Sort</span><select id="sort" aria-label="Sort">${[['recent','Recently played'],['title','Title A–Z'],['score','Highest score'],['progress','Most progress'],['steam','Steam score'],['meta','Metacritic']].map(([v,l]) => `<option value="${v}" ${view.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+      </div>
     </div>
     ${list.length ? `<div class="shelf">${list.map(slot).join('')}</div>`
-      : `<div class="empty"><b>${state.games.length ? 'No matches' : 'Your shelf is empty'}</b>${state.games.length ? 'Try another filter or search.' : 'Add your first game with the field above.'}</div>`}
+      : `<div class="empty"><b>${state.games.length ? 'No matches' : 'Your shelf is empty'}</b>${state.games.length ? 'Try another filter or search.' : 'Add your first game with Add game, up top.'}</div>`}
   </div>`;
 }
 
@@ -3371,18 +3541,19 @@ function wishCard(x){
 }
 function renderWishlist(){
   const head = (extra = '') => `<div class="libhead">
-      <div><h1 class="h1">Library</h1><p class="lede" style="margin:0">Games on your Steam wishlist, with release dates for the ones still coming.</p>${libSwitch()}</div>
-      ${extra}</div>`;
-  if (!syncOn()) return `<div class="page">${head()}<div class="empty"><b>Connect sync to load your wishlist</b>It comes from Steam through your Worker.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="sync">Go to Sync</button></div></div></div>`;
+      <div><h1 class="h1">Library</h1><p class="lede" style="margin:0">Your Steam wishlist, with release dates for the ones still coming</p></div>
+      </div>
+    <div class="libbar">${libSwitch()}<div class="libctl">${extra}</div></div>`;
+  if (!syncOn()) return `<div class="page wide">${head()}<div class="empty"><b>Connect sync to load your wishlist</b>It comes from Steam through your Worker.<div class="actions" style="justify-content:center"><button class="btn" data-act="tab" data-tab="sync">Go to Sync</button></div></div></div>`;
   if (!wish) {
     if (!wishLoading && !wishErr) fetchWish();
-    return `<div class="page">${head()}<div class="empty"><b>${wishErr ? 'Couldn\u2019t load your wishlist' : 'Loading your wishlist'}</b>${wishErr ? esc(wishErr) : 'Asking Steam\u2026'}${wishErr ? '<div class="actions" style="justify-content:center"><button class="btn" data-act="wish-refresh">Try again</button></div>' : ''}</div></div>`;
+    return `<div class="page wide">${head()}<div class="empty"><b>${wishErr ? 'Couldn\u2019t load your wishlist' : 'Loading your wishlist'}</b>${wishErr ? esc(wishErr) : 'Asking Steam\u2026'}${wishErr ? '<div class="actions" style="justify-content:center"><button class="btn" data-act="wish-refresh">Try again</button></div>' : ''}</div></div>`;
   }
   const items = wish.items || [], sort = view.wishSort || 'soon';
-  const tools = `<div class="addgame"><select id="wishSort" aria-label="Sort wishlist">${[['soon','Releasing soonest'],['order','Your wishlist order'],['added','Recently added'],['score','Steam score'],['sale','Biggest discount']].map(([v, l]) => `<option value="${v}" ${sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
-    <button class="btn quiet" data-act="wish-refresh" ${wishLoading ? 'disabled' : ''}>${wishLoading ? 'Refreshing\u2026' : 'Refresh'}</button></div>`;
+  const tools = `<label class="fctl"><span>Sort</span><select id="wishSort" aria-label="Sort wishlist">${[['soon','Releasing soonest'],['order','Your wishlist order'],['added','Recently added'],['score','Steam score'],['sale','Biggest discount']].map(([v, l]) => `<option value="${v}" ${sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+    <button class="btn quiet sm" data-act="wish-refresh" ${wishLoading ? 'disabled' : ''}>${wishLoading ? 'Refreshing\u2026' : 'Refresh'}</button>`;
   const note = wishErr || wish.err ? `<p class="wishnote"><span class="warnt">Couldn\u2019t refresh: ${esc(wishErr || wish.err)}</span></p>` : wish.t ? `<p class="wishnote">From Steam ${esc(agoText(wish.t))}.</p>` : '';
-  if (!items.length) return `<div class="page">${head(tools)}${note}<div class="empty"><b>Nothing on your wishlist</b>${wish.empty ? 'Steam returned an empty wishlist. If yours has games, set Steam > Profile > Privacy > Game details to Public.' : 'Steam had no store details for the games on it.'}</div></div>`;
+  if (!items.length) return `<div class="page wide">${head(tools)}${note}<div class="empty"><b>Nothing on your wishlist</b>${wish.empty ? 'Steam returned an empty wishlist. If yours has games, set Steam > Profile > Privacy > Game details to Public.' : 'Steam had no store details for the games on it.'}</div></div>`;
   const pri = x => x.pri > 0 ? x.pri : 1e9;
   const by = {
     soon:(a, b) => (a.date || 9e12) - (b.date || 9e12) || pri(a) - pri(b),
@@ -3397,7 +3568,7 @@ function renderWishlist(){
     const up = items.filter(wishSoon).sort(by), out = items.filter(x => !wishSoon(x)).sort((a, b) => pri(a) - pri(b) || a.name.localeCompare(b.name));
     body = `${up.length ? `<section class="wishgrp"><h2 class="h2">Coming soon</h2>${shelf(up)}</section>` : ''}${out.length ? `<section class="wishgrp"><h2 class="h2">Out now</h2>${shelf(out)}</section>` : ''}`;
   } else body = shelf([...items].sort(by));
-  return `<div class="page">${head(tools)}${note}${body}</div>`;
+  return `<div class="page wide">${head(tools)}${note}${body}</div>`;
 }
 
 /* ---------- Sync page ---------- */
@@ -3476,6 +3647,29 @@ function completionCard(g, st){
   return `<div class="hs-card"><p class="hs-l">Completion</p><div class="hs-val">${g.status === 'done' ? tick : ''}<b class="hs-big">${esc(statusLabel(g))}</b></div><span class="hs-sub">No finish line set</span><button class="hs-link" data-act="section" data-s="${goal}">Set finish line</button></div>`;
 }
 
+/* Hero numbers: where you are against your finish line, achievements, and your score */
+function heroLine(g, st){
+  if (isLive(g)) return `<div class="hx"><p class="hs-l">Activity</p>${liveStat(g)}</div>`;
+  const goal = g.content ? 'goals' : 'quests';
+  const lbl = g.content
+    ? `<label class="hs-l hx-fin">Finish line · <select id="hfinish" aria-label="Finish line">${Object.keys(FINISH_LABEL).map(k => `<option value="${k}" ${(g.finish || 'beat') === k ? 'selected' : ''}>${FINISH_LABEL[k]}</option>`).join('')}</select></label>`
+    : `<p class="hs-l">Completion</p>`;
+  if (st.shelved) return `<div class="hx">${lbl}<b class="hx-big word">Shelved</b><span class="hs-sub">Not counting progress</span></div>`;
+  if (st.total) return `<div class="hx">${lbl}<b class="hx-big">${st.pct}<small>%</small></b><div class="hs-bar" role="img" aria-label="${st.pct}% of your finish line"><i style="width:${st.pct}%"></i></div><button class="hx-link" data-act="section" data-s="${goal}">${st.done} of ${st.total} goals</button></div>`;
+  return `<div class="hx">${lbl}<b class="hx-big word">${esc(statusLabel(g))}</b><button class="hx-link" data-act="section" data-s="${goal}">Set a finish line</button></div>`;
+}
+function heroAch(g){
+  const pc = achPct(g); if (pc === null) return '';
+  return `<div class="hx"><p class="hs-l">Achievements</p><b class="hx-big">${g.ach.done}<small> / ${g.ach.total}</small></b><div class="hs-bar" role="img" aria-label="${pc}% of achievements"><i style="width:${pc}%"></i></div><button class="hx-link" data-act="section" data-s="achievements">${pc}% unlocked</button></div>`;
+}
+function heroRate(g){
+  return `<div class="hx hx-rate"><p class="hs-l">Your rating</p>
+    <b class="hx-big ${g.rating ? '' : 'none'}">${g.rating || '–'}<small> / 10</small></b>
+    <details class="hx-score pop" data-sx-still><summary>${g.rating ? `${SCORE_WORD[g.rating]} · change` : 'Score it'}</summary>
+      <div class="pip-row nums" role="radiogroup" aria-label="Score out of 10">${Array.from({length:10}, (_, i) => `<button class="pip ${i < g.rating ? 'on' : ''}" role="radio" aria-checked="${i + 1 === g.rating}" aria-label="${i + 1}, ${SCORE_WORD[i + 1]}" title="${SCORE_WORD[i + 1]}" data-act="rate" data-v="${i + 1}">${i + 1}</button>`).join('')}</div>
+    </details></div>`;
+}
+
 function renderGame(g){
   const st = stats(g), miss = openMissables(g), ups = upcoming(g).length;
   const hasPack = !!g.content;
@@ -3486,7 +3680,7 @@ function renderGame(g){
   const tint = paletteFor(g);
   /* Tabs: the ones you reach for most stay in the bar (the open one always does); the rest sit behind More */
   const avail = SECTIONS.filter(([k]) => k === 'about' ? hasAbout : k === 'goals' ? hasPack : (k === 'quests' || k === 'missables') ? !hasPack : (!['achievements','news','store'].includes(k) || g.steamId));
-  const mainKeys = ['save', hasPack ? 'goals' : 'quests', 'achievements', 'review'];
+  const mainKeys = ['save', hasPack ? 'goals' : 'quests', 'achievements', 'review', 'news'];
   const mainTabs = avail.filter(([k]) => mainKeys.includes(k) || k === sec);
   const moreTabs = avail.filter(([k]) => !mainTabs.some(t => t[0] === k));
   const moreN = moreTabs.reduce((n, [k]) => n + (k === 'missables' || k === 'news' ? (badge[k] || 0) : 0), 0);
@@ -3495,27 +3689,24 @@ function renderGame(g){
   <header class="hero">
     ${/^https:\/\//.test(g.hero) ? `<div class="hero-img" style="background-image:url('${esc(g.hero)}')"></div>` : `<div class="hero-bg" style="background:radial-gradient(60% 80% at 20% 30%,${tint[1]}66,transparent 70%),radial-gradient(50% 70% at 70% 20%,${tint[0]},transparent 70%)"></div>`}
     <div class="hero-in">
-      <button class="back" data-act="back">${ICON.back}${view.tab === 'library' ? 'Library' : 'Continue'}</button>
-      ${titleArt(g, 'h1', 't-hero')}
-      <div class="hero-meta">
-        ${(rv => rv ? `<div class="steamrv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}"><b>${rv[0]}%</b><span>Steam · ${esc(rv[1] || 'reviews')}</span></div>` : '')(revOf(g))}
-        ${(mc => mc ? `<div class="steamrv ${mcTier(mc[0])}" title="${esc(mcTitle(mc))}"><b>${mc[0]}</b><span>Metacritic · critics</span></div>` : '')(mcOf(g))}
-        ${ctrlBadges(g)}
-        ${newTag(g, 'button')}
-      </div>
-      <div class="hero-main">
-        ${coverHTML(g, {bar:false, hero:true})}
-        <div class="hero-col">
+      <div class="hero-l">
+        <button class="back" data-act="back">${ICON.back}${view.tab === 'library' ? 'Library' : 'Continue'}</button>
+        ${titleArt(g, 'h1', 't-hero')}
+        <div class="hero-meta">
+          ${(rv => rv ? `<div class="steamrv ${rvTier(rv[0])}" title="${esc(rvTitle(rv))}"><b>${rv[0]}%</b><span>Steam · ${esc(rv[1] || 'reviews')}</span></div>` : '')(revOf(g))}
+          ${(mc => mc ? `<div class="steamrv ${mcTier(mc[0])}" title="${esc(mcTitle(mc))}"><b>${mc[0]}</b><span>Metacritic · critics</span></div>` : '')(mcOf(g))}
+          ${ctrlBadges(g)}
+          ${newTag(g, 'button')}
+        </div>
         <div class="hero-row">
           ${playBtn(g)}
           <select class="status-pick" data-f="status" data-rerender="1" aria-label="Status">${STATUSES.map(s => `<option value="${s}" ${g.status === s ? 'selected' : ''}>${s === g.status ? statusLabel(g) : LABEL[s]}</option>`).join('')}</select>
         </div>
-        <div class="hero-stats">
-          ${completionCard(g, st)}
-          ${achPct(g) !== null ? `<div class="hs-card"><p class="hs-l">Achievements</p><button class="hs-ach" data-act="section" data-s="achievements" aria-label="Open achievements">${ring({total:g.ach.total, done:g.ach.done, pct:achPct(g)}, 'achievements')}</button></div>` : ''}
-          <div class="hs-card"><p class="hs-l">Your rating</p>${pips(g)}</div>
-        </div>
-        </div>
+      </div>
+      <div class="hero-r">
+        ${heroLine(g, st)}
+        ${heroAch(g)}
+        ${heroRate(g)}
       </div>
     </div>
   </header>
@@ -3527,7 +3718,7 @@ function renderGame(g){
     </div>
     ${moreTabs.length ? `<div class="sections-in sections-more">${moreTabs.map(secBtn).join('')}</div>` : ''}
   </nav>
-  <div class="page">${({save:secSave, quests:secQuests, goals:secGoals, achievements:secAch, news:secNews, store:secStore, about:secAbout, missables:secMissables, releases:secReleases, review:secReview})[sec](g)}</div>`;
+  <div class="page wide">${({save:secSave, quests:secQuests, goals:secGoals, achievements:secAch, news:secNews, store:secStore, about:secAbout, missables:secMissables, releases:secReleases, review:secReview})[sec](g)}</div>`;
 }
 
 function sessLine(g){
@@ -3774,39 +3965,40 @@ function secGoals(g){
   const dPct = Math.max(0, ps.pct - aPct);
   const exp = tab.expected;
 
+  const how = ps.shelved ? 'Shelved, so progress isn’t counted.' : ps.total ? `${ps.assumed ? `${ps.assumed} of your ${ps.done} done goals are assumed. ` : ''}${ps.timed ? 'Progress is weighted by estimated time.' : 'Progress is counted per goal, since some goals have no time estimate yet.'}` : 'No goals on your finish line yet.';
   return `
-    <div class="gsum">
-      <div class="big">${ps.pct}<small>%</small></div>
-      <div>
-        <div class="gmeter" role="img" aria-label="${ps.pct}% of your finish line"><i style="width:${dPct}%"></i><i class="as" style="width:${aPct}%"></i></div>
-        <p>${ps.shelved ? 'Shelved, so progress isn’t counted.' : ps.total ? `${ps.done} of ${ps.total} goals${ps.assumed ? `, ${ps.assumed} of them assumed` : ''}. ${ps.timed ? 'Weighted by estimated time.' : 'Counted per goal, since some goals have no time estimate yet.'}` : 'No goals on your finish line yet.'}</p>
+  <div class="glay">
+    <nav class="gcats" aria-label="Goal categories">
+      <p class="gcats-h">Categories</p>
+      <div class="gcats-list">${tabs.map(t => {
+        const n = p.tabs[t.id].length, on = V.tab === t.id && !searching;
+        return `<button class="${on ? 'on' : ''}" data-act="goal-tab" data-tab="${t.id}" aria-current="${on}"><span class="nm">${esc(t.name)}${countsTab(g, t.tier) && n ? '<i class="cdot" title="Counts toward your finish line"></i>' : ''}</span><span class="ct">${n ? `${tcount(t.id)} / ${n}` : '—'}</span></button>`; }).join('')}</div>
+      <div class="gcats-note">
+        <p>${counted.length ? '<i class="cdot"></i> counts toward your finish line. ' : ''}${how}</p>
+        ${dPct || aPct ? `<div class="gmeter" role="img" aria-label="${dPct}% confirmed, ${aPct}% assumed"><i style="width:${dPct}%"></i><i class="as" style="width:${aPct}%"></i></div>` : ''}
+        ${p.man.note ? `<p>${esc(p.man.note)}</p>` : ''}
       </div>
-    </div>
-    <div class="gfinish">
-      <span class="lbl">Finish line</span>
-      <div class="seg" role="tablist" aria-label="Finish line">${Object.keys(FINISH_LABEL).map(k => `<button class="${(g.finish || 'beat') === k ? 'on' : ''}" data-act="goal-finish" data-v="${k}">${FINISH_LABEL[k]}</button>`).join('')}</div>
-      ${f === 'shelved' ? `<input type="text" data-f="goals.why" value="${esc(G.why)}" placeholder="Why shelve it? (optional)" aria-label="Why shelved">` : `<span class="lbl">Counting: ${counted.length ? esc(counted.join(', ')) : 'nothing yet'}</span>`}
-    </div>
+    </nav>
+    <section class="gmain">
+    ${f === 'shelved' ? `<input type="text" class="gwhy" data-f="goals.why" value="${esc(G.why)}" placeholder="Why shelve it? (optional)" aria-label="Why shelved">` : ''}
     ${saveReadPanel(g)}
-    ${p.man.note ? `<p class="gcover">${esc(p.man.note)}</p>` : ''}
-    <div class="seg gtabs" role="tablist" aria-label="Goal tabs">${tabs.map(t => {
-      const n = p.tabs[t.id].length, left = n - tcount(t.id);
-      return `<button class="${V.tab === t.id && !searching ? 'on' : ''}" data-act="goal-tab" data-tab="${t.id}">${esc(t.name)}<span class="n">${n ? left : '—'}</span>${countsTab(g, t.tier) && n ? '<span class="dot" title="Counts toward your finish line"></span>' : ''}</button>`; }).join('')}</div>
     <div class="gtools">
-      <input type="search" class="search" id="gsearch" placeholder="Search every tab" value="${esc(V.q)}" aria-label="Search goals in every tab">
-      ${regions.length ? `<select id="gregion" aria-label="Region"><option value="">All regions</option>${regions.map(r => `<option value="${esc(r)}" ${V.region === r ? 'selected' : ''}>${esc(r)}</option>`).join('')}</select>` : ''}
-      <div class="seg" role="tablist" aria-label="Show">${[['left', 'Left'], ['assumed', 'Assumed'], ['done', 'Done'], ['all', 'All']].map(([k, l]) => `<button class="${V.show === k ? 'on' : ''}" data-act="goal-show" data-v="${k}">${l}</button>`).join('')}</div>
+      <input type="search" class="search" id="gsearch" placeholder="Search every category" value="${esc(V.q)}" aria-label="Search goals in every category">
+      <label class="fctl"><span>Show</span><select id="gshow" aria-label="Show">${[['left', 'Left'], ['assumed', 'Assumed'], ['done', 'Done'], ['all', 'All']].map(([k, l]) => `<option value="${k}" ${V.show === k ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+      ${regions.length ? `<label class="fctl"><span>Region</span><select id="gregion" aria-label="Region"><option value="">All</option>${regions.map(r => `<option value="${esc(r)}" ${V.region === r ? 'selected' : ''}>${esc(r)}</option>`).join('')}</select></label>` : ''}
       <button class="gmissbtn ${V.miss ? 'on' : ''}" data-act="goal-miss" aria-pressed="${V.miss}">Missables only</button>
       <span class="grow" style="flex:1"></span>
-      <button class="btn quiet sm" data-act="goal-tools" aria-expanded="${V.tools}">Catch-up tools</button>
+      <button class="gtoolbtn" data-act="goal-tools" aria-expanded="${V.tools}">Catch-up tools</button>
     </div>
     ${V.tools ? goalTools(g, p, tab, entries) : ''}
     ${!searching ? (entries.length
-      ? `<p class="gcover"><b>${entries.length}</b> ${exp ? `of <b>${exp}</b> expected entries researched${entries.length < exp ? `, ${exp - entries.length} still to add` : ''}` : 'entries in this tab, and the real total isn’t counted yet'}.</p>`
+      ? `<p class="gcover"><b>${entries.length}</b> ${exp ? `of <b>${exp}</b> expected entries researched${entries.length < exp ? `, ${exp - entries.length} still to add` : ''}` : 'entries in this category, and the real total isn’t counted yet'}.</p>`
       : `<p class="gcover">${exp ? `<b>0</b> of <b>${exp}</b> expected entries researched.` : 'Nothing researched for this tab yet.'}</p>`) : `<p class="gcover">Searching all tabs: <b>${total}</b> match${total === 1 ? '' : 'es'}.</p>`}
     ${shown.length ? `<section class="panel"><ul class="glist">${shown.map((e, i) => goalRow(g, e, {next:i < nextN, showTab:searching, tabName:tabName(e.tab)})).join('')}</ul>
       ${total > shown.length ? `<div class="gpager"><button class="btn quiet" data-act="goal-more">Show ${Math.min(GOAL_PAGE, total - shown.length)} more <span class="dim">&nbsp;(${total - shown.length} hidden)</span></button></div>` : ''}</section>`
-      : `<div class="empty"><b>${!entries.length && !searching ? 'Nothing here yet' : V.show === 'left' && !q && !V.region && !V.miss ? 'Nothing left in this tab' : 'No matches'}</b>${!entries.length && !searching ? 'This tab fills in when the research pass runs for this game.' : 'Change the filters or search to see more.'}</div>`}`;
+      : `<div class="empty"><b>${!entries.length && !searching ? 'Nothing here yet' : V.show === 'left' && !q && !V.region && !V.miss ? 'Nothing left in this tab' : 'No matches'}</b>${!entries.length && !searching ? 'This tab fills in when the research pass runs for this game.' : 'Change the filters or search to see more.'}</div>`}
+    </section>
+  </div>`;
 }
 
 function goalTools(g, p, tab, entries){
@@ -4633,9 +4825,17 @@ document.addEventListener('pointerout', e => {
   const row = e.target.closest('.pip-row'); if (row && !row.contains(e.relatedTarget)) row.querySelectorAll('.pip').forEach(x => x.classList.remove('hov'));
 });
 
+/* Small menus (Add game, Score it): a click anywhere else, or Escape, closes them */
+document.addEventListener('click', e => { document.querySelectorAll('details.pop[open]').forEach(d => { if (!d.contains(e.target)) d.open = false; }); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('details.pop[open]').forEach(d => { d.open = false; const s = d.querySelector('summary'); if (s) s.focus(); }); });
+document.addEventListener('toggle', e => { const d = e.target; if (d.matches && d.matches('details.addmenu') && d.open) { const i = d.querySelector('#newTitle'); if (i) i.focus(); } }, true);
+
 document.addEventListener('change', e => {
   const el = e.target;
   if (el.id === 'sort') { setSort(el.value); render(); return; }
+  if (el.id === 'lfilter') { view.filter = el.value; render(); return; }
+  if (el.id === 'gshow') { const V = goalView(); V.show = el.value; V.limit = GOAL_PAGE; render(); return; }
+  if (el.id === 'hfinish') { const fg = game(view.gameId); if (fg) { fg.finish = el.value; save(); render(); } return; }
   if (el.id === 'wishSort') { view.wishSort = el.value; render(); return; }
   if (el.id === 'achSort') { view.achSort = el.value; render(); return; }
   if (el.id === 'gregion') { const V = goalView(); V.region = el.value; V.limit = GOAL_PAGE; render(); return; }
